@@ -35,5 +35,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     })->name('dashboard');
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
-    Route::resource('datapokok', 'App\Http\Controllers\Bumdes\DatapokokController');
+    Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
 });

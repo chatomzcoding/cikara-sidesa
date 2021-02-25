@@ -223,8 +223,8 @@
             </a>
           </li> --}}
           @switch(Auth::user()->level)
-              @case('pimpinan')
-                @include('pimpinan.data.menu')
+              @case('admin')
+                @include('admin.data.menu')
                 @break
 
               @case('unit')
