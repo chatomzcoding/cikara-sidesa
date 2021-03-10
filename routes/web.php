@@ -36,4 +36,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
     Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
+    Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });
