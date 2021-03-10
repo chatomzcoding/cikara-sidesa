@@ -181,6 +181,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
 
         App\Providers\CikaraServiceProvider::class,
+        App\Providers\SidesaServiceProvider::class,
 
     ],
 
