@@ -31,6 +31,8 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/summernote/summernote-bs4.min.css')}}">
 
+  <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
   {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
 
     <!-- DataTables -->
@@ -40,6 +42,7 @@
     
     <script src="{{ asset('js/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{ asset('css/sweetalert2.css')}}"></script>
+
 
   @livewireStyles
 
@@ -180,7 +183,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
       <img src="{{ asset('template/admin/lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">GoBumdes</span>
+      <span class="brand-text font-weight-light">SIdesa</span>
     </a>
 
     <!-- Sidebar -->
@@ -222,6 +225,12 @@
               </p>
             </a>
           </li> --}}
+          <li class="nav-item">
+            <a href="{{ url('/dashboard')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p class="text">Beranda</p>
+            </a>
+          </li>
           @switch(Auth::user()->level)
               @case('admin')
                 @include('admin.data.menu')
