@@ -10,7 +10,7 @@
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Data Keluarga</li>
+                <li class="breadcrumb-item active">Daftar Keluarga</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -31,7 +31,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah KK Baru</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#add"><i class="fas fa-plus"></i> Tambah KK Baru </a>
                 <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
                 <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
                 <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a>
@@ -91,39 +91,36 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
+                            @forelse ($keluarga as $item)
                             <tr>
-                                <td>1</td>
-                                <td>aksi</td>
-                                <td>320092983982829</td>
-                                <td>Firman Setiawan</td>
-                                <td>324949495940905</td>
-                                <td></td>
-                                <td>2</td>
-                                <td>Laki-laki</td>
-                                <td>Kp Dukuh Jaya</td>
-                                <td>Dusun 1</td>
-                                <td>3</td>
-                                <td>1</td>
-                            </tr>
-                            {{-- @foreach ($unit as $item)
-                                <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td>{{ $item->nama_unit}}</td>
-                                    <td>{{ $item->manajer_unit}}</td>
-                                    <td>{{ $item->staf_unit}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/unit',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/cikaradivisi',Crypt::encryptString($item->id))}}" class="btn btn-link btn-success btn-lg"><i class="fas fa-external-link-alt"></i></a>
-                                        <button type="button" data-toggle="modal" data-nama_unit="{{ $item->nama_unit }}" data-manajer_unit="{{ $item->manajer_unit }}" data-staf_unit="{{ $item->staf_unit }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                        <button type="button" data-toggle="modal" data-no_kk="{{ $item->no_kk }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button> &nbsp;&nbsp;
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
+                                    <td>{{ $item->no_kk}}</td>
+                                    <td>{{ $item->nama_penduduk}}</td>
+                                    <td>{{ $item->nik}}</td>
+                                    <td>id</td>
+                                    <td>jumlah anggota</td>
+                                    <td>{{ $item->jk}}</td>
+                                    <td>{{ $item->alamat_sekarang}}</td>
+                                    <td>dusun</td>
+                                    <td>rw</td>
+                                    <td>rt</td>
                                 </tr>
-                            @endforeach --}}
+                                
+                            @empty
+                                <tr>
+                                    <td>tidak ada data</td>
+                                </tr>
+                            @endforelse
                         <tfoot class="text-center">
                             <tr>
                                 <th width="5%">No</th>
@@ -149,39 +146,31 @@
     </div>
     {{-- modal --}}
     {{-- modal tambah --}}
-    {{-- <div class="modal fade" id="add">
+    <div class="modal fade" id="add">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/unit')}}" method="post">
+            <form action="{{ url('/keluarga')}}" method="post">
                 @csrf
-                <input type="hidden" name="logo_unit" value="">
             <div class="modal-header">
-            <h4 class="modal-title">Form Tambah Unit Baru</h4>
+            <h4 class="modal-title">Tambah Data Kepala Keluarga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">email</label>
-                        <input type="email" name="email" class="col-md-8 form-control" placeholder="masukkan email" required>
+                    <div class="form-group">
+                        <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
+                        <select name="penduduk_id" id="" class="form-control" required>
+                            <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                            @foreach ($penduduk as $item)
+                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Password</label>
-                        <input type="password" name="password" class="col-md-8 form-control" placeholder="masukkan password" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Unit</label>
-                        <input type="text" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
-                        <input type="text" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Staf Unit</label>
-                        <input type="text" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
+                    <div class="form-group">
+                        <label for="">Nomor Kartu Keluarga (KK)</label>
+                        <input type="text" name="no_kk" class="form-control" maxlength="16" placeholder="Nomor KK" required>
                     </div>
                 </section>
             </div>
@@ -192,7 +181,7 @@
         </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
 
     {{-- modal edit --}}
