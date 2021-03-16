@@ -36,6 +36,7 @@
                 <a href="{{ url('/keluarga')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
               </div>
               <div class="card-body">
+                @include('sistem.notifikasi')
                   <h2>Rincian Keluarga</h2>
                   <section class="mb-3">
                     <table class="table table-striped">
@@ -59,7 +60,6 @@
                     </table>
                   </section>
                   <section>
-                     @include('sistem.notifikasi')
                       <h2>Daftar Anggota Keluarga</h2>
                       <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
