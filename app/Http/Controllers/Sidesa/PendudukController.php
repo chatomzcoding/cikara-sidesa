@@ -136,6 +136,8 @@ class PendudukController extends Controller
      */
     public function destroy(Penduduk $penduduk)
     {
-        //
+        $penduduk->delete();
+
+        return redirect()->back()->with('dd','Penduduk');
     }
 }
