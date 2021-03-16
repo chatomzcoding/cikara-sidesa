@@ -69,7 +69,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/view/keluarga')}}" class="nav-link">
+        <a href="{{ url('/keluarga')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-address-card nav-icon"></i>
           <p>Keluarga</p>
         </a>
