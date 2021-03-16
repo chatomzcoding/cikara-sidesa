@@ -63,7 +63,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/view/penduduk')}}" class="nav-link">
+        <a href="{{ url('/penduduk')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-id-badge nav-icon"></i>
           <p>Penduduk</p>
         </a>

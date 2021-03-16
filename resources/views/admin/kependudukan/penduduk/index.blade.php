@@ -31,7 +31,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Penduduk Domisili</a>
+                <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Penduduk Domisili</a>
                 <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Hapus Data Terpilih</a>
                 <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a>
                 <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
@@ -104,44 +104,29 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
+                            @forelse ($penduduk as $item)
                             <tr>
-                                <td>1</td>
-                                <td>aksi</td>
-                                <td>320092983982829</td>
-                                <td></td>
-                                <td>Dewi Solihat</td>
-                                <td>324949495940905</td>
-                                <td>Herdin</td>
-                                <td>Siti</td>
-                                <td>012</td>
-                                <td>Kp Dukuh Jaya</td>
-                                <td>Dusun 1</td>
-                                <td>3</td>
-                                <td>1</td>
-                                <td>SMA</td>
-                                <td>25</td>
-                                <td>Wiraswasta</td>
-                                <td>Belum Kawin</td>
+                                <td class="text-center">{{ $loop->iteration}}</td>
+                                <td>{{ $item->nama_unit}}</td>
+                                <td>{{ $item->manajer_unit}}</td>
+                                <td>{{ $item->staf_unit}}</td>
+                                <td class="text-center">
+                                    <form id="data-{{ $item->id }}" action="{{url('/unit',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        </form>
+                                    <a href="{{ url('/cikaradivisi',Crypt::encryptString($item->id))}}" class="btn btn-link btn-success btn-lg"><i class="fas fa-external-link-alt"></i></a>
+                                    <button type="button" data-toggle="modal" data-nama_unit="{{ $item->nama_unit }}" data-manajer_unit="{{ $item->manajer_unit }}" data-staf_unit="{{ $item->staf_unit }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                        <i class="fa fa-edit"></i>
+                                    </button> &nbsp;&nbsp;
+                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                </td>
                             </tr>
-                            {{-- @foreach ($unit as $item)
+                            @empty
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td>{{ $item->nama_unit}}</td>
-                                    <td>{{ $item->manajer_unit}}</td>
-                                    <td>{{ $item->staf_unit}}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/unit',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                        <a href="{{ url('/cikaradivisi',Crypt::encryptString($item->id))}}" class="btn btn-link btn-success btn-lg"><i class="fas fa-external-link-alt"></i></a>
-                                        <button type="button" data-toggle="modal" data-nama_unit="{{ $item->nama_unit }}" data-manajer_unit="{{ $item->manajer_unit }}" data-staf_unit="{{ $item->staf_unit }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> &nbsp;&nbsp;
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
+                                    <td colspan="17" class="text-center">belum ada data</td>
                                 </tr>
-                            @endforeach --}}
+                            @endforelse
                         <tfoot class="text-center">
                             <tr>
                                 <th width="5%">No</th>

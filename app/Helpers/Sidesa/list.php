@@ -366,7 +366,8 @@ if (! function_exists('list_sakitmenahun')) {
             'hiv/aids',
             'gila/stres',
             'tbc',
-            'asthma'
+            'asthma',
+            'tidak ada/tidak sakit'
         ];
         return $list;
     }

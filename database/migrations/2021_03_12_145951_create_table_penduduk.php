@@ -38,7 +38,7 @@ class CreateTablePenduduk extends Migration
             $table->string('pendidikan_kk',50);
             $table->string('pendidikan_tempuh',50);
             $table->string('pekerjaan',50);
-            $table->string('status_kewarganegaraan',50);
+            $table->string('status_warganegara',50);
             $table->string('nomor_paspor',50)->nullable();
             $table->date('tgl_akhirpaspor')->nullable();
             $table->string('nomor_kitas',50)->nullable();

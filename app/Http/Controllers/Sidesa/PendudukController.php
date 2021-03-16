@@ -15,7 +15,8 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        //
+        $penduduk   = Penduduk::all();
+        return view('admin.kependudukan.penduduk.index', compact('penduduk'));
     }
 
     /**
@@ -25,7 +26,7 @@ class PendudukController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kependudukan.penduduk.create');
     }
 
     /**
@@ -36,7 +37,9 @@ class PendudukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Penduduk::create($request->all());
+
+        return redirect('/penduduk')->with('ds','Penduduk');
     }
 
     /**
