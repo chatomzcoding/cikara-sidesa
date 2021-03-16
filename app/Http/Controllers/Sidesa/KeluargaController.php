@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KeluargaController extends Controller
 {
@@ -16,7 +18,10 @@ class KeluargaController extends Controller
     public function index()
     {
         $penduduk   = Penduduk::all();
-        $keluarga   = Keluarga::all();
+        $keluarga   = DB::table('keluarga')
+                        ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                        ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik')
+                        ->get();
         return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk'));
     }
 
@@ -38,7 +43,9 @@ class KeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Keluarga::create($request->all());
+
+        return redirect()->back()->with('ds','Keluarga');
     }
 
     /**
