@@ -87,7 +87,7 @@
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
                                 <th>NIK</th>
-                                <th>Tag ID Card</th>
+                                {{-- <th>Tag ID Card</th> --}}
                                 <th>Nama</th>
                                 <th>No. KK</th>
                                 <th>Nama Ayah</th>
@@ -107,20 +107,42 @@
                             @forelse ($penduduk as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration}}</td>
-                                <td>{{ $item->nama_unit}}</td>
-                                <td>{{ $item->manajer_unit}}</td>
-                                <td>{{ $item->staf_unit}}</td>
                                 <td class="text-center">
                                     <form id="data-{{ $item->id }}" action="{{url('/unit',$item->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         </form>
-                                    <a href="{{ url('/cikaradivisi',Crypt::encryptString($item->id))}}" class="btn btn-link btn-success btn-lg"><i class="fas fa-external-link-alt"></i></a>
-                                    <button type="button" data-toggle="modal" data-nama_unit="{{ $item->nama_unit }}" data-manajer_unit="{{ $item->manajer_unit }}" data-staf_unit="{{ $item->staf_unit }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                        <i class="fa fa-edit"></i>
-                                    </button> &nbsp;&nbsp;
-                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info btn-flat">Pilih Aksi</button>
+                                        <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                          <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                          <a class="dropdown-item" href="#">Lihat Detail Biodata Penduduk</a>
+                                          <a class="dropdown-item" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}">Ubah Biodata Penduduk</a>
+                                          <a class="dropdown-item" href="#">Ubah Status Dasar</a>
+                                          <a class="dropdown-item" href="#">Upload Dokumen Penduduk</a>
+                                          <a class="dropdown-item" href="#">Cetak Biodata Penduduk</a>
+                                          <div class="dropdown-divider"></div>
+                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        </div>
+                                      </div>
                                 </td>
+                                <td>{{ $item->nik}}</td>
+                                {{-- <td>{{ $item->id_card}}</td> --}}
+                                <td>{{ $item->nama_penduduk}}</td>
+                                <td>{{ $item->kk_sebelum}}</td>
+                                <td>{{ $item->nama_ayah}}</td>
+                                <td>{{ $item->nama_ibu}}</td>
+                                <td>-</td>
+                                <td>{{ $item->alamat_sekarang}}</td>
+                                <td>dusun</td>
+                                <td>rw</td>
+                                <td>rt</td>
+                                <td>{{ $item->pendidikan_kk}}</td>
+                                <td>umur</td>
+                                <td>{{ $item->pekerjaan}}</td>
+                                <td>{{ $item->status_perkawinan}}</td>
                             </tr>
                             @empty
                                 <tr>
@@ -132,7 +154,7 @@
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
                                 <th>NIK</th>
-                                <th>Tag ID Card</th>
+                                {{-- <th>Tag ID Card</th> --}}
                                 <th>Nama</th>
                                 <th>No. KK</th>
                                 <th>Nama Ayah</th>
