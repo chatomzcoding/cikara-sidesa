@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Anggotakeluarga;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class KeluargaController extends Controller
@@ -54,9 +56,16 @@ class KeluargaController extends Controller
      * @param  \App\Models\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function show(Keluarga $keluarga)
+    public function show($keluarga)
     {
-        //
+        $keluarga   = Keluarga::find(Crypt::decryptString($keluarga));
+        $penduduk   = Penduduk::find($keluarga->penduduk_id);
+        $listpenduduk = Penduduk::all();
+        $anggotakeluarga = DB::table('anggota_keluarga')
+                            ->join('penduduk','anggota_keluarga.penduduk_id','=','penduduk.id')
+                            ->select('anggota_keluarga.*','penduduk.nik','penduduk.nama_penduduk','penduduk.tgl_lahir','penduduk.jk')
+                            ->get();
+        return view('admin.kependudukan.keluarga.show', compact('keluarga','penduduk','anggotakeluarga','listpenduduk'));
     }
 
     /**
@@ -90,6 +99,8 @@ class KeluargaController extends Controller
      */
     public function destroy(Keluarga $keluarga)
     {
-        //
+        $keluarga->delete();
+
+        return redirect()->back()->with('dd','Keluarga');
     }
 }

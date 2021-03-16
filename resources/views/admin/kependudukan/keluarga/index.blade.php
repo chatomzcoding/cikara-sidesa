@@ -95,13 +95,14 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/unit',$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url('/keluarga',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
+                                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
                                         <button type="button" data-toggle="modal" data-no_kk="{{ $item->no_kk }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
-                                        </button> &nbsp;&nbsp;
+                                        </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                     <td>{{ $item->no_kk}}</td>
