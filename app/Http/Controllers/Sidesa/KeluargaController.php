@@ -47,7 +47,17 @@ class KeluargaController extends Controller
     {
         Keluarga::create($request->all());
 
-        return redirect()->back()->with('ds','Keluarga');
+        // tambahkan kepala keluarga otomatis
+
+        // ambil data keluarga dari penduduk_id
+        $keluarga = Keluarga::where('penduduk_id',$request->penduduk_id)->first();
+        Anggotakeluarga::create([
+            'keluarga_id' => $keluarga->id,
+            'penduduk_id' => $keluarga->penduduk_id,
+            'hubungan' => 'suami'
+        ]);
+
+        return redirect('/keluarga/'.Crypt::encryptString($keluarga->id))->with('ds','Keluarga');
     }
 
     /**
