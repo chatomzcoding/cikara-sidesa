@@ -116,28 +116,11 @@
                                     <td>rw</td>
                                     <td>rt</td>
                                 </tr>
-                                
                             @empty
-                                <tr>
-                                    <td>tidak ada data</td>
+                                <tr class="text-center">
+                                    <td colspan="12">tidak ada data</td>
                                 </tr>
                             @endforelse
-                        <tfoot class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Aksi</th>
-                                <th>Nomor KK</th>
-                                <th>Kepala Keluarga</th>
-                                <th>NIK</th>
-                                <th>Tag ID Card</th>
-                                <th>Jumlah Anggota</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Alamat</th>
-                                <th>Dusun</th>
-                                <th>RW</th>
-                                <th>RT</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
               </div>
