@@ -91,7 +91,7 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
+                                        <a href="{{ url('/kelompok/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
                                         <button type="button" data-toggle="modal" data-nama_kelompok="{{ $item->nama_kelompok }}" data-kode_kelompok="{{ $item->kode_kelompok }}" data-penduduk_id="{{ $item->penduduk_id }}" data-kategorikelompok_id="{{ $item->kategorikelompok_id }}" data-deskripsi_kelompok="{{ $item->deskripsi_kelompok }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
