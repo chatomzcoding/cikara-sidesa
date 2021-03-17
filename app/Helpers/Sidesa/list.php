@@ -372,3 +372,14 @@ if (! function_exists('list_sakitmenahun')) {
         return $list;
     }
 }
+
+if (! function_exists('list_sasaran')) {
+    function list_sasaran()
+    {
+        $list = [
+            'penduduk',
+            'keluarga / kk',
+        ];
+        return $list;
+    }
+}
