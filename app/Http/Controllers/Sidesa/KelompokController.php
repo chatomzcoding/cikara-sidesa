@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Sidesa;
 use App\Http\Controllers\Controller;
 use App\Models\Kategorikelompok;
 use App\Models\Kelompok;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelompokController extends Controller
 {
@@ -16,10 +18,15 @@ class KelompokController extends Controller
      */
     public function index()
     {
-        $kelompok   = Kelompok::all();
+        $kelompok   = DB::table('kelompok')
+                        ->join('penduduk','kelompok.penduduk_id','=','penduduk.id')
+                        ->join('kategori_kelompok','kelompok.kategorikelompok_id','=','kategori_kelompok.id')
+                        ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
+                        ->get();
         $kategorikelompok = Kategorikelompok::all();
+        $penduduk   = Penduduk::all();
 
-        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok'));
+        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok','penduduk'));
     }
 
     /**
@@ -40,7 +47,9 @@ class KelompokController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kelompok::create($request->all());
+
+        return redirect()->back()->with('ds','Kelompok');
     }
 
     /**
@@ -72,9 +81,17 @@ class KelompokController extends Controller
      * @param  \App\Models\Kelompok  $kelompok
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kelompok $kelompok)
+    public function update(Request $request)
     {
-        //
+        Kelompok::where('id',$request->id)->update([
+            'nama_kelompok' => $request->nama_kelompok,
+            'kode_kelompok' => $request->kode_kelompok,
+            'penduduk_id' => $request->penduduk_id,
+            'kategorikelompok_id' => $request->kategorikelompok_id,
+            'deskripsi_kelompok' => $request->deskripsi_kelompok,
+        ]);
+
+        return redirect()->back()->with('du','Kelompok');
     }
 
     /**
