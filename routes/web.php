@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('kategorikelompok', 'App\Http\Controllers\Sidesa\KategorikelompokController');
     Route::resource('kelompok', 'App\Http\Controllers\Sidesa\KelompokController');
     Route::resource('anggotakelompok', 'App\Http\Controllers\Sidesa\AnggotakelompokController');
+    Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
+    Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
     
     Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });

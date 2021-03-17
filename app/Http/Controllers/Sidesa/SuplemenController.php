@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Anggotasuplemen;
+use App\Models\Penduduk;
 use App\Models\Suplemen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class SuplemenController extends Controller
 {
@@ -15,7 +18,9 @@ class SuplemenController extends Controller
      */
     public function index()
     {
-        //
+        $suplemen   = Suplemen::all();
+
+        return view('admin.kependudukan.suplemen.index', compact('suplemen'));
     }
 
     /**
@@ -36,7 +41,9 @@ class SuplemenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Suplemen::create($request->all());
+
+        return redirect()->back()->with('ds','Suplemen');
     }
 
     /**
@@ -45,9 +52,12 @@ class SuplemenController extends Controller
      * @param  \App\Models\Suplemen  $suplemen
      * @return \Illuminate\Http\Response
      */
-    public function show(Suplemen $suplemen)
+    public function show($suplemen)
     {
-        //
+        $suplemen = Suplemen::find(Crypt::decryptString($suplemen));
+        $anggotasuplemen = Anggotasuplemen::where('suplemen_id',$suplemen->id)->get();
+        $penduduk   = Penduduk::all();
+        return view('admin.kependudukan.suplemen.show', compact('suplemen','anggotasuplemen','penduduk'));
     }
 
     /**
@@ -68,9 +78,15 @@ class SuplemenController extends Controller
      * @param  \App\Models\Suplemen  $suplemen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Suplemen $suplemen)
+    public function update(Request $request)
     {
-        //
+        Suplemen::where('id',$request->id)->update([
+            'sasaran' => $request->sasaran,
+            'nama_suplemen' => $request->nama_suplemen,
+            'keterangan_suplemen' => $request->keterangan_suplemen,
+        ]);
+
+        return redirect()->back()->with('du','Suplemen');
     }
 
     /**
@@ -81,6 +97,8 @@ class SuplemenController extends Controller
      */
     public function destroy(Suplemen $suplemen)
     {
-        //
+        $suplemen->delete();
+
+        return redirect()->back()->with('dd','Suplemen');
     }
 }
