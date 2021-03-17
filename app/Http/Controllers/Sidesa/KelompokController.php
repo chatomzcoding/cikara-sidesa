@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Anggotakelompok;
 use App\Models\Kategorikelompok;
 use App\Models\Kelompok;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class KelompokController extends Controller
@@ -58,9 +60,23 @@ class KelompokController extends Controller
      * @param  \App\Models\Kelompok  $kelompok
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelompok $kelompok)
+    public function show($kelompok)
     {
-        //
+        $kelompok   = DB::table('kelompok')
+                        ->join('penduduk','kelompok.penduduk_id','=','penduduk.id')
+                        ->join('kategori_kelompok','kelompok.kategorikelompok_id','=','kategori_kelompok.id')
+                        ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
+                        ->where('kelompok.id', Crypt::decryptString($kelompok))
+                        ->first();
+
+        $anggotakelompok = DB::table('anggota_kelompok')
+                            ->join('penduduk','anggota_kelompok.penduduk_id','=','penduduk.id')
+                            ->select('anggota_kelompok.*','penduduk.nik','penduduk.nama_penduduk','penduduk.alamat_sekarang')
+                            ->where('anggota_kelompok.kelompok_id',$kelompok->id)
+                            ->get();
+        $penduduk       = Penduduk::all();
+
+        return view('admin.kependudukan.kelompok.show', compact('kelompok','anggotakelompok','penduduk'));
     }
 
     /**
