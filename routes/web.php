@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('anggotakeluarga', 'App\Http\Controllers\Sidesa\AnggotakeluargaController');
     Route::resource('rumahtangga', 'App\Http\Controllers\Sidesa\RumahtanggaController');
     Route::resource('anggotarumahtangga', 'App\Http\Controllers\Sidesa\AnggotarumahtanggaController');
+    Route::resource('kategorikelompok', 'App\Http\Controllers\Sidesa\KategorikelompokController');
     
     Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });
