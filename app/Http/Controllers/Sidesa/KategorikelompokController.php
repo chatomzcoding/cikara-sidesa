@@ -15,7 +15,9 @@ class KategorikelompokController extends Controller
      */
     public function index()
     {
-        //
+        $kategorikelompok = Kategorikelompok::all();
+
+        return view('admin.kependudukan.kelompok.kategori.index', compact('kategorikelompok'));
     }
 
     /**
@@ -36,7 +38,9 @@ class KategorikelompokController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kategorikelompok::create($request->all());
+
+        return redirect()->back()->with('ds','Kategori Kelompok');
     }
 
     /**
@@ -68,9 +72,14 @@ class KategorikelompokController extends Controller
      * @param  \App\Models\Kategorikelompok  $kategorikelompok
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategorikelompok $kategorikelompok)
+    public function update(Request $request)
     {
-        //
+        Kategorikelompok::where('id',$request->id)->update([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi_kategori' => $request->deskripsi_kategori,
+        ]);
+
+        return redirect()->back()->with('du','Kategori Kelompok');
     }
 
     /**
@@ -81,6 +90,8 @@ class KategorikelompokController extends Controller
      */
     public function destroy(Kategorikelompok $kategorikelompok)
     {
-        //
+        $kategorikelompok->delete();
+
+        return redirect()->back()->with('dd','Kategori Kelompok');
     }
 }
