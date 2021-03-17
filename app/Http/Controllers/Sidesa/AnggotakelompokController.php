@@ -36,7 +36,9 @@ class AnggotakelompokController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Anggotakelompok::create($request->all());
+
+        return redirect()->back()->with('ds','Anggota Kelompok');
     }
 
     /**
@@ -68,9 +70,14 @@ class AnggotakelompokController extends Controller
      * @param  \App\Models\Anggotakelompok  $anggotakelompok
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggotakelompok $anggotakelompok)
+    public function update(Request $request)
     {
-        //
+        Anggotakelompok::where('id',$request->id)->update([
+            'penduduk_id' => $request->penduduk_id,
+            'nomor_anggota' => $request->nomor_anggota,
+        ]);
+
+        return redirect()->back()->with('du','Anggota Kelompok');
     }
 
     /**
@@ -81,6 +88,8 @@ class AnggotakelompokController extends Controller
      */
     public function destroy(Anggotakelompok $anggotakelompok)
     {
-        //
+        $anggotakelompok->delete();
+
+        return redirect()->back()->with('dd','Anggota Kelompok');
     }
 }
