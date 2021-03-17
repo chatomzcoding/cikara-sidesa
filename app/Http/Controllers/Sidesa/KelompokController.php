@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategorikelompok;
 use App\Models\Kelompok;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class KelompokController extends Controller
      */
     public function index()
     {
-        //
+        $kelompok   = Kelompok::all();
+        $kategorikelompok = Kategorikelompok::all();
+
+        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok'));
     }
 
     /**
