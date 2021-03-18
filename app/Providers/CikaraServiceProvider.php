@@ -16,6 +16,7 @@ class CikaraServiceProvider extends ServiceProvider
         require_once app_path() . '/Helpers/Cikara/bilangan.php';
         require_once app_path() . '/Helpers/Cikara/waktu.php';
         require_once app_path() . '/Helpers/Cikara/db.php';
+        require_once app_path() . '/Helpers/Cikara/Sistem.php';
     }
 
     /**
