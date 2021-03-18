@@ -35,7 +35,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     })->name('dashboard');
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
+
+    // INFO DESA
     Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
+    Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
     
     // KEPENDUDUKAN
     Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');

@@ -383,3 +383,13 @@ if (! function_exists('list_sasaran')) {
         return $list;
     }
 }
+if (! function_exists('list_status')) {
+    function list_status()
+    {
+        $list = [
+            'aktif',
+            'tidak aktif',
+        ];
+        return $list;
+    }
+}

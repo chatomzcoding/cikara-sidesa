@@ -33,7 +33,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/view/profil')}}" class="nav-link">
+        <a href="{{ url('/profil')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-id-card nav-icon"></i>
           <p>Identitas Desa</p>
         </a>
@@ -45,7 +45,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="{{ url('/staf')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-building nav-icon"></i>
           <p>Pemerintahan Desa</p>
         </a>
