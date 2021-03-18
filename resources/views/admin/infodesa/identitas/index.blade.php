@@ -31,7 +31,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-warning btn-sm">Ubah Data Desa</a>
+                <a href="{{ url('/profil/'.Crypt::encryptString($profil->id).'/edit')}}" class="btn btn-warning btn-sm">Ubah Data Desa</a>
                 <a href="#" class="btn btn-secondary btn-sm">Lokasi Kantor Desa</a>
                 <a href="#" class="btn btn-info btn-sm">Peta Wilayah Desa</a>
               </div>
@@ -51,47 +51,47 @@
                         <tr>
                             <th width="30%">Nama Desa</th>
                             <td width="1%">:</td>
-                            <td>Pelitaasih</td>
+                            <td>{{ $profil->nama_desa}}</td>
                         </tr>
                         <tr>
                             <th>Kode Desa</th>
                             <td>:</td>
-                            <td>2003</td>
+                            <td>{{ $profil->kode_desa}}</td>
                         </tr>
                         <tr>
                             <th>Kode Pos Desa</th>
                             <td>:</td>
-                            <td>44187</td>
+                            <td>{{ $profil->kode_pos}}</td>
                         </tr>
                         <tr>
                             <th>Kepala Desa</th>
                             <td>:</td>
-                            <td>Firman Setiawan</td>
+                            <td>{{ $profil->kepala_desa}}</td>
                         </tr>
                         <tr>
                             <th>NIP Kepala Desa</th>
                             <td>:</td>
-                            <td>87464644637348</td>
+                            <td>{{ $profil->nip_kepaladesa}}</td>
                         </tr>
                         <tr>
                             <th>Alamat Kantor Desa</th>
                             <td>:</td>
-                            <td>Jl Raya Jeungjing N0 33 Tasikmalaya</td>
+                            <td>{{ $profil->alamat}}</td>
                         </tr>
                         <tr>
                             <th>E-mail Kantor</th>
                             <td>:</td>
-                            <td></td>
+                            <td>{{ $profil->email}}</td>
                         </tr>
                         <tr>
                             <th>Telepon Desa</th>
                             <td>:</td>
-                            <td></td>
+                            <td>{{ $profil->telepon}}</td>
                         </tr>
                         <tr>
                             <th>Website Desa</th>
                             <td>:</td>
-                            <td>wwww.sidesa.com</td>
+                            <td>{{ $profil->website}}</td>
                         </tr>
                         <tr class="table-info">
                             <th colspan="3">KECAMATAN</th>
@@ -99,22 +99,22 @@
                         <tr>
                             <th>Nama Kecamatan</th>
                             <td>:</td>
-                            <td>Selaawi</td>
+                            <td>{{ $profil->nama_kecamatan}}</td>
                         </tr>
                         <tr>
                             <th>Kode Kecamatan</th>
                             <td>:</td>
-                            <td>38</td>
+                            <td>{{ $profil->kode_kecamatan}}</td>
                         </tr>
                         <tr>
                             <th>Nama Camat</th>
                             <td>:</td>
-                            <td>Muhammad Solihin</td>
+                            <td>{{ $profil->nama_camat}}</td>
                         </tr>
                         <tr>
                             <th>NIP Camat</th>
                             <td>:</td>
-                            <td></td>
+                            <td>{{ $profil->nip_camat}}</td>
                         </tr>
                         <tr class="table-info">
                             <th colspan="3">KABUPATEN</th>
@@ -122,12 +122,12 @@
                         <tr>
                             <th>Nama Kabupaten</th>
                             <td>:</td>
-                            <td>Tasikmalaya</td>
+                            <td>{{ $profil->nama_kabupaten}}</td>
                         </tr>
                         <tr>
                             <th>Kode Kabupaten</th>
                             <td>:</td>
-                            <td>06</td>
+                            <td>{{ $profil->kode_kabupaten}}</td>
                         </tr>
                         <tr class="table-info">
                             <th colspan="3">PROVINSI</th>
@@ -135,12 +135,12 @@
                         <tr>
                             <th>Nama Provinsi</th>
                             <td>:</td>
-                            <td>Jawa Barat</td>
+                            <td>{{ $profil->provinsi}}</td>
                         </tr>
                         <tr>
                             <th>Kode Provinsi</th>
                             <td>:</td>
-                            <td>32</td>
+                            <td>{{ $profil->kode_provinsi}}</td>
                         </tr>
                     </table>
                   </div>
