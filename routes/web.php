@@ -52,5 +52,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
     Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
     
+    // SEKRETARIAT
+    Route::resource('informasipublik', 'App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController');
+
+    
     Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });

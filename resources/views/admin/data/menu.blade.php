@@ -159,7 +159,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="{{ url('/informasipublik')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Informasi Publik</p>
         </a>

@@ -393,3 +393,15 @@ if (! function_exists('list_status')) {
         return $list;
     }
 }
+if (! function_exists('list_kategoriinformasipublik')) {
+    function list_kategoriinformasipublik()
+    {
+        $list = [
+            'informasi berkala',
+            'informasi serta-merta',
+            'informasi setiap saat',
+            'informasi dikecualikan',
+        ];
+        return $list;
+    }
+}
