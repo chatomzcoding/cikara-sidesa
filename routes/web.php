@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // SEKRETARIAT
     Route::resource('informasipublik', 'App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController');
     Route::resource('inventaris', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController');
+    Route::resource('klasifikasisurat', 'App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController');
     Route::get('inventaris/list/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@list');
     Route::get('inventaris/tambah/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@tambah');
 
