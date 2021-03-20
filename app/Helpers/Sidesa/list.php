@@ -405,3 +405,179 @@ if (! function_exists('list_kategoriinformasipublik')) {
         return $list;
     }
 }
+
+// INVENTARIS
+
+if (! function_exists('list_inventaris')) {
+    function list_inventaris()
+    {
+        $list = [
+            'tanah' => 'tanah',
+            'peralatan-mesin' => 'peralatan dan mesin',
+            'gedung-bangunan' => 'gedung dan bangunan',
+            'jalan-irigasi-jaringan' => 'jalan, irigasi, dan jaringan',
+            'asset-tetap' => 'asset tetap lainnya',
+            'kontruksi-pengerjaan' => 'kontruksi dalam pengerjaan'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_namabarang')) {
+    function list_namabarang()
+    {
+        $list = [
+            'tanah' => [
+                '1.00.00.00.000 - TANAH',
+                '1.01.00.00.000 - TANAH DESA',
+                '1.01.01.00.000 - TANAH KAS DESA',
+                '1.01.01.01.000 - TANAH BENGKOK',
+                '1.01.01.01.001 - TANAH BENGKOK KEPALA DESA',
+                '1.01.01.01.999 - TANAH BENGKOK LAINNYA',
+                '1.01.01.02.000 - TANAH BONDO',
+            ],
+            'peralatan-mesin' => [
+                '2.00.00.00.000 - PERALATAN DAN MESIN',
+                '2.01.00.00.000 - ALAT BESAR',
+                '2.01.01.00.000 - ALAT BESAR DARAT',
+                '2.01.01.01.000 - TRACTOR',
+                '2.01.01.01.001 - CRAWLER TRACTOR + ATTACHMENT',
+                '2.01.01.01.002 - WHELL TRACTOR + ATTACHMENT',
+                '2.01.01.01.003 - SWAMP TRACTOR + ATTACHMENT',
+            ],
+            'gedung-bangunan' => [
+                '3.00.00.00.000 - GEDUNG DAN BANGUNAN',
+                '3.01.00.00.000 - BANGUNAN GEDUNG',
+                '3.01.01.00.000 - BANGUNAN GEDUNG TEMPAT KERJA',
+                '3.01.01.01.000 - BANGUNAN GEDUNG KANTOR',
+                '3.01.01.01.001 - BANGUNAN GEDUNG KANTOR PERMANEN',
+                '3.01.01.01.002 - BANGUNAN GEDUNG KANTOR SEMI PERMANEN',
+                '3.01.01.01.003 - BANGUNAN GEDUNG KANTOR DARURAT',
+            ],
+            'jalan-irigasi-jaringan' => [
+                '4.00.00.00.000 - JALAN',
+                '4.01.00.00.000 - JALAN DAN JEMBATAN',
+                '4.01.01.00.000 - JALAN',
+                '4.01.01.01.000 - JALAN DESA',
+                '4.01.01.01.001 - JALAN DESA',
+                '4.01.01.01.999 - JALAN DESA LAINNYA',
+                '4.01.01.02.000 - JALAN KHUSUS',
+            ],
+            'asset-tetap' => [
+                '5.00.00.00.000 - ASET TETAP LAINNYA',
+                '5.01.00.00.000 - BAHAN PERPUSTAKAAN',
+                '5.01.01.00.000 - BAHAN PERPUSTAKAAN TERCETAK',
+                '5.01.01.01.000 - BUKU',
+                '5.01.01.01.001 - MONOGRAF',
+                '5.01.01.01.002 - REFERENSI',
+                '5.01.01.01.999 - BUKU LAINNYA',
+            ],
+            'kontruksi-pengerjaan' => NULL
+        ];
+        return $list;
+    }
+}
+
+if (! function_exists('list_haktanah')) {
+    function list_haktanah()
+    {
+        $list = [
+            'hak pakai',
+            'hak pengelolaan'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_penggunaanbarang')) {
+    function list_penggunaanbarang()
+    {
+        $list = [
+            'pemerintah desa',
+            'badan permusyarawaratan daerah',
+            'ppk',
+            'lkmd',
+            'karang taruna',
+            'rw'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_penggunaan')) {
+    function list_penggunaan()
+    {
+        $list = [
+            'industri',
+            'jalan',
+            'komersial',
+            'permukiman',
+            'tanah publik',
+            'tanah kosong',
+            'perkebunan',
+            'pertanian'
+        ];
+        return $list;
+    }
+}
+
+if (! function_exists('list_asalusul')) {
+    function list_asalusul()
+    {
+        $list = [
+            'bantuan kabupaten',
+            'bantuan pemerintah',
+            'bantuan provinsi',
+            'pembelian sendiri',
+            'sumbangan',
+            'hak adat',
+            'hibah'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_kondisibangunan')) {
+    function list_kondisibangunan()
+    {
+        $list = [
+            'baik',
+            'rusak ringan',
+            'rusak sedang',
+            'rusak berat',
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_statustanah')) {
+    function list_statustanah()
+    {
+        $list = [
+            'tanah milik pemda',
+            'tanah negara (tanah yang dikuasai langsung oleh negara)',
+            'tanah hak ulayat (tanah masyarakat hukum adat)',
+            'tanah hak (tanah kepunyaan perorangan atau badan hukum)'
+        ];
+        return $list;
+    }
+}
+
+if (! function_exists('list_jenisasset')) {
+    function list_jenisasset()
+    {
+        $list = [
+            'buku',
+            'barang kesenian',
+            'hewan ternak',
+            'tumbuhan',
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_fisikbangunan')) {
+    function list_fisikbangunan()
+    {
+        $list = [
+            'darurat',
+            'permanen',
+            'semi permanen'
+        ];
+        return $list;
+    }
+}

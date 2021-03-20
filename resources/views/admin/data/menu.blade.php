@@ -140,7 +140,7 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('/')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Surat Masuk</p>
@@ -157,7 +157,7 @@
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Produk Hukum</p>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a href="{{ url('/informasipublik')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
@@ -165,7 +165,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="{{ url('/inventaris/list/tanah')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Inventaris</p>
         </a>
