@@ -58,7 +58,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('klasifikasisurat', 'App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController');
     Route::get('inventaris/list/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@list');
     Route::get('inventaris/tambah/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@tambah');
-
     
+    // BANTUAN
+    Route::resource('bantuan', 'App\Http\Controllers\Sidesa\BantuanController');
+
     Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });

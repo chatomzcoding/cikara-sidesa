@@ -393,6 +393,16 @@ if (! function_exists('list_status')) {
         return $list;
     }
 }
+if (! function_exists('list_statuspilihan')) {
+    function list_statuspilihan()
+    {
+        $list = [
+            'ya',
+            'tidak',
+        ];
+        return $list;
+    }
+}
 if (! function_exists('list_kategoriinformasipublik')) {
     function list_kategoriinformasipublik()
     {
@@ -577,6 +587,33 @@ if (! function_exists('list_fisikbangunan')) {
             'darurat',
             'permanen',
             'semi permanen'
+        ];
+        return $list;
+    }
+}
+
+// BANTUAN
+if (! function_exists('list_sasaranbantuan')) {
+    function list_sasaranbantuan()
+    {
+        $list = [
+            'penduduk Perorangan',
+            'keluarga - kk',
+            'Rumah Tangga',
+            'Kelompok / Organisasi'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_asaldana')) {
+    function list_asaldana()
+    {
+        $list = [
+            'pusat',
+            'provinsi',
+            'kab/kota',
+            'dana desa',
+            'lain - lain (hibah)',
         ];
         return $list;
     }
