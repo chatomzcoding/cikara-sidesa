@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-heartbeat"></i>
-      <p>
+      <p class=" text-danger">
         Siaga Covid-19
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
@@ -103,7 +103,7 @@
 <li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-chart-line"></i>
-      <p>
+      <p class=" text-danger">
         Statistik
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
@@ -181,7 +181,7 @@
 <li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-envelope-open"></i>
-      <p>
+      <p class=" text-danger">
         Layanan Surat
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
@@ -223,13 +223,13 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-chart-bar"></i>
-    <p class="text">Analisis</p>
+    <p class="text text-danger">Analisis</p>
   </a>
 </li>
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-wallet"></i>
-    <p>
+    <p class=" text-danger">
       Keuangan
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -269,7 +269,7 @@
   </ul>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link">
+  <a href="{{ url('/bantuan')}}" class="nav-link">
     <i class="nav-icon fas fa-people-carry"></i>
     <p class="text">Bantuan</p>
   </a>
@@ -277,13 +277,13 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-map-signs"></i>
-    <p class="text">Pertanahan</p>
+    <p class="text text-danger">Pertanahan</p>
   </a>
 </li>
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-map-marked-alt"></i>
-    <p>
+    <p class=" text-danger">
       Pemetaan
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -307,7 +307,7 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-envelope"></i>
-    <p>
+    <p class=" text-danger">
       SMS
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -337,7 +337,7 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-cog"></i>
-    <p>
+    <p class=" text-danger">
       Pengaturan
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -385,7 +385,7 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-desktop"></i>
-    <p>
+    <p class=" text-danger">
       Admin Web
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -457,7 +457,7 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-house-user"></i>
-    <p>
+    <p class=" text-danger">
       Layanan Mandiri
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
