@@ -39,9 +39,9 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="#" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-map nav-icon"></i>
-          <p>Wilayah Administratif</p>
+          <p class="text-danger">Wilayah Administratif</p>
         </a>
       </li>
       <li class="nav-item">
