@@ -41,7 +41,7 @@
                         <section>
                             <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input type="text" name="nik" class="form-control" placeholder="Nomor NIK" required>
+                                <input type="text" name="nik" class="form-control" placeholder="Nomor NIK" maxlength="16" required>
                             </div>
                             <div class="form-group">
                                 <label for="nama_penduduk">Nama Lengkap <span class="text-danger font-italic">Tanpa Gelar</span></label>
@@ -242,6 +242,15 @@
                             <div class="form-group">
                                 <label for="">Alamat Sekarang</label>
                                 <input type="text" name="alamat_sekarang" class="form-control" placeholder="Alamat Sekarang" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">RT</label>
+                                <select name="rt_id" id="" class="form-control" required>
+                                    <option value="">-- Pilih RT --</option>
+                                    @foreach ($rt as $item)
+                                        <option value="{{ $item->id}}">{{ strtoupper($item->nama_rt) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Status Perkawinan</label>

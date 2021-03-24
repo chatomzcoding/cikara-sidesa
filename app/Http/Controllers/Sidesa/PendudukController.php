@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
+use App\Models\Rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -27,7 +28,8 @@ class PendudukController extends Controller
      */
     public function create()
     {
-        return view('admin.kependudukan.penduduk.create');
+        $rt     = Rt::all();
+        return view('admin.kependudukan.penduduk.create', compact('rt'));
     }
 
     /**
@@ -38,6 +40,10 @@ class PendudukController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nik' => 'required|unique:penduduk|max:16',
+        ]);
+        
         Penduduk::create($request->all());
 
         return redirect('/penduduk')->with('ds','Penduduk');
