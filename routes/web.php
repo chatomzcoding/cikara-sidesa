@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
     Route::resource('dusun', 'App\Http\Controllers\Sidesa\Desa\DusunController');
     Route::resource('rw', 'App\Http\Controllers\Sidesa\Desa\RwController');
+    Route::resource('rt', 'App\Http\Controllers\Sidesa\Desa\RtController');
     
     // KEPENDUDUKAN
     Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');
