@@ -14,8 +14,8 @@ class AddFkRwIdToPenduduk extends Migration
     public function up()
     {
         Schema::table('penduduk', function (Blueprint $table) {
-            $table->unsignedBigInteger('rw_id')->after('id');
-            $table->foreign('rw_id')->references('id')->on('rw')->onDelete('cascade');
+            $table->unsignedBigInteger('rt_id')->after('id');
+            $table->foreign('rt_id')->references('id')->on('rt')->onDelete('cascade');
         });
     }
 
