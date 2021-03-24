@@ -9,7 +9,7 @@ use App\Models\Rw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
-class DusunController extends Controller
+class RwController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,32 +41,29 @@ class DusunController extends Controller
      */
     public function store(Request $request)
     {
-        Dusun::create($request->all());
+        Rw::create($request->all());
 
-        return redirect()->back()->with('ds','Wilayah Administratif Dusun');
+        return redirect('/dusun/'.Crypt::encryptString($request->dusun_id))->with('ds','Wilayah Administratif RW');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dusun  $dusun
+     * @param  \App\Models\Rw  $rw
      * @return \Illuminate\Http\Response
      */
-    public function show($dusun)
+    public function show(Rw $rw)
     {
-        $dusun  = Dusun::find(Crypt::decryptString($dusun));
-        $rw     = Rw::where('dusun_id',$dusun->id)->get();
-        $penduduk   = Penduduk::all();
-        return view('admin.infodesa.wilayah.dusun.show', compact('dusun','penduduk','rw'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dusun  $dusun
+     * @param  \App\Models\Rw  $rw
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dusun $dusun)
+    public function edit(Rw $rw)
     {
         //
     }
@@ -75,29 +72,30 @@ class DusunController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dusun  $dusun
+     * @param  \App\Models\Rw  $rw
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        Dusun::where('id',$request->id)->update([
-            'nama_dusun' => $request->nama_dusun,
+        Rw::where('id',$request->id)->update([
+            'nama_rw' => $request->nama_rw,
             'nik' => $request->nik,
         ]);
 
-        return redirect()->back()->with('du','Wilayah Administratif Dusun');
+        return redirect('/dusun/'.Crypt::encryptString($request->dusun_id))->with('du','Wilayah Administratif RW');
+        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dusun  $dusun
+     * @param  \App\Models\Rw  $rw
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dusun $dusun)
+    public function destroy(Rw $rw)
     {
-        $dusun->delete();
+        $rw->delete();
 
-        return redirect()->back()->with('du','Wilayah Administratif Dusun');
+        return redirect('/dusun/'.Crypt::encryptString($rw->dusun_id))->with('dd','Wilayah Administratif RW');
     }
 }

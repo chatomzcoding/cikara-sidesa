@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
     Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
     Route::resource('dusun', 'App\Http\Controllers\Sidesa\Desa\DusunController');
+    Route::resource('rw', 'App\Http\Controllers\Sidesa\Desa\RwController');
     
     // KEPENDUDUKAN
     Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');
