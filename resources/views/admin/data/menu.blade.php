@@ -41,7 +41,7 @@
       <li class="nav-item">
         <a href="{{ url('/dusun')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-map nav-icon"></i>
-          <p class="text-danger">Wilayah Administratif</p>
+          <p>Wilayah Administratif</p>
         </a>
       </li>
       <li class="nav-item">
