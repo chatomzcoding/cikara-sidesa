@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Sidesa;
+namespace App\Http\Controllers\Sidesa\Bantuan;
+
 
 use App\Http\Controllers\Controller;
 use App\Models\Bantuan;
+use App\Models\Penduduk;
+use App\Models\Pesertabantuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 
 class BantuanController extends Controller
@@ -31,6 +35,13 @@ class BantuanController extends Controller
         //
     }
 
+    public function tambahpeserta($bantuan)
+    {
+        $bantuan    = Bantuan::find(Crypt::decryptString($bantuan));
+        $penduduk   = Penduduk::all();
+        return view('admin.bantuan.peserta.create', compact('bantuan','penduduk'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,9 +61,12 @@ class BantuanController extends Controller
      * @param  \App\Models\Bantuan  $bantuan
      * @return \Illuminate\Http\Response
      */
-    public function show(Bantuan $bantuan)
+    public function show($bantuan)
     {
-        //
+        $bantuan = Bantuan::find(Crypt::decryptString($bantuan));
+        $pesertabantuan = Pesertabantuan::where('bantuan_id',$bantuan->id)->get();
+
+        return view('admin.bantuan.show', compact('bantuan','pesertabantuan'));
     }
 
     /**
