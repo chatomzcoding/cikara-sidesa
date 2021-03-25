@@ -103,7 +103,7 @@
 <li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-chart-line"></i>
-      <p class=" text-danger">
+      <p>
         Statistik
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
@@ -117,13 +117,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="{{ url('statistik/laporanbulanan')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Bulanan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+        <a href="{{ url('statistik/laporankelompokrentan')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Kelompok Rentan</p>
         </a>
