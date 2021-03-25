@@ -54,6 +54,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('anggotakelompok', 'App\Http\Controllers\Sidesa\AnggotakelompokController');
     Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
     Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
+
+    // STATISTIK
+    Route::get('statistik/kependudukan/{sesi}/{pilih}', 'App\Http\Controllers\Sidesa\Statistik\KependudukanController@pilih');
     
     // SEKRETARIAT
     Route::resource('informasipublik', 'App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController');
@@ -64,6 +67,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     // BANTUAN
     Route::resource('bantuan', 'App\Http\Controllers\Sidesa\BantuanController');
+    Route::resource('pesertabantuan', 'App\Http\Controllers\Sidesa\Bantuan\PesertabantuanController');
 
     Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
 });

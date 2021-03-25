@@ -111,7 +111,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/')}}" class="nav-link">
+        <a href="{{ url('/statistik/kependudukan/penduduk/umur-rentang')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-chart-area nav-icon"></i>
           <p>Statistik Kependudukan</p>
         </a>

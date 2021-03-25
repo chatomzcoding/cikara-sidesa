@@ -282,8 +282,8 @@ if (! function_exists('list_statusperkawinan')) {
     }
 }
 
-if (! function_exists('liat_golongandarah')) {
-    function liat_golongandarah()
+if (! function_exists('list_golongandarah')) {
+    function list_golongandarah()
     {
         $list = [
             'A',
@@ -614,6 +614,84 @@ if (! function_exists('list_asaldana')) {
             'kab/kota',
             'dana desa',
             'lain - lain (hibah)',
+        ];
+        return $list;
+    }
+}
+
+// STATISTIK
+if (! function_exists('list_statistikpenduduk')) {
+    function list_statistikpenduduk()
+    {
+        $list = [
+            'umur-rentang' => 'Umur (Rentang)',
+            'umur-kategori' => 'Umur (Kategori)',
+            'pendidikan-dalam-kk' => 'Pendidikan Dalam KK',
+            'pendidikan-sedang-ditempuh' => 'Pendidikan Sedang Ditempuh',
+            'pekerjaan' => 'pekerjaan',
+            'status-perkawinan' => 'Status Perkawinan',
+            'agama' => 'Agama',
+            'jk' => 'Jenis Kelamin',
+            'hubungan-dalam-kk' => 'Hubungan Dalam KK',
+            'warga-negara' => 'Warga Negara',
+            'status-penduduk' => 'Status Penduduk',
+            'goldar' => 'Golongan Darah',
+            'penyandang-cacat' => 'Penyandang Cacat',
+            'penyakit-menahun' => 'Penyakit Menahun',
+            'akseptor-kb' => 'Akseptor KB',
+            'akta-kelahiran' => 'Akta Kelahiran',
+            'kepemilikan-ktp' => 'Kepemilikan KTP',
+            'jenis-asuransi' => 'Jenis Asuransi',
+            'status-covid' => 'Status Covid'
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_statistikkeluarga')) {
+    function list_statistikkeluarga()
+    {
+        $list = [
+            'kelas-sosial' => 'Kelas Sosial',
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_umurrentang')) {
+    function list_umurrentang()
+    {
+        $list = [
+            ['DI BAWAH 1 TAHUN',0,1],
+            ['2 S/D 4 TAHUN',2,4],
+            ['5 S/D 9 TAHUN',5,9],
+            ['10 S/D 14 TAHUN',10,14],
+            ['15 S/D 19 TAHUN',15,19],
+            ['20 S/D 24 TAHUN',20,24],
+            ['25 S/D 29 TAHUN',25,29],
+            ['30 S/D 34 TAHUN',30,34],
+            ['35 S/D 39 TAHUN',35,39],
+            ['40 S/D 44 TAHUN',40,44],
+            ['45 S/D 49 TAHUN',45,49],
+            ['50 S/D 54 TAHUN',50,54],
+            ['55 S/D 59 TAHUN',55,59],
+            ['60 S/D 64 TAHUN',60,64],
+            ['65 S/D 69 TAHUN',64,69],
+            ['70 S/D 74 TAHUN',70,74],
+            ['DIATAS 75 TAHUN',75,200],
+        ];
+        return $list;
+    }
+}
+
+if (! function_exists('list_statuscovid')) {
+    function list_statuscovid()
+    {
+        $list = [
+            'ODP',
+            'PDP',
+            'ODR',
+            'OTG',
+            'POSITIF',
+            'DLL'
         ];
         return $list;
     }
