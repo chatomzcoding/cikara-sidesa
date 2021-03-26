@@ -393,7 +393,7 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link">
+      <a href="{{ url('/artikel')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Artikel</p>
       </a>

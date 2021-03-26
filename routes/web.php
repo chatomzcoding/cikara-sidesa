@@ -37,6 +37,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
+    // HOMEPAGE
+    Route::get('homepage/artikel', 'App\Http\Controllers\HomepageController@artikel');
+    Route::get('homepage/artikel/{slug}', 'App\Http\Controllers\HomepageController@showartikel');
+
+
     // COVID 19
     Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
 
@@ -78,6 +83,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     // ADMIN SETTING
     Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
+    Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
+    Route::resource('kategoriartikel', 'App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController');
 
 
 });

@@ -74,9 +74,9 @@
                                         <ul id="navigation">
                                             <li><a class="active" href="{{ url('/')}}">Beranda</a></li>
                                             <li><a href="Department.html">Department</a></li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
+                                            <li><a href="#">Info <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
+                                                    <li><a href="{{ url('/homepage/artikel')}}">Artikel</a></li>
                                                     <li><a href="single-blog.html">single-blog</a></li>
                                                 </ul>
                                             </li>
