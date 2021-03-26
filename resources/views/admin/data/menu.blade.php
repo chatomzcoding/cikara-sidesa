@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-heartbeat"></i>
-      <p class=" text-danger">
+      <p>
         Siaga Covid-19
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
@@ -9,7 +9,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="pages/layout/top-nav.html" class="nav-link">
+        <a href="{{ url('/pemudik')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Pendataan</p>
         </a>

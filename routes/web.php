@@ -36,6 +36,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
+    // COVID 19
+    Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
+
     // INFO DESA
     Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
     Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
