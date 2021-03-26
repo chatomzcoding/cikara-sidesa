@@ -385,7 +385,7 @@
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-desktop"></i>
-    <p class=" text-danger">
+    <p>
       Admin Web
       <i class="fas fa-angle-left right"></i>
       {{-- <span class="badge badge-info right">6</span> --}}
@@ -429,7 +429,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+      <a href="{{ url('/slider')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Slider</p>
       </a>

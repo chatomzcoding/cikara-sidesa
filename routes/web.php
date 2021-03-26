@@ -75,6 +75,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('bantuan', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController');
     Route::resource('pesertabantuan', 'App\Http\Controllers\Sidesa\Bantuan\PesertabantuanController');
     Route::get('bantuan/tambahpeserta/{bantuan}', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController@tambahpeserta');
+    
+    // ADMIN SETTING
+    Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
 
-    Route::get('view/{sesi}', 'App\Http\Controllers\Design\ViewController@view');
+
 });
