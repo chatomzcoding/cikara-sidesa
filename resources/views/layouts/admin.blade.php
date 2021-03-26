@@ -43,6 +43,7 @@
     <script src="{{ asset('js/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{ asset('css/sweetalert2.css')}}"></script>
 
+    <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
   @livewireStyles
 
