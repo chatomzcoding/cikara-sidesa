@@ -9,51 +9,23 @@
         <!-- slider_area_start -->
         <div class="slider_area">
             <div class="slider_active owl-carousel">
-                <div class="single_slider  d-flex align-items-center" style="background-image  : url('{{ asset('/template/docmed/img/banner/banner.png')}}')">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="slider_text ">
-                                    <h3> <span>Health care</span> <br>
-                                        For Hole Family </h3>
-                                    <p>In healthcare sector, service excellence is the facility of <br> the hospital as
-                                        healthcare service provider to consistently.</p>
-                                    <a href="#" class="boxed-btn3">Check Our Services</a>
+                @foreach ($slider as $item)
+                    <div class="single_slider  d-flex align-items-center" style="background-image  : url('{{ asset('/img/pengaturan/slider/'.$item->gambar)}}')">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="slider_text ">
+                                        <h3>{{ $item->nama_slider }}</h3>
+                                        <p>{{ $item->keterangan}}</p>
+                                        @if (!is_null($item->link))
+                                            <a href="{{ $item->link}}" target="_blank" class="boxed-btn3">Klik Disini</a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="single_slider  d-flex align-items-center"  style="background-image  : url('{{ asset('/template/docmed/img/banner/banner.png')}}')">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="slider_text ">
-                                    <h3> <span>Health care</span> <br>
-                                        For Hole Family </h3>
-                                    <p>In healthcare sector, service excellence is the facility of <br> the hospital as
-                                        healthcare service provider to consistently.</p>
-                                    <a href="#" class="boxed-btn3">Check Our Services</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="single_slider  d-flex align-items-center"  style="background-image  : url('{{ asset('/template/docmed/img/banner/banner.png')}}')">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="slider_text ">
-                                    <h3> <span>Health care555</span> <br>
-                                        For Hole Family </h3>
-                                    <p>In healthcare sector, service excellence is the facility of <br> the hospital as
-                                        healthcare service provider to consistently.</p>
-                                    <a href="#" class="boxed-btn3">Check Our Services</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <!-- slider_area_end -->
