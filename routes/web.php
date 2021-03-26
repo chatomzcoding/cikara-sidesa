@@ -14,9 +14,10 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/','App\Http\Controllers\HomepageController@index');
 
 // PENGUJIAN
 Route::get('/pengujian','App\Http\Controllers\Cikara\PengujianController@index');
