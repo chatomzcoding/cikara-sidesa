@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use App\Models\Galeri;
 use App\Models\Kategoriartikel;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -11,8 +12,9 @@ class HomepageController extends Controller
 {
     public function index()
     {
-        $slider = Slider::where('status','aktif')->get();
-        return view('homepage.index', compact('slider'));
+        $slider     = Slider::where('status','aktif')->get();
+        $galeri     = Galeri::where('status','aktif')->limit(6)->get();
+        return view('homepage.index', compact('slider','galeri'));
     }
 
     public function artikel()

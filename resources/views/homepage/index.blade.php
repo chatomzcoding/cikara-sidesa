@@ -109,27 +109,29 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="section_title text-center mb-55">
-                            <h3>Our Departments</h3>
-                            <p>Esteem spirit temper too say adieus who direct esteem. <br>
-                                It esteems luckily or picture placing drawing. </p>
+                            <h3>Aktifitas</h3>
+                            <p>album berupa kegiatan kegiatan <br>
+                                yang dilakukan. </p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    @for ($i = 0; $i < 6; $i++)
+                    @forelse ($galeri as $item)
                         <div class="col-xl-4 col-md-6 col-lg-4">
                             <div class="single_department">
                                 <div class="department_thumb">
-                                    <img src="{{ asset('/template/docmed/img/department/1.png')}}" alt="">
+                                    <img src="{{ asset('/img/pengaturan/galeri/'.$item->gambar_galeri)}}" alt="">
                                 </div>
                                 <div class="department_content">
-                                    <h3><a href="#">Eye Care</a></h3>
-                                    <p>Esteem spirit temper too say adieus who direct esteem.</p>
-                                    <a href="#" class="learn_more">Learn More</a>
+                                    <h3><a href="#">{{ $item->nama_galeri}}</a></h3>
+                                    <p>{{ $item->keterangan}}</p>
+                                    <a href="{{ url('/homepage/galeri/'.$item->id)}}" class="learn_more">Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @empty
+                        <p>Belum ada Galeri</p>
+                    @endforelse
                 </div>
             </div>
         </div>
