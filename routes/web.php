@@ -85,6 +85,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
     Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
     Route::resource('kategoriartikel', 'App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController');
-
-
+    Route::resource('galeri', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriController');
+    Route::resource('galeriphoto', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriphotoController');
 });

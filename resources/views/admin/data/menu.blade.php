@@ -398,26 +398,26 @@
         <p>Artikel</p>
       </a>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Widget</p>
       </a>
-    </li>
-    <li class="nav-item">
+    </li> --}}
+    {{-- <li class="nav-item">
       <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Menu</p>
       </a>
-    </li>
-    <li class="nav-item">
+    </li> --}}
+    {{-- <li class="nav-item">
       <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Komentar</p>
       </a>
-    </li>
+    </li> --}}
     <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+      <a href="{{ url('/galeri')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Galeri</p>
       </a>
