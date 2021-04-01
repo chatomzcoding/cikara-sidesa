@@ -32,11 +32,11 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah KK Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-                <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a>
-                <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
+                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
+                {{-- <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a> --}}
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a> --}}
+                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -44,7 +44,7 @@
                       <form action="" method="post">
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Pilih Status KK</option>
                                     <option value="">KK Aktif</option>
                                     <option value="">KK hilang/pindah/mati</option>
@@ -52,14 +52,14 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Jenis Kelamin</option>
                                     <option value="">Laki - laki</option>
                                     <option value="">Perempuan</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Dusun</option>
                                     <option value="">Dusun 1</option>
                                     <option value="">Dusun 2</option>
