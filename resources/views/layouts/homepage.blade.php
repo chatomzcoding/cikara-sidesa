@@ -73,20 +73,20 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a class="active" href="{{ url('/')}}">Beranda</a></li>
-                                            <li><a href="Department.html">Department</a></li>
+                                            {{-- <li><a href="Department.html">Department</a></li> --}}
                                             <li><a href="#">Info <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="{{ url('/homepage/artikel')}}">Artikel</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
+                                                    {{-- <li><a href="single-blog.html">single-blog</a></li> --}}
                                                 </ul>
                                             </li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
+                                            {{-- <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="elements.html">elements</a></li>
                                                     <li><a href="about.html">about</a></li>
                                                 </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            </li> --}}
+                                            {{-- <li><a href="contact.html">Contact</a></li> --}}
                                             <li><a href="{{ route('login') }}">LOGIN</a></li>
                                         </ul>
                                     </nav>
