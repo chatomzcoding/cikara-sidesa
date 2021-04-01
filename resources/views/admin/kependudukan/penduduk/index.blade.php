@@ -32,9 +32,9 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Penduduk Domisili</a>
-                <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Hapus Data Terpilih</a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a>
-                <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+                {{-- <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Hapus Data Terpilih</a> --}}
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a> --}}
+                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -45,7 +45,7 @@
                       <form action="" method="post">
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Status Penduduk</option>
                                     <option value="">Tetap</option>
                                     <option value="">Tidak Tetap</option>
@@ -53,7 +53,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Status Dasar</option>
                                     <option value="">Hidup</option>
                                     <option value="">Mati</option>
@@ -63,14 +63,14 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Jenis Kelamin</option>
                                     <option value="">Laki - laki</option>
                                     <option value="">Perempuan</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Dusun</option>
                                     <option value="">Dusun 1</option>
                                     <option value="">Dusun 2</option>
@@ -118,11 +118,11 @@
                                           <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu" role="menu">
-                                          <a class="dropdown-item" href="#">Lihat Detail Biodata Penduduk</a>
+                                          {{-- <a class="dropdown-item" href="#">Lihat Detail Biodata Penduduk</a> --}}
                                           <a class="dropdown-item" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}">Ubah Biodata Penduduk</a>
-                                          <a class="dropdown-item" href="#">Ubah Status Dasar</a>
-                                          <a class="dropdown-item" href="#">Upload Dokumen Penduduk</a>
-                                          <a class="dropdown-item" href="#">Cetak Biodata Penduduk</a>
+                                          {{-- <a class="dropdown-item" href="#">Ubah Status Dasar</a> --}}
+                                          {{-- <a class="dropdown-item" href="#">Upload Dokumen Penduduk</a> --}}
+                                          {{-- <a class="dropdown-item" href="#">Cetak Biodata Penduduk</a> --}}
                                           <div class="dropdown-divider"></div>
                                           <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt"></i> Hapus</button>
                                         </div>
@@ -149,12 +149,12 @@
                                     <td colspan="17" class="text-center">belum ada data</td>
                                 </tr>
                             @endforelse
-                        <tfoot class="text-center">
+                        {{-- <tfoot class="text-center">
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
                                 <th>NIK</th>
-                                {{-- <th>Tag ID Card</th> --}}
+                                <th>Tag ID Card</th>
                                 <th>Nama</th>
                                 <th>No. KK</th>
                                 <th>Nama Ayah</th>
@@ -169,7 +169,7 @@
                                 <th>Pekerjaan</th>
                                 <th>Kawin</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
               </div>

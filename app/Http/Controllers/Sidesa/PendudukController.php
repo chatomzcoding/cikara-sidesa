@@ -69,8 +69,8 @@ class PendudukController extends Controller
     public function edit($penduduk)
     {
         $penduduk = Penduduk::find(Crypt::decryptString($penduduk));
-
-        return view('admin.kependudukan.penduduk.edit', compact('penduduk'));
+        $rt     = Rt::all();
+        return view('admin.kependudukan.penduduk.edit', compact('penduduk','rt'));
     }
 
     /**
