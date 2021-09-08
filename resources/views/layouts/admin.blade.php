@@ -1,4 +1,5 @@
 @php
+	  $info = App\Models\Infowebsite::first(); 
     $user = Auth::user();
 @endphp
 <!DOCTYPE html>
@@ -9,6 +10,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title')</title>
+  <link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -298,13 +301,13 @@
           <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            {{ $header }}
+            @yield('header')
          
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
         <section class="content">
-          {{ $slot }}
+          @yield('container')
         </section>
     {{-- @yield('content') --}}
   </div>
@@ -314,7 +317,7 @@
     <strong>Copyright &copy; <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 2.2021.1
+      <b>Version</b> 1.1
     </div>
   </footer>
 
@@ -435,9 +438,6 @@
 	}
 </script>
 @yield('script')
-@stack('modals')
-
-@livewireScripts
 
 </body>
 </html>

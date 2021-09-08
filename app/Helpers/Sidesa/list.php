@@ -696,3 +696,13 @@ if (! function_exists('list_statuscovid')) {
         return $list;
     }
 }
+if (! function_exists('list_statuspegawai')) {
+    function list_statuspegawai()
+    {
+        $list = [
+            '1',
+            '2',
+        ];
+        return $list;
+    }
+}
