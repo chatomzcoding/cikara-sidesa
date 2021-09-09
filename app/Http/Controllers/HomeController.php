@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function tampilan($sesi)
+    {
+        switch ($sesi) {
+            case 'lapor':
+                $judul = 'Laporan Penduduk';
+                return view('admin.layananmandiri.lapor.index', compact('judul'));
+                break;
+            case 'lapak':
+                $judul  = 'Lapak Desa';
+                return view('admin.layananmandiri.lapak.index',compact('judul'));
+                break;
+            case 'showlapak':
+                $judul  = 'Detail Lapak Ikan Pancing';
+                return view('admin.layananmandiri.lapak.show',compact('judul'));
+                break;
+            case 'forum':
+                $judul  = 'Forum';
+                return view('admin.layananmandiri.forum.index',compact('judul'));
+                break;
+            case 'covid':
+                $judul  = 'Covid 19';
+                return view('admin.layananmandiri.covid',compact('judul'));
+                break;
+            case 'surat':
+                $judul  = 'Permintaan Surat';
+                return view('admin.layananmandiri.surat',compact('judul'));
+                break;
+            case 'penduduk':
+                $judul  = 'Penduduk';
+                return view('admin.layananmandiri.penduduk',compact('judul'));
+                break;
+            case 'kk':
+                $judul  = 'Kartu Keluarga';
+                return view('admin.layananmandiri.kk',compact('judul'));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+}

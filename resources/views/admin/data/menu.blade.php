@@ -274,6 +274,60 @@
     <p class="text">Bantuan</p>
   </a>
 </li>
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-map-marked-alt"></i>
+    <p class="text">
+      Layanan Mandiri
+      <i class="fas fa-angle-left right"></i>
+      {{-- <span class="badge badge-info right">6</span> --}}
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/lapor')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Laporan Penduduk</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/lapak')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Lapak Desa</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/forum')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Forum</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/covid')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Covid 19</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/surat')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Surat</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/penduduk')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Penduduk</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/tampilan/kk')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Kartu Keluarga</p>
+      </a>
+    </li>
+  </ul>
+</li>
 {{-- <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-map-signs"></i>

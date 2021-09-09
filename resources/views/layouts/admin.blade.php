@@ -48,6 +48,13 @@
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
   @livewireStyles
 
 </head>
@@ -62,17 +69,17 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Utama</a>
+        <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Depan</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('member') }}" class="nav-link">Kontak</a>
+        <a href="{{ route('member') }}" class="nav-link">Statistik Data</a>
       </li>
     </ul>
 
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="search" placeholder="Cari NIK" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
@@ -187,7 +194,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
       <img src="{{ asset('template/admin/lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SIdesa</span>
+      <span class="brand-text font-weight-light">Jantung Desa</span>
     </a>
 
     <!-- Sidebar -->
@@ -198,7 +205,7 @@
           <img src="{{ asset('template/admin/lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ $user->name}}</a>
+          <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
         </div>
       </div>
 
@@ -360,7 +367,7 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('template/admin/lte/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('template/admin/lte/dist/js/pages/dashboard.js')}}"></script>
+{{-- <script src="{{ asset('template/admin/lte/dist/js/pages/dashboard.js')}}"></script> --}}
 
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('template/admin/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>

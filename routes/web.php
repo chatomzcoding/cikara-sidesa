@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         return view('dashboard');
     })->name('dashboard');
 
+    // kebutuhan tampilan
+    Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');
+
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
     // HOMEPAGE

@@ -81,7 +81,7 @@ $(function () {
   // eslint-disable-next-line no-unused-vars
   var visitorsChart = new Chart($visitorsChart, {
     data: {
-      labels: ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
+      labels: ['1', '2', '3', '4', '5', '6', '7'],
       datasets: [{
         type: 'line',
         data: [100, 120, 170, 167, 180, 177, 160],
@@ -93,17 +93,18 @@ $(function () {
         // pointHoverBackgroundColor: '#007bff',
         // pointHoverBorderColor    : '#007bff'
       },
-      {
-        type: 'line',
-        data: [60, 80, 70, 67, 80, 77, 100],
-        backgroundColor: 'tansparent',
-        borderColor: '#ced4da',
-        pointBorderColor: '#ced4da',
-        pointBackgroundColor: '#ced4da',
-        fill: false
+      // {
+      //   type: 'line',
+      //   data: [60, 80, 70, 67, 80, 77, 100],
+      //   backgroundColor: 'tansparent',
+      //   borderColor: '#ced4da',
+      //   pointBorderColor: '#ced4da',
+      //   pointBackgroundColor: '#ced4da',
+      //   fill: false
         // pointHoverBackgroundColor: '#ced4da',
         // pointHoverBorderColor    : '#ced4da'
-      }]
+      // }
+    ]
     },
     options: {
       maintainAspectRatio: false,

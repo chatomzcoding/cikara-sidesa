@@ -10,7 +10,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-          <li class="breadcrumb-item active">Dashboard v1</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -31,7 +31,8 @@
                   <div class="info-box-content">
                     <span class="info-box-text">Wilayah Dusun</span>
                     <span class="info-box-number">
-                      {{ DbCikara::countData('dusun')}}
+                      3
+                      {{-- {{ DbCikara::countData('dusun')}} --}}
                       {{-- <small>%</small> --}}
                     </span>
                   </div>
@@ -46,7 +47,8 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Penduduk</span>
-                    <span class="info-box-number">{{ DbCikara::countData('penduduk')}}</span>
+                    980
+                    {{-- <span class="info-box-number">{{ DbCikara::countData('penduduk')}}</span> --}}
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -63,7 +65,8 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Keluarga</span>
-                    <span class="info-box-number">{{ DbCikara::countData('keluarga')}}</span>
+                    450
+                    {{-- <span class="info-box-number">{{ DbCikara::countData('keluarga')}}</span> --}}
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -76,7 +79,8 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Bantuan</span>
-                    <span class="info-box-number">{{ DbCikara::countData('bantuan')}}</span>
+                    5
+                    {{-- <span class="info-box-number">{{ DbCikara::countData('bantuan')}}</span> --}}
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -85,7 +89,269 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
+            @include('chart')
           </div>
         </section>
     @endsection
+
+    
+    @section('script')
+    <script>
+      Highcharts.chart('visitors', {
+        title: {
+          text: 'Penduduk Online per - hari'
+        },
+
+        subtitle: {
+          text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+          title: {
+            text: 'Number of Employees'
+          }
+        },
+
+        xAxis: {
+          accessibility: {
+            rangeDescription: 'Range: 2010 to 2017'
+          }
+        },
+
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: false
+            },
+            pointStart: 1
+          }
+        },
+
+        series: [{
+          name: 'Kunjungan',
+          data: [34, 55, 23, 80, 120, 100, 98, 130]
+        }],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
+
+        });
+      Highcharts.chart('lapor', {
+        title: {
+          text: 'Laporan Penduduk per - hari'
+        },
+
+        subtitle: {
+          text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+          title: {
+            text: 'Number of Employees'
+          }
+        },
+
+        xAxis: {
+          accessibility: {
+            rangeDescription: 'Range: 2010 to 2017'
+          }
+        },
+
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: false
+            },
+            pointStart: 1
+          }
+        },
+
+        series: [{
+          name: 'laporan',
+          data: [2, 5, 0, 3, 3, 7, 10, 23]
+        }],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
+
+        });
+      Highcharts.chart('surat', {
+        title: {
+          text: 'Permintaan Pembuatan Surat per - hari'
+        },
+
+        subtitle: {
+          text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+          title: {
+            text: 'Number of Employees'
+          }
+        },
+
+        xAxis: {
+          accessibility: {
+            rangeDescription: 'Range: 2010 to 2017'
+          }
+        },
+
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: false
+            },
+            pointStart: 1
+          }
+        },
+
+        series: [{
+          name: 'Surat',
+          data: [5, 6, 8, 3, 3, 5, 10, 8]
+        }],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
+
+        });
+
+        Highcharts.chart('klasifikasi', {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Klasifikasi Laporan Penduduk'
+          },
+          xAxis: {
+            categories: ['Laporan Selesai', 'Laporan diProses', 'Laporan Menunggu']
+          },
+          credits: {
+            enabled: false
+          },
+          series: [{
+            name: 'Laporan',
+            color : ['green','orange','grey'],
+            data: [
+              {
+                y : 120,
+                color : 'green'
+              },
+              {
+                y : 140,
+                color : 'orange'
+              }
+              ,
+              {
+                y : 10,
+                color : 'grey'
+              }
+              ]
+          }]
+        });
+
+        Highcharts.chart('covid', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Statistik Data Covid 19'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Terkonfirmasi',
+                y: 12,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Meninggal',
+                y: 1
+            }, {
+                name: 'Sembuh',
+                y: 8
+            }, {
+                name: 'Dalam Pemantauan',
+                y: 27
+            }]
+        }]
+    });
+    </script>
+    @endsection
+   
 
