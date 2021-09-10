@@ -70,8 +70,8 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">Welcome To Unicat E-Learning</h2>
-						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+						<h2 class="section_title text-capitalize">Selamat Datang di Website <br> Desa {{ $infodesa->nama_desa }}</h2>
+						<div class="section_subtitle"><p>{{ $info->tentang }}</p></div>
 					</div>
 				</div>
 			</div>
@@ -125,8 +125,8 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">Popular Online Courses</h2>
-						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+						<h2 class="section_title">Info Desa</h2>
+						<div class="section_subtitle text-capitalize"><p>Info Seputar mengenai Desa {{ $infodesa->nama_desa }}</p></div>
 					</div>
 				</div>
 			</div>
@@ -230,8 +230,8 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="counter_content">
-						<h2 class="counter_title">Register Now</h2>
-						<div class="counter_text"><p>Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></div>
+						<h2 class="counter_title">Lapor Warga</h2>
+						<div class="counter_text"><p>Warga bisa melaporkan kepada pemerintah desa terkait keadaan desa baik dalam segi ekonomi, kesehatan, keamanan, ketertiban dan lain sebagainya.</p></div>
 
 						<!-- Milestones -->
 
@@ -239,26 +239,28 @@
 							
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="15">0</div>
-								<div class="milestone_text">years</div>
+								<div class="milestone_counter" data-end-value="76">0</div>
+								<div class="milestone_text">Laporan</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="120" data-sign-after="k">0</div>
-								<div class="milestone_text">years</div>
+								{{-- <div class="milestone_counter" data-end-value="120" data-sign-after="k">0</div> --}}
+								<div class="milestone_counter" data-end-value="4">0</div>
+								<div class="milestone_text">Diproses</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="670" data-sign-after="+">0</div>
-								<div class="milestone_text">years</div>
+								{{-- <div class="milestone_counter" data-end-value="670" data-sign-after="+">0</div> --}}
+								<div class="milestone_counter" data-end-value="2">0</div>
+								<div class="milestone_text">Tahap Konfirmasi</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="320">0</div>
-								<div class="milestone_text">years</div>
+								<div class="milestone_counter" data-end-value="70">0</div>
+								<div class="milestone_text">Selesai</div>
 							</div>
 
 						</div>
@@ -271,17 +273,17 @@
 				<div class="row fill_height">
 					<div class="col fill_height">
 						<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
-							<div class="counter_form_title">courses now</div>
-							<input type="text" class="counter_input" placeholder="Your Name:" required="required">
-							<input type="tel" class="counter_input" placeholder="Phone:" required="required">
+							<div class="counter_form_title">Form Laporan</div>
+							<input type="text" class="counter_input" placeholder="Nama Lengkap" required="required">
+							<input type="tel" class="counter_input" placeholder="Telepon" required="required">
 							<select name="counter_select" id="counter_select" class="counter_input counter_options">
-								<option>Choose Subject</option>
-								<option>Subject</option>
-								<option>Subject</option>
-								<option>Subject</option>
+								<option>-- Pilih Kategori Laporan --</option>
+								<option>Keamanan</option>
+								<option>Kesehatan</option>
+								<option>Kesejahteraan</option>
 							</select>
 							<textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
-							<button type="submit" class="counter_form_button">submit now</button>
+							<button type="submit" class="counter_form_button">Kirim Laporan</button>
 						</form>
 					</div>
 				</div>
@@ -297,8 +299,8 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">Upcoming events</h2>
-						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+						<h2 class="section_title">Kegiatan Desa</h2>
+						<div class="section_subtitle"><p>Berikut daftar kegiatan desa</p></div>
 					</div>
 				</div>
 			</div>
@@ -391,8 +393,8 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">The Best Tutors in Town</h2>
-						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+						<h2 class="section_title">Perangkat Desa</h2>
+						<div class="section_subtitle"><p>Daftar Perangkat Desa</p></div>
 					</div>
 				</div>
 			</div>
@@ -481,8 +483,8 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">Latest News</h2>
-						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+						<h2 class="section_title">Berita Terkini</h2>
+						<div class="section_subtitle"><p>Kumpulan beberapa berita yang aktual dan terbaru</p></div>
 					</div>
 				</div>
 			</div>
@@ -492,18 +494,18 @@
 					<!-- News Post Large -->
 					<div class="news_post_large_container">
 						<div class="news_post_large">
-							<div class="news_post_image"><img src="{{ asset('template/unicat/images/news_1.jpg')}}" alt=""></div>
-							<div class="news_post_large_title"><a href="blog_single.html">Here’s What You Need to Know About Online Testing for the ACT and SAT</a></div>
+							<div class="news_post_image"><img src="{{ asset('img/pengaturan/artikel/'.$berita['terbaru']->gambar_artikel)}}" alt=""></div>
+							<div class="news_post_large_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slud) }}">{{ $berita['terbaru']->judul_artikel }}</a></div>
 							<div class="news_post_meta">
 								<ul>
 									<li><a href="#">admin</a></li>
-									<li><a href="#">november 11, 2017</a></li>
+									<li><a href="#">{{ $berita['terbaru']->created_at }}</a></li>
 								</ul>
 							</div>
 							<div class="news_post_text">
-								<p>Policy analysts generally agree on a need for reform, but not on which path policymakers should take. Can America learn anything from other nations...</p>
+								<p>{!! substr($berita['terbaru']->isi_artikel,0,200) !!}. . .</p>
 							</div>
-							<div class="news_post_link"><a href="blog_single.html">read more</a></div>
+							<div class="news_post_link"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slud) }}">Selengkapnya</a></div>
 						</div>
 					</div>
 				</div>
@@ -511,50 +513,19 @@
 				<div class="col-lg-5 news_col">
 					<div class="news_posts_small">
 
-						<!-- News Posts Small -->
-						<div class="news_post_small">
-							<div class="news_post_small_title"><a href="blog_single.html">Home-based business insurance issue (Spring 2017 - 2018)</a></div>
-							<div class="news_post_meta">
-								<ul>
-									<li><a href="#">admin</a></li>
-									<li><a href="#">november 11, 2017</a></li>
-								</ul>
+						@forelse ($berita['list'] as $item)
+							<div class="news_post_small">
+								<div class="news_post_small_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slud) }}">{{ $item->judul_artikel }}</a></div>
+								<div class="news_post_meta">
+									<ul>
+										<li><a href="#">admin</a></li>
+										<li><a href="#">november 11, 2017</a></li>
+									</ul>
+								</div>
 							</div>
-						</div>
-
-						<!-- News Posts Small -->
-						<div class="news_post_small">
-							<div class="news_post_small_title"><a href="blog_single.html">2018 Fall Issue: Credit Card Comparison Site Survey (Summer 2018)</a></div>
-							<div class="news_post_meta">
-								<ul>
-									<li><a href="#">admin</a></li>
-									<li><a href="#">november 11, 2017</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<!-- News Posts Small -->
-						<div class="news_post_small">
-							<div class="news_post_small_title"><a href="blog_single.html">Cuentas de cheques gratuitas una encuesta de Consumer Action</a></div>
-							<div class="news_post_meta">
-								<ul>
-									<li><a href="#">admin</a></li>
-									<li><a href="#">november 11, 2017</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<!-- News Posts Small -->
-						<div class="news_post_small">
-							<div class="news_post_small_title"><a href="blog_single.html">Troubled borrowers have fewer repayment or forgiveness options</a></div>
-							<div class="news_post_meta">
-								<ul>
-									<li><a href="#">admin</a></li>
-									<li><a href="#">november 11, 2017</a></li>
-								</ul>
-							</div>
-						</div>
-
+						@empty
+							
+						@endforelse
 					</div>
 				</div>
 			</div>

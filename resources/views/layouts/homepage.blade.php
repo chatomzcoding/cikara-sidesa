@@ -62,7 +62,7 @@
 		<div class="header_container">
 			<div class="container">
 				<div class="row">
-					<div class="col">
+					<div class="col-md-12">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
 								<a href="#">
@@ -71,11 +71,20 @@
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li class="active"><a href="{{ url('/') }}">Beranda</a></li>
-									<li><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+									
+									<li class="@if ($menu == 'beranda')
+										active
+									@endif"><a href="{{ url('/') }}">Beranda</a></li>
+									<li class="@if ($menu == 'profil')
+									active
+								@endif"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
 									{{-- <li><a href="courses.html">Courses</a></li> --}}
-									<li><a href="{{ url('halaman/berita') }}">Berita</a></li>
-									<li><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
+									<li class="@if ($menu == 'berita')
+									active
+								@endif"><a href="{{ url('halaman/berita') }}">Berita</a></li>
+									<li class="@if ($menu == 'kontak')
+									active
+								@endif"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -88,6 +97,9 @@
 							</nav>
 
 						</div>
+					</div>
+					<div class="col-md-12">
+						<marquee direction="left">Telah ditemukan beberapa varian baru covid 19 di desa gunung tanjung kecamatan selaawi kabupaten garut</marquee> 
 					</div>
 				</div>
 			</div>
@@ -216,13 +228,13 @@
 							<div class="col-lg-3 footer_col clearfix">
 					
 								<!-- Footer links -->
-								<div class="footer_section footer_mobile">
+								{{-- <div class="footer_section footer_mobile">
 									<div class="footer_title">Mobile</div>
 									<div class="footer_mobile_content">
 										<div class="footer_image"><a href="#"><img src="images/mobile_1.png" alt=""></a></div>
 										<div class="footer_image"><a href="#"><img src="images/mobile_2.png" alt=""></a></div>
 									</div>
-								</div>
+								</div> --}}
 								
 							</div>
 
@@ -235,14 +247,14 @@
 				<div class="col">
 					<div class="copyright d-flex flex-lg-row flex-column align-items-center justify-content-start">
 						<div class="cr_text"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;{{ ambil_tahun() }} All rights reserved | Developer By <a href="https://cikarastudio.com/">Cikara Studio</a> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 						<div class="ml-lg-auto cr_links">
-							<ul class="cr_list">
+							{{-- <ul class="cr_list">
 								<li><a href="#">Copyright notification</a></li>
 								<li><a href="#">Terms of Use</a></li>
 								<li><a href="#">Privacy Policy</a></li>
-							</ul>
+							</ul> --}}
 						</div>
 					</div>
 				</div>
@@ -261,6 +273,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('template/unicat/plugins/greensock/ScrollToPlugin.min.js')}}"></script>
 <script src="{{ asset('template/unicat/plugins/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
 <script src="{{ asset('template/unicat/plugins/easing/easing.js')}}"></script>
+
 <script src="{{ asset('template/unicat/plugins/parallax-js-master/parallax.min.js')}}"></script>
 <script src="{{ asset('template/unicat/js/custom.js')}}"></script>
 @yield('script')

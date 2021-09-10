@@ -17,13 +17,11 @@ use App\Http\Livewire\Members; //Load class Members
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
+Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
+Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageController@kategori');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
-    // Route::get('/dashboard', function() {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
     // kebutuhan tampilan
     Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');
 
