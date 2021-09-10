@@ -4,14 +4,14 @@
         <div class="card-body">
           <div class="d-flex">
             <p class="d-flex flex-column">
-              <span class="text-bold text-lg">820</span>
+              <span class="text-bold text-lg">{{ DbCikara::chartDashboard('jumlahkunjungan') }}</span>
               <span>Kunjungan per hari</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> 12.5%
+                <i class="far fa-calendar-alt"></i>
               </span>
-              <span class="text-muted">Sejak Minggu Lalu</span>
+              <span class="text-muted">{{ bulan_indo() }}</span>
             </p>
           </div>
           <!-- /.d-flex -->

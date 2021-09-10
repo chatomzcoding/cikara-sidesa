@@ -31,9 +31,10 @@ Route::get('/example',[Example::class, 'render'])->name('example');
 // Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-    Route::get('/dashboard', function() {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
+    // Route::get('/dashboard', function() {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
     // kebutuhan tampilan
     Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');

@@ -135,7 +135,7 @@
 
         series: [{
           name: 'Kunjungan',
-          data: [34, 55, 23, 80, 120, 100, 98, 130]
+          data: [{{ DbCikara::chartDashboard('kunjungan') }}]
         }],
 
         responsive: {

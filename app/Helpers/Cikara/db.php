@@ -4,6 +4,7 @@ namespace App\Helpers\Cikara;
 use App\Models\Daftarakun;
 use App\Models\Daftarakunpembantu;
 use App\Models\Jurnalakun;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -60,5 +61,40 @@ class DbCikara {
     {
         $data = DB::table($table)->where('id',$id)->first();
         return $data;
+    }
+
+    // untuk dashboard
+
+    public static function chartDashboard($sesi,$bulan=null,$tahun=null)
+    {
+        if (is_null($bulan)) {
+            $bulan  = ambil_bulan();
+        }
+        if (is_null($tahun)) {
+            $tahun = ambil_tahun();
+        }
+        switch ($sesi) {
+            case 'kunjungan':
+                $result = NULL;
+                for ($i=1; $i <= ambil_tgl(); $i++) { 
+                    $tanggal    = $tahun.'-'.$bulan.'-'.$i;
+                    $jumlah    = Visitor::whereDate('created_at',$tanggal)->sum('hits');
+                    if ($jumlah) {
+                        $result .= $jumlah.',';
+                    } else {
+                        $result .= '0,';
+                    }
+                }
+                $result = trim($result,',');
+                break;
+            case 'jumlahkunjungan':
+                $result = Visitor::sum('hits');
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $result;
     }
 }
