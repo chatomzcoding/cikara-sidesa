@@ -22,6 +22,19 @@ class HomepageController extends Controller
         return view('homepage.index', compact('slider','galeri'));
     }
 
+    public function halaman($sesi)
+    {
+        switch ($sesi) {
+            case 'profil':
+                return view('homepage.profil');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
     public function artikel()
     {
         $artikel    = Artikel::all();
