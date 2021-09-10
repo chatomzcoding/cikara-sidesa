@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class HomepageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('visitorhits');
+    }
+    
     public function index()
     {
         $slider     = Slider::where('status','aktif')->get();
