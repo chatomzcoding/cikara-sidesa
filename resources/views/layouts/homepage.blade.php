@@ -1,7 +1,13 @@
+@php
+	$info = App\Models\Infowebsite::first(); 
+	$desa = App\Models\Profil::first();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>@yield('title')</title>
+<link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Unicat project">
@@ -13,6 +19,8 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('template/unicat/plugins/OwlCarousel2-2.2.1/animate.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('template/unicat/styles/main_styles.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('template/unicat/styles/responsive.css')}}">
+
+@yield('head')
 </head>
 <body>
 
@@ -30,18 +38,18 @@
 						<div class="col">
 							<div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
 								<ul class="top_bar_contact_list">
-									<li><div class="question">Have any questions?</div></li>
+									<li><div class="question">Kontak Kami</div></li>
 									<li>
 										<i class="fa fa-phone" aria-hidden="true"></i>
-										<div>001-1234-88888</div>
+										<div>{{ $info->telp }}</div>
 									</li>
 									<li>
 										<i class="fa fa-envelope-o" aria-hidden="true"></i>
-										<div>info.deercreative@gmail.com</div>
+										<div>{{ $info->email }}</div>
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="#">Register or Login</a></div>
+									<div class="login_button"><a href="{{ url('login') }}">Login</a></div>
 								</div>
 							</div>
 						</div>
@@ -58,23 +66,22 @@
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
 								<a href="#">
-									<div class="logo_text">Unic<span>at</span></div>
+									<div class="logo_text">Jantung<span>Desa</span></div>
 								</a>
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li class="active"><a href="#">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="courses.html">Courses</a></li>
-									<li><a href="blog.html">Blog</a></li>
-									<li><a href="#">Page</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li class="active"><a href="{{ url('/') }}">Beranda</a></li>
+									<li><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+									{{-- <li><a href="courses.html">Courses</a></li> --}}
+									<li><a href="{{ url('halaman/berita') }}">Berita</a></li>
+									<li><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
 								<!-- Hamburger -->
 
-								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+								{{-- <div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div> --}}
 								<div class="hamburger menu_mm">
 									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
 								</div>
@@ -149,18 +156,20 @@
 								<div class="footer_section footer_about">
 									<div class="footer_logo_container">
 										<a href="#">
-											<div class="footer_logo_text">Unic<span>at</span></div>
+											<div class="footer_logo_text">Jantung<span>Desa</span></div>
 										</a>
 									</div>
 									<div class="footer_about_text">
-										<p>Lorem ipsum dolor sit ametium, consectetur adipiscing elit.</p>
+										<p>Desa {{ ucwords($desa->nama_desa) }} <br>
+											{{ $info->tentang }}
+										</p>
 									</div>
 									<div class="footer_social">
 										<ul>
-											<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-											<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-											<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-											<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+											<li><a href="{{ $info->link_fb }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+											{{-- <li><a href="{{ $info->link_fb }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> --}}
+											<li><a href="{{ $info->link_ig }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+											<li><a href="{{ $info->link_tw }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
 										</ul>
 									</div>
 								</div>
@@ -171,12 +180,12 @@
 					
 								<!-- Footer Contact -->
 								<div class="footer_section footer_contact">
-									<div class="footer_title">Contact Us</div>
+									<div class="footer_title">Kontak Kami</div>
 									<div class="footer_contact_info">
 										<ul>
-											<li>Email: Info.deercreative@gmail.com</li>
-											<li>Phone:  +(88) 111 555 666</li>
-											<li>40 Baria Sreet 133/2 New York City, United States</li>
+											<li>Email: {{ $info->email }}</li>
+											<li>Telepon: {{ $info->telp }}</li>
+											<li>{{ $info->alamat }}</li>
 										</ul>
 									</div>
 								</div>
@@ -187,17 +196,17 @@
 					
 								<!-- Footer links -->
 								<div class="footer_section footer_links">
-									<div class="footer_title">Contact Us</div>
+									<div class="footer_title">Link Menu</div>
 									<div class="footer_links_container">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About</a></li>
-											<li><a href="contact.html">Contact</a></li>
-											<li><a href="#">Features</a></li>
-											<li><a href="courses.html">Courses</a></li>
-											<li><a href="#">Events</a></li>
-											<li><a href="#">Gallery</a></li>
-											<li><a href="#">FAQs</a></li>
+											<li><a href="{{ url('/') }}">Beranda</a></li>
+											<li><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+											<li><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
+											{{-- <li><a href="#">Features</a></li> --}}
+											{{-- <li><a href="courses.html">Courses</a></li> --}}
+											{{-- <li><a href="#">Events</a></li> --}}
+											{{-- <li><a href="#">Gallery</a></li> --}}
+											{{-- <li><a href="#">FAQs</a></li> --}}
 										</ul>
 									</div>
 								</div>
@@ -254,5 +263,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('template/unicat/plugins/easing/easing.js')}}"></script>
 <script src="{{ asset('template/unicat/plugins/parallax-js-master/parallax.min.js')}}"></script>
 <script src="{{ asset('template/unicat/js/custom.js')}}"></script>
+@yield('script')
 </body>
 </html>

@@ -14,7 +14,9 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
+// homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
+Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');

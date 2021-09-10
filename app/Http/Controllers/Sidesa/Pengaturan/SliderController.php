@@ -14,7 +14,7 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $folder   = 'img/pengaturan/slider';
+    protected $folder   = 'public/img/pengaturan/slider';
     protected $table    = 'Slider';
 
     public function __construct()
