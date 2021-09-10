@@ -14,21 +14,7 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/','App\Http\Controllers\HomepageController@index');
-
-// PENGUJIAN
-Route::get('/pengujian','App\Http\Controllers\Cikara\PengujianController@index');
-
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
-// PERCOBAAN LIVEWIRE
-Route::get('/example',[Example::class, 'render'])->name('example');
-// Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
@@ -86,6 +72,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('bantuan/tambahpeserta/{bantuan}', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController@tambahpeserta');
     
     // ADMIN SETTING
+    Route::resource('datapokok', 'App\Http\Controllers\Admin\InfowebsiteController');
     Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
     Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
     Route::resource('kategoriartikel', 'App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController');
