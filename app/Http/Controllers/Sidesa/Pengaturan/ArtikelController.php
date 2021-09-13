@@ -19,7 +19,7 @@ class ArtikelController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $folder = 'img/pengaturan/artikel';
+    protected $folder = 'public/img/pengaturan/artikel';
 
     public function index()
     {

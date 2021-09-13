@@ -17,7 +17,7 @@ class GaleriController extends Controller
      */
 
     protected $table = 'galeri';
-    protected $folder = 'img/pengaturan/galeri';
+    protected $folder = 'public/img/pengaturan/galeri';
 
     public function index()
     {
