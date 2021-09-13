@@ -50,6 +50,12 @@
           <p>Pemerintahan Desa</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/potensi')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-building nav-icon"></i>
+          <p>Potensi Desa</p>
+        </a>
+      </li>
     </ul>
 </li>
 <li class="nav-item">

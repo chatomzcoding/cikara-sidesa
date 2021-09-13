@@ -9,8 +9,8 @@
     <!-- Home -->
 	@if (count($slider) > 0)
 	<div class="home">
+
 			<div class="home_slider_container">
-				
 				<!-- Home Slider -->
 				<div class="owl-carousel owl-theme home_slider">
 					
@@ -23,7 +23,7 @@
 									<div class="row">
 										<div class="col text-center">
 											<div class="home_slider_title text-white">{{ $item->nama_slider }}</div>
-											<div class="home_slider_subtitle">Future Of Education Technology</div>
+											{{-- <div class="home_slider_subtitle">Future Of Education Technology</div> --}}
 											{{-- <div class="home_slider_form_container">
 												<form action="#" id="home_search_form_1" class="home_search_form d-flex flex-lg-row flex-column align-items-center justify-content-between">
 													<div class="d-flex flex-row align-items-center justify-content-start">
@@ -81,8 +81,8 @@
 				<div class="col-lg-3 feature_col">
 					<div class="feature text-center trans_400">
 						<div class="feature_icon"><img src="{{ asset('template/unicat/images/icon_1.png')}}" alt=""></div>
-						<h3 class="feature_title">The Experts</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
+						<h3 class="feature_title">Layanan Mandiri</h3>
+						<div class="feature_text"><p>Pembuatan Surat, Lapor Penduduk</p></div>
 					</div>
 				</div>
 
@@ -90,8 +90,8 @@
 				<div class="col-lg-3 feature_col">
 					<div class="feature text-center trans_400">
 						<div class="feature_icon"><img src="{{ asset('template/unicat/images/icon_2.png')}}" alt=""></div>
-						<h3 class="feature_title">Book & Library</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
+						<h3 class="feature_title">Berita dan Info Desa</h3>
+						<div class="feature_text"><p>Memberikan informasi terkait berita dan info desa</p></div>
 					</div>
 				</div>
 
@@ -99,8 +99,8 @@
 				<div class="col-lg-3 feature_col">
 					<div class="feature text-center trans_400">
 						<div class="feature_icon"><img src="{{ asset('template/unicat/images/icon_3.png')}}" alt=""></div>
-						<h3 class="feature_title">Best Courses</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
+						<h3 class="feature_title">Sistematik Desa</h3>
+						<div class="feature_text"><p>Memberikan akses kepada penduduk ke layanan desa</p></div>
 					</div>
 				</div>
 
@@ -108,8 +108,8 @@
 				<div class="col-lg-3 feature_col">
 					<div class="feature text-center trans_400">
 						<div class="feature_icon"><img src="{{ asset('template/unicat/images/icon_4.png')}}" alt=""></div>
-						<h3 class="feature_title">Award & Reward</h3>
-						<div class="feature_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p></div>
+						<h3 class="feature_title">Ekonomi Desa</h3>
+						<div class="feature_text"><p>Memberikan pelayanan untuk perekonomian Desa</p></div>
 					</div>
 				</div>
 
@@ -125,98 +125,45 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title_container text-center">
-						<h2 class="section_title">Info Desa</h2>
-						<div class="section_subtitle text-capitalize"><p>Info Seputar mengenai Desa {{ $infodesa->nama_desa }}</p></div>
+						<h2 class="section_title">Potensi Desa</h2>
+						<div class="section_subtitle text-capitalize"><p>Info Seputar mengenai Potensi Desa {{ $infodesa->nama_desa }}</p></div>
 					</div>
 				</div>
 			</div>
 			<div class="row courses_row">
 				
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('template/unicat/images/course_1.jpg')}}" alt=""></div>
-						<div class="course_body">
-							<h3 class="course_title"><a href="course.html">Software Training</a></h3>
-							<div class="course_teacher">Mr. John Taylor</div>
-							<div class="course_text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
+				@foreach ($potensi as $item)
+					<!-- Course -->
+					<div class="col-lg-4 course_col">
+						<div class="course">
+							<div class="course_image"><img src="{{ asset('img/desa/potensi/'.$item->poto_potensi)}}" alt=""></div>
+							<div class="course_body">
+								<h3 class="course_title"><a href="{{ url('desa/potensi/'.Crypt::encryptString($item->id)) }}">{{ $item->nama_potensi }}</a></h3>
+								{{-- <div class="course_teacher">Mr. John Taylor</div> --}}
+								<div class="course_text">
+									<p>{{ $item->keterangan_potensi }}</p>
+								</div>
 							</div>
-						</div>
-						<div class="course_footer">
-							<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-								<div class="course_info">
-									<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-									<span>20 Student</span>
+							<div class="course_footer">
+								<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+									<div class="course_info">
+										<i class="fa fa-clone" aria-hidden="true"></i>
+										<span>{{ DbCikara::countData('potensi_sub',['potensi_id',$item->id]) }} Sub Potensi</span>
+									</div>
+									<div class="course_info">
+										<i class="fa fa-eye" aria-hidden="true"></i>
+										<span>{{ $item->dilihat }} Dilihat</span>
+									</div>
+									<div class="course_price ml-auto"><a href="{{ url('desa/potensi/'.Crypt::encryptString($item->id)) }}">Detail</a></div>
 								</div>
-								<div class="course_info">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<span>5 Ratings</span>
-								</div>
-								<div class="course_price ml-auto">$130</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('template/unicat/images/course_2.jpg')}}" alt=""></div>
-						<div class="course_body">
-							<h3 class="course_title"><a href="course.html">Developing Mobile Apps</a></h3>
-							<div class="course_teacher">Ms. Lucius</div>
-							<div class="course_text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-							</div>
-						</div>
-						<div class="course_footer">
-							<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-								<div class="course_info">
-									<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-									<span>20 Student</span>
-								</div>
-								<div class="course_info">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<span>5 Ratings</span>
-								</div>
-								<div class="course_price ml-auto">Free</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('template/unicat/images/course_3.jpg')}}" alt=""></div>
-						<div class="course_body">
-							<h3 class="course_title"><a href="course.html">Starting a Startup</a></h3>
-							<div class="course_teacher">Mr. Charles</div>
-							<div class="course_text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-							</div>
-						</div>
-						<div class="course_footer">
-							<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-								<div class="course_info">
-									<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-									<span>20 Student</span>
-								</div>
-								<div class="course_info">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<span>5 Ratings</span>
-								</div>
-								<div class="course_price ml-auto"><span>$320</span>$220</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
+				@endforeach
 			</div>
 			<div class="row">
 				<div class="col">
-					<div class="courses_button trans_200"><a href="#">view all courses</a></div>
+					<div class="courses_button trans_200"><a href="#">Potensi Lainnya</a></div>
 				</div>
 			</div>
 		</div>

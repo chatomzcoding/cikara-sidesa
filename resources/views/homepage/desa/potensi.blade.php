@@ -17,8 +17,8 @@
                 <div class="col">
                     <div class="breadcrumbs">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li>About</li>
+                            <li><a href="{{ url('/') }}">Beranda</a></li>
+                            <li>Potensi Desa bidang {{ $potensi->nama_potensi }}</li>
                         </ul>
                     </div>
                 </div>
@@ -34,53 +34,36 @@
         <div class="row">
             <div class="col">
                 <div class="section_title_container text-center">
-                    <h2 class="section_title">Welcome To Unicat E-Learning</h2>
-                    <div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu Vestibulum</p></div>
+                    <h2 class="section_title">Potensi Desa - {{ $potensi->nama_potensi }}</h2>
+                    <div class="section_subtitle"><p>{{ $potensi->keterangan_potensi }}</p></div>
                 </div>
             </div>
         </div>
         <div class="row about_row">
             
             <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_left">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('template/unicat/images/about_1.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Our Stories</a></div>
-                    <div class="about_item_text">
-                        <p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
+            @forelse ($sub as $item)
+                <div class="col-lg-4 about_col about_col_left">
+                    <div class="about_item">
+                        <div class="about_item_image"><img src="{{ asset('img/desa/potensi/'.$item->gambar)}}" alt=""></div>
+                        <div class="about_item_title"><a href="#">{{ $item->nama }}</a></div>
+                        <div class="about_item_text">
+                            <p>{{ $item->detail }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_middle">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('template/unicat/images/about_2.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Our Mission</a></div>
-                    <div class="about_item_text">
-                        <p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
-                    </div>
+            @empty
+                <div class="col text-center">
+                    <p>-- belum ada data --</p>
                 </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_right">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('template/unicat/images/about_3.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Our Vision</a></div>
-                    <div class="about_item_text">
-                        <p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
-                    </div>
-                </div>
-            </div>
-
+            @endforelse
         </div>
     </div>
 </div>
 
 <!-- Feature -->
 
-<div class="feature">
+{{-- <div class="feature">
     <div class="feature_background" style="background-image:url({{ asset('template/unicat/images/courses_background.jpg')}})"></div>
     <div class="container">
         <div class="row">
@@ -147,11 +130,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- Team -->
 
-<div class="team">
+{{-- <div class="team">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -237,11 +220,11 @@
 
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- Counter -->
 
-<div class="counter">
+{{-- <div class="counter">
     <div class="counter_background" style="background-image:url({{ asset('template/unicat/images/counter_background.jpg')}})"></div>
     <div class="container">
         <div class="row">
@@ -305,11 +288,11 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 
 <!-- Partners -->
 
-<div class="partners">
+{{-- <div class="partners">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -339,7 +322,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 

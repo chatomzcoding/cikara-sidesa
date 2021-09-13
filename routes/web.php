@@ -17,6 +17,7 @@ use App\Http\Livewire\Members; //Load class Members
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
+Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');
 Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
 Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageController@kategori');
 
@@ -41,6 +42,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('dusun', 'App\Http\Controllers\Sidesa\Desa\DusunController');
     Route::resource('rw', 'App\Http\Controllers\Sidesa\Desa\RwController');
     Route::resource('rt', 'App\Http\Controllers\Sidesa\Desa\RtController');
+    Route::resource('potensi', 'App\Http\Controllers\Sidesa\Desa\PotensiController');
+    Route::resource('potensisub', 'App\Http\Controllers\Sidesa\Desa\PotensisubController');
     
     // KEPENDUDUKAN
     Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');

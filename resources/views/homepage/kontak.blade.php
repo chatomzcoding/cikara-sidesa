@@ -10,7 +10,7 @@
 @endsection
 
 @section('container')
-<div class="home">
+<div class="home" style="margin-top: 20px">
     <div class="breadcrumbs_container">
         <div class="container">
             <div class="row">

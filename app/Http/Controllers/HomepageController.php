@@ -6,6 +6,8 @@ use App\Models\Artikel;
 use App\Models\Galeri;
 use App\Models\Infowebsite;
 use App\Models\Kategoriartikel;
+use App\Models\Potensi;
+use App\Models\Potensisub;
 use App\Models\Profil;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -24,6 +26,7 @@ class HomepageController extends Controller
         $galeri     = Galeri::where('status','aktif')->limit(6)->get();
         $menu       = 'beranda';
         $infodesa   = Profil::first();
+        $potensi    = Potensi::limit(3)->get();
         $info       = Infowebsite::first();
         $beritaterbaru  = Artikel::orderBy('id','DESC')->first();
         $listberita     = Artikel::where('id','<>',$beritaterbaru->id)->limit(4)->get();
@@ -31,7 +34,20 @@ class HomepageController extends Controller
             'terbaru' => $beritaterbaru,
             'list' => $listberita
         ];
-        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita'));
+        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi'));
+    }
+
+    public function potensi($id)
+    {
+        $potensi    = Potensi::find(Crypt::decryptString($id));
+        $sub        = Potensisub::where('potensi_id',$potensi->id)->get();
+        $menu       = 'profil';
+        // tambahkan view
+        $dilihat    = $potensi->dilihat + 1;
+        Potensi::where('id',$potensi->id)->update([
+            'dilihat' => $dilihat
+        ]);
+        return view('homepage.desa.potensi', compact('potensi','sub','menu'));
     }
 
     public function halaman($sesi)

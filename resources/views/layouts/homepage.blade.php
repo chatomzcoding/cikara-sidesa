@@ -95,10 +95,7 @@
 									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
 								</div>
 							</nav>
-
 						</div>
-					</div>
-					<div class="col-md-12">
 						<marquee direction="left">Telah ditemukan beberapa varian baru covid 19 di desa gunung tanjung kecamatan selaawi kabupaten garut</marquee> 
 					</div>
 				</div>
