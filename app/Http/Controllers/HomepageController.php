@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use App\Models\Galeri;
 use App\Models\Infowebsite;
+use App\Models\Kategori;
 use App\Models\Kategoriartikel;
+use App\Models\Lapor;
 use App\Models\Potensi;
 use App\Models\Potensisub;
 use App\Models\Profil;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class HomepageController extends Controller
@@ -26,6 +29,7 @@ class HomepageController extends Controller
         $galeri     = Galeri::where('status','aktif')->limit(6)->get();
         $menu       = 'beranda';
         $infodesa   = Profil::first();
+        $kategori   = Kategori::where('label','lapor')->get();
         $potensi    = Potensi::limit(3)->get();
         $info       = Infowebsite::first();
         $beritaterbaru  = Artikel::orderBy('id','DESC')->first();
@@ -34,7 +38,11 @@ class HomepageController extends Controller
             'terbaru' => $beritaterbaru,
             'list' => $listberita
         ];
-        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi'));
+        $user       = NULL;
+        if (isset(Auth::user()->id)) {
+            $user = Auth::user();
+        }
+        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi','user','kategori'));
     }
 
     public function potensi($id)
@@ -111,5 +119,17 @@ class HomepageController extends Controller
         ]);
         $kategori   = Kategoriartikel::all();
         return view('homepage.artikel.show', compact('artikel','kategori'));
+    }
+
+    public function proseslapor(Request $request)
+    {
+        Lapor::create([
+            'user_id' => $request->user_id,
+            'isi' => $request->isi,
+            'kategori' => $request->kategori,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('ds','Laporan');
     }
 }

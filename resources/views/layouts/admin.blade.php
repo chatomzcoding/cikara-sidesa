@@ -72,7 +72,7 @@
         <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Depan</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('member') }}" class="nav-link">Statistik Data</a>
+        <a href="#" class="nav-link">Statistik Data</a>
       </li>
     </ul>
 
@@ -205,7 +205,11 @@
           <img src="{{ asset('template/admin/lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
+          @if ($user->level == 'penduduk')
+            <a href="#" class="d-block text-capitalize">{{ DbCikara::showtablefirst('penduduk',['nik',$user->name])->nama_penduduk}}</a>
+          @else
+            <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
+          @endif
         </div>
       </div>
 

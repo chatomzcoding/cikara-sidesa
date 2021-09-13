@@ -49,7 +49,11 @@
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{ url('login') }}">Login</a></div>
+									@if (isset(Auth::user()->id))
+										<div class="login_button"><a href="{{ route('dashboard') }}">Dashboard</a></div>
+									@else
+										<div class="login_button"><a href="{{ url('login') }}">Login</a></div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -135,12 +139,10 @@
 		</div>
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-				<li class="menu_mm"><a href="index.html">Home</a></li>
-				<li class="menu_mm"><a href="#">About</a></li>
-				<li class="menu_mm"><a href="#">Courses</a></li>
-				<li class="menu_mm"><a href="#">Blog</a></li>
-				<li class="menu_mm"><a href="#">Page</a></li>
-				<li class="menu_mm"><a href="contact.html">Contact</a></li>
+				<li class="menu_mm"><a href="{{ url('/') }}">Beranda</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/berita') }}">Berita</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
 			</ul>
 		</nav>
 	</div>

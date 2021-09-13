@@ -291,7 +291,7 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{ url('/tampilan/lapor')}}" class="nav-link">
+      <a href="{{ url('/lapor')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Laporan Penduduk</p>
       </a>
@@ -456,6 +456,12 @@
       <a href="{{ url('/datapokok')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Data Pokok</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/user')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        <p>Data User</p>
       </a>
     </li>
     <li class="nav-item">

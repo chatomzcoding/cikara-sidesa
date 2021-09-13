@@ -4,6 +4,8 @@ namespace App\Helpers\Cikara;
 use App\Models\Daftarakun;
 use App\Models\Daftarakunpembantu;
 use App\Models\Jurnalakun;
+use App\Models\Penduduk;
+use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,5 +98,18 @@ class DbCikara {
         }
 
         return $result;
+    }
+
+    // khusus penduduk
+    public static function datapenduduk($input,$sesi='nik')
+    {
+        if ($sesi == 'nik') {
+            $nik    = $input;
+        } else {
+            $user   = User::find($input);
+            $nik    = $user->name;
+        }
+        $penduduk   = Penduduk::select('nama_penduduk')->where('nik',$nik)->first();
+        return $penduduk;
     }
 }

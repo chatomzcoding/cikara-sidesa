@@ -4,11 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Cikara\DbCikara;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $user   = Auth::user();
+        switch ($user->level) {
+            case 'admin':
+                return view('admin.dashboard');
+                break;
+            case 'penduduk':
+                return view('penduduk.dashboard');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         return view('dashboard');
     }
 

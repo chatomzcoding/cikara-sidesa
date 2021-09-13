@@ -219,19 +219,44 @@
 			<div class="counter_form">
 				<div class="row fill_height">
 					<div class="col fill_height">
-						<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
-							<div class="counter_form_title">Form Laporan</div>
-							<input type="text" class="counter_input" placeholder="Nama Lengkap" required="required">
-							<input type="tel" class="counter_input" placeholder="Telepon" required="required">
-							<select name="counter_select" id="counter_select" class="counter_input counter_options">
-								<option>-- Pilih Kategori Laporan --</option>
-								<option>Keamanan</option>
-								<option>Kesehatan</option>
-								<option>Kesejahteraan</option>
-							</select>
-							<textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
-							<button type="submit" class="counter_form_button">Kirim Laporan</button>
-						</form>
+						@if (is_null($user))
+							<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
+								<div class="counter_form_title">Form Lapor</div>
+								<input type="text" class="counter_input" placeholder="Nama Lengkap" required="required">
+								<input type="tel" class="counter_input" placeholder="Telepon" required="required">
+								<select name="counter_select" id="counter_select" class="counter_input counter_options">
+									<option>-- Pilih Kategori Laporan --</option>
+									<option>Keamanan</option>
+									<option>Kesehatan</option>
+									<option>Kesejahteraan</option>
+								</select>
+								<textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
+								{{-- <button type="submit" class="counter_form_button">Kirim Laporan</button> --}}
+								<div class="alert alert-info">
+									Silahkan login untuk melakukan laporan, untuk proses identifikasi laporan yang masuk
+								</div>
+							</form>
+						@else
+							@php
+								$penduduk = DbCikara::datapenduduk($user->name);
+							@endphp
+							<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="{{ url('proseslapor') }}" method="post">
+								@csrf
+								<input type="hidden" name="user_id" value="{{ $user->id }}">
+								<input type="hidden" name="status" value="menunggu">
+								<div class="counter_form_title">Form Lapor</div>
+								<input type="text" class="counter_input" value="{{ $penduduk->nama_penduduk }}" placeholder="Nama Lengkap" disabled>
+								<input type="tel" class="counter_input" value="{{ $penduduk->no_telp }}" placeholder="Telepon" disabled>
+								<select name="kategori" id="kategori" class="counter_input counter_options" required>
+									<option value="">-- Pilih Kategori Laporan --</option>
+									@foreach ($kategori as $item)
+										<option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+									@endforeach
+								</select>
+								<textarea class="counter_input counter_text_input" name="isi" placeholder="Ketikkan laporan disini" required="required"></textarea>
+								<button type="submit" class="counter_form_button">Kirim Laporan</button>
+							</form>
+						@endif
 					</div>
 				</div>
 			</div>
