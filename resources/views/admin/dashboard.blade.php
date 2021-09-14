@@ -31,8 +31,8 @@
                   <div class="info-box-content">
                     <span class="info-box-text">Wilayah Dusun</span>
                     <span class="info-box-number">
-                      3
-                      {{-- {{ DbCikara::countData('dusun')}} --}}
+                      
+                      {{ DbCikara::countData('dusun')}}
                       {{-- <small>%</small> --}}
                     </span>
                   </div>
@@ -47,8 +47,7 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Penduduk</span>
-                    980
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('penduduk')}}</span> --}}
+                    <span class="info-box-number">{{ DbCikara::countData('penduduk')}}</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -65,8 +64,7 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Keluarga</span>
-                    450
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('keluarga')}}</span> --}}
+                    <span class="info-box-number">{{ DbCikara::countData('keluarga')}}</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -79,8 +77,7 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Bantuan</span>
-                    5
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('bantuan')}}</span> --}}
+                    <span class="info-box-number">{{ DbCikara::countData('bantuan')}}</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -89,7 +86,7 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
-            @include('chart')
+            @include('admin.chart')
           </div>
         </section>
     @endsection
@@ -99,7 +96,7 @@
     <script>
       Highcharts.chart('visitors', {
         title: {
-          text: 'Penduduk Online per - hari'
+          text: 'Kunjungan Website per - hari'
         },
 
         subtitle: {
@@ -192,7 +189,7 @@
 
         series: [{
           name: 'laporan',
-          data: [2, 5, 0, 3, 3, 7, 10, 23]
+          data: [{{ DbCikara::chartDashboard('laporan') }}]
         }],
 
         responsive: {
@@ -284,20 +281,19 @@
           },
           series: [{
             name: 'Laporan',
-            color : ['green','orange','grey'],
             data: [
               {
-                y : 120,
+                y : {{ DbCikara::countData('lapor',['status','selesai']) }},
                 color : 'green'
               },
               {
-                y : 140,
+                y : {{ DbCikara::countData('lapor',['status','proses']) }},
                 color : 'orange'
               }
               ,
               {
-                y : 10,
-                color : 'grey'
+                y : {{ DbCikara::countData('lapor',['status','menunggu']) }},
+                color : 'red'
               }
               ]
           }]

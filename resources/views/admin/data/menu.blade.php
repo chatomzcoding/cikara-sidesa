@@ -303,7 +303,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/forum')}}" class="nav-link">
+      <a href="{{ url('/forum')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Forum</p>
       </a>
@@ -315,7 +315,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/surat')}}" class="nav-link">
+      <a href="{{ url('/suratpenduduk')}}" class="nav-link">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Surat</p>
       </a>

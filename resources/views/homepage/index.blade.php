@@ -186,27 +186,27 @@
 							
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="76">0</div>
+								<div class="milestone_counter" data-end-value="{{ DbCikara::countData('lapor') }}">0</div>
 								<div class="milestone_text">Laporan</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
 								{{-- <div class="milestone_counter" data-end-value="120" data-sign-after="k">0</div> --}}
-								<div class="milestone_counter" data-end-value="4">0</div>
+								<div class="milestone_counter" data-end-value="{{ DbCikara::countData('lapor',['status','proses']) }}">0</div>
 								<div class="milestone_text">Diproses</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
 								{{-- <div class="milestone_counter" data-end-value="670" data-sign-after="+">0</div> --}}
-								<div class="milestone_counter" data-end-value="2">0</div>
+								<div class="milestone_counter" data-end-value="{{ DbCikara::countData('lapor',['status','menunggu']) }}">0</div>
 								<div class="milestone_text">Tahap Konfirmasi</div>
 							</div>
 
 							<!-- Milestone -->
 							<div class="milestone">
-								<div class="milestone_counter" data-end-value="70">0</div>
+								<div class="milestone_counter" data-end-value="{{ DbCikara::countData('lapor',['status','selesai']) }}">0</div>
 								<div class="milestone_text">Selesai</div>
 							</div>
 
@@ -226,14 +226,14 @@
 								<input type="tel" class="counter_input" placeholder="Telepon" required="required">
 								<select name="counter_select" id="counter_select" class="counter_input counter_options">
 									<option>-- Pilih Kategori Laporan --</option>
-									<option>Keamanan</option>
-									<option>Kesehatan</option>
-									<option>Kesejahteraan</option>
+									@foreach ($kategori as $item)
+										<option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+									@endforeach
 								</select>
 								<textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
 								{{-- <button type="submit" class="counter_form_button">Kirim Laporan</button> --}}
 								<div class="alert alert-info">
-									Silahkan login untuk melakukan laporan, untuk proses identifikasi laporan yang masuk
+									Silahkan login untuk melakukan laporan, untuk proses identifikasi laporan yang masuk. <a href="{{ url('login') }}">LOGIN DISINI</a>
 								</div>
 							</form>
 						@else
@@ -290,12 +290,12 @@
 								</div>
 							</div>
 							<div class="event_content">
-								<div class="event_title"><a href="#">Which Country Handles Student Debt?</a></div>
+								<div class="event_title"><a href="#">Seminar Anak Indonesia</a></div>
 								<div class="event_info_container">
 									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15.00 - 19.30</span></div>
 									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 New York City</span></div>
 									<div class="event_text">
-										<p>Policy analysts generally agree on a need for reform, but not on which path...</p>
+										<p>Banyaknya potensi akan sumber daya manusia menjadi kan hal penting...</p>
 									</div>
 								</div>
 							</div>
@@ -315,12 +315,12 @@
 								</div>
 							</div>
 							<div class="event_content">
-								<div class="event_title"><a href="#">Repaying your student loans (Winter 2017-2018)</a></div>
+								<div class="event_title"><a href="#">Pelatihan Pengurus BUMDes</a></div>
 								<div class="event_info_container">
 									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>09.00 - 17.30</span></div>
 									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 Brooklyn City</span></div>
 									<div class="event_text">
-										<p>This Consumer Action News issue covers topics now being debated before...</p>
+										<p>BUMDes menjadi wadah untuk meningkatkan perekonomian desa...</p>
 									</div>
 								</div>
 							</div>
@@ -340,12 +340,12 @@
 								</div>
 							</div>
 							<div class="event_content">
-								<div class="event_title"><a href="#">Alternative data and financial inclusion</a></div>
+								<div class="event_title"><a href="#">Sekolah mulai diaktifkan kembali</a></div>
 								<div class="event_info_container">
 									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>13.00 - 18.30</span></div>
 									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 New York City</span></div>
 									<div class="event_text">
-										<p>Policy analysts generally agree on a need for reform, but not on which path...</p>
+										<p>Masa pandemi merupakan hal yang begitu menyulitkan bagi para pelajar...</p>
 									</div>
 								</div>
 							</div>
@@ -377,8 +377,8 @@
 					<div class="team_item">
 						<div class="team_image"><img src="{{ asset('template/unicat/images/team_1.jpg')}}" alt=""></div>
 						<div class="team_body">
-							<div class="team_title"><a href="#">Jacke Masito</a></div>
-							<div class="team_subtitle">Marketing & Management</div>
+							<div class="team_title"><a href="#">Teteh Aidah</a></div>
+							<div class="team_subtitle">Kepala Desa</div>
 							<div class="social_list">
 								<ul>
 									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -395,8 +395,8 @@
 					<div class="team_item">
 						<div class="team_image"><img src="{{ asset('template/unicat/images/team_2.jpg')}}" alt=""></div>
 						<div class="team_body">
-							<div class="team_title"><a href="#">William James</a></div>
-							<div class="team_subtitle">Designer & Website</div>
+							<div class="team_title"><a href="#">Asep Saefulloh</a></div>
+							<div class="team_subtitle">Sekretaris Desa</div>
 							<div class="social_list">
 								<ul>
 									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -413,8 +413,8 @@
 					<div class="team_item">
 						<div class="team_image"><img src="{{ asset('template/unicat/images/team_3.jpg')}}" alt=""></div>
 						<div class="team_body">
-							<div class="team_title"><a href="#">John Tyler</a></div>
-							<div class="team_subtitle">Quantum mechanics</div>
+							<div class="team_title"><a href="#">Didin Mahyudin</a></div>
+							<div class="team_subtitle">Bendahara Desa</div>
 							<div class="social_list">
 								<ul>
 									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -431,8 +431,8 @@
 					<div class="team_item">
 						<div class="team_image"><img src="{{ asset('template/unicat/images/team_4.jpg')}}" alt=""></div>
 						<div class="team_body">
-							<div class="team_title"><a href="#">Veronica Vahn</a></div>
-							<div class="team_subtitle">Math & Physics</div>
+							<div class="team_title"><a href="#">Mila Melani</a></div>
+							<div class="team_subtitle">Kaur Pemerintahan</div>
 							<div class="social_list">
 								<ul>
 									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>

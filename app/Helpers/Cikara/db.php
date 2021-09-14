@@ -4,6 +4,7 @@ namespace App\Helpers\Cikara;
 use App\Models\Daftarakun;
 use App\Models\Daftarakunpembantu;
 use App\Models\Jurnalakun;
+use App\Models\Lapor;
 use App\Models\Penduduk;
 use App\Models\User;
 use App\Models\Visitor;
@@ -81,6 +82,19 @@ class DbCikara {
                 for ($i=1; $i <= ambil_tgl(); $i++) { 
                     $tanggal    = $tahun.'-'.$bulan.'-'.$i;
                     $jumlah    = Visitor::whereDate('created_at',$tanggal)->sum('hits');
+                    if ($jumlah) {
+                        $result .= $jumlah.',';
+                    } else {
+                        $result .= '0,';
+                    }
+                }
+                $result = trim($result,',');
+                break;
+            case 'laporan':
+                $result = NULL;
+                for ($i=1; $i <= ambil_tgl(); $i++) { 
+                    $tanggal    = $tahun.'-'.$bulan.'-'.$i;
+                    $jumlah    = Lapor::whereDate('created_at',$tanggal)->count();
                     if ($jumlah) {
                         $result .= $jumlah.',';
                     } else {

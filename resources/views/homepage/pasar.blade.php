@@ -1,7 +1,7 @@
 @extends('layouts.homepage')
 
 @section('title')
-    Profil Desa
+    Pasar Desa
 @endsection
 
 @section('head')
@@ -18,7 +18,7 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li><a href="{{ url('/') }}">Beranda</a></li>
-                            <li>Profil Desa</li>
+                            <li>Pasar Desa</li>
                         </ul>
                     </div>
                 </div>
@@ -34,52 +34,33 @@
         <div class="row">
             <div class="col">
                 <div class="section_title_container text-center">
-                    <h2 class="section_title">Profil Desa {{ $desa->nama_desa }}</h2>
-                    <div class="section_subtitle"><p>{{ $info->tentang }}</p></div>
+                    <h2 class="section_title">Pasar Desa {{ $desa->nama_desa }}</h2>
+                    <div class="section_subtitle"><p>Produk Produk Masyarakat</p></div>
                 </div>
             </div>
         </div>
         <div class="row about_row">
             
             <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_left">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/sejarah.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Sejarah</a></div>
-                    <div class="about_item_text">
-                        <p>awal berdirinya sebuah desa dan sejarah berdirinya desa.</p>
+            @foreach (data_barang() as $item)
+                <div class="col-md-3 about_col about_col_left">
+                    <div class="about_item">
+                        <div class="about_item_image"><img src="{{ asset('img/'.$item[1])}}" alt=""></div>
+                        <div class="about_item_title text-center"><a href="#">{{ $item[2] }}</a></div>
+                        <div class="about_item_text">
+                            <h4>{{ rupiah($item[3]) }}</h4>
+                            <p>{{ $item[4] }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_middle">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/visi.jpeg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Visi Misi</a></div>
-                    <div class="about_item_text">
-                        <p>Visi Misi desa dimulai dari tujuan adanya pemerintah desa bagi masyarakat.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_right">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/kantordesa.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Kantor Desa</a></div>
-                    <div class="about_item_text">
-                        <p>Kantor desa terletak di sebelah barat kabupaten tasikmalaya.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>
 </div>
 
 <!-- Feature -->
-
+{{-- 
 <div class="feature">
     <div class="feature_background" style="background-image:url({{ asset('template/unicat/images/courses_background.jpg')}})"></div>
     <div class="container">
@@ -122,7 +103,7 @@
             <!-- Feature Video -->
             <div class="col-lg-6 feature_col">
                 <div class="feature_video d-flex flex-column align-items-center justify-content-center">
-                    <div class="feature_video_background" style="background-image:url({{ asset('img/potensi.jpg')}})"></div>
+                    <div class="feature_video_background" style="background-image:url({{ asset('template/unicat/images/video.jpg')}})"></div>
                     <a class="vimeo feature_video_button" href="https://player.vimeo.com/video/99340873?title=0" title="OH, PORTUGAL - IN 4K - Basti Hansen - Stock Footage">
                         <img src="{{ asset('template/unicat/images/play.png')}}" alt="">
                     </a>
@@ -130,9 +111,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="team">
+{{-- <div class="team">
     <div class="team_background parallax-window" data-parallax="scroll" data-image-src="{{ asset('template/unicat/images/team_background.jpg')}}" data-speed="0.8"></div>
     <div class="container">
         <div class="row">
@@ -219,11 +200,11 @@
 
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- Partners -->
 
-<div class="partners">
+{{-- <div class="partners">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -253,7 +234,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 

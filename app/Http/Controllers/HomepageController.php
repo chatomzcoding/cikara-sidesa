@@ -63,7 +63,16 @@ class HomepageController extends Controller
         switch ($sesi) {
             case 'profil':
                 $menu   = 'profil';
-                return view('homepage.profil', compact('menu'));
+                $desa   = Profil::first();
+                $info   = Infowebsite::first();
+                $potensi    = Potensi::all();
+                return view('homepage.profil', compact('menu','desa','info','potensi'));
+                break;
+            case 'pasardesa':
+                $menu   = 'pasar';
+                $desa   = Profil::first();
+                $info   = Infowebsite::first();
+                return view('homepage.pasar', compact('menu','desa','info'));
                 break;
             
             case 'berita':
@@ -119,17 +128,5 @@ class HomepageController extends Controller
         ]);
         $kategori   = Kategoriartikel::all();
         return view('homepage.artikel.show', compact('artikel','kategori'));
-    }
-
-    public function proseslapor(Request $request)
-    {
-        Lapor::create([
-            'user_id' => $request->user_id,
-            'isi' => $request->isi,
-            'kategori' => $request->kategori,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->back()->with('ds','Laporan');
     }
 }

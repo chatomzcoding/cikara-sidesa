@@ -34,7 +34,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Permintaan Masuk</span>
                       <span class="info-box-number">
-                        179
+                        {{ $total['jumlah'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -49,7 +49,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Surat Selesai</span>
-                      <span class="info-box-number">170</span>
+                      <span class="info-box-number">
+                        {{ $total['selesai'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -66,7 +69,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Surat Dalam Proses</span>
-                      <span class="info-box-number">5</span>
+                      <span class="info-box-number">
+                        {{ $total['proses'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -78,8 +84,11 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-triangle"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Surat Gagal</span>
-                      <span class="info-box-number">4</span>
+                      <span class="info-box-text">Menunggu Konfirmasi</span>
+                      <span class="info-box-number">
+                        {{ $total['menunggu'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -110,9 +119,9 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @foreach (data_surat() as $item)
+                            @foreach ($surat as $item)
                                 <tr>
-                                    <td class="text-center">{{ $item[0] }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
                                         {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
@@ -120,11 +129,23 @@
                                         </button> --}}
                                         <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>{{ $item[1] }}</td>
-                                    <td>{{ $item[2] }}</td>
-                                    <td>{{ $item[3] }}</td>
-                                    <td>{{ $item[4] }}</td>
-                                    <td><span class="badge badge-{{ $item[6] }} w-100">{{ $item[5] }}</span></td>
+                                    <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->pesan }}</td>
+                                    <td>
+                                        @switch($item->status)
+                                            @case('selesai')
+                                                <span class="badge badge-success w-100">{{ $item->status }}</span></td>
+                                                @break
+                                            @case('proses')
+                                                <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
+                                                @break
+                                            @case('menunggu')
+                                                <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
+                                                @break
+                                            @default
+                                        @endswitch
                                 </tr>
                             @endforeach
                     </table>

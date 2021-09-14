@@ -77,7 +77,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    {{-- <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Cari NIK" aria-label="Search">
         <div class="input-group-append">
@@ -86,12 +86,12 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> --}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -147,9 +147,9 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -174,12 +174,27 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
-      <li class="nav-item">
+      </li> --}}
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
+      </li> --}}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/') }}" role="button">
+          Halaman Depan
+        </a>
       </li>
+      <li class="nav-item">
+        <form method="POST" action="{{ route('logout') }}">
+         @csrf
+         <a href="{{ route('logout') }}"  class="nav-link"
+                  onclick="event.preventDefault();
+                         this.closest('form').submit();">
+        <i class="nav-icon fas fa-sign-out-alt"></i> Keluar
+      </a>
+      </form>
+  </li>
       {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -251,16 +266,15 @@
                 @include('admin.data.menu')
                 @break
 
-              @case('unit')
-                @include('unit.data.menu')
+              @case('penduduk')
+                @include('penduduk.data.menu')
                   @break
               @default
                   
           @endswitch
-          @if (Auth::user()->level == 'pimpinan')
-          @endif
+         
           <li class="nav-header">SISTEM</li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-question-circle"></i>
               <p>
@@ -282,7 +296,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>

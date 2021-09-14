@@ -82,13 +82,22 @@
 									<li class="@if ($menu == 'profil')
 									active
 								@endif"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+									<li class="@if ($menu == 'pasar')
+									active
+								@endif"><a href="{{ url('halaman/pasardesa') }}">Produk Desa</a></li>
+									<li class="@if ($menu == 'bumdes')
+									active
+								@endif"><a href="{{ url('halaman/bumdes') }}">BUMDesa</a></li>
+									<li class="@if ($menu == 'forum')
+									active
+								@endif"><a href="{{ url('halaman/forum') }}">Forum Desa</a></li>
 									{{-- <li><a href="courses.html">Courses</a></li> --}}
 									<li class="@if ($menu == 'berita')
 									active
 								@endif"><a href="{{ url('halaman/berita') }}">Berita</a></li>
 									<li class="@if ($menu == 'kontak')
 									active
-								@endif"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
+								@endif"><a href="{{ url('halaman/kontak') }}">Kontak</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -141,8 +150,14 @@
 			<ul class="menu_mm">
 				<li class="menu_mm"><a href="{{ url('/') }}">Beranda</a></li>
 				<li class="menu_mm"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/pasardesa') }}">Pasar Desa</a></li>
 				<li class="menu_mm"><a href="{{ url('halaman/berita') }}">Berita</a></li>
 				<li class="menu_mm"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
+				@if (isset(Auth::user()->id))
+					<li class="menu_mm"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+				@else
+					<li class="menu_mm"><a href="{{ url('login') }}">Login</a></li>
+				@endif
 			</ul>
 		</nav>
 	</div>

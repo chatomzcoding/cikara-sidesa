@@ -34,7 +34,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Total Forum</span>
                       <span class="info-box-number">
-                        14
+                        {{ $total['jumlah'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -49,7 +49,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Partisipasi Penduduk</span>
-                      <span class="info-box-number">92</span>
+                      <span class="info-box-number">
+                        {{ $total['warga'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -66,7 +69,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Forum Aktif</span>
-                      <span class="info-box-number">10</span>
+                      <span class="info-box-number">
+                        {{ $total['aktif'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -79,7 +85,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Forum Non-Aktif</span>
-                      <span class="info-box-number">4</span>
+                      <span class="info-box-number">
+                        {{ $total['non-aktif'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -109,9 +118,9 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @foreach (data_forum() as $item)
+                            @foreach ($forum as $item)
                                 <tr>
-                                    <td class="text-center">{{ $item[0] }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
                                         {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
@@ -119,10 +128,15 @@
                                         </button> --}}
                                         <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>{{ $item[1] }}</td>
-                                    <td>{{ $item[2] }}</td>
-                                    <td class="text-center">{{ $item[3] }}</td>
-                                    <td><span class="badge badge-{{ $item[5] }} w-100">{{ $item[4] }}</span></td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->ket_forum }}</td>
+                                    <td class="text-center">{{ DbCikara::countData('forum_diskusi',['forum_id',$item->id]) }}</td>
+                                    <td>
+                                      @if ($item->status == 'aktif')
+                                        <span class="badge badge-success w-100">Aktif</span></td>
+                                      @else
+                                        <span class="badge badge-danger w-100">Non-Aktif</span></td>
+                                      @endif
                                 </tr>
                             @endforeach
                     </table>
@@ -132,6 +146,47 @@
           </div>
         </div>
     </div>
+      {{-- modal edit --}}
+      <div class="modal fade" id="tambah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('forum')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="status" value="aktif">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambahkan Forum</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
+                <section class="p-3">
+                  
+                   <div class="form-group row">
+                       <label for="" class="col-md-4">Nama Forum</label>
+                       <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
+                    </div>
+                    <div class="form-group row">
+                      <label for="" class="col-md-4">Keterangan Forum</label>
+                      <textarea name="ket_forum" id="ket_forum" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Gambar Forum</label>
+                        <input type="file" name="poto" id="poto" class="form-control col-md-8" required>
+                     </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+  
     @section('script')
         
         <script>

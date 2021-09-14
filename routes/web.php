@@ -17,7 +17,6 @@ use App\Http\Livewire\Members; //Load class Members
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
-Route::post('/proseslapor','App\Http\Controllers\HomepageController@proseslapor');
 Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');
 Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
 Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageController@kategori');
@@ -30,12 +29,20 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
     // kebutuhan tampilan
     Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');
+    
+    // ROUTE UNTUK PENDUDUK
+    
+    Route::post('/proseslapor','App\Http\Controllers\Penduduk\LayananmandiriController@proseslapor');
+    Route::post('/prosessurat','App\Http\Controllers\Penduduk\LayananmandiriController@prosessurat');
+    Route::post('/kirimpesandiskusi','App\Http\Controllers\Penduduk\LayananmandiriController@kirimpesandiskusi');
+    Route::get('layananmandiri/{sesi}', 'App\Http\Controllers\Penduduk\LayananmandiriController@index');
+    Route::resource('forumdiskusi', 'App\Http\Controllers\Penduduk\ForumdiskusiController');
 
 
     Route::middleware('admin')->group(function () {
         // COVID 19
         Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
-    
+        
         // INFO DESA
         Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
         Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
@@ -44,7 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('rt', 'App\Http\Controllers\Sidesa\Desa\RtController');
         Route::resource('potensi', 'App\Http\Controllers\Sidesa\Desa\PotensiController');
         Route::resource('potensisub', 'App\Http\Controllers\Sidesa\Desa\PotensisubController');
-       
+        
         // KEPENDUDUKAN
         Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');
         Route::resource('keluarga', 'App\Http\Controllers\Sidesa\KeluargaController');
@@ -56,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('anggotakelompok', 'App\Http\Controllers\Sidesa\AnggotakelompokController');
         Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
         Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
-    
+        
         // STATISTIK
         Route::get('statistik/kependudukan/{sesi}/{pilih}', 'App\Http\Controllers\Sidesa\Statistik\KependudukanController@pilih');
         Route::get('statistik/laporanbulanan', 'App\Http\Controllers\Sidesa\Statistik\LaporanbulananController@index');
@@ -76,6 +83,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // LAYANAN
         Route::resource('lapor', 'App\Http\Controllers\Sidesa\Layanan\LaporController');
+        Route::resource('forum', 'App\Http\Controllers\Sidesa\Layanan\ForumController');
+        Route::resource('suratpenduduk', 'App\Http\Controllers\Sidesa\Layanan\SuratController');
         
         // ADMIN SETTING
         Route::resource('datapokok', 'App\Http\Controllers\Admin\InfowebsiteController');

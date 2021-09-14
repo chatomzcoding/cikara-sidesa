@@ -803,3 +803,15 @@ if (! function_exists('data_kk')) {
         return $list;
     }
 }
+if (! function_exists('data_barang')) {
+    function data_barang()
+    {
+        $list = [
+            [1,'produk.jpg','Pisang Sale',20000,'makanan yang terbuat dari pisang yang dikeringkan'],
+            [2,'produk2.jpg','Rumpi Rebon',10000,'makanan rebon khas tasimalaya'],
+            [3,'produk3.jpg','Emping Nori',5000,'makanan nori yang dibuat kedalam emping'],
+            [4,'produk4.jpg','Sambal Bawang Kika',25000,'sambal bawang enak menggunakan bahan alami'],
+        ];
+        return $list;
+    }
+}

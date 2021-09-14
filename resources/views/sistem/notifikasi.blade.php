@@ -21,6 +21,12 @@
     <p>Data {{ session('ds') }} telah ditambahkan.</p>
   </div>
 @endif
+@if (session('dsc'))
+<div class="callout callout-success">
+    <h5>Berhasil!</h5>
+    <p>{{ session('dsc') }}</p>
+  </div>
+@endif
 
 {{-- notifikasi data berhasil di update --}}
 @if (session('du'))
