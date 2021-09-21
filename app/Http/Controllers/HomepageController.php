@@ -10,6 +10,7 @@ use App\Models\Kategoriartikel;
 use App\Models\Lapor;
 use App\Models\Potensi;
 use App\Models\Potensisub;
+use App\Models\Produk;
 use App\Models\Profil;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -69,10 +70,11 @@ class HomepageController extends Controller
                 return view('homepage.profil', compact('menu','desa','info','potensi'));
                 break;
             case 'pasardesa':
-                $menu   = 'pasar';
+                $menu   = 'layanan';
                 $desa   = Profil::first();
                 $info   = Infowebsite::first();
-                return view('homepage.pasar', compact('menu','desa','info'));
+                $produk = Produk::all();
+                return view('homepage.pasar', compact('menu','desa','info','produk'));
                 break;
             
             case 'berita':

@@ -184,7 +184,7 @@
       </li>
     </ul>
 </li>
-{{-- <li class="nav-item">
+<li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-envelope-open"></i>
       <p class=" text-danger">
@@ -195,7 +195,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/')}}" class="nav-link">
+        <a href="{{ url('/ujisurat')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Pengaturan Surat</p>
         </a>
@@ -225,7 +225,7 @@
         </a>
       </li>
     </ul>
-</li> --}}
+</li>
 {{-- <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-chart-bar"></i>

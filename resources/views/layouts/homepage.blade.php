@@ -82,16 +82,20 @@
 									<li class="@if ($menu == 'profil')
 									active
 								@endif"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
-									<li class="@if ($menu == 'pasar')
-									active
-								@endif"><a href="{{ url('halaman/pasardesa') }}">Produk Desa</a></li>
 									<li class="@if ($menu == 'bumdes')
 									active
 								@endif"><a href="{{ url('halaman/bumdes') }}">BUMDesa</a></li>
-									<li class="@if ($menu == 'forum')
-									active
-								@endif"><a href="{{ url('halaman/forum') }}">Forum Desa</a></li>
-									{{-- <li><a href="courses.html">Courses</a></li> --}}
+								<li class="nav-item dropdown @if ($menu == 'layanan')
+								active
+							@endif">
+									<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Layanan Mandiri</a>
+									<div class="dropdown-menu">
+									  <a class="dropdown-item" href="{{ url('halaman/forum') }}">Forum Desa</a>
+									  <a class="dropdown-item" href="{{ url('halaman/pasardesa') }}">Produk Desa</a>
+									  <div role="separator" class="dropdown-divider"></div>
+									  <a class="dropdown-item" href="#three"></a>
+									</div>
+								  </li>
 									<li class="@if ($menu == 'berita')
 									active
 								@endif"><a href="{{ url('halaman/berita') }}">Berita</a></li>

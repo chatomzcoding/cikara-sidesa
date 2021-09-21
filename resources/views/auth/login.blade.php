@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bumdes - Login</title>
+  <title>Login</title>
   <link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
 
   <!-- Google Font: Source Sans Pro -->
@@ -67,7 +67,7 @@ background-repeat: no-repeat;">
       </form>
       <hr>
       <p class="mt-3 mb-0 small">
-        <a href="{{ url('index') }}"><i class="fas fa-home"></i> Halaman Utama</a>
+        <a href="{{ url('/') }}"><i class="fas fa-home"></i> Halaman Utama</a>
         <a href="http://cikarastudio.com/" target="_blank" class="float-right">CIKARA STUDIO</a>
       </p>
       {{-- <p class="mb-0">

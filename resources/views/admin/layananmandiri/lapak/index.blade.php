@@ -34,7 +34,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Total Pelapak</span>
                       <span class="info-box-number">
-                        23
+                        {{ $total['lapak'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -49,7 +49,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Produk</span>
-                      <span class="info-box-number">140</span>
+                      <span class="info-box-number">
+                        {{ $total['produk'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -66,7 +69,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Transaksi</span>
-                      <span class="info-box-number">40</span>
+                      <span class="info-box-number">
+                        {{ $total['transaksi'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -79,7 +85,10 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Mitra Desa</span>
-                      <span class="info-box-number">10</span>
+                      <span class="info-box-number">
+                        {{ $total['mitra'] }}
+
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -90,7 +99,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Produk </a>
+                {{-- <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Produk </a> --}}
                 <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
               </div>
               <div class="card-body">
@@ -111,22 +120,45 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @foreach (data_lapak() as $item)
+                            @foreach ($lapak as $item)
+                            @php
+                                $nama = DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk;
+                            @endphp
                                 <tr>
-                                    <td class="text-center">{{ $item[0] }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url('tampilan/showlapak') }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> --}}
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      <form id="data-{{ $item->id }}" action="{{url('/lapak',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        </form>
+                                        @if ($item->status_lapak == 'konfirmasi')
+                                          <button type="button" data-toggle="modal" data-target="#ubah" data-id="{{ $item->id }}" data-nama="{{ $item->nama_lapak }}" data-alamat="{{ $item->alamat }}" data-pemilik="{{ $nama }}" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                              <i class="fa fa-edit"></i>
+                                          </button>
+                                        @else
+                                          <a href="{{ url('lapak/'.Crypt::encryptString($item->id)) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
+                                        @endif
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+
                                     </td>
-                                    <td>{{ $item[1] }}</td>
-                                    <td>{{ $item[2] }}</td>
-                                    <td>{{ $item[3] }}</td>
-                                    <td class="text-center">{{ $item[4] }}</td>
-                                    <td class="text-center">{{ $item[5] }}</td>
-                                    <td><span class="badge badge-{{ $item[7] }} w-100">{{ $item[6] }}</span></td>
+                                    <td>{{ $item->nama_lapak }}</td>
+                                    <td>{{ $nama }}</td>
+                                    <td>{{ $item->tentang }}</td>
+                                    <td class="text-center">{{ DbCikara::countData('produk',['lapak_id',$item->id]) }}</td>
+                                    <td class="text-center">0</td>
+                                    <td> @switch($item->status_lapak)
+                                      @case('lapak')
+                                        <span class="badge badge-success w-100">{{ $item->status_lapak }}</span></td>
+                                          @break
+                                      @case('konfirmasi')
+                                        <span class="badge badge-danger w-100">{{ $item->status_lapak }}</span></td>
+                                          @break
+                                      @case('tutup')
+                                        <span class="badge badge-warning w-100">{{ $item->status_lapak }}</span></td>
+                                          @break
+                                      @default
+                                          
+                                  @endswitch</td>
                                 </tr>
                             @endforeach
                     </table>
@@ -137,7 +169,68 @@
         </div>
     </div>
 
+     
+    {{-- modal edit --}}
+    <div class="modal fade" id="ubah">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form action="{{ route('lapak.update','test')}}" method="post" enctype="multipart/form-data">
+              @csrf
+              @method('patch')
+          <div class="modal-header">
+          <h4 class="modal-title">Form untuk Menanggapi Lapak</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body p-3">
+              <input type="hidden" name="id" id="id">
+              <input type="hidden" name="status_lapak" value="lapak">
+              <input type="hidden" name="sesi" value="admin">
+              <section class="p-3">
+                <div class="form-group row">
+                      <label for="" class="col-md-4">Nama Lapak</label>
+                      <input type="text" name="nama" id="nama" class="form-control col-md-8" disabled>
+                </div>
+                <div class="form-group row">
+                      <label for="" class="col-md-4">Alamat Lapak</label>
+                      <input type="text" name="alamat" id="alamat" class="form-control col-md-8" disabled>
+                </div>
+                <div class="form-group row">
+                      <label for="" class="col-md-4">Nama Pemilik</label>
+                      <input type="text" name="pemilik" id="pemilik" class="form-control col-md-8" disabled>
+                </div>
+              </section>
+          </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> KONFIRMASI LAPAK</button>
+          </div>
+          </form>
+      </div>
+      </div>
+  </div>
+  <!-- /.modal -->
+
+
     @section('script')
+    <script>
+      $('#ubah').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget)
+          var nama = button.data('nama')
+          var pemilik = button.data('pemilik')
+          var alamat = button.data('alamat')
+          var id = button.data('id')
+  
+          var modal = $(this)
+  
+          modal.find('.modal-body #nama').val(nama);
+          modal.find('.modal-body #pemilik').val(pemilik);
+          modal.find('.modal-body #statusini').val(status);
+          modal.find('.modal-body #alamat').val(alamat);
+          modal.find('.modal-body #id').val(id);
+      })
+    </script>
         <script>
             $(function () {
             $("#example1").DataTable({

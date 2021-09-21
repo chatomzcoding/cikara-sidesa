@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
     // kebutuhan tampilan
     Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');
+    Route::get('ujisurat','App\Http\Controllers\HomeController@ujisurat');
     
     // ROUTE UNTUK PENDUDUK
     
@@ -37,6 +38,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('/kirimpesandiskusi','App\Http\Controllers\Penduduk\LayananmandiriController@kirimpesandiskusi');
     Route::get('layananmandiri/{sesi}', 'App\Http\Controllers\Penduduk\LayananmandiriController@index');
     Route::resource('forumdiskusi', 'App\Http\Controllers\Penduduk\ForumdiskusiController');
+    Route::resource('produk', 'App\Http\Controllers\Penduduk\ProdukController');
+    Route::resource('lapak', 'App\Http\Controllers\Penduduk\LapakController');
 
 
     Route::middleware('admin')->group(function () {

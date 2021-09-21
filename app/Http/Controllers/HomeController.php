@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Cikara\DbCikara;
+use App\Models\Lapak;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +37,14 @@ class HomeController extends Controller
                 break;
             case 'lapak':
                 $judul  = 'Lapak Desa';
-                return view('admin.layananmandiri.lapak.index',compact('judul'));
+                $total = [
+                    'lapak' => Lapak::count(),
+                    'produk' => Produk::count(),
+                    'transaksi' => 0,
+                    'mitra' => 0,
+                ];
+                $lapak  = Lapak::all();
+                return view('admin.layananmandiri.lapak.index',compact('judul','lapak','total'));
                 break;
             case 'showlapak':
                 $judul  = 'Detail Lapak Ikan Pancing';
@@ -66,5 +75,44 @@ class HomeController extends Controller
                 # code...
                 break;
         }
+    }
+
+    public function ujisurat()
+    {
+        $file   = 'public/file/surat/surat_ket_usaha.rtf';
+        // membaca data dari form
+ 
+        // $nama = $_POST['nama'];
+        // $alamat = $_POST['alamat'];
+        // $tanggal = $_POST['tanggal'];
+        // $waktu = $_POST['waktu'];
+        // $tempat = $_POST['tempat'];
+        
+        // membaca isi dokumen tempate surat.rtf
+        // isi dokumen dinyatakan dalam bentuk string
+        $namafile   = 'Surat Keterangan Usaha '.tgl_sekarang();
+        $document = file_get_contents($file);
+        $gambar = file_get_contents($file);
+
+        // dd($document);
+        
+        // mereplace tanda %%%NAMA% dengan data nama dari form
+        $document = str_replace("[nama]", 'Firman Setiawan', $document);
+        
+        // mereplace tanda %%%ALAMAT% dengan data alamat dari form, dst
+        $document = str_replace("[judul_surat]", 'Surat Keterangan Usaha', $document);
+        
+        // $document = str_replace("%%TGL%%", $tanggal, $document);
+        // $document = str_replace("%%TEMPAT%%", $tempat, $document);
+        // $document = str_replace("%%WAKTU%%", $waktu, $document);
+        
+        // header untuk membuka file output RTF dengan MS. Word
+        // nama file output adalah undangan.rtf
+        
+        header("Content-type: application/msword");
+        header("Content-disposition: inline; filename=".$namafile.".rtf");
+        header("Content-length: " . strlen($document));
+        echo $document;
+ 
     }
 }

@@ -28,3 +28,9 @@
       </li>
     </ul>
 </li>
+<li class="nav-item">
+  <a href="{{ url('/produk')}}" class="nav-link">
+    <i class="fas fa-cube nav-icon"></i>
+    <p>Produk</p>
+  </a>
+</li>

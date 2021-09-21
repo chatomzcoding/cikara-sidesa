@@ -42,14 +42,16 @@
         <div class="row about_row">
             
             <!-- About Item -->
-            @foreach (data_barang() as $item)
+            @foreach ($produk as $item)
                 <div class="col-md-3 about_col about_col_left">
                     <div class="about_item">
-                        <div class="about_item_image"><img src="{{ asset('img/'.$item[1])}}" alt=""></div>
-                        <div class="about_item_title text-center"><a href="#">{{ $item[2] }}</a></div>
+                        <a href="#">
+                        <div class="about_item_image"><img src="{{ asset('img/penduduk/produk/'.$item->gambar)}}" alt=""></div>
+                        <div class="about_item_title text-center h4">{{ $item->nama }}</div>
+                        </a>
                         <div class="about_item_text">
-                            <h4>{{ rupiah($item[3]) }}</h4>
-                            <p>{{ $item[4] }}</p>
+                            <h4>{{ rupiah($item->harga) }}</h4>
+                            <p>{{ $item->keterangan }}</p>
                         </div>
                     </div>
                 </div>
