@@ -16,6 +16,7 @@ use App\Http\Livewire\Members; //Load class Members
 
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
+Route::get('/kirimpesan','App\Http\Controllers\HomepageController@kirimpesan');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
 Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');
 Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
@@ -24,6 +25,10 @@ Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageC
 // HOMEPAGE
 Route::get('homepage/artikel', 'App\Http\Controllers\HomepageController@artikel');
 Route::get('homepage/artikel/{slug}', 'App\Http\Controllers\HomepageController@showartikel');
+
+// WEBSERVICE
+Route::get('ws/{token}/{sesi}/{id}', 'App\Http\Controllers\WebserviceController@data');
+
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard','App\Http\Controllers\HomeController@index')->name('dashboard');
@@ -85,6 +90,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::get('bantuan/tambahpeserta/{bantuan}', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController@tambahpeserta');
         
         // LAYANAN
+        Route::resource('formatsurat', 'App\Http\Controllers\Admin\FormatsuratController');
         Route::resource('lapor', 'App\Http\Controllers\Sidesa\Layanan\LaporController');
         Route::resource('forum', 'App\Http\Controllers\Sidesa\Layanan\ForumController');
         Route::resource('suratpenduduk', 'App\Http\Controllers\Sidesa\Layanan\SuratController');
