@@ -38,6 +38,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
+                                    <label for="" class="col-md-4 p-2">Sebutan Desa</label>
+                                    <input type="text" name="sebutan_desa" value="{{ $datapokok->sebutan_desa}}" class="form-control col-md-8" required>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 p-2">Sebutan Kabupaten</label>
+                                    <input type="text" name="sebutan_kabupaten" value="{{ $datapokok->sebutan_kabupaten}}" class="form-control col-md-8" required>
+                                </div>
+                                <div class="form-group row">
                                     <label for="" class="col-md-4 p-2">Teks diatas</label>
                                     <input type="text" name="teks_atas" value="{{ $datapokok->teks_atas}}" class="form-control col-md-8" required>
                                 </div>

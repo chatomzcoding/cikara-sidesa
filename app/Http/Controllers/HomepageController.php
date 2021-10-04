@@ -131,4 +131,51 @@ class HomepageController extends Controller
         $kategori   = Kategoriartikel::all();
         return view('homepage.artikel.show', compact('artikel','kategori'));
     }
+
+    public function chat($nomor,$pesan)
+    {
+        $data = [
+            // 'number'  => '6281322561697@s.whatsapp.net',
+            // "fileName"=> "test.txt",
+            "jid"=> "62".$nomor."@s.whatsapp.net",
+            // "mimeType" => "string",
+            // "url" => "https://yasho.dawalaaa.com/test.txt",
+            "message" => $pesan,
+        ];
+        
+        $chatApiToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQ5NzY2MTAsInVzZXIiOiI2Mjg1MTU2NTMyODQ3In0.wukyywkxXyb_ngxyd-jKlTgC3bn2a_F20dpMBhRIcHE"; 
+        // $number = "6285156532847"; // Number
+        // $message = "Testing WA untuk Orderan BUMDI"; // Message
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://chat-api.phphive.info/message/send/text',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>json_encode($data),
+        CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer '.$chatApiToken,
+        'Content-Type: application/json'
+        ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
+    }
+
+    public function kirimpesan()
+    {
+        $nomor  = [81322561697,85317563748,85708475753,82121135161,89663427497,81537456601];
+        // $nomor  = [81322561697];
+        $pesan  = 'Cek broadcast all crew cikara studio';
+
+        for ($i=0; $i < count($nomor); $i++) { 
+            self::chat($nomor[$i],$pesan);
+        }
+    }
 }

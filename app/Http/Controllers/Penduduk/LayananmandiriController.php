@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Penduduk;
 
 use App\Http\Controllers\Controller;
+use App\Models\Formatsurat;
 use App\Models\Forumdiskusi;
 use App\Models\Klasifikasisurat;
 use App\Models\Lapor;
+use App\Models\Penduduksurat;
 use App\Models\Suratpenduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class LayananmandiriController extends Controller
@@ -29,19 +32,20 @@ class LayananmandiriController extends Controller
                 break;
             case 'surat':
                 $judul  = 'Surat';
-                $surat  = DB::table('surat_penduduk')
-                        ->join('klasifikasi_surat','surat_penduduk.klasifikasisurat_id','=','klasifikasi_surat.id')
-                        ->select('surat_penduduk.*','klasifikasi_surat.nama')
+                $surat  = DB::table('penduduk_surat')
+                        ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+                        ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.file_surat')
                         ->where('user_id',$user->id)
+                        ->orderByDesc('id')
                         ->get();
-                $klasifikasisurat   = Klasifikasisurat::all();
+                $formatsurat   = Formatsurat::all();
                 $total  = [
                     'total' => count($surat),
-                    'selesai' => Suratpenduduk::where('user_id',$user->id)->where('status','selesai')->count(),
-                    'proses' => Suratpenduduk::where('user_id',$user->id)->where('status','proses')->count(),
-                    'menunggu' => Suratpenduduk::where('user_id',$user->id)->where('status','menunggu')->count(),
+                    'selesai' => Penduduksurat::where('user_id',$user->id)->where('status','selesai')->count(),
+                    'proses' => Penduduksurat::where('user_id',$user->id)->where('status','proses')->count(),
+                    'menunggu' => Penduduksurat::where('user_id',$user->id)->where('status','menunggu')->count(),
                 ];
-                return view('penduduk.layananmandiri.surat', compact('judul','user','total','klasifikasisurat','surat'));
+                return view('penduduk.layananmandiri.surat', compact('judul','user','total','formatsurat','surat'));
                 break;
             default:
                 # code...
@@ -60,14 +64,24 @@ class LayananmandiriController extends Controller
 
         return redirect('layananmandiri/lapor')->with('ds','Laporan');
     }
+    
+
+    public function buatsurat(Request $request)
+    {
+        Penduduksurat::create([
+            'user_id' => $request->user_id,
+            'formatsurat_id' => $request->formatsurat_id,
+            'status' => $request->status,
+        ]);
+
+        return redirect('layananmandiri/buatsurat');
+    }
+
     public function prosessurat(Request $request)
     {
-        Suratpenduduk::create([
+        Penduduksurat::create([
             'user_id' => $request->user_id,
-            'klasifikasisurat_id' => $request->klasifikasisurat_id,
-            'perihal' => $request->perihal,
-            'tgl_ambil' => $request->tgl_ambil,
-            'pesan' => $request->pesan,
+            'formatsurat_id' => $request->formatsurat_id,
             'status' => $request->status,
         ]);
 

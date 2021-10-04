@@ -109,10 +109,10 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Tanggal Permintaan</th>
                                 <th>Nama Surat</th>
-                                <th>Perihal</th>
-                                <th>Pesan</th>
-                                <th>Tanggal Ambil</th>
+                                <th>Format Surat</th>
+                                {{-- <th>Tanggal Ambil</th> --}}
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -121,32 +121,34 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url('/potensi',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
+                                      @if ($item->status == 'menunggu')
+                                        <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                          @csrf
+                                          @method('delete')
                                         </form>
-                                        @if ($item->status == 'menunggu')
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <a href="{{ url('penduduksurat/'.Crypt::encryptString($item->id)) }}" class="btn btn-primary btn-sm">Lanjutkan</a>
                                         @endif
                                     </td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->perihal }}</td>
-                                    <td>{{ $item->pesan }}</td>
-                                    <td>{{ date_indo($item->tgl_ambil) }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->nama_surat }}</td>
+                                    <td><a href="{{ asset('file/surat/'.$item->file_surat) }}">format</a></td>
+                                    {{-- <td>{{ date_indo($item->tgl_ambil) }}</td> --}}
                                     <td>
                                         @switch($item->status)
                                             @case('selesai')
-                                              <span class="badge badge-success w-100">{{ $item->status }}</span></td>
+                                              <a href="{{ url('cetaksurat/'.$item->id) }}" class="btn btn-success btn-sm w-100"><i class="fas fa-print"></i> Cetak</a>
                                                 @break
                                             @case('menunggu')
-                                              <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
+                                              <span class="badge badge-danger w-100">{{ $item->status }}</span>
                                                 @break
                                             @case('proses')
-                                              <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
+                                              <span class="badge badge-warning w-100">{{ $item->status }}</span>
                                                 @break
                                             @default
                                                 
                                         @endswitch
+                                    </td>
                                 </tr>
                             @endforeach
                     </table>
@@ -161,7 +163,7 @@
     <div class="modal fade" id="tambah">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form action="{{ url('prosessurat')}}" method="post">
+          <form action="{{ url('penduduksurat')}}" method="post">
               @csrf
               <input type="hidden" name="status" value="menunggu">
           <div class="modal-header">
@@ -172,33 +174,28 @@
           </div>
           <div class="modal-body p-3">
               <input type="hidden" name="user_id" value="{{ $user->id }}">
+              <input type="hidden" name="status" value="menunggu">
               <section class="p-3">
                 <div class="form-group row">
                       <label for="" class="col-md-4">Jenis Surat</label>
-                      <select name="klasifikasisurat_id" id="" class="form-control col-md-8" required>
+                      <select name="formatsurat_id" id="" class="form-control col-md-8" required>
                           <option value="">-- Pilih Surat --</option>
-                          @foreach ($klasifikasisurat as $item)
-                              <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                          @foreach ($formatsurat as $item)
+                              @if (DbCikara::countData('penduduk_surat',['formatsurat_id',$item->id]) == 0)
+                                <option value="{{ $item->id }}">{{ $item->nama_surat }}</option>
+                              @endif
                           @endforeach
                       </select>
                 </div>
-                 <div class="form-group row">
+                 {{-- <div class="form-group row">
                      <label for="" class="col-md-4">Tanggal Ambil</label>
                      <input type="date" name="tgl_ambil" id="tgl_ambil" class="form-control col-md-8" required> 
-                  </div>
-                 <div class="form-group row">
-                     <label for="" class="col-md-4">Perihal</label>
-                     <textarea name="perihal" id="perihal" cols="30" rows="2" class="form-control col-md-8" required></textarea>
-                  </div>
-                 <div class="form-group row">
-                     <label for="" class="col-md-4">Pesan untuk operator (opsional)</label>
-                     <textarea name="pesan" id="pesan" cols="30" rows="2" class="form-control col-md-8"></textarea>
-                  </div>
+                  </div> --}}
               </section>
           </div>
           <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-          <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> KIRIM PENGAJUAN SURAT</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> BUAT SURAT</button>
           </div>
           </form>
       </div>

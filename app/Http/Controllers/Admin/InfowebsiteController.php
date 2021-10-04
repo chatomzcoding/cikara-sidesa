@@ -106,6 +106,8 @@ class InfowebsiteController extends Controller
         }
         
         Infowebsite::where('id',$infowebsite->id)->update([
+            'sebutan_desa'  => $request->sebutan_desa,
+            'sebutan_kabupaten'  => $request->sebutan_kabupaten,
             'email'  => $request->email,
             'telp'  => $request->telp,
             'alamat'  => $request->alamat,

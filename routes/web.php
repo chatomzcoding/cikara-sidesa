@@ -40,11 +40,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     Route::post('/proseslapor','App\Http\Controllers\Penduduk\LayananmandiriController@proseslapor');
     Route::post('/prosessurat','App\Http\Controllers\Penduduk\LayananmandiriController@prosessurat');
+    Route::post('/buatsurat','App\Http\Controllers\Penduduk\LayananmandiriController@buatsurat');
     Route::post('/kirimpesandiskusi','App\Http\Controllers\Penduduk\LayananmandiriController@kirimpesandiskusi');
     Route::get('layananmandiri/{sesi}', 'App\Http\Controllers\Penduduk\LayananmandiriController@index');
+    Route::get('cetaksurat/{id}', 'App\Http\Controllers\Penduduk\PenduduksuratController@cetaksurat');
     Route::resource('forumdiskusi', 'App\Http\Controllers\Penduduk\ForumdiskusiController');
     Route::resource('produk', 'App\Http\Controllers\Penduduk\ProdukController');
     Route::resource('lapak', 'App\Http\Controllers\Penduduk\LapakController');
+    Route::resource('penduduksurat', 'App\Http\Controllers\Penduduk\PenduduksuratController');
 
 
     Route::middleware('admin')->group(function () {
