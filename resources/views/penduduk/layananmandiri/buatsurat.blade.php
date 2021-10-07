@@ -41,57 +41,62 @@
                                 @method('patch')
                                 <input type="hidden" name="tgl_awal" value="{{ tgl_sekarang() }}">
                                 <input type="hidden" name="tgl_akhir" value="{{ tgl_sekarang() }}">
+                                <input type="hidden" name="kode" value="{{ $format->kode }}">
                                 <table width="100%">
                                     <tr>
-                                        <td>format surat</td>
-                                        <td>{{ $format->kode }}</td>
+                                        <td colspan="2">
+                                            <div class="alert alert-warning">
+                                                Tanda <strong class="text-danger">*</strong> Wajib Diisi
+                                            </div>
+                                        </td>
                                     </tr>
-                                    @switch($format->kode)
+                                    <tr>
+                                        <th>Nomor Surat</th>
+                                        <td>: {{ $surat->nomor_surat }}</td>
+                                    </tr>
+                                    {{-- pilih halaman berdasarkan kode --}}
+                                    @php
+                                        $ak     = explode('-',$format->kode); 
+                                    @endphp
+                                    @include('penduduk.layananmandiri.formatsurat.index');
+                                    {{-- @switch($format->kode)
                                         @case('S-01')
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <label for="">Keperluan</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="text" name="keperluan" class="form-control">
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @include('penduduk.layananmandiri.formatsurat.s-01')
                                             @break
                                         @case('S-02')
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <label for="">Keterangan</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="text" name="keterangan" placeholder="berikan keterangan disini" maxlength="255" class="form-control">
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @include('penduduk.layananmandiri.formatsurat.s-02')
                                             @break
                                         @case('S-03')
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <label for="">Keterangan</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="text" name="keterangan" placeholder="berikan keterangan disini" maxlength="255" class="form-control">
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @include('penduduk.layananmandiri.formatsurat.s-03')
+                                            @break
+                                        @case('S-04')
+                                            @include('penduduk.layananmandiri.formatsurat.s-04')
+                                            @break
+
+                                        @case('S-05')
+                                            @include('penduduk.layananmandiri.formatsurat.s-05')
+                                            @break
+                                        @case('S-07')
+                                            @include('penduduk.layananmandiri.formatsurat.s-07')
+                                            @break
+                                        @case('S-09')
+                                            @include('penduduk.layananmandiri.formatsurat.s-09')
+                                            @break
+                                        @case('S-10')
+                                            @include('penduduk.layananmandiri.formatsurat.s-10')
+                                            @break
+                                        @case('S-11')
+                                            @include('penduduk.layananmandiri.formatsurat.s-11')
+                                            @break
+                                        @case('S-12')
+                                            @include('penduduk.layananmandiri.formatsurat.s-12')
+                                            @break
+                                        @case('S-13')
+                                            @include('penduduk.layananmandiri.formatsurat.s-13')
                                             @break
                                         @default
                                             
-                                    @endswitch
+                                    @endswitch --}}
                                     <tr>
                                         <td colspan="2" class="text-right">
                                             <button type="submit" class="btn btn-primary btn-sm">AJUKAN SURAT</button>

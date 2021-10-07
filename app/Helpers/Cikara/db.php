@@ -6,6 +6,8 @@ use App\Models\Daftarakunpembantu;
 use App\Models\Jurnalakun;
 use App\Models\Lapor;
 use App\Models\Penduduk;
+use App\Models\Penduduksurat;
+use App\Models\Profil;
 use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -125,5 +127,27 @@ class DbCikara {
         }
         $penduduk   = Penduduk::select('nama_penduduk')->where('nik',$nik)->first();
         return $penduduk;
+    }
+
+    public static function nomorsurat($kode)
+    {
+        $desa           = Profil::first();
+        $dataterakhir   = Penduduksurat::whereDate('created_at',tgl_sekarang())->orderBy('id','DESC')->first();
+        if ($dataterakhir) {
+            $total  = Penduduksurat::whereDate('created_at',tgl_sekarang())->count();
+            $urutanbaru     = $total + 1;
+            if ($urutanbaru > 0 AND $urutanbaru < 10) {
+                $nomor = '00'.$urutanbaru;
+            }elseif ($urutanbaru > 9 AND $urutanbaru < 100) {
+                $nomor = '0'.$urutanbaru;
+            }else {
+                $nomor = $urutanbaru;
+            }
+            $result = strtoupper($kode).'/'.$nomor.'/'.$desa->kode_desa.'/'.bulan_romawi().'/'.ambil_tahun();
+        } else {
+            $result = strtoupper($kode).'/001/'.$desa->kode_desa.'/'.bulan_romawi().'/'.ambil_tahun();
+        }
+        
+        return $result;
     }
 }

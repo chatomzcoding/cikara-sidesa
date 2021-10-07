@@ -14,6 +14,7 @@ class SidesaServiceProvider extends ServiceProvider
     public function register()
     {
         require_once app_path() . '/Helpers/Sidesa/list.php';
+        require_once app_path() . '/Helpers/Sidesa/sistem.php';
     }
 
     /**

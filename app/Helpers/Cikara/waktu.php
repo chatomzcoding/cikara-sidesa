@@ -83,6 +83,32 @@ if (! function_exists('bulan_indo')) {
         return $bulan[$m];
     }
 }
+if (! function_exists('bulan_romawi')) {
+    function bulan_romawi($m=null)
+    {
+        if (is_null($m)) {
+            $m = ambil_bulan();
+        } else {
+            if (strlen($m) == 1)
+                $m = '0'.$m;
+        }
+        
+        $bulan 		= [	'01' => 'I',
+                        '02' => 'II',
+                        '03' => 'III',
+                        '04' => 'IV',
+                        '05' => 'V',
+                        '06' => 'VI',
+                        '07' => 'VII',
+                        '08' => 'VIII',
+                        '09' => 'IX',
+                        '10' => 'X',
+                        '11' => 'XI',
+                        '12' => 'XII'];
+        
+        return $bulan[$m];
+    }
+}
 // date indo
 if (! function_exists('daftar_bulan')) {
     function daftar_bulan()
@@ -106,7 +132,7 @@ if (! function_exists('daftar_bulan')) {
 
 // change date to indonesia date
 if (! function_exists('date_indo')) {
-    function date_indo($date=null)
+    function date_indo($date=null,$statusnotif=null)
     {
         if (!is_null($date) AND $date <> '0000-00-00') {
             $tgl			= substr($date, 8,2);
@@ -114,8 +140,13 @@ if (! function_exists('date_indo')) {
             $tahun			= substr($date, 0,4);
             return $tgl.' '.bulan_indo($bulan).' '.$tahun;
         } else {
-            $notif = 'Date Not Found';
-            return $notif;
+            if (is_null($statusnotif)) {
+                $result = NULL;
+            } else {
+                $result = 'Data tidak ada';
+            }
+            
+            return $result;
         }
     }
 }

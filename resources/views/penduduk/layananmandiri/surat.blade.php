@@ -110,8 +110,8 @@
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
                                 <th>Tanggal Permintaan</th>
+                                <th>Nomor Surat</th>
                                 <th>Nama Surat</th>
-                                <th>Format Surat</th>
                                 {{-- <th>Tanggal Ambil</th> --}}
                                 <th>Status</th>
                             </tr>
@@ -121,18 +121,18 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                      @if ($item->status == 'menunggu')
-                                        <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
-                                          @csrf
-                                          @method('delete')
-                                        </form>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                      </form>
+                                      <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      @if ($item->status == 'proses')
                                         <a href="{{ url('penduduksurat/'.Crypt::encryptString($item->id)) }}" class="btn btn-primary btn-sm">Lanjutkan</a>
                                         @endif
                                     </td>
                                     <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->nomor_surat}}</td>
                                     <td>{{ $item->nama_surat }}</td>
-                                    <td><a href="{{ asset('file/surat/'.$item->file_surat) }}">format</a></td>
                                     {{-- <td>{{ date_indo($item->tgl_ambil) }}</td> --}}
                                     <td>
                                         @switch($item->status)
@@ -165,7 +165,7 @@
         <div class="modal-content">
           <form action="{{ url('penduduksurat')}}" method="post">
               @csrf
-              <input type="hidden" name="status" value="menunggu">
+              <input type="hidden" name="status" value="proses">
           <div class="modal-header">
           <h4 class="modal-title">Tambahkan Surat</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -174,7 +174,6 @@
           </div>
           <div class="modal-body p-3">
               <input type="hidden" name="user_id" value="{{ $user->id }}">
-              <input type="hidden" name="status" value="menunggu">
               <section class="p-3">
                 <div class="form-group row">
                       <label for="" class="col-md-4">Jenis Surat</label>
