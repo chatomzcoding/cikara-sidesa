@@ -186,11 +186,17 @@
     </td>
 </tr>
 @endif
+{{-- untuk format surat kelahiran --}}
+@if ($format->kode == 'S-17')
+    <tr>
+        <th colspan="2">Data Bayi</th>
+    </tr>
+@endif
 @if (in_array('nama',$list))
 <tr>
     <td>
         <div class="form-group">
-            <label for="">Nama Lengkap <strong class="text-danger">*</strong></label>
+            <label for="">Nama <strong class="text-danger">*</strong></label>
         </div>
     </td>
     <td>
@@ -238,6 +244,48 @@
     <td>
         <div class="form-group">
             <input type="date" name="tgl_lahir" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('waktu_lahir',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Waktu Lahir <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="time" name="waktu_lahir" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('hari_lahir',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Hari Lahir <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="hari_lahir" maxlength="20" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kelahiran_ke',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">kelahiran Ke <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" name="kelahiran_ke" min="1" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -445,7 +493,677 @@
         </td>
     </tr>
 @endif
-@if (in_array('keperluan',$list))
-   
-@endif
 
+
+@if (in_array('nama_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nik_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">NIK Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nik_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('umur_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Umur Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="umur_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('pekerjaan_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Pekerjaan Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="pekerjaan_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('alamat_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Alamat Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="alamat_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('desa_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Desa Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kec_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kecamatan Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kec_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kab_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kabupaten Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kab_ibu" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nama_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nik_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">NIK Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nik_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('umur_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Umur Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="umur_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('pekerjaan_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Pekerjaan Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="pekerjaan_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('alamat_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Alamat Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="alamat_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('desa_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Desa Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kec_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kecamatan Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kec_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kab_ayah',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kabupaten Ayah <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kab_ayah" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nama_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nik_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">NIK Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nik_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('umur_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Umur Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="umur_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('pekerjaan_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Pekerjaan Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="pekerjaan_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('desa_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Desa Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kec_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kecamatan Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kec_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kab_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kabupaten Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kab_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('prov_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Provinsi Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="prov_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('hub_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Hubungan Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="hub_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tempat_lahir_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tempat Lahir Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="tempat_lahir_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tanggal_lahir_pelapor',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tanggal Lahir Pelapor <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="date" name="tanggal_lahir_pelapor" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nama_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nik_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">NIK Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nik_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tempat_lahir_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tempat Lahir Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="tempat_lahir_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tanggal_lahir_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tanggal Lahir Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="date" name="tanggal_lahir_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('umur_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Umur Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="umur_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('pekerjaan_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Pekerjaan Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="pekerjaan_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('desa_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Desa Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kec_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kecamatan Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kec_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kab_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kabupaten Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kab_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('prov_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Provinsi Saksi 1 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="prov_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nama_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nik_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">NIK Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nik_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tempat_lahir_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tempat Lahir Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="tempat_lahir_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tanggal_lahir_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tanggal Lahir Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="tanggal_lahir_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('umur_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Umur Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="umur_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('pekerjaan_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Pekerjaan Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="pekerjaan_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('desa_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Desa Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kec_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kecamatan Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kec_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('kab_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Kabupaten Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="kab_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('prov_saksi2',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Provinsi Saksi 2 <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="prov_saksi2" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+{{-- @if (in_array('desa_saksi1',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for=""> <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="desa_saksi1" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif --}}

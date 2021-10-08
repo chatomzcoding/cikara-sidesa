@@ -152,6 +152,56 @@ class PenduduksuratController extends Controller
             'rincian' => $request->rincian,
             'usaha' => $request->usaha,
             'no_jamkesos' => $request->no_jamkesos,
+            'hari_lahir' => $request->hari_lahir,
+            'waktu_lahir' => $request->waktu_lahir,
+            'kelahiran_ke' => $request->kelahiran_ke,
+            'nama_ibu' => $request->nama_ibu,
+            'nik_ibu' => $request->nik_ibu,
+            'umur_ibu' => $request->umur_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'alamat_ibu' => $request->alamat_ibu,
+            'desa_ibu' => $request->desa_ibu,
+            'kec_ibu' => $request->kec_ibu,
+            'kab_ibu' => $request->kab_ibu,
+            'nama_ayah' => $request->nama_ayah,
+            'nik_ayah' => $request->nik_ayah,
+            'umur_ayah' => $request->umur_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'alamat_ayah' => $request->alamat_ayah,
+            'desa_ayah' => $request->desa_ayah,
+            'kec_ayah' => $request->kec_ayah,
+            'kab_ayah' => $request->kab_ayah,
+            'nama_pelapor' => $request->nama_pelapor,
+            'nik_pelapor' => $request->nik_pelapor,
+            'umur_pelapor' => $request->umur_pelapor,
+            'pekerjaan_pelapor' => $request->pekerjaan_pelapor,
+            'desa_pelapor' => $request->desa_pelapor,
+            'kec_pelapor' => $request->kec_pelapor,
+            'kab_pelapor' => $request->kab_pelapor,
+            'prov_pelapor' => $request->prov_pelapor,
+            'hub_pelapor' => $request->hub_pelapor,
+            'tempat_lahir_pelapor' => $request->tempat_lahir_pelapor,
+            'tanggal_lahir_pelapor' => $request->tanggal_lahir_pelapor,
+            'nama_saksi1' => $request->nama_saksi1,
+            'nama_saksi2' => $request->nama_saksi2,
+            'nik_saksi1' => $request->nik_saksi1,
+            'nik_saksi2' => $request->nik_saksi2,
+            'tempat_lahir_saksi1' => $request->tempat_lahir_saksi1,
+            'tempat_lahir_saksi2' => $request->tempat_lahir_saksi2,
+            'tanggal_lahir_saksi1' => $request->tanggal_lahir_saksi1,
+            'tanggal_lahir_saksi2' => $request->tanggal_lahir_saksi2,
+            'umur_saksi1' => $request->umur_saksi1,
+            'umur_saksi2' => $request->umur_saksi2,
+            'pekerjaan_saksi1' => $request->pekerjaan_saksi1,
+            'pekerjaan_saksi2' => $request->pekerjaan_saksi2,
+            'desa_saksi1' => $request->desa_saksi1,
+            'desa_saksi2' => $request->desa_saksi2,
+            'kec_saksi1' => $request->kec_saksi1,
+            'kec_saksi2' => $request->kec_saksi2,
+            'kab_saksi1' => $request->kab_saksi1,
+            'kab_saksi2' => $request->kab_saksi2,
+            'prov_saksi1' => $request->prov_saksi1,
+            'prov_saksi2' => $request->prov_saksi2,
         ]);
 
         // return self::cetaksurat($penduduksurat->id);
@@ -305,6 +355,64 @@ class PenduduksuratController extends Controller
                 break;
             case 'S-12':
                 $document = str_replace("[form_jenis_keramaian]", $surat->jenis, $document);
+                break;
+            case 'S-17':
+                // nama bayi
+                $document = str_replace("[form_nama_bayi]", $surat->nama, $document);
+                $document = str_replace("[form_tgl_lahir]", $surat->tgl_lahir, $document);
+                $document = str_replace("[form_tempat_lahir]", $surat->tempat_lahir, $document);
+                $document = str_replace("[form_waktu_lahir]", $surat->waktu_lahir, $document);
+                $document = str_replace("[form_hari_lahir]", $surat->hari_lahir, $document);
+                $document = str_replace("[form_kelahiran_ke]", $surat->kelahiran_ke, $document);
+                $document = str_replace("[form_jk_bayi]", $surat->jk, $document);
+                // data ibu
+                $document = str_replace("[form_nama_ibu]", $surat->nama_ibu, $document);
+                $document = str_replace("[form_nik_ibu]", $surat->nik_ibu, $document);
+                $document = str_replace("[form_umur_ibu]", $surat->umur_ibu, $document);
+                $document = str_replace("[form_pekerjaan_ibu]", $surat->pekerjaan_ibu, $document);
+                $document = str_replace("[form_alamat_ibu]", $surat->alamat_ibu, $document);
+                $document = str_replace("[form_desa_ibu]", $surat->desa_ibu, $document);
+                $document = str_replace("[form_kec_ibu]", $surat->kec_ibu, $document);
+                $document = str_replace("[form_kab_ibu]", $surat->kab_ibu, $document);
+                $document = str_replace("[form_nama_ayah]", $surat->nama_ayah, $document);
+                $document = str_replace("[form_nik_ayah]", $surat->nik_ayah, $document);
+                $document = str_replace("[form_umur_ayah]", $surat->umur_ayah, $document);
+                $document = str_replace("[form_pekerjaan_ayah]", $surat->pekerjaan_ayah, $document);
+                $document = str_replace("[form_alamat_ayah]", $surat->alamat_ayah, $document);
+                $document = str_replace("[form_desa_ayah]", $surat->desa_ayah, $document);
+                $document = str_replace("[form_kec_ayah]", $surat->kec_ayah, $document);
+                $document = str_replace("[form_kab_ayah]", $surat->kab_ayah, $document);
+                $document = str_replace("[form_nama_pelapor]", $surat->nama_pelapor, $document);
+                $document = str_replace("[form_nik_pelapor]", $surat->nik_pelapor, $document);
+                $document = str_replace("[form_umur_pelapor]", $surat->umur_pelapor, $document);
+                $document = str_replace("[form_pekerjaan_pelapor]", $surat->pekerjaan_pelapor, $document);
+                $document = str_replace("[form_desa_pelapor]", $surat->desa_pelapor, $document);
+                $document = str_replace("[form_kec_pelapor]", $surat->kec_pelapor, $document);
+                $document = str_replace("[form_kab_pelapor]", $surat->kab_pelapor, $document);
+                $document = str_replace("[form_prov_pelapor]", $surat->prov_pelapor, $document);
+                $document = str_replace("[form_hub_pelapor]", $surat->hub_pelapor, $document);
+                $document = str_replace("[form_tempat_lahir_pelapor]", $surat->tempat_lahir_pelapor, $document);
+                $document = str_replace("[form_tanggal_lahir_pelapor]", $surat->tanggal_lahir_pelapor, $document);
+                $document = str_replace("[form_nama_saksi1]", $surat->nama_saksi1, $document);
+                $document = str_replace("[form_nama_saksi2]", $surat->nama_saksi2, $document);
+                $document = str_replace("[form_nik_saksi1]", $surat->nik_saksi1, $document);
+                $document = str_replace("[form_nik_saksi2]", $surat->nik_saksi2, $document);
+                $document = str_replace("[form_tempat_lahir_saksi1]", $surat->tempat_lahir_saksi1, $document);
+                $document = str_replace("[form_tempat_lahir_saksi2]", $surat->tempat_lahir_saksi2, $document);
+                $document = str_replace("[form_tanggal_lahir_saksi1]", $surat->tanggal_lahir_saksi1, $document);
+                $document = str_replace("[form_tanggal_lahir_saksi2]", $surat->tanggal_lahir_saksi2, $document);
+                $document = str_replace("[form_umur_saksi1]", $surat->umur_saksi1, $document);
+                $document = str_replace("[form_umur_saksi2]", $surat->umur_saksi2, $document);
+                $document = str_replace("[form_pekerjaan_saksi1]", $surat->pekerjaan_saksi1, $document);
+                $document = str_replace("[form_pekerjaan_saksi2]", $surat->pekerjaan_saksi2, $document);
+                $document = str_replace("[form_desa_saksi1]", $surat->desa_saksi1, $document);
+                $document = str_replace("[form_desa_saksi2]", $surat->desa_saksi2, $document);
+                $document = str_replace("[form_kec_saksi1]", $surat->kec_saksi1, $document);
+                $document = str_replace("[form_kec_saksi2]", $surat->kec_saksi2, $document);
+                $document = str_replace("[form_kab_saksi1]", $surat->kab_saksi1, $document);
+                $document = str_replace("[form_kab_saksi2]", $surat->kab_saksi2, $document);
+                $document = str_replace("[form_prov_saksi1]", $surat->prov_saksi1, $document);
+                $document = str_replace("[form_prov_saksi2]", $surat->prov_saksi2, $document);
                 break;
             
             default:
