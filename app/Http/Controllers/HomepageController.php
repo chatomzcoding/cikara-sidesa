@@ -73,7 +73,7 @@ class HomepageController extends Controller
                 $menu   = 'layanan';
                 $desa   = Profil::first();
                 $info   = Infowebsite::first();
-                $produk = Produk::all();
+                $produk = Produk::limit(12)->orderBy('id','DESC')->get();
                 return view('homepage.pasar', compact('menu','desa','info','produk'));
                 break;
             
