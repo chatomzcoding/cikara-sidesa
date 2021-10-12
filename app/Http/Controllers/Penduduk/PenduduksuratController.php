@@ -434,11 +434,13 @@ class PenduduksuratController extends Controller
 
         // header untuk membuka file output RTF dengan MS. Word
         // nama file output adalah undangan.rtf
-        
+        $namafile = $namafile.'.rtf';
         header("Content-type: application/msword");
-        header("Content-disposition: inline; filename=".$namafile.".rtf");
+        header("Content-disposition: inline; filename=".$namafile);
         header("Content-length: " . strlen($document));
+        header("Content-Disposition:attachment; filename=\"".$namafile."\"");
         echo $document;
+        // return $document;
     }
 
     /**
