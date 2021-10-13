@@ -13,6 +13,9 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $folder = 'public/img/penduduk/produk';
+
     public function index()
     {
         return Produk::all();
@@ -36,24 +39,30 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $produk = New Produk;
-        $produk->lapak_id = $request->lapak_id;
-        $produk->nama = $request->nama;
-        $produk->keterangan = $request->keterangan;
-        $produk->gambar = $request->gambar;
-        $produk->harga = $request->harga;
-
-        $produk->save();
-
-        if (response()) {
-            $result["success"] = "1";
-            $result["message"] = "success";
+        if (cektoken($request)) {
+            $produk = New Produk;
+            $produk->lapak_id = $request->lapak_id;
+            $produk->nama = $request->nama;
+            $produk->keterangan = $request->keterangan;
+            $produk->gambar = $request->gambar;
+            $produk->harga = $request->harga;
+    
+            $produk->save();
+    
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+            # code...
         } else {
             $result["success"] = "0";
-            $result["message"] = "error";
+            $result["message"] = "Access Denied";
         }
 
-        return json_encode($result);
+        return $result;
         
 
     //     return response()->json('Program deleted successfully');
@@ -65,9 +74,10 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function show(Produk $produk)
+    public function show($produk)
     {
-        //
+        return Produk::find($produk);
+        
     }
 
     /**
@@ -88,9 +98,32 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produk $produk)
+    public function update(Request $request, $produk)
     {
-        //
+        if (cektoken($request)) {
+            $produk = Produk::find($produk);
+            $produk->lapak_id = $request->lapak_id;
+            $produk->nama = $request->nama;
+            $produk->keterangan = $request->keterangan;
+            $produk->gambar = $request->gambar;
+            $produk->harga = $request->harga;
+    
+            $produk->save();
+    
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+            # code...
+        } else {
+            $result["success"] = "0";
+            $result["message"] = "Access Denied";
+        }
+
+        return $result;
     }
 
     /**
@@ -99,8 +132,20 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produk $produk)
+    public function destroy($produk, Request $request)
     {
-        //
+        if (cektoken($request)) {
+            $produk = Produk::find($produk);
+            if ($produk) {
+                deletefile($this->folder.'/'.$produk->gambar);
+                $produk->delete();
+                return response()->json('data berhasil dihapus');
+            } else {
+                return response()->json('Data Produk tidak ada');
+            }
+        } else {
+            return response()->json('Access Denide');
+        }
+
     }
 }

@@ -12,6 +12,32 @@ if (! function_exists('deletefile')) {
     }
 }
 
+// get nama lengkap
+if (! function_exists('notifjson')) {
+    function notifjson($data)
+    {
+        if ($data) {
+            $result["success"] = "1";
+            $result["message"] = "success";
+        } else {
+            $result["success"] = "0";
+            $result["message"] = "error";
+        }
+
+        return $result;
+    }
+}
+if (! function_exists('cektoken')) {
+    function cektoken($request)
+    {
+        if (isset($request->token) AND $request->token == '$2y$10$kIAxk2KCirEdUXMv8iuX6OkLHP6ha.XIbSkIrN1HcLga9zEi4/sLa') {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
+
 // IP
 // Mendapatkan IP pengunjung menggunakan getenv()
 function get_client_ip() {

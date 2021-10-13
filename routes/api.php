@@ -18,5 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('produk','App\Http\Controllers\Api\ProdukController@index');
-Route::post('produk','App\Http\Controllers\Api\ProdukController@store');
+// api produk
+Route::resource('produk','App\Http\Controllers\Api\ProdukController');
+
+// api penduduk
+Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid');
