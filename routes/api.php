@@ -20,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // api produk
 Route::resource('produk','App\Http\Controllers\Api\ProdukController');
+Route::resource('user','App\Http\Controllers\Api\UserController');
+Route::get('produklapak/{userid}','App\Http\Controllers\Api\ProdukController@produklapak');
 
 // api penduduk
 Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid');
