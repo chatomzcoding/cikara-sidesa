@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Cikara\DbCikara;
+use App\Models\Forum;
 use App\Models\Lapak;
+use App\Models\Lapor;
+use App\Models\Penduduksurat;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -18,7 +22,20 @@ class HomeController extends Controller
                 return view('admin.dashboard');
                 break;
             case 'penduduk':
-                return view('penduduk.dashboard');
+                $lapak  = Lapak::where('user_id',$user->id)->first();
+                if ($lapak) {
+                    $totalproduk = Produk::where('lapak_id',$lapak->id)->count();
+                } else {
+                    $totalproduk = 0;
+                }
+                
+                $total = [
+                    'laporan' => Lapor::where('user_id',$user->id)->count(),
+                    'surat' => Penduduksurat::where('user_id',$user->id)->count(),
+                    'produk' => $totalproduk,
+                    'forum' => Forum::count(),
+                ];
+                return view('penduduk.dashboard', compact('total'));
                 break;
             
             default:

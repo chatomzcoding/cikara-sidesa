@@ -31,8 +31,8 @@
                   <div class="info-box-content">
                     <span class="info-box-text">Laporan Dibuat</span>
                     <span class="info-box-number">
-                      
-                      {{ DbCikara::countData('lapor',['user_id',Auth::user()->id])}}
+                      {{ $total['laporan'] }}
+                      {{-- {{ DbCikara::countData('lapor',['user_id',Auth::user()->id])}} --}}
                       {{-- <small>%</small> --}}
                     </span>
                   </div>
@@ -47,8 +47,9 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Surat Dibuat</span>
-                    5
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('penduduk')}}</span> --}}
+                    <span class="info-box-number">
+                      {{ $total['surat'] }}
+                    </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -65,8 +66,9 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Produk</span>
-                    12
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('keluarga')}}</span> --}}
+                    <span class="info-box-number">
+                      {{ $total['produk'] }}
+                    </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -75,12 +77,11 @@
               <!-- /.col -->
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                  <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-people-carry"></i></span>
+                  <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-tag"></i></span>
     
                   <div class="info-box-content">
-                    <span class="info-box-text">Bantuan</span>
-                    5
-                    {{-- <span class="info-box-number">{{ DbCikara::countData('bantuan')}}</span> --}}
+                    <span class="info-box-text">Forum</span>
+                    <span class="info-box-number">{{ $total['forum']}}</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
