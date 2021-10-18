@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lapak;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -78,6 +79,15 @@ class ProdukController extends Controller
     {
         return Produk::find($produk);
         
+    }
+    public function produklapak($userid)
+    {
+        $lapak  = Lapak::where('user_id',$userid)->first();
+        if ($lapak) {
+            return Produk::where('lapak_id',$lapak->id)->get();
+        } else {
+            return response()->json('belum ada lapak');
+        }
     }
 
     /**
