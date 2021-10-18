@@ -28,9 +28,9 @@ if (! function_exists('notifjson')) {
     }
 }
 if (! function_exists('cektoken')) {
-    function cektoken($request)
+    function cektoken($token)
     {
-        if (isset($request->token) AND $request->token == '$2y$10$kIAxk2KCirEdUXMv8iuX6OkLHP6ha.XIbSkIrN1HcLga9zEi4/sLa') {
+        if (isset($token) AND $token == '$2y$10$kIAxk2KCirEdUXMv8iuX6OkLHP6ha.XIbSkIrN1HcLga9zEi4/sLa') {
             return TRUE;
         } else {
             return FALSE;

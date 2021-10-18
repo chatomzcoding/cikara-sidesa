@@ -25,3 +25,7 @@ Route::get('produklapak/{userid}','App\Http\Controllers\Api\ProdukController@pro
 
 // api penduduk
 Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid');
+
+// mobile api
+Route::get('lapakuser/{userid}','App\Http\Controllers\Api\MobileController@lapakByUser');
+Route::get('listuser','App\Http\Controllers\Api\MobileController@listuser');

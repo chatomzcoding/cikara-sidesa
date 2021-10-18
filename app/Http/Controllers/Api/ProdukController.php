@@ -110,7 +110,8 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $produk)
     {
-        if (cektoken($request)) {
+        $token = $request->token;
+        if (cektoken($token)) {
             $produk = Produk::find($produk);
             $produk->lapak_id = $request->lapak_id;
             $produk->nama = $request->nama;
@@ -144,7 +145,8 @@ class ProdukController extends Controller
      */
     public function destroy($produk, Request $request)
     {
-        if (cektoken($request)) {
+        $token = $request->token;
+        if (cektoken($token)) {
             $produk = Produk::find($produk);
             if ($produk) {
                 deletefile($this->folder.'/'.$produk->gambar);
