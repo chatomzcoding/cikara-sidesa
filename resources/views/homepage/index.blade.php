@@ -520,12 +520,12 @@
 						</div>
 
 						<!-- Newsletter Form -->
-						<div class="newsletter_form_container ml-lg-auto">
+						{{-- <div class="newsletter_form_container ml-lg-auto">
 							<form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
 								<input type="email" class="newsletter_input" placeholder="Your Email" required="required">
 								<button type="submit" class="newsletter_button">subscribe</button>
 							</form>
-						</div>
+						</div> --}}
 
 					</div>
 				</div>
