@@ -25,6 +25,7 @@ Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageC
 // HOMEPAGE
 Route::get('homepage/artikel', 'App\Http\Controllers\HomepageController@artikel');
 Route::get('homepage/artikel/{slug}', 'App\Http\Controllers\HomepageController@showartikel');
+Route::get('produkdesa/{id}', 'App\Http\Controllers\HomepageController@produkdetail');
 
 // WEBSERVICE
 Route::get('ws/{token}/{sesi}/{id}', 'App\Http\Controllers\WebserviceController@data');

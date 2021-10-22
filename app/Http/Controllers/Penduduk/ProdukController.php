@@ -64,6 +64,7 @@ class ProdukController extends Controller
         Produk::create([
             'lapak_id' => $request->lapak_id,
             'nama' => $request->nama,
+            'dilihat' => 0,
             'keterangan' => $request->keterangan,
             'harga' => cikararesetrupiah($request->harga),
             'gambar' => $nama_file,

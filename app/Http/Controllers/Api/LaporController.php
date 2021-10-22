@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lapak;
-use App\Models\Produk;
+use App\Models\Lapor;
 use Illuminate\Http\Request;
 
-class ProdukController extends Controller
+class LaporController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    protected $folder = 'public/img/penduduk/produk';
-
     public function index()
     {
-        return Produk::all();
+        return Lapor::all();
+    }
+
+    public function listbyuser($userid)
+    {
+        return Lapor::where('user_id',$userid)->get();
     }
 
     /**
@@ -42,15 +43,13 @@ class ProdukController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
-            $produk = New Produk;
-            $produk->lapak_id = $request->lapak_id;
-            $produk->nama = $request->nama;
-            $produk->keterangan = $request->keterangan;
-            $produk->gambar = $request->gambar;
-            $produk->harga = $request->harga;
-            $produk->dilihat = $request->dilihat;
+            $data = New Lapor();
+            $data->user_id = $request->user_id;
+            $data->isi = $request->isi;
+            $data->kategori = $request->kategori;
+            $data->status = $request->status;
     
-            $produk->save();
+            $data->save();
     
             if (response()) {
                 $result["success"] = "1";
@@ -66,39 +65,26 @@ class ProdukController extends Controller
         }
 
         return $result;
-        
-
-    //     return response()->json('Program deleted successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produk  $produk
+     * @param  \App\Models\Lapor  $lapor
      * @return \Illuminate\Http\Response
      */
-    public function show($produk)
+    public function show(Lapor $lapor)
     {
-        return Produk::find($produk);
-        
-    }
-    public function produklapak($userid)
-    {
-        $lapak  = Lapak::where('user_id',$userid)->first();
-        if ($lapak) {
-            return Produk::where('lapak_id',$lapak->id)->get();
-        } else {
-            return response()->json('belum ada lapak');
-        }
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Produk  $produk
+     * @param  \App\Models\Lapor  $lapor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produk $produk)
+    public function edit(Lapor $lapor)
     {
         //
     }
@@ -107,29 +93,19 @@ class ProdukController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Produk  $produk
+     * @param  \App\Models\Lapor  $lapor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $produk)
+    public function update(Request $request, Lapor $lapor)
     {
         $token = $request->token;
         if (cektoken($token)) {
-            $produk = Produk::find($produk);
-            $produk->lapak_id = $request->lapak_id;
-            $produk->nama = $request->nama;
-            $produk->keterangan = $request->keterangan;
-            $produk->gambar = $request->gambar;
-            $produk->harga = $request->harga;
-    
-            $produk->save();
-    
-            if (response()) {
+            Lapor::where('id',$lapor->id)->update([
+                'isi' => $request->isi,
+                'kategori' => $request->kategori,
+            ]);
                 $result["success"] = "1";
                 $result["message"] = "success";
-            } else {
-                $result["success"] = "0";
-                $result["message"] = "error";
-            }
             # code...
         } else {
             $result["success"] = "0";
@@ -142,17 +118,16 @@ class ProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Produk  $produk
+     * @param  \App\Models\Lapor  $lapor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($produk, Request $request)
+    public function destroy($lapor, Request $request)
     {
         $token = $request->token;
         if (cektoken($token)) {
-            $produk = Produk::find($produk);
-            if ($produk) {
-                deletefile($this->folder.'/'.$produk->gambar);
-                $produk->delete();
+            $lapor = Lapor::find($lapor);
+            if ($lapor) {
+                $lapor->delete();
                 $result["success"] = "1";
                 $result["message"] = "success";
                 return $result;
@@ -164,6 +139,5 @@ class ProdukController extends Controller
         } else {
             return response()->json('Access Denide');
         }
-
     }
 }

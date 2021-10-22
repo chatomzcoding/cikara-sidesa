@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -54,5 +55,20 @@ class MobileController extends Controller
 
         return $result;
         
+    }
+
+    public function kategori($sesi)
+    {
+        switch ($sesi) {
+            case 'laporan':
+                $result = Kategori::where('label','lapor')->get();
+                break;
+            
+            default:
+                $result = NULL;
+                break;
+        }
+
+        return $result;
     }
 }

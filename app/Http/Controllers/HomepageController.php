@@ -7,6 +7,7 @@ use App\Models\Galeri;
 use App\Models\Infowebsite;
 use App\Models\Kategori;
 use App\Models\Kategoriartikel;
+use App\Models\Lapak;
 use App\Models\Lapor;
 use App\Models\Potensi;
 use App\Models\Potensisub;
@@ -104,6 +105,13 @@ class HomepageController extends Controller
         $kategori   = Kategoriartikel::all();
         $lastberita = Artikel::where('id','<>',$berita->id)->orderBy('id','DESC')->limit(5)->get();
         return view('homepage.detailberita', compact('menu','berita','kategori','lastberita'));
+    }
+    public function produkdetail($id)
+    {
+        $menu       = 'produk';
+        $produk     = Produk::find(Crypt::decrypt($id));
+        $lapak      = Lapak::find($produk->lapak_id);
+        return view('homepage.detailproduk', compact('menu','produk','lapak'));
     }
 
     public function kategori($kategori)

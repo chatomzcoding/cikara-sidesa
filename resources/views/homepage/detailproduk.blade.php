@@ -18,11 +18,13 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li><a href="{{ url('/') }}">Beranda</a></li>
-                            <li>Produk Desa</li>
+                            <li><a href="{{ url('/halaman/pasardesa') }}">Produk Desa</a></li>
+                            <li> {{ $produk->nama}} </li>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>			
 </div>
@@ -31,38 +33,42 @@
 
 <div class="about">
     <div class="container">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col">
                 <div class="section_title_container text-center">
                     <h2 class="section_title">Produk Desa {{ $desa->nama_desa }}</h2>
                     <div class="section_subtitle"><p>Produk-Produk Masyarakat</p></div>
                 </div>
             </div>
-        </div>
-        <div class="row about_row">
-            
-            <!-- About Item -->
-            @forelse ($produk as $item)
-                <div class="col-md-3 about_col about_col_left">
-                    <div class="about_item">
-                        <a href="{{ url('produkdesa/'.Crypt::encrypt($item->id)) }}">
-                        <div class="about_item_image"><img src="{{ asset('img/penduduk/produk/'.$item->gambar)}}" alt=""></div>
-                        <div class="about_item_title text-center h4">{{ $item->nama }}</div>
-                        </a>
-                        <div class="about_item_text">
-                            <h4>{{ rupiah($item->harga) }}</h4>
-                            <p>{{ Str::substr($item->keterangan, 0, 100) }}...</p>
-                        </div>
-                    </div>
+        </div> --}}
+                   <div class="row about_row">
+                <div class="col-lg-4 col-md-6">
+                    <section>
+                        <img src="{{ asset('img/penduduk/produk/'.$produk->gambar)}}" class="img-fluid" alt="">
+                    </section>
                 </div>
-                
-            @empty
-                <div class="col text-center">
-                    <i>Data Produk belum tersedia</i>
-                </div>   
-            @endforelse
-
-        </div>
+                <div class="col-lg-8 col-md-6">
+                    <h2>{{ $produk->nama}}</h2>
+                    <h4> {{ rupiah($produk->harga)}} </h4>
+                    <hr>
+                    <p> {{ $produk->keterangan}} </p>
+                    <hr>
+                    <table width="100%">
+                        <tr>
+                            <th>Lapak</th>
+                            <td>: {{ $lapak->nama_lapak}}</td>
+                        </tr>
+                        <tr>
+                            <th>Tentang Lapak</th>
+                            <td>: {{ $lapak->tentang}}</td>
+                        </tr>
+                        <tr>
+                            <th>Alamat</th>
+                            <td>: {{ $lapak->alamat}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
     </div>
 </div>
 
