@@ -70,7 +70,7 @@ class HomepageController extends Controller
                 return view('homepage.profil', compact('menu','desa','info','potensi'));
                 break;
             case 'pasardesa':
-                $menu   = 'layanan';
+                $menu   = 'produk';
                 $desa   = Profil::first();
                 $info   = Infowebsite::first();
                 $produk = Produk::limit(12)->orderBy('id','DESC')->get();
