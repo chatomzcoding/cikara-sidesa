@@ -40,13 +40,15 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        if (cektoken($request)) {
+        $token = $request->token;
+        if (cektoken($token)) {
             $produk = New Produk;
             $produk->lapak_id = $request->lapak_id;
             $produk->nama = $request->nama;
             $produk->keterangan = $request->keterangan;
             $produk->gambar = $request->gambar;
             $produk->harga = $request->harga;
+            $produk->dilihat = $request->dilihat;
     
             $produk->save();
     
