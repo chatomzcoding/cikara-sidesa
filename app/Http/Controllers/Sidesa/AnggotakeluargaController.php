@@ -71,9 +71,14 @@ class AnggotakeluargaController extends Controller
      * @param  \App\Models\Anggotakeluarga  $anggotakeluarga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggotakeluarga $anggotakeluarga)
+    public function update(Request $request)
     {
-        //
+        Anggotakeluarga::where('id',$request->id)->update([
+            'penduduk_id' => $request->penduduk_id,
+            'hubungan' => $request->hubungan,
+        ]);
+
+        return redirect()->back()->with('du','Anggota Keluarga');
     }
 
     /**
