@@ -21,7 +21,10 @@ class RumahtanggaController extends Controller
     {
         $rumahtangga    = DB::table('rumah_tangga')
                             ->join('penduduk','rumah_tangga.penduduk_id','=','penduduk.id')
-                            ->select('rumah_tangga.*','penduduk.nama_penduduk','penduduk.nik','penduduk.alamat_sekarang')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->join('dusun','rw.dusun_id','=','dusun.id')
+                            ->select('rumah_tangga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
                             ->get();
         $penduduk       = Penduduk::all();
 
@@ -100,9 +103,15 @@ class RumahtanggaController extends Controller
      * @param  \App\Models\Rumahtangga  $rumahtangga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rumahtangga $rumahtangga)
+    public function update(Request $request)
     {
-        //
+        Rumahtangga::where('id',$request->id)->update([
+            'penduduk_id' => $request->penduduk_id,
+            'nomor' => $request->nomor,
+            'tgl_daftar' => $request->tgl_daftar,
+        ]);
+
+        return redirect()->back()->with('du','Rumah Tangga');
     }
 
     /**

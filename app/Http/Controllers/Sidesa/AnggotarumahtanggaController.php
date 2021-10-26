@@ -70,9 +70,13 @@ class AnggotarumahtanggaController extends Controller
      * @param  \App\Models\Anggotarumahtangga  $anggotarumahtangga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggotarumahtangga $anggotarumahtangga)
+    public function update(Request $request)
     {
-        //
+        Anggotarumahtangga::where('id',$request->id)->update([
+            'penduduk_id' => $request->penduduk_id
+        ]);
+
+        return redirect()->back()->with('du','Anggota Rumah Tangga');
     }
 
     /**

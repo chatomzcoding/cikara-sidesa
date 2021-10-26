@@ -28,9 +28,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar rumah tangga</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a>
-                <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar rumah tangga</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a> --}}
               </div>
               <div class="card-body">
                 @include('sistem.notifikasi')
@@ -38,21 +38,25 @@
                   <section class="mb-3">
                     <table class="table table-striped">
                         <tr>
-                            <th>Nomor Rumah Tangga</th>
-                            <td>: -</td>
+                            <th width="30%">Nomor Rumah Tangga</th>
+                            <td>: {{ $rumahtangga->nomor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Terdaftar</th>
+                            <td>: {{ date_indo($rumahtangga->tgl_daftar) }}</td>
                         </tr>
                         <tr>
                             <th>Kepala Rumah Tangga</th>
-                            <td>: {{ $rumahtangga->nama_penduduk}}</td>
+                            <td class="text-capitalize">: {{ $rumahtangga->nama_penduduk}}</td>
                         </tr>
                         <tr>
                             <th>Alamat</th>
                             <td>: {{ $rumahtangga->alamat_sekarang}}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th>Program Bantuan</th>
                             <td>: -</td>
-                        </tr>
+                        </tr> --}}
 
                     </table>
                   </section>
@@ -88,7 +92,16 @@
                                             <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                         <td>{{ $item->nik}}</td>
-                                        <td>-</td>
+                                        @php
+                                            $kk     = DbCikara::nomorKK($item->penduduk_id);
+                                        @endphp
+                                        <td>
+                                            @if ($kk)
+                                                {{ $kk->no_kk }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td>{{ $item->nama_penduduk}}</td>
                                         <td>{{ $item->jk}}</td>
                                         <td>{{ $item->alamat_sekarang}}</td>
@@ -152,13 +165,12 @@
     <!-- /.modal -->
 
     {{-- modal edit --}}
-    {{-- <div class="modal fade" id="ubah">
+    <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('unit.update','test')}}" method="post">
+            <form action="{{ route('anggotarumahtangga.update','test')}}" method="post">
                 @csrf
                 @method('patch')
-                <input type="hidden" name="logo_unit" value="">
             <div class="modal-header">
             <h4 class="modal-title">Form Edit Unit</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -168,17 +180,14 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Unit</label>
-                        <input type="text" id="nama_unit" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
-                        <input type="text" id="manajer_unit" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Staf Unit</label>
-                        <input type="text" id="staf_unit" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
+                    <div class="form-group">
+                        <label for="">NIK / Nama Penduduk</label>
+                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                            <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
+                            @foreach ($penduduk as $item)
+                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </section>
             </div>
@@ -189,24 +198,20 @@
             </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
 
-    {{-- @section('script')
+    @section('script')
         
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama_unit = button.data('nama_unit')
-                var manajer_unit = button.data('manajer_unit')
-                var staf_unit = button.data('staf_unit')
+                var penduduk_id = button.data('penduduk_id')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama_unit').val(nama_unit);
-                modal.find('.modal-body #manajer_unit').val(manajer_unit);
-                modal.find('.modal-body #staf_unit').val(staf_unit);
+                modal.find('.modal-body #penduduk_id').val(penduduk_id);
                 modal.find('.modal-body #id').val(id);
             })
         </script>
@@ -227,6 +232,6 @@
             });
             });
         </script>
-    @endsection --}}
+    @endsection
     @endsection
 

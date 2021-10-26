@@ -30,9 +30,9 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Rumah Tangga </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-                <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
+                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
+                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -43,7 +43,7 @@
                       <form action="" method="post">
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="" id="" class="form-control form-control-sm" disabled>
                                     <option value="">Pilih Dusun</option>
                                     <option value="">KK Aktif</option>
                                     <option value="">KK hilang/pindah/mati</option>
@@ -59,7 +59,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
-                                <th>Nomor Rumah Tangga</th>
+                                <th>Nomor</th>
                                 <th>Kepala Rumah Tangga</th>
                                 <th>NIK</th>
                                 <th>Jumlah Anggota</th>
@@ -80,20 +80,20 @@
                                             @method('delete')
                                             </form>
                                         <a href="{{ url('/rumahtangga/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
-                                        <button type="button" data-toggle="modal"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                        <button type="button" data-toggle="modal"  data-id="{{ $item->id }}" data-penduduk_id="{{ $item->penduduk_id }}" data-nomor="{{ $item->nomor }}" data-tgl_daftar="{{ $item->tgl_daftar }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>-</td>
+                                    <td>{{ $item->nomor }}</td>
                                     <td>{{ $item->nama_penduduk}}</td>
-                                    <td>{{ $item->nik}}</td>
-                                    <td>jumlah anggota</td>
+                                    <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk }}</td>
+                                    <td class="text-center">{{ DbCikara::countData('anggota_rumah_tangga',['rumahtangga_id',$item->id])}}</td>
                                     <td>{{ $item->alamat_sekarang}}</td>
-                                    <td>dusun</td>
-                                    <td>rw</td>
-                                    <td>rt</td>
-                                    <td>tgl terdaftar</td>
+                                    <td>{{ $item->nama_dusun }}</td>
+                                    <td>{{ $item->nama_rw }}</td>
+                                    <td>{{ $item->nama_rt }}</td>
+                                    <td>{{ date_indo($item->tgl_daftar) }}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -123,6 +123,14 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group">
+                        <label for="">Nomor Rumah Tangga</label>
+                        <input type="text" name="nomor" id="nomor" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tanggal Terdaftar</label>
+                        <input type="date" name="tgl_daftar" id="tgl_daftar" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
                         <select name="penduduk_id" id="" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
@@ -147,15 +155,14 @@
     <!-- /.modal -->
 
     {{-- modal edit --}}
-    {{-- <div class="modal fade" id="ubah">
+    <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('unit.update','test')}}" method="post">
+            <form action="{{ route('rumahtangga.update','test')}}" method="post">
                 @csrf
                 @method('patch')
-                <input type="hidden" name="logo_unit" value="">
             <div class="modal-header">
-            <h4 class="modal-title">Form Edit Unit</h4>
+            <h4 class="modal-title">Form Edit Rumah Tangga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -163,17 +170,25 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Unit</label>
-                        <input type="text" id="nama_unit" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
+                    <div class="form-group">
+                        <label for="">Nomor Rumah Tangga</label>
+                        <input type="text" name="nomor" id="nomor" class="form-control">
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
-                        <input type="text" id="manajer_unit" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
+                    <div class="form-group">
+                        <label for="">Tanggal Terdaftar</label>
+                        <input type="date" name="tgl_daftar" id="tgl_daftar" class="form-control">
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Staf Unit</label>
-                        <input type="text" id="staf_unit" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
+                    <div class="form-group">
+                        <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
+                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                            <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                            @foreach ($penduduk as $item)
+                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                            @endforeach
+                        </select>
+                        <div class="alert alert-secondary mt-2">
+                            Silakan cari nama / NIK dari data penduduk yang sudah terinput. Penduduk yang dipilih otomatis berstatus sebagai Kepala Rumah Tangga baru tersebut.
+                        </div>
                     </div>
                 </section>
             </div>
@@ -184,24 +199,24 @@
             </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
 
-    {{-- @section('script')
+    @section('script')
         
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama_unit = button.data('nama_unit')
-                var manajer_unit = button.data('manajer_unit')
-                var staf_unit = button.data('staf_unit')
+                var penduduk_id = button.data('penduduk_id')
+                var nomor = button.data('nomor')
+                var tgl_daftar = button.data('tgl_daftar')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama_unit').val(nama_unit);
-                modal.find('.modal-body #manajer_unit').val(manajer_unit);
-                modal.find('.modal-body #staf_unit').val(staf_unit);
+                modal.find('.modal-body #penduduk_id').val(penduduk_id);
+                modal.find('.modal-body #nomor').val(nomor);
+                modal.find('.modal-body #tgl_daftar').val(tgl_daftar);
                 modal.find('.modal-body #id').val(id);
             })
         </script>
@@ -222,7 +237,7 @@
             });
             });
         </script>
-    @endsection --}}
+    @endsection
 
     @endsection
 

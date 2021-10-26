@@ -129,6 +129,16 @@ class DbCikara {
         return $penduduk;
     }
 
+    // No KK
+    public static function nomorKK($penduduk)
+    {
+        $data = DB::table('anggota_keluarga')
+                ->join('keluarga','anggota_keluarga.keluarga_id','=','keluarga.id')
+                ->where('anggota_keluarga.penduduk_id',$penduduk)
+                ->first();
+        return $data;
+    }
+
     public static function nomorsurat($kode)
     {
         $desa           = Profil::first();
