@@ -1,21 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Data Kelompok {{ $kelompok->nama_kelompok}}</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('/kelompok')}}">Daftar Kelompok</a></li>
-                <li class="breadcrumb-item active">{{ $kelompok->nama_kelompok}}</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-    </x-slot>
+@extends('layouts.admin')
+
+@section('title')
+    Detail Kelompok
+@endsection
+
+@section('header')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1 class="m-0">Data Kelompok {{ $kelompok->nama_kelompok}}</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/kelompok')}}">Daftar Kelompok</a></li>
+            <li class="breadcrumb-item active">{{ $kelompok->nama_kelompok}}</li>
+        </ol>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    
+@endsection
+
+@section('container')
+    
 
     {{-- <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,10 +37,10 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                  {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                  <a href="{{ url('/kelompok')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar kelompok</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Kelompok </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a>
-                <a href="{{ url('/kelompok')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar kelompok</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a> --}}
               </div>
               <div class="card-body">
                 @include('sistem.notifikasi')
@@ -43,15 +49,15 @@
                     <table class="table table-striped">
                         <tr>
                             <th>Nama Kelompok</th>
-                            <td>: {{ $kelompok->nama_kelompok}}</td>
+                            <td class="text-capitalize">: {{ $kelompok->nama_kelompok}}</td>
                         </tr>
                         <tr>
                             <th>Ketua Kelompok</th>
-                            <td>: {{ $kelompok->nama_penduduk}}</td>
+                            <td class="text-capitalize">: {{ $kelompok->nama_penduduk}}</td>
                         </tr>
                         <tr>
                             <th>Kategori Kelompok</th>
-                            <td>: {{ $kelompok->nama_kategori}}</td>
+                            <td class="text-uppercase">: {{ $kelompok->nama_kategori}}</td>
                         </tr>
                         <tr>
                             <th>Keterangan</th>
@@ -128,7 +134,7 @@
                         <select name="penduduk_id" id="penduduk_id" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -169,7 +175,7 @@
                         <select name="penduduk_id" id="penduduk_id" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -187,6 +193,9 @@
         </div>
         </div>
     </div>
+
+@endsection
+
     <!-- /.modal -->
 
     @section('script')
@@ -223,5 +232,3 @@
             });
         </script>
     @endsection
-
-</x-app-layout>

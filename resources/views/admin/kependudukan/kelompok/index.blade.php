@@ -47,20 +47,22 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kelompok Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-                <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
+                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
+                {{-- <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <section class="mb-3">
-                      <form action="" method="post">
+                      <form action="{{ url('kelompok') }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">Kategori Kelompok</option>
+                                <select name="kategori" id="" class="form-control form-control-sm" onchange="this.form.submit();">
+                                    <option value="semua">Semua</option>
                                     @foreach ($kategorikelompok as $item)
-                                        <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
+                                        <option value="{{ $item->id}}" @if ($kategori == $item->id)
+                                            selected
+                                        @endif>{{ $item->nama_kategori}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -97,11 +99,11 @@
                                     <td>{{ $item->nama_kelompok}}</td>
                                     <td>{{ $item->nama_penduduk}}</td>
                                     <td>{{ $item->nama_kategori}}</td>
-                                    <td>-</td>
+                                    <td class="text-center">{{ DbCikara::countData('anggota_kelompok',['kelompok_id',$item->id]) }}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="5">tidak ada data</td>
+                                    <td colspan="6">tidak ada data</td>
                                 </tr>
                             @endforelse
                     </table>
@@ -126,35 +128,35 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kelompok</label>
-                        <input type="text" id="nama_kelompok" name="nama_kelompok" class="form-control" placeholder="Nama Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Kelompok</label>
+                        <input type="text" id="nama_kelompok" name="nama_kelompok" class="form-control col-md-8" placeholder="Nama Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Kode Kelompok</label>
-                        <input type="text" id="kode_kelompok" name="kode_kelompok" class="form-control" placeholder="Kode Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Kode Kelompok</label>
+                        <input type="text" id="kode_kelompok" name="kode_kelompok" class="form-control col-md-8" placeholder="Kode Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Kategori Kelompok</label>
-                        <select name="kategorikelompok_id" id="kategorikelompok_id" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Kategori Kelompok</label>
+                        <select name="kategorikelompok_id" id="kategorikelompok_id" class="form-control col-md-8" required>
                             <option value="">-- Silahkan Masukkan Kategori Kelompok --</option>
                             @foreach ($kategorikelompok as $item)
                                 <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Ketua Kelompok</label>
-                        <select name="penduduk_id" id="" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Ketua Kelompok</label>
+                        <select name="penduduk_id" id="" class="form-control col-md-8" required>
                             <option value="">-- Silahkan Masukkan NIK / Nama --</option>
                             @foreach ($penduduk as $item)
                                 <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Deskripsi Kelompok</label>
-                        <textarea name="deskripsi_kelompok" id="deskripsi_kelompok" cols="30" rows="4" class="form-control"></textarea>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Deskripsi Kelompok</label>
+                        <textarea name="deskripsi_kelompok" id="deskripsi_kelompok" cols="30" rows="4" class="form-control col-md-8"></textarea>
                     </div>
                 </section>
             </div>
@@ -185,35 +187,35 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kelompok</label>
-                        <input type="text" id="nama_kelompok" name="nama_kelompok" class="form-control" placeholder="Nama Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Kelompok</label>
+                        <input type="text" id="nama_kelompok" name="nama_kelompok" class="form-control col-md-8" placeholder="Nama Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Kode Kelompok</label>
-                        <input type="text" id="kode_kelompok" name="kode_kelompok" class="form-control" placeholder="Kode Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Kode Kelompok</label>
+                        <input type="text" id="kode_kelompok" name="kode_kelompok" class="form-control col-md-8" placeholder="Kode Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Kategori Kelompok</label>
-                        <select name="kategorikelompok_id" id="kategorikelompok_id" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Kategori Kelompok</label>
+                        <select name="kategorikelompok_id" id="kategorikelompok_id" class="form-control col-md-8" required>
                             <option value="">-- Silahkan Masukkan Kategori Kelompok --</option>
                             @foreach ($kategorikelompok as $item)
                                 <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Ketua Kelompok</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Ketua Kelompok</label>
+                        <select name="penduduk_id" id="penduduk_id" class="form-control col-md-8" required>
                             <option value="">-- Silahkan Masukkan NIK / Nama --</option>
                             @foreach ($penduduk as $item)
                                 <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Deskripsi Kelompok</label>
-                        <textarea name="deskripsi_kelompok" id="deskripsi_kelompok" cols="30" rows="4" class="form-control"></textarea>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Deskripsi Kelompok</label>
+                        <textarea name="deskripsi_kelompok" id="deskripsi_kelompok" cols="30" rows="4" class="form-control col-md-8"></textarea>
                     </div>
                 </section>
             </div>

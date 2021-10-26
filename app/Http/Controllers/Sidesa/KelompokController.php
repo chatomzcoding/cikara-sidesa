@@ -20,15 +20,25 @@ class KelompokController extends Controller
      */
     public function index()
     {
-        $kelompok   = DB::table('kelompok')
-                        ->join('penduduk','kelompok.penduduk_id','=','penduduk.id')
-                        ->join('kategori_kelompok','kelompok.kategorikelompok_id','=','kategori_kelompok.id')
-                        ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
-                        ->get();
         $kategorikelompok = Kategorikelompok::all();
         $penduduk   = Penduduk::all();
-
-        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok','penduduk'));
+        if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
+            $kategori = $_GET['kategori'];
+            $kelompok   = DB::table('kelompok')
+                            ->join('penduduk','kelompok.penduduk_id','=','penduduk.id')
+                            ->join('kategori_kelompok','kelompok.kategorikelompok_id','=','kategori_kelompok.id')
+                            ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
+                            ->where('kelompok.kategorikelompok_id',$kategori)
+                            ->get();
+        } else {
+            $kategori = NULL;
+            $kelompok   = DB::table('kelompok')
+                            ->join('penduduk','kelompok.penduduk_id','=','penduduk.id')
+                            ->join('kategori_kelompok','kelompok.kategorikelompok_id','=','kategori_kelompok.id')
+                            ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
+                            ->get();
+        }
+        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok','penduduk','kategori'));
     }
 
     /**
@@ -118,6 +128,8 @@ class KelompokController extends Controller
      */
     public function destroy(Kelompok $kelompok)
     {
-        //
+        $kelompok->delete();
+
+        return redirect()->back()->with('dd','Kelompok');
     }
 }
