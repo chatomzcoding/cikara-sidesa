@@ -76,13 +76,11 @@
                                 <th>Nomor KK</th>
                                 <th>Kepala Keluarga</th>
                                 <th>NIK</th>
-                                <th>Tag ID Card</th>
-                                <th>Jumlah Anggota</th>
-                                <th>Jenis Kelamin</th>
                                 <th>Alamat</th>
                                 <th>Dusun</th>
                                 <th>RW</th>
                                 <th>RT</th>
+                                <th>Jumlah Anggota</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -103,13 +101,11 @@
                                     <td>{{ $item->no_kk}}</td>
                                     <td>{{ $item->nama_penduduk}}</td>
                                     <td>{{ $item->nik}}</td>
-                                    <td>id</td>
-                                    <td>jumlah anggota</td>
-                                    <td>{{ $item->jk}}</td>
                                     <td>{{ $item->alamat_sekarang}}</td>
-                                    <td>dusun</td>
-                                    <td>rw</td>
-                                    <td>rt</td>
+                                    <td>{{ $item->nama_dusun }}</td>
+                                    <td>{{ $item->nama_rw }}</td>
+                                    <td>{{ $item->nama_rt }}</td>
+                                    <td class="text-center">{{ DbCikara::countData('anggota_keluarga',['keluarga_id',$item->id]) }}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -143,7 +139,7 @@
                         <select name="penduduk_id" id="" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>

@@ -29,7 +29,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a> --}}
                 <a href="{{ url('/keluarga')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
               </div>
               <div class="card-body">
@@ -43,16 +43,16 @@
                         </tr>
                         <tr>
                             <th>Kepala Keluarga</th>
-                            <td>: {{ $penduduk->nama_penduduk}}</td>
+                            <td class="text-capitalize">: {{ $penduduk->nama_penduduk}}</td>
                         </tr>
                         <tr>
                             <th>Alamat</th>
                             <td>: {{ $penduduk->alamat_sekarang}}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th>Program Bantuan</th>
                             <td>: -</td>
-                        </tr>
+                        </tr> --}}
 
                     </table>
                   </section>
@@ -88,7 +88,7 @@
                                         </td>
                                         <td>{{ $item->nik}}</td>
                                         <td>{{ $item->nama_penduduk}}</td>
-                                        <td>{{ $item->tgl_lahir}}</td>
+                                        <td>{{ date_indo($item->tgl_lahir)}}</td>
                                         <td>{{ $item->jk}}</td>
                                         <td>{{ $item->hubungan}}</td>
                                     </tr>
@@ -127,7 +127,7 @@
                         <select name="penduduk_id" id="" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($listpenduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>

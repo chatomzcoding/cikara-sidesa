@@ -19,10 +19,13 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $penduduk   = Penduduk::all();
+        $penduduk   = Penduduk::where('jk','laki-laki')->where('status_perkawinan','kawin')->get();
         $keluarga   = DB::table('keluarga')
                         ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
-                        ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik')
+                        ->join('rt','penduduk.rt_id','=','rt.id')
+                        ->join('rw','rt.rw_id','=','rw.id')
+                        ->join('dusun','rw.dusun_id','=','dusun.id')
+                        ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
                         ->get();
         return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk'));
     }
