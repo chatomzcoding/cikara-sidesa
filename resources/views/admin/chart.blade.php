@@ -129,14 +129,14 @@
         <div class="card">
           <div class="card-header border-0">
             <h3 class="card-title">Produk</h3>
-            <div class="card-tools">
+            {{-- <div class="card-tools">
               <a href="#" class="btn btn-tool btn-sm">
                 <i class="fas fa-download"></i>
               </a>
               <a href="#" class="btn btn-tool btn-sm">
                 <i class="fas fa-bars"></i>
               </a>
-            </div>
+            </div> --}}
           </div>
           <div class="card-body table-responsive p-0">
             <table class="table table-striped table-valign-middle">
@@ -144,88 +144,32 @@
               <tr>
                 <th>Nama Produk</th>
                 <th>Harga</th>
-                <th>Transaksi</th>
+                <th>Dilihat</th>
                 {{-- <th>More</th> --}}
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>
-                  {{-- <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2"> --}}
-                  Voucher Pulsa
-                </td>
-                <td>Rp. 14.000</td>
-                <td>
-                  <small class="text-success mr-1">
-                    <i class="fas fa-arrow-up"></i>
-                    12%
-                  </small>
-                  34 Terjual
-                </td>
-                {{-- <td>
-                  <a href="#" class="text-muted">
-                    <i class="fas fa-search"></i>
-                  </a>
-                </td> --}}
-              </tr>
-              <tr>
-                <td>
-                  {{-- <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2"> --}}
-                  Baju Bayi
-                </td>
-                <td>Rp. 30.000</td>
-                <td>
-                  <small class="text-warning mr-1">
-                    <i class="fas fa-arrow-down"></i>
-                    0.5%
-                  </small>
-                  5
-                </td>
-                {{-- <td>
-                  <a href="#" class="text-muted">
-                    <i class="fas fa-search"></i>
-                  </a>
-                </td> --}}
-              </tr>
-              <tr>
-                <td>
-                  {{-- <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2"> --}}
-                  Kain Pancing
-                </td>
-                <td>Rp. 5.000</td>
-                <td>
-                  <small class="text-danger mr-1">
-                    <i class="fas fa-arrow-down"></i>
-                    10%
-                  </small>
-                  21 Terjual
-                </td>
-                {{-- <td>
-                  <a href="#" class="text-muted">
-                    <i class="fas fa-search"></i>
-                  </a>
-                </td> --}}
-              </tr>
-              <tr>
-                <td>
-                  {{-- <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2"> --}}
-                  Batu Bata
-                  <span class="badge bg-danger">NEW</span>
-                </td>
-                <td>Rp. 2.000</td>
-                <td>
-                  <small class="text-success mr-1">
-                    <i class="fas fa-arrow-up"></i>
-                    63%
-                  </small>
-                  3000 terjual
-                </td>
-                {{-- <td>
-                  <a href="#" class="text-muted">
-                    <i class="fas fa-search"></i>
-                  </a>
-                </td> --}}
-              </tr>
+                @foreach ($produk as $item)
+                  <tr>
+                    <td class="text-capitalize">
+                      <img src="{{ asset('img/penduduk/produk/'.$item->gambar) }}" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      {{ $item->nama }}
+                    </td>
+                    <td>{{ rupiah($item->harga) }}</td>
+                    <td>
+                      {{-- <small class="text-success mr-1">
+                        <i class="fas fa-arrow-up"></i>
+                        12%
+                      </small> --}}
+                      {{ $item->dilihat }} dilihat
+                    </td>
+                    {{-- <td>
+                      <a href="#" class="text-muted">
+                        <i class="fas fa-search"></i>
+                      </a>
+                    </td> --}}
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

@@ -111,6 +111,11 @@ class HomepageController extends Controller
         $menu       = 'produk';
         $produk     = Produk::find(Crypt::decrypt($id));
         $lapak      = Lapak::find($produk->lapak_id);
+        // tambahkan view pada produk
+        $dilihat    = $produk->dilihat + 1;
+        Produk::where('id',$produk->id)->update([
+            'dilihat' => $dilihat
+        ]);
         return view('homepage.detailproduk', compact('menu','produk','lapak'));
     }
 

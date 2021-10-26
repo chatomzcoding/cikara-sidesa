@@ -19,7 +19,8 @@ class HomeController extends Controller
         $user   = Auth::user();
         switch ($user->level) {
             case 'admin':
-                return view('admin.dashboard');
+                $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
+                return view('admin.dashboard', compact('produk'));
                 break;
             case 'penduduk':
                 $lapak  = Lapak::where('user_id',$user->id)->first();
