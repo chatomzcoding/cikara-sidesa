@@ -29,9 +29,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('/dusun')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar Dusun</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah RW</a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a>
-                <a href="{{ url('/kelompok')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar kelompok</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -47,13 +47,18 @@
                                 <th>NIK Ketua RW</th>
                                 <th>RT</th>
                                 <th>KK</th>
-                                <th>L+P</th>
                                 <th>L</th>
                                 <th>P</th>
+                                <th>L+P</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($rw as $item)
+                            @php
+                                $jumlahlakilaki = DbCikara::jumlahJk('rw',$item->id,'laki-laki');
+                                $jumlahperempuan = DbCikara::jumlahJk('rw',$item->id,'perempuan');
+                                $total          = $jumlahlakilaki + $jumlahperempuan;
+                            @endphp
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
@@ -68,13 +73,13 @@
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                     <td>{{ $item->nama_rw}}</td>
+                                    <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
                                     <td>{{ $item->nik}}</td>
-                                    <td>{{ $item->nik}}</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td class="text-center">{{ DbCikara::countData('rt',['rw_id',$item->id]) }}</td>
+                                    <td class="text-center">{{ DbCikara::jumlahKK('rw',$item->id) }}</td>
+                                    <td class="text-center">{{ $jumlahlakilaki }}</td>
+                                    <td class="text-center">{{ $jumlahperempuan }}</td>
+                                    <td class="text-center">{{ $total }}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">

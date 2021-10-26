@@ -150,4 +150,68 @@ class DbCikara {
         
         return $result;
     }
+
+    // jumlah KK perdusun
+    public static function jumlahKK($sesi, $id)
+    {
+        switch ($sesi) {
+            case 'dusun':
+                $jumlah     = DB::table('keluarga')
+                                ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                                ->join('rt','penduduk.rt_id','=','rt.id')
+                                ->join('rw','rt.rw_id','=','rw.id')
+                                ->where('rw.dusun_id',$id)
+                                ->count();
+                break;
+            case 'rw':
+                $jumlah     = DB::table('keluarga')
+                                ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                                ->join('rt','penduduk.rt_id','=','rt.id')
+                                ->where('rt.rw_id',$id)
+                                ->count();
+                break;
+            case 'rt':
+                $jumlah     = DB::table('keluarga')
+                                ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                                ->where('penduduk.rt_id',$id)
+                                ->count();
+                break;
+            
+            default:
+                $jumlah = 0;
+                break;
+        }
+        return $jumlah;
+    }
+    public static function jumlahJk($sesi,$id,$jk)
+    {
+        switch ($sesi) {
+            case 'dusun':
+                $jumlah     = DB::table('penduduk')
+                                ->join('rt','penduduk.rt_id','=','rt.id')
+                                ->join('rw','rt.rw_id','=','rw.id')
+                                ->where('rw.dusun_id',$id)
+                                ->where('penduduk.jk',$jk)
+                                ->count();
+                break;
+            case 'rw':
+                $jumlah     = DB::table('penduduk')
+                                ->join('rt','penduduk.rt_id','=','rt.id')
+                                ->where('rt.rw_id',$id)
+                                ->where('penduduk.jk',$jk)
+                                ->count();
+                break;
+            case 'rt':
+                $jumlah     = DB::table('penduduk')
+                                ->where('penduduk.rt_id',$id)
+                                ->where('penduduk.jk',$jk)
+                                ->count();
+                break;
+            
+            default:
+                $jumlah = 0;
+                break;
+        }
+        return $jumlah;
+    }
 }
