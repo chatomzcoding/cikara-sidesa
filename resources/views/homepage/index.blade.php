@@ -237,25 +237,34 @@
 								</div>
 							</form>
 						@else
-							@php
-								$penduduk = DbCikara::datapenduduk($user->name);
-							@endphp
-							<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="{{ url('proseslapor') }}" method="post">
-								@csrf
-								<input type="hidden" name="user_id" value="{{ $user->id }}">
-								<input type="hidden" name="status" value="menunggu">
-								<div class="counter_form_title">Form Lapor</div>
-								<input type="text" class="counter_input" value="{{ $penduduk->nama_penduduk }}" placeholder="Nama Lengkap" disabled>
-								<input type="tel" class="counter_input" value="{{ $penduduk->no_telp }}" placeholder="Telepon" disabled>
-								<select name="kategori" id="kategori" class="counter_input counter_options" required>
-									<option value="">-- Pilih Kategori Laporan --</option>
-									@foreach ($kategori as $item)
-										<option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
-									@endforeach
-								</select>
-								<textarea class="counter_input counter_text_input" name="isi" placeholder="Ketikkan laporan disini" required="required"></textarea>
-								<button type="submit" class="counter_form_button">Kirim Laporan</button>
-							</form>
+							@if ($user->level == 'penduduk')
+								@php
+									$penduduk = DbCikara::datapenduduk($user->name);
+								@endphp
+								<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="{{ url('proseslapor') }}" method="post">
+									@csrf
+									<input type="hidden" name="user_id" value="{{ $user->id }}">
+									<input type="hidden" name="status" value="menunggu">
+									<div class="counter_form_title">Form Lapor</div>
+									<input type="text" class="counter_input" value="{{ $penduduk->nama_penduduk }}" placeholder="Nama Lengkap" disabled>
+									<input type="tel" class="counter_input" value="{{ $penduduk->no_telp }}" placeholder="Telepon" disabled>
+									<select name="kategori" id="kategori" class="counter_input counter_options" required>
+										<option value="">-- Pilih Kategori Laporan --</option>
+										@foreach ($kategori as $item)
+											<option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+										@endforeach
+									</select>
+									<textarea class="counter_input counter_text_input" name="isi" placeholder="Ketikkan laporan disini" required="required"></textarea>
+									<button type="submit" class="counter_form_button">Kirim Laporan</button>
+								</form>
+							@else
+								<div class="row">
+									<div class="col text-center">
+										<br><br>
+										<strong>Form Laporan Khusus Penduduk Khusus Penduduk</strong>
+									</div>
+								</div>								
+							@endif
 						@endif
 					</div>
 				</div>
