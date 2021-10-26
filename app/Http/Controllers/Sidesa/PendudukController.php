@@ -114,6 +114,7 @@ class PendudukController extends Controller
             'nama_ayah' => $request->nama_ayah,
             'nik_ibu' => $request->nik_ibu,
             'nama_ibu' => $request->nama_ibu,
+            'rt_id' => $request->rt_id,
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'alamat_sebelum' => $request->alamat_sebelum,

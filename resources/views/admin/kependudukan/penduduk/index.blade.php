@@ -89,7 +89,7 @@
                                 <th>No. KK</th>
                                 <th>Nama Ayah</th>
                                 <th>Nama Ibu</th>
-                                <th>No. Rumah Tangga</th>
+                                {{-- <th>No. Rumah Tangga</th> --}}
                                 <th>Alamat</th>
                                 <th>Dusun</th>
                                 <th>RW</th>
@@ -131,11 +131,16 @@
                                 <td>{{ $item->kk_sebelum}}</td>
                                 <td>{{ $item->nama_ayah}}</td>
                                 <td>{{ $item->nama_ibu}}</td>
-                                <td>-</td>
+                                {{-- <td>-</td> --}}
                                 <td>{{ $item->alamat_sekarang}}</td>
-                                <td>dusun</td>
-                                <td>rw</td>
-                                <td>rt</td>
+                                @php
+                                    $rt     = DbCikara::showtablefirst('rt',['id',$item->rt_id]);
+                                    $rw     = DbCikara::showtablefirst('rw',['id',$rt->rw_id]);
+                                    $dusun  = DbCikara::showtablefirst('dusun',['id',$rw->dusun_id]);
+                                @endphp
+                                <td>{{ $dusun->nama_dusun }}</td>
+                                <td>{{ $rw->nama_rw }}</td>
+                                <td>{{ $rt->nama_rt }}</td>
                                 <td>{{ $item->pendidikan_kk}}</td>
                                 <td>umur</td>
                                 <td>{{ $item->pekerjaan}}</td>

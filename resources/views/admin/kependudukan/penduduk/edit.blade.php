@@ -336,7 +336,7 @@
                             </div>
                            {{-- data orang tua --}}
                            <div class="alert alert-primary">
-                                Data Kewarganegaraan
+                                Data Orangtua
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
