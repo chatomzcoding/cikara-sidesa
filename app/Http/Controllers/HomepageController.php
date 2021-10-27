@@ -70,7 +70,8 @@ class HomepageController extends Controller
                 $desa   = Profil::first();
                 $info   = Infowebsite::first();
                 $potensi    = Potensi::all();
-                return view('homepage.profil', compact('menu','desa','info','potensi'));
+                $staf   = Staf::limit(4)->get();
+                return view('homepage.profil', compact('menu','desa','info','potensi','staf'));
                 break;
             case 'pasardesa':
                 $menu   = 'produk';
