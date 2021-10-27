@@ -82,28 +82,28 @@
       </li>
       <li class="nav-item">
         <a href="{{ url('/rumahtangga')}}" class="nav-link">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-house-user nav-icon"></i>
           <p>Rumah Tangga</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/kelompok')}}" class="nav-link">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-user-friends nav-icon"></i>
           <p>Kelompok</p>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('/suplemen')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Data Suplemen</p>
         </a>
-      </li>
-      <li class="nav-item">
+      </li> --}}
+      {{-- <li class="nav-item">
         <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Calon Pemilih</p>
         </a>
-      </li>
+      </li> --}}
     </ul>
 </li>
 <li class="nav-item">

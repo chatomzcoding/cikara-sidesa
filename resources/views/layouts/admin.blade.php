@@ -43,8 +43,11 @@
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
     
+    <link rel="stylesheet" href="{{ asset('vendor/select2/dist/css/select2.min.css')}}">
+
     <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
+
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
@@ -400,9 +403,15 @@
 <script src="{{ asset('template/admin/lte/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{ asset('template/admin/lte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('template/admin/lte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{ asset('vendor/select2/dist/js/select2.min.js')}}"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('template/admin/lte/dist/js/demo.js')}}"></script>
-
+<script type="text/javascript">
+  $(document).ready(function() {
+      $(".penduduk").select2();
+  })
+</script>
 <script>
   	function deleteRow(id)
         {

@@ -136,10 +136,10 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
+                                <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -200,8 +200,12 @@
     </div> --}}
     <!-- /.modal -->
 
-    {{-- @section('script')
-        
+    @section('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#penduduk_id").select2();
+        })
+    </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -235,7 +239,7 @@
             });
             });
         </script>
-    @endsection --}}
+    @endsection
 
     @endsection
 

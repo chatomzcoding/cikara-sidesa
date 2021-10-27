@@ -123,7 +123,7 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($listpenduduk as $item)
                                 <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
@@ -158,9 +158,8 @@
             <form action="{{ route('anggotakeluarga.update','test')}}" method="post">
                 @csrf
                 @method('patch')
-                <input type="hidden" name="logo_unit" value="">
             <div class="modal-header">
-            <h4 class="modal-title">Form Edit Unit</h4>
+            <h4 class="modal-title">Form Edit Anggota Keluarga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -169,9 +168,9 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group">
-                        <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
-                            <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                        <label for="">Ubah Anggota</label>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk">
+                            <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($listpenduduk as $item)
                                 <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
                             @endforeach
@@ -199,7 +198,7 @@
     <!-- /.modal -->
 
     @section('script')
-        
+    
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
