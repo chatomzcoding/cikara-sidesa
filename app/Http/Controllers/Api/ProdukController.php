@@ -164,6 +164,5 @@ class ProdukController extends Controller
         } else {
             return response()->json('Access Denide');
         }
-
     }
 }

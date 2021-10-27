@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // api produk
 Route::resource('produk','App\Http\Controllers\Api\ProdukController');
+Route::resource('lapak','App\Http\Controllers\Api\LapakController');
 Route::resource('forum','App\Http\Controllers\Api\ForumController');
 Route::get('chatforum/{id}','App\Http\Controllers\Api\ForumController@chatforum');
 Route::resource('lapor','App\Http\Controllers\Api\LaporController');
@@ -32,6 +33,5 @@ Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid')
 
 // mobile api
 Route::get('lapakuser/{userid}','App\Http\Controllers\Api\MobileController@lapakByUser');
-Route::post('tambahlapak','App\Http\Controllers\Api\MobileController@tambahlapak');
 Route::get('listuser','App\Http\Controllers\Api\MobileController@listuser');
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');

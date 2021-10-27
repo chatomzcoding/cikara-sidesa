@@ -27,36 +27,6 @@ class MobileController extends Controller
         
     }
 
-    public function tambahlapak(Request $request)
-    {
-        $token = $request->token;
-        if (cektoken($token)) {
-            Lapak::create([
-                'user_id' => $request->user_id,
-                'nama_lapak' => $request->nama_lapak,
-                'tentang' => $request->tentang,
-                'alamat' => $request->alamat,
-                'status_lapak' => $request->status_lapak,
-                'telp' => $request->telp,
-                'logo' => $request->logo,
-            ]);
-    
-            if (response()) {
-                $result["success"] = "1";
-                $result["message"] = "success";
-            } else {
-                $result["success"] = "0";
-                $result["message"] = "error";
-            }
-        } else {
-            $result["success"] = "0";
-            $result["message"] = "Access Denied";
-        }
-
-        return $result;
-        
-    }
-
     public function kategori($sesi)
     {
         switch ($sesi) {
