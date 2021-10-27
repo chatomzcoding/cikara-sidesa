@@ -126,7 +126,7 @@ class PenduduksuratController extends Controller
             'keterangan' => $request->keterangan,
             'no_kk' => $request->no_kk,
             'kepala_kk' => $request->kepala_kk,
-            'status' => 'selesai', // percobaan
+            'status' => $request->status, 
             'rt_tujuan' => $request->rt_tujuan,
             'rw_tujuan' => $request->rw_tujuan,
             'dusun_tujuan' => $request->dusun_tujuan,

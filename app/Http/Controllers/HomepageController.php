@@ -14,6 +14,7 @@ use App\Models\Potensisub;
 use App\Models\Produk;
 use App\Models\Profil;
 use App\Models\Slider;
+use App\Models\Staf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -44,7 +45,8 @@ class HomepageController extends Controller
         if (isset(Auth::user()->id)) {
             $user = Auth::user();
         }
-        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi','user','kategori'));
+        $staf   = Staf::limit(4)->get();
+        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi','user','kategori','staf'));
     }
 
     public function potensi($id)

@@ -32,7 +32,7 @@
                 <a href="{{ url('/staf')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar Staf </a>
               </div>
               <div class="card-body">
-                  <form action="{{ url('/staf/'.$staf->id)}}" method="post">
+                  <form action="{{ url('/staf/'.$staf->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                   <div class="form-group row">
@@ -130,6 +130,10 @@
                             @endif>{{ $item}}</option>
                         @endforeach
                     </select>
+                  </div>
+                  <div class="form-group row">
+                    <label for="" class="col-md-3 p-2">Photo (upload jika ingin merubah)</label>
+                    <input type="file" name="photo" class="form-control col-md-9">
                   </div>
                   <div class="form-group text-right">
                       <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>

@@ -121,11 +121,15 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                      </form>
-                                      <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      @if ($item->status <> 'selesai')
+                                        <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                          @csrf
+                                          @method('delete')
+                                        </form>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        @else
+                                        <button class="btn btn-danger btn-sm" disabled><i class="fas fa-trash-alt"></i></button>
+                                      @endif
                                       @if ($item->status == 'proses')
                                         <a href="{{ url('penduduksurat/'.Crypt::encryptString($item->id)) }}" class="btn btn-primary btn-sm">Lanjutkan</a>
                                         @endif

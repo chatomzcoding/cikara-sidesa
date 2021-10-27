@@ -200,7 +200,7 @@
           <p>Pengaturan Surat</p>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Cetak Surat</p>
@@ -217,7 +217,7 @@
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Panduan</p>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>

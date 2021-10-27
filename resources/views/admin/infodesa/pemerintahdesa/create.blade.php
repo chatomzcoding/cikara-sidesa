@@ -32,16 +32,16 @@
                 <a href="{{ url('/staf')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar Staf </a>
               </div>
               <div class="card-body">
-                  <form action="{{ url('/staf')}}" method="post">
+                  <form action="{{ url('/staf')}}" method="post" enctype="multipart/form-data">
                     @csrf
                   @include('sistem.notifikasi')
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nama Pegawai</label>
+                    <label for="" class="col-md-3 p-2">Nama Pegawai <strong class="text-danger">*</strong></label>
                     <input type="text" name="nama_pegawai" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nomor Induk Kependudukan</label>
-                    <input type="text" name="nik" class="form-control col-md-9" required>
+                    <label for="" class="col-md-3 p-2">Nomor Induk Kependudukan <strong class="text-danger">*</strong></label>
+                    <input type="text" name="nik" class="form-control col-md-9" maxlength="16" pattern="[0-9]{16}" required>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">NIPD</label>
@@ -52,15 +52,15 @@
                     <input type="text" name="nip" class="form-control col-md-9">
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tempat Lahir</label>
+                    <label for="" class="col-md-3 p-2">Tempat Lahir <strong class="text-danger">*</strong></label>
                     <input type="text" name="tempat_lahir" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal Lahir</label>
+                    <label for="" class="col-md-3 p-2">Tanggal Lahir <strong class="text-danger">*</strong></label>
                     <input type="date" name="tgl_lahir" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Jenis Kelamin</label>
+                    <label for="" class="col-md-3 p-2">Jenis Kelamin <strong class="text-danger">*</strong></label>
                     <select name="jk" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Jenis Kelamin --</option>
                         @foreach (list_jeniskelamin() as $item)
@@ -69,7 +69,7 @@
                     </select>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Pendidikan</label>
+                    <label for="" class="col-md-3 p-2">Pendidikan <strong class="text-danger">*</strong></label>
                     <select name="pendidikan" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Pendidikan dalam kk --</option>
                         @foreach (list_pendidikandalamkk() as $item)
@@ -78,7 +78,7 @@
                     </select>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Agama</label>
+                    <label for="" class="col-md-3 p-2">Agama <strong class="text-danger">*</strong></label>
                     <select name="agama" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Agama --</option>
                         @foreach (list_agama() as $item)
@@ -87,7 +87,7 @@
                     </select>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Pangkat / Golongan</label>
+                    <label for="" class="col-md-3 p-2">Pangkat / Golongan <strong class="text-danger">*</strong></label>
                     <input type="text" name="golongan" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
@@ -107,21 +107,25 @@
                     <input type="date" name="tglsk_pemberhentian" class="form-control col-md-9">
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Masa Jabatan (usia/periode)</label>
+                    <label for="" class="col-md-3 p-2">Masa Jabatan (usia/periode) <strong class="text-danger">*</strong></label>
                     <input type="text" name="masa_jabatan" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Jabatan</label>
+                    <label for="" class="col-md-3 p-2">Jabatan <strong class="text-danger">*</strong></label>
                     <input type="text" name="jabatan" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Status Kepegawaian</label>
+                    <label for="" class="col-md-3 p-2">Status Kepegawaian <strong class="text-danger">*</strong></label>
                     <select name="status_pegawai" id="" class="form-control col-md-9" required>
-                        <option value="">-- Pilih Status --</option>
+                      <option value="">-- Pilih Status --</option>
                         @foreach (list_status() as $item)
                             <option value="{{ $item }}">{{ $item}}</option>
                         @endforeach
                     </select>
+                  </div>
+                  <div class="form-group row">
+                    <label for="" class="col-md-3 p-2">Photo <strong class="text-danger">*</strong></label>
+                    <input type="file" name="photo" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group text-right">
                       <button type="submit" class="btn btn-primary btn-sm">SIMPAN</button>

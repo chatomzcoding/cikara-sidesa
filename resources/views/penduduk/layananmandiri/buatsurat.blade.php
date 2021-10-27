@@ -39,8 +39,9 @@
                             <form action="{{ url('penduduksurat/'.$surat->id) }}" method="post">
                                 @csrf
                                 @method('patch')
-                                <input type="hidden" name="tgl_awal" value="{{ tgl_sekarang() }}">
-                                <input type="hidden" name="tgl_akhir" value="{{ tgl_sekarang() }}">
+                                <input type="hidden" name="status" value="menunggu">
+                                {{-- <input type="hidden" name="tgl_awal" value="{{ tgl_sekarang() }}"> --}}
+                                {{-- <input type="hidden" name="tgl_akhir" value="{{ tgl_sekarang() }}"> --}}
                                 <input type="hidden" name="kode" value="{{ $format->kode }}">
                                 <table width="100%">
                                     <tr>
@@ -59,44 +60,7 @@
                                         $ak     = explode('-',$format->kode); 
                                     @endphp
                                     @include('penduduk.layananmandiri.formatsurat.index');
-                                    {{-- @switch($format->kode)
-                                        @case('S-01')
-                                            @include('penduduk.layananmandiri.formatsurat.s-01')
-                                            @break
-                                        @case('S-02')
-                                            @include('penduduk.layananmandiri.formatsurat.s-02')
-                                            @break
-                                        @case('S-03')
-                                            @include('penduduk.layananmandiri.formatsurat.s-03')
-                                            @break
-                                        @case('S-04')
-                                            @include('penduduk.layananmandiri.formatsurat.s-04')
-                                            @break
-
-                                        @case('S-05')
-                                            @include('penduduk.layananmandiri.formatsurat.s-05')
-                                            @break
-                                        @case('S-07')
-                                            @include('penduduk.layananmandiri.formatsurat.s-07')
-                                            @break
-                                        @case('S-09')
-                                            @include('penduduk.layananmandiri.formatsurat.s-09')
-                                            @break
-                                        @case('S-10')
-                                            @include('penduduk.layananmandiri.formatsurat.s-10')
-                                            @break
-                                        @case('S-11')
-                                            @include('penduduk.layananmandiri.formatsurat.s-11')
-                                            @break
-                                        @case('S-12')
-                                            @include('penduduk.layananmandiri.formatsurat.s-12')
-                                            @break
-                                        @case('S-13')
-                                            @include('penduduk.layananmandiri.formatsurat.s-13')
-                                            @break
-                                        @default
-                                            
-                                    @endswitch --}}
+                                    
                                     <tr>
                                         <td colspan="2" class="text-right">
                                             <button type="submit" class="btn btn-primary btn-sm">AJUKAN SURAT</button>

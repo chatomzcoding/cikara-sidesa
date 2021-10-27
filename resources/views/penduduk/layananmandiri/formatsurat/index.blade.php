@@ -465,34 +465,7 @@
         </td>
     </tr>
 @endif
-@if (in_array('tgl_awal',$list))
-<tr>
-    <td>
-        <div class="form-group">
-            <label for="">Berlaku dari <strong class="text-danger">*</strong></label>
-        </div>
-    </td>
-    <td>
-        <div class="form-group">
-            <input type="date" name="tgl_awal" class="form-control" required>
-        </div>
-    </td>
-</tr>
-@endif
-@if (in_array('tgl_akhir',$list))
-    <tr>
-        <td>
-            <div class="form-group">
-                <label for="">Berlaku sampai <strong class="text-danger">*</strong></label>
-            </div>
-        </td>
-        <td>
-            <div class="form-group">
-                <input type="date" name="tgl_akhir" class="form-control" required>
-            </div>
-        </td>
-    </tr>
-@endif
+
 
 
 @if (in_array('nama_ibu',$list))

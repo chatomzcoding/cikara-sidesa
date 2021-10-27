@@ -32,9 +32,9 @@
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-envelope-open-text"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Permintaan Masuk</span>
+                      <span class="info-box-text">Total Surat</span>
                       <span class="info-box-number">
-                        {{-- {{ $total['jumlah'] }} --}}
+                        {{ $total['jumlah'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -50,7 +50,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Surat Selesai</span>
                       <span class="info-box-number">
-                        {{-- {{ $total['selesai'] }} --}}
+                        {{ $total['selesai'] }}
 
                       </span>
                     </div>
@@ -68,9 +68,9 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-file-signature"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Surat Dalam Proses</span>
+                      <span class="info-box-text">Menunggu Konfirmasi</span>
                       <span class="info-box-number">
-                        {{-- {{ $total['proses'] }} --}}
+                        {{ $total['menunggu'] }}
 
                       </span>
                     </div>
@@ -84,9 +84,9 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-triangle"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Menunggu Konfirmasi</span>
+                      <span class="info-box-text">Surat Dalam Proses</span>
                       <span class="info-box-number">
-                        {{-- {{ $total['menunggu'] }} --}}
+                        {{ $total['proses'] }}
 
                       </span>
                     </div>
@@ -110,7 +110,7 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
+                                <th width="15%">Aksi</th>
                                 <th>Nama Surat</th>
                                 <th>Kode Surat</th>
                                 <th>Klasifikasi Surat</th>
@@ -135,7 +135,7 @@
                                     </td>
                                     <td>{{ $item->nama_surat }}</td>
                                     <td>{{ $item->kode }}</td>
-                                    <td>{{ $item->klasifikasisurat_id }}</td>
+                                    <td>{{ DbCikara::showtablefirst('klasifikasi_surat',['id',$item->klasifikasisurat_id])->nama  }}</td>
                                     <td><a href="{{ asset('file/surat/'.$item->file_surat) }}" target="_blank">Lihat Surat</a></td>
                                 </tr>
                             @endforeach

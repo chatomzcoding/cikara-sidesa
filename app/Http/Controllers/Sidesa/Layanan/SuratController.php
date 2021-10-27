@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Sidesa\Layanan;
 
 use App\Http\Controllers\Controller;
-use App\Models\Suratpenduduk;
+use App\Models\Penduduksurat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,16 +16,16 @@ class SuratController extends Controller
      */
     public function index()
     {
-        $surat  = DB::table('surat_penduduk')
-                    ->join('klasifikasi_surat','surat_penduduk.klasifikasisurat_id','=','klasifikasi_surat.id')
-                    ->select('surat_penduduk.*','klasifikasi_surat.nama')
+        $surat  = DB::table('penduduk_surat')
+                    ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+                    ->select('penduduk_surat.*','format_surat.nama_surat')
                     ->get();
         $judul  = 'Pengajuan Surat';
         $total  = [
             'jumlah' => count($surat),
-            'selesai' => Suratpenduduk::where('status','selesai')->count(),
-            'proses' => Suratpenduduk::where('status','proses')->count(),
-            'menunggu' => Suratpenduduk::where('status','menunggu')->count(),
+            'selesai' => Penduduksurat::where('status','selesai')->count(),
+            'proses' => Penduduksurat::where('status','proses')->count(),
+            'menunggu' => Penduduksurat::where('status','menunggu')->count(),
         ];
 
         return view('admin.layananmandiri.surat.index', compact('surat','judul','total'));
@@ -55,10 +55,10 @@ class SuratController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Suratpenduduk  $suratpenduduk
+     * @param  \App\Models\Penduduksurat  $penduduksurat
      * @return \Illuminate\Http\Response
      */
-    public function show(Suratpenduduk $suratpenduduk)
+    public function show(Penduduksurat $penduduksurat)
     {
         //
     }
@@ -66,10 +66,10 @@ class SuratController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Suratpenduduk  $suratpenduduk
+     * @param  \App\Models\Penduduksurat  $penduduksurat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Suratpenduduk $suratpenduduk)
+    public function edit(Penduduksurat $penduduksurat)
     {
         //
     }
@@ -78,21 +78,27 @@ class SuratController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Suratpenduduk  $suratpenduduk
+     * @param  \App\Models\Penduduksurat  $penduduksurat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Suratpenduduk $suratpenduduk)
+    public function update(Request $request)
     {
-        //
+        Penduduksurat::where('id',$request->id)->update([
+            'status' => $request->status,
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
+        ]);
+
+        return redirect()->back()->with('du','Surat Penduduk');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Suratpenduduk  $suratpenduduk
+     * @param  \App\Models\Penduduksurat  $penduduksurat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Suratpenduduk $suratpenduduk)
+    public function destroy(Penduduksurat $penduduksurat)
     {
         //
     }

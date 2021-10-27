@@ -114,7 +114,6 @@
                                 <th>Nama Penduduk</th>
                                 <th>Tanggal Permintaan</th>
                                 <th>Surat</th>
-                                <th>Pesan Singkat</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -123,16 +122,17 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> --}}
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <a href="{{ url('cetaksurat/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
+                                        @if ($item->status == 'menunggu')
+                                          <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                              <i class="fa fa-edit"></i>
+                                          </button>
+                                          <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        @endif
                                     </td>
                                     <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
                                     <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->pesan }}</td>
+                                    <td>{{ $item->nama_surat }}</td>
                                     <td>
                                         @switch($item->status)
                                             @case('selesai')
@@ -155,8 +155,56 @@
           </div>
         </div>
     </div>
+
+      {{-- modal edit --}}
+      <div class="modal fade" id="ubah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ route('suratpenduduk.update','test')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('patch')
+            <div class="modal-header">
+            <h4 class="modal-title">Konfirmasi Pengajuan Surat</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+              <input type="hidden" name="id" id="id">
+              <input type="hidden" name="status" value="selesai">
+                  <div class="form-group row">
+                      <label for="" class="col-md-4">Berlaku dari <strong class="text-danger">*</strong></label>
+                      <input type="date" name="tgl_awal" class="form-control col-md-8" required>
+                  </div>
+                  <div class="form-group row">
+                      <label for="" class="col-md-4">Berlaku sampai <strong class="text-danger">*</strong></label>
+                      <input type="date" name="tgl_akhir" class="form-control col-md-8" required>
+                  </div>
+                  <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success"> KONFIRMASI SURAT</button>
+                  </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            </div>
+          </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
     @section('script')
-        
+    <script>
+      $('#ubah').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget)
+          var status = button.data('status')
+          var id = button.data('id')
+  
+          var modal = $(this)
+  
+          modal.find('.modal-body #status').val(status);
+          modal.find('.modal-body #id').val(id);
+      })
+    </script>
         <script>
             $(function () {
             $("#example1").DataTable({

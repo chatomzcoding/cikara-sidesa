@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Formatsurat;
 use App\Models\Klasifikasisurat;
 use App\Models\Ks;
+use App\Models\Penduduksurat;
 use Illuminate\Http\Request;
 
 class FormatsuratController extends Controller
@@ -23,7 +24,13 @@ class FormatsuratController extends Controller
         $formatsurat        = Formatsurat::orderBy('id','DESC')->get();
         $judul              = 'Format Surat';
         $klasifikasisurat   = Klasifikasisurat::where('nama','<>','-')->select('id','nama','kode')->get();
-        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat'));
+        $total              = [
+            'jumlah' => Penduduksurat::count(),
+            'selesai' => Penduduksurat::where('status','selesai')->count(),
+            'menunggu' => Penduduksurat::where('status','menunggu')->count(),
+            'proses' => Penduduksurat::where('status','proses')->count(),
+        ];
+        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat','total'));
     }
 
     /**
