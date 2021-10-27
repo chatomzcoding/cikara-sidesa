@@ -88,8 +88,9 @@ class LaporController extends Controller
      */
     public function destroy($lapor)
     {
-        Lapor::find($lapor)->delete();
-
+        $lapor = Lapor::find($lapor);
+        deletefile('public/img/penduduk/lapor/'.$lapor->photo);
+        $lapor->delete();
         return redirect()->back()->with('dd','Laporan');
 
     }

@@ -108,6 +108,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Photo</th>
                                 <th>Nama Penduduk</th>
                                 <th>Isi Laporan</th>
                                 <th>Kategori</th>
@@ -122,7 +123,7 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url('/potensi',$item->id)}}" method="post">
+                                      <form id="data-{{ $item->id }}" action="{{url('/lapor',$item->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         </form>
@@ -130,6 +131,7 @@
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                         @endif
                                     </td>
+                                    <td><img src="{{ asset('img/penduduk/lapor/'.$item->photo) }}" alt="" width="100px"></td>
                                     <td>{{ $nama }}</td>
                                     <td>{{ $item->isi }}</td>
                                     <td>{{ $item->kategori }}</td>
@@ -161,7 +163,7 @@
     <div class="modal fade" id="tambah">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form action="{{ url('proseslapor')}}" method="post">
+          <form action="{{ url('proseslapor')}}" method="post" enctype="multipart/form-data">
               @csrf
               <input type="hidden" name="status" value="menunggu">
           <div class="modal-header">
@@ -186,6 +188,10 @@
                      <label for="" class="col-md-4">Isi Laporan</label>
                      <textarea name="isi" id="isi" cols="30" rows="4" class="form-control col-md-8" required></textarea>
                   </div>
+                 <div class="form-group row">
+                     <label for="" class="col-md-4">Photo Laporan</label>
+                     <input type="file" name="photo" class="col-md-8" required>
+                  </div>
               </section>
           </div>
           <div class="modal-footer justify-content-between">
@@ -197,6 +203,45 @@
       </div>
   </div>
   <!-- /.modal -->
+
+   <div class="modal fade" id="ubah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ route('lapor.update','test')}}" method="post">
+                @csrf
+                @method('patch')
+                <input type="hidden" name="logo_unit" value="">
+            <div class="modal-header">
+            <h4 class="modal-title">Form Edit Unit</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <input type="hidden" name="id" id="id">
+                <section class="p-3">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Unit</label>
+                        <input type="text" id="nama_unit" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
+                        <input type="text" id="manajer_unit" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Staf Unit</label>
+                        <input type="text" id="staf_unit" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
 
     @section('script')
           <script>

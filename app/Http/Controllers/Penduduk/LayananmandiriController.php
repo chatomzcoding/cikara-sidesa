@@ -55,11 +55,24 @@ class LayananmandiriController extends Controller
 
     public function proseslapor(Request $request)
     {
+        $request->validate([
+            'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+        ]);
+        // menyimpan data file yang diupload ke variabel $file
+        $file = $request->file('photo');
+        
+        $nama_file = time()."_".$file->getClientOriginalName();
+        
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'public/img/penduduk/lapor';
+        $file->move($tujuan_upload,$nama_file);
+
         Lapor::create([
             'user_id' => $request->user_id,
             'isi' => $request->isi,
             'kategori' => $request->kategori,
             'status' => $request->status,
+            'photo' => $nama_file,
         ]);
 
         return redirect('layananmandiri/lapor')->with('ds','Laporan');
