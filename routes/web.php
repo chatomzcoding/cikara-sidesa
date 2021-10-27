@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // LAYANAN
         Route::resource('formatsurat', 'App\Http\Controllers\Admin\FormatsuratController');
+        Route::resource('datasyaratsurat', 'App\Http\Controllers\Sidesa\Layanan\DatasyaratsuratController');
         Route::resource('lapor', 'App\Http\Controllers\Sidesa\Layanan\LaporController');
         Route::resource('forum', 'App\Http\Controllers\Sidesa\Layanan\ForumController');
         Route::resource('suratpenduduk', 'App\Http\Controllers\Sidesa\Layanan\SuratController');
