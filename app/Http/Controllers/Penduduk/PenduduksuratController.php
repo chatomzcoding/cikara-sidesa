@@ -95,8 +95,10 @@ class PenduduksuratController extends Controller
             'kepalakk' => $kepalakk,
             'info' => $info
         ];
+
+        $menu   = 'surat';
         
-        return view('penduduk.layananmandiri.buatsurat', compact('user','format','surat','data'));
+        return view('penduduk.layananmandiri.buatsurat', compact('user','format','surat','data','menu'));
     }
 
     /**

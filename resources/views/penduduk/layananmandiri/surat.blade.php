@@ -179,14 +179,12 @@
           <div class="modal-body p-3">
               <input type="hidden" name="user_id" value="{{ $user->id }}">
               <section class="p-3">
-                <div class="form-group row">
-                      <label for="" class="col-md-4">Jenis Surat</label>
-                      <select name="formatsurat_id" id="" class="form-control col-md-8" required>
+                <div class="form-group">
+                      <label for="">Pilih Jenis Surat</label>
+                      <select name="formatsurat_id" id="" data-width="100%" class="form-control penduduk" required>
                           <option value="">-- Pilih Surat --</option>
                           @foreach ($formatsurat as $item)
-                              @if (DbCikara::countData('penduduk_surat',['formatsurat_id',$item->id]) == 0)
-                                <option value="{{ $item->id }}">{{ $item->nama_surat }}</option>
-                              @endif
+                              <option value="{{ $item->id }}">{{ $item->nama_surat }}</option>
                           @endforeach
                       </select>
                 </div>

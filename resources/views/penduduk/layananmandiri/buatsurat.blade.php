@@ -30,7 +30,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('layananmandiri/surat') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-angle-left"></i> Kembali </a>
-                <a href="{{ asset('file/surat/'.$format->file_surat) }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-list"></i> {{ $format->nama_surat }}</a>
+                <span class="btn btn-outline-info btn-sm float-right"><i class="fas fa-envelope"></i> Surat {{ $format->nama_surat }}</span>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -40,8 +40,6 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="status" value="menunggu">
-                                {{-- <input type="hidden" name="tgl_awal" value="{{ tgl_sekarang() }}"> --}}
-                                {{-- <input type="hidden" name="tgl_akhir" value="{{ tgl_sekarang() }}"> --}}
                                 <input type="hidden" name="kode" value="{{ $format->kode }}">
                                 <table width="100%">
                                     <tr>
@@ -57,9 +55,9 @@
                                     </tr>
                                     {{-- pilih halaman berdasarkan kode --}}
                                     @php
-                                        $ak     = explode('-',$format->kode); 
+                                        $ak     = explode('-',$format->kode)
                                     @endphp
-                                    @include('penduduk.layananmandiri.formatsurat.index');
+                                    @include('penduduk.layananmandiri.formatsurat.index')
                                     
                                     <tr>
                                         <td colspan="2" class="text-right">

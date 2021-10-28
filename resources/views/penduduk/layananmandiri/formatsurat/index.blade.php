@@ -1,5 +1,5 @@
 @php
-    $list = format_surat($format->kode);
+    $list = format_surat($format->kode)
 @endphp
 @if (in_array('kepala_kk',$list))
     
