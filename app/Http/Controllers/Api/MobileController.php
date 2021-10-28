@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\User;
@@ -40,5 +41,10 @@ class MobileController extends Controller
         }
 
         return $result;
+    }
+
+    public function listartikel()
+    {
+        return Artikel::all();
     }
 }

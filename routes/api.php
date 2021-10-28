@@ -34,4 +34,5 @@ Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid')
 // mobile api
 Route::get('lapakuser/{userid}','App\Http\Controllers\Api\MobileController@lapakByUser');
 Route::get('listuser','App\Http\Controllers\Api\MobileController@listuser');
+Route::get('listartikel','App\Http\Controllers\Api\MobileController@listartikel');
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');
