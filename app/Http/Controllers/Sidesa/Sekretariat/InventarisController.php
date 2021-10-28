@@ -24,15 +24,16 @@ class InventarisController extends Controller
         $datainventaris = Inventaris::where('kode',$inventaris)->get();
         $kode           = $inventaris;
         $inventaris     = list_inventaris()[$inventaris];
-        return view('admin.sekretariat.inventaris.index', compact('datainventaris','inventaris','kode'));
+        $menu           = 'inventaris';
+        return view('admin.sekretariat.inventaris.index', compact('datainventaris','inventaris','kode','menu'));
     }
 
     public function tambah($inventaris)
     {
         $kode   = $inventaris;
         $inventaris     = list_inventaris()[$inventaris];
-        
-        return view('admin.sekretariat.inventaris.create', compact('kode','inventaris'));
+        $menu   = 'inventaris';
+        return view('admin.sekretariat.inventaris.create', compact('kode','inventaris','menu'));
     }
 
     /**

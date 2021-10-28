@@ -22,8 +22,8 @@ class ForumdiskusiController extends Controller
         $forum          = Forum::where('status','aktif')->get();
         // $forumdiskusi   = Forumdiskusi::where('user_id',$user->id)->
         $judul          = 'Forum Diskusi';
-
-        return view('penduduk.layananmandiri.forum', compact('judul','forum','user'));
+        $menu   = 'diskusi';
+        return view('penduduk.layananmandiri.forum', compact('judul','forum','user','menu'));
     }
 
     /**
@@ -59,7 +59,8 @@ class ForumdiskusiController extends Controller
         $diskusi    = Forumdiskusi::where('forum_id',$forum->id)->get();
         $judul      = 'Forum Diskusi';
         $user       = Auth::user();
-        return view('penduduk.layananmandiri.forumdiskusi', compact('forum','diskusi','judul','user'));
+        $menu       = 'diskusi';
+        return view('penduduk.layananmandiri.forumdiskusi', compact('forum','diskusi','judul','user','menu'));
     }
 
     /**

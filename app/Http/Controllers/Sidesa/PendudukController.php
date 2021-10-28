@@ -18,7 +18,8 @@ class PendudukController extends Controller
     public function index()
     {
         $penduduk   = Penduduk::all();
-        return view('admin.kependudukan.penduduk.index', compact('penduduk'));
+        $menu       = 'penduduk';
+        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu'));
     }
 
     /**
@@ -70,7 +71,8 @@ class PendudukController extends Controller
     {
         $penduduk = Penduduk::find(Crypt::decryptString($penduduk));
         $rt     = Rt::all();
-        return view('admin.kependudukan.penduduk.edit', compact('penduduk','rt'));
+        $menu   = 'penduduk';
+        return view('admin.kependudukan.penduduk.edit', compact('penduduk','rt','menu'));
     }
 
     /**

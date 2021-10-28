@@ -71,12 +71,12 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Depan</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      </li> --}}
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Statistik Data</a>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- SEARCH FORM -->
@@ -185,7 +185,7 @@
       </li> --}}
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/') }}" role="button">
-          Halaman Depan
+          <i class="fas fa-home"></i> Halaman Depan
         </a>
       </li>
       <li class="nav-item">
@@ -211,7 +211,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
-      <img src="{{  asset('img/'.$info->logo_brand)}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{  asset('img/'.$info->logo_brand)}}" alt="JantungDesa" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Jantung Desa</span>
     </a>
 
@@ -220,11 +220,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('template/admin/lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('img/user/'.$user->profile_photo_path)}}" class="img-circle elevation-2" alt="Photo Profile">
         </div>
         <div class="info">
           @if ($user->level == 'penduduk')
-            <a href="#" class="d-block text-capitalize">{{ DbCikara::showtablefirst('penduduk',['nik',$user->name])->nama_penduduk}}</a>
+            <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->name,'nik')->nama_penduduk}}</a>
           @else
             <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
           @endif
@@ -259,7 +259,7 @@
             </a>
           </li> --}}
           <li class="nav-item">
-            <a href="{{ url('/dashboard')}}" class="nav-link">
+            <a href="{{ url('/dashboard')}}" class="nav-link {{ menuaktif($menu,'beranda') }}">
               <i class="nav-icon fas fa-home"></i>
               <p class="text">Beranda</p>
             </a>
@@ -301,18 +301,18 @@
             </ul>
           </li> --}}
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('user/'.Crypt::encryptString(Auth::user()->id).'/edit') }}" class="nav-link {{ menuaktif($menu,'pengaturan') }}">
               <i class="nav-icon fas fa-cogs"></i>
               <p class="text">Pengaturan</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item bg-secondary">
               <form method="POST" action="{{ route('logout') }}">
                @csrf
-               <a href="{{ route('logout') }}"  class="nav-link"
+               <a href="{{ route('logout') }}"  class="nav-link text-light"
                         onclick="event.preventDefault();
                                this.closest('form').submit();">
-              <i class="nav-icon fas fa-sign-out-alt"></i> Keluar
+              <i class="nav-icon fas fa-sign-out-alt"></i><p>Keluar</p>
             </a>
             </form>
         </li>
@@ -342,10 +342,10 @@
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; <a href="https://adminlte.io">AdminLTE.io</a>. Pengembang <a href="https://cikarastudio.com/">Cikara Studio</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.1
+      <b>Version</b> 2021.10
     </div>
   </footer>
 

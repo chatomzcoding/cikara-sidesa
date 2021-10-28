@@ -16,8 +16,8 @@ class InfowebsiteController extends Controller
     public function index()
     {
         $datapokok  = Infowebsite::first();
-
-        return view('admin.web.datapokok.index', compact('datapokok'));
+        $menu       = 'datapokok';
+        return view('admin.web.datapokok.index', compact('datapokok','menu'));
     }
 
     /**

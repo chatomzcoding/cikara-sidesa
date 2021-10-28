@@ -13,6 +13,7 @@ class KependudukanController extends Controller
     {
         $dusun  = Dusun::all();
         $bantuan    = Bantuan::all();
-        return view('admin.statistik.index', compact('sesi','dusun','bantuan','pilih'));
+        $menu   = 'statistikpenduduk';
+        return view('admin.statistik.index', compact('sesi','dusun','bantuan','pilih','menu'));
     }
 }

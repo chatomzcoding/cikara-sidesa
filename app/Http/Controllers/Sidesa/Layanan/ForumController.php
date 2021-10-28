@@ -26,8 +26,8 @@ class ForumController extends Controller
             'aktif' => Forum::where('status','aktif')->count(),
             'non-aktif' => Forum::where('status','non-aktif')->count(),
         ];
-
-        return view('admin.layananmandiri.forum.index', compact('judul','forum','total'));
+        $menu   = 'forumpenduduk';
+        return view('admin.layananmandiri.forum.index', compact('judul','forum','total','menu'));
     }
 
     /**

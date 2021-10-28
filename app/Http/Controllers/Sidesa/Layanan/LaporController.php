@@ -17,7 +17,8 @@ class LaporController extends Controller
     {
         $lapor  = Lapor::all();
         $judul  = 'Laporan Penduduk';
-        return view('admin.layananmandiri.lapor.index', compact('lapor','judul'));
+        $menu   = 'laporpenduduk';
+        return view('admin.layananmandiri.lapor.index', compact('lapor','judul','menu'));
     }
 
     /**

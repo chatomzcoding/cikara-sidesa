@@ -27,8 +27,8 @@ class RumahtanggaController extends Controller
                             ->select('rumah_tangga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
                             ->get();
         $penduduk       = Penduduk::all();
-
-        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk'));
+        $menu           = 'rumahtangga';
+        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk','menu'));
     }
 
     /**
@@ -82,7 +82,8 @@ class RumahtanggaController extends Controller
                                 ->select('anggota_rumah_tangga.*','penduduk.nama_penduduk','penduduk.nik','penduduk.jk','penduduk.alamat_sekarang')
                                 ->where('rumahtangga_id',$rumahtangga->id)->get();
         $penduduk = Penduduk::all();
-        return view('admin.kependudukan.rumahtangga.show', compact('rumahtangga','penduduk','anggotarumahtangga'));
+        $menu   = 'rumahtangga';
+        return view('admin.kependudukan.rumahtangga.show', compact('rumahtangga','penduduk','anggotarumahtangga','menu'));
     }
 
     /**

@@ -21,7 +21,8 @@ class PotensiController extends Controller
     {
         $potensi    = Potensi::all();
         $judul      = 'Potensi Desa';
-        return view('admin.infodesa.potensi.index', compact('potensi','judul'));
+        $menu       = 'potensi';
+        return view('admin.infodesa.potensi.index', compact('potensi','judul','menu'));
     }
 
     /**
@@ -74,7 +75,8 @@ class PotensiController extends Controller
     {
         $potensisub     = Potensisub::where('potensi_id',$potensi->id)->get();
         $judul          = 'Potensi Desa';
-        return view('admin.infodesa.potensi.show', compact('potensisub','potensi','judul'));
+        $menu           = 'potensi';
+        return view('admin.infodesa.potensi.show', compact('potensisub','potensi','judul','menu'));
     }
 
     /**

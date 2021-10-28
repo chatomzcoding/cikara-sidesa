@@ -38,7 +38,8 @@ class KelompokController extends Controller
                             ->select('kelompok.*','penduduk.nama_penduduk','kategori_kelompok.nama_kategori')
                             ->get();
         }
-        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok','penduduk','kategori'));
+        $menu       = 'kelompok';
+        return view('admin.kependudukan.kelompok.index', compact('kelompok','kategorikelompok','penduduk','kategori','menu'));
     }
 
     /**
@@ -85,8 +86,8 @@ class KelompokController extends Controller
                             ->where('anggota_kelompok.kelompok_id',$kelompok->id)
                             ->get();
         $penduduk       = Penduduk::all();
-
-        return view('admin.kependudukan.kelompok.show', compact('kelompok','anggotakelompok','penduduk'));
+        $menu           = 'kelompok';
+        return view('admin.kependudukan.kelompok.show', compact('kelompok','anggotakelompok','penduduk','menu'));
     }
 
     /**

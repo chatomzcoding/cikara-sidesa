@@ -16,8 +16,8 @@ class DatasyaratsuratController extends Controller
     public function index()
     {
         $syarat = Datasyaratsurat::all();
-
-        return view('admin.layananmandiri.surat.datasyaratsurat', compact('syarat'));
+        $menu   = 'syaratsurat';
+        return view('admin.layananmandiri.surat.datasyaratsurat', compact('syarat','menu'));
     }
 
     /**

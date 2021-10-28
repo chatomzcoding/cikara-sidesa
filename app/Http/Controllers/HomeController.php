@@ -16,11 +16,12 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $menu = 'beranda';
         $user   = Auth::user();
         switch ($user->level) {
             case 'admin':
                 $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
-                return view('admin.dashboard', compact('produk'));
+                return view('admin.dashboard', compact('produk','menu'));
                 break;
             case 'penduduk':
                 $lapak  = Lapak::where('user_id',$user->id)->first();
@@ -36,7 +37,7 @@ class HomeController extends Controller
                     'produk' => $totalproduk,
                     'forum' => Forum::count(),
                 ];
-                return view('penduduk.dashboard', compact('total'));
+                return view('penduduk.dashboard', compact('total','menu'));
                 break;
             
             default:
@@ -62,7 +63,8 @@ class HomeController extends Controller
                     'mitra' => 0,
                 ];
                 $lapak  = Lapak::all();
-                return view('admin.layananmandiri.lapak.index',compact('judul','lapak','total'));
+                $menu   = 'lapakdesa';
+                return view('admin.layananmandiri.lapak.index',compact('judul','lapak','total','menu'));
                 break;
             case 'showlapak':
                 $judul  = 'Detail Lapak Ikan Pancing';
@@ -70,11 +72,13 @@ class HomeController extends Controller
                 break;
             case 'forum':
                 $judul  = 'Forum';
-                return view('admin.layananmandiri.forum.index',compact('judul'));
+                $menu   = 'forumpenduduk';
+                return view('admin.layananmandiri.forum.index',compact('judul','menu'));
                 break;
             case 'covid':
                 $judul  = 'Covid 19';
-                return view('admin.layananmandiri.covid',compact('judul'));
+                $menu   = 'layanancovid';
+                return view('admin.layananmandiri.covid',compact('judul','menu'));
                 break;
             case 'surat':
                 $judul  = 'Permintaan Surat';
@@ -82,11 +86,13 @@ class HomeController extends Controller
                 break;
             case 'penduduk':
                 $judul  = 'Penduduk';
-                return view('admin.layananmandiri.penduduk',compact('judul'));
+                $menu   = 'layananpenduduk';
+                return view('admin.layananmandiri.penduduk',compact('judul','menu'));
                 break;
             case 'kk':
                 $judul  = 'Kartu Keluarga';
-                return view('admin.layananmandiri.kk',compact('judul'));
+                $menu   = 'layanankk';
+                return view('admin.layananmandiri.kk',compact('judul','menu'));
                 break;
             
             default:

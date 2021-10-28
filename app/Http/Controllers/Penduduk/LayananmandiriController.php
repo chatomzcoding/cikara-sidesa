@@ -18,9 +18,11 @@ class LayananmandiriController extends Controller
 {
     public function index($sesi)
     {
+        $menulayanan = TRUE;
         $user   = Auth::user();
         switch ($sesi) {
             case 'lapor':
+                $menu   = 'lapor';
                 $lapor  = Lapor::where('user_id',$user->id)->get();
                 $judul  = 'Laporan Penduduk';
                 $total  = [
@@ -28,10 +30,11 @@ class LayananmandiriController extends Controller
                     'proses' => Lapor::where('user_id',$user->id)->where('status','proses')->count(),
                     'menunggu' => Lapor::where('user_id',$user->id)->where('status','menunggu')->count(),
                 ];
-                return view('penduduk.layananmandiri.lapor', compact('lapor','judul','total','user'));
+                return view('penduduk.layananmandiri.lapor', compact('lapor','judul','total','user','menu','menulayanan'));
                 break;
             case 'surat':
                 $judul  = 'Surat';
+                $menu   = 'surat';
                 $surat  = DB::table('penduduk_surat')
                         ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
                         ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.file_surat')
@@ -45,7 +48,7 @@ class LayananmandiriController extends Controller
                     'proses' => Penduduksurat::where('user_id',$user->id)->where('status','proses')->count(),
                     'menunggu' => Penduduksurat::where('user_id',$user->id)->where('status','menunggu')->count(),
                 ];
-                return view('penduduk.layananmandiri.surat', compact('judul','user','total','formatsurat','surat'));
+                return view('penduduk.layananmandiri.surat', compact('judul','user','total','formatsurat','surat','menu','menulayanan'));
                 break;
             default:
                 # code...

@@ -25,8 +25,8 @@ class SliderController extends Controller
     public function index()
     {
         $slider = Slider::all();
-
-        return view('admin.pengaturan.slider.index', compact('slider'));
+        $menu   = 'slider';
+        return view('admin.pengaturan.slider.index', compact('slider','menu'));
     }
 
     /**

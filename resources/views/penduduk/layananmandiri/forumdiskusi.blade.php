@@ -28,8 +28,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('forumdiskusi') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar forum</a>
                 {{-- <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Ikuti Forum </a> --}}
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

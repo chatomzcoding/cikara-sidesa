@@ -21,7 +21,8 @@ class RwController extends Controller
     {
         $dusun      = Dusun::all();
         $penduduk   = Penduduk::all();
-        return view('admin.infodesa.wilayah.dusun.index', compact('dusun','penduduk'));
+        $menu       = 'wilayah';
+        return view('admin.infodesa.wilayah.dusun.index', compact('dusun','penduduk','menu'));
     }
 
     /**
@@ -58,7 +59,8 @@ class RwController extends Controller
         $rw         = Rw::find(Crypt::decryptString($rw));
         $rt         = Rt::where('rw_id',$rw->id)->get();
         $penduduk   = Penduduk::all();
-        return view('admin.infodesa.wilayah.rw.show', compact('rw','penduduk','rt'));
+        $menu       = 'wilayah';
+        return view('admin.infodesa.wilayah.rw.show', compact('rw','penduduk','rt','menu'));
     }
 
     /**

@@ -19,8 +19,8 @@ class StafController extends Controller
     public function index()
     {
         $staf = Staf::all();
-
-        return view('admin.infodesa.pemerintahdesa.index', compact('staf'));
+        $menu   = 'pemerintahdesa';
+        return view('admin.infodesa.pemerintahdesa.index', compact('staf','menu'));
     }
 
     /**

@@ -16,8 +16,8 @@ class InformasipublikController extends Controller
     public function index()
     {
         $informasipublik = Informasipublik::all();
-
-        return view('admin.sekretariat.informasipublik.index', compact('informasipublik'));
+        $menu           = 'informasipublik';
+        return view('admin.sekretariat.informasipublik.index', compact('informasipublik','menu'));
     }
 
     /**

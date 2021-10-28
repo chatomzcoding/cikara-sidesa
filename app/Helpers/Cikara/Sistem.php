@@ -11,6 +11,18 @@ if (! function_exists('deletefile')) {
         }
     }
 }
+// menu highlight
+if (! function_exists('menuaktif')) {
+    function menuaktif($menu,$sesi)
+    {
+        $result = NULL;
+        if ($menu == $sesi) {
+            $result = 'bg-info';
+        }
+
+        return $result;
+    }
+}
 
 // get nama lengkap
 if (! function_exists('notifjson')) {

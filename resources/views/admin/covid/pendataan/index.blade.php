@@ -1,46 +1,38 @@
+@extends('layouts.admin')
 @section('title')
     SIDESA - Pendataan Pemudik
 @endsection
-<x-app-layout>
-    <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Data Pemudik Saat Pandemi Covid-19</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Daftar Pemudik</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-    </x-slot>
 
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
+@section('header')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1 class="m-0">Data Pemudik Saat Pandemi Covid-19</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
+            <li class="breadcrumb-item active">Daftar Pemudik</li>
+        </ol>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+@endsection
+
+@section('container')
     <div class="container-fluid">
         <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
+        <!-- left column -->
+        <div class="col-md-12">
             <!-- general form elements -->
             <div class="card">
-              <div class="card-header">
+            <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/pemudik/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Warga Pemudik </a>
                 <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
                 <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-              </div>
-              <div class="card-body">
-                  @include('sistem.notifikasi')
-                  <div class="table-responsive">
+            </div>
+            <div class="card-body">
+                @include('sistem.notifikasi')
+                <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
@@ -94,16 +86,16 @@
                             @endforelse
                     </table>
                 </div>
-              </div>
             </div>
-          </div>
+            </div>
+        </div>
         </div>
     </div>
     {{-- modal --}}
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+        <div class="modal-content">
             <form action="{{ url('/klasifikasisurat')}}" method="post">
                 @csrf
             <div class="modal-header">
@@ -114,18 +106,18 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                   <div class="form-group row">
+                <div class="form-group row">
                         <label for="" class="col-md-4">Kode</label>
                         <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                </div>
+                <div class="form-group row">
                         <label for="" class="col-md-4">Nama</label>
                         <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                </div>
+                <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
+                </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -141,7 +133,7 @@
     {{-- modal edit --}}
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+        <div class="modal-content">
             <form action="{{ route('klasifikasisurat.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
@@ -157,23 +149,23 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4">Kode</label>
                         <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                </div>
+                <div class="form-group row">
                         <label for="" class="col-md-4">Nama</label>
                         <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                </div>
+                <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                </div>
+                <div class="form-group row">
                         <label for="" class="col-md-4">Status</label>
                         <select name="status" id="status" class="form-control col-md-8">
                             @foreach (list_status() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
-                   </div>
+                </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -185,6 +177,7 @@
         </div>
     </div>
     <!-- /.modal -->
+@endsection
 
     @section('script')
         
@@ -224,5 +217,3 @@
             });
         </script>
     @endsection
-
-</x-app-layout>

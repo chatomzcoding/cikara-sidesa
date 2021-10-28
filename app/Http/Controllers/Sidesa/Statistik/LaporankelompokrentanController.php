@@ -9,6 +9,7 @@ class LaporankelompokrentanController extends Controller
 {
     public function index()
     {
-        return view('admin.statistik.laporankelompokrentan.index');
+        $menu   = 'laporankelompok';
+        return view('admin.statistik.laporankelompokrentan.index', compact('menu'));
     }
 }

@@ -28,30 +28,31 @@
             <!-- statistik -->
             @if ($lapak)
                 <div class="row">
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-6">
                     <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-file-signature"></i></span>
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cube"></i></span>
         
                         <div class="info-box-content">
-                        <span class="info-box-text">Total Produk</span>
+                            <span class="info-box-text">Total Produk</span>
                         <span class="info-box-number">
                             {{ count($produk) }}
                             {{-- <small>%</small> --}}
                         </span>
-                        </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
-                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="clearfix hidden-md-up"></div>
                     <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-6">
                     <div class="info-box mb-3">
-                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check-double"></i></span>
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-eye"></i></span>
         
                         <div class="info-box-content">
-                        <span class="info-box-text">Laporan Selesai</span>
+                        <span class="info-box-text">Total Dilihat</span>
                         <span class="info-box-number">
-                            {{-- {{ $total['selesai'] }} --}}
+                            {{ $totaldilihat }}
                         </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -61,38 +62,6 @@
                     <!-- /.col -->
         
                     <!-- fix for small devices only -->
-                    <div class="clearfix hidden-md-up"></div>
-        
-                    <div class="col-12 col-sm-6 col-md-3">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-highlighter"></i></span>
-        
-                        <div class="info-box-content">
-                        <span class="info-box-text">Laporan diproses</span>
-                        <span class="info-box-number">
-                            {{-- {{ $total['proses'] }} --}}
-                        </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-3">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-history"></i></span>
-        
-                        <div class="info-box-content">
-                        <span class="info-box-text">Laporan menunggu</span>
-                        <span class="info-box-number">
-                            {{-- {{ $total['menunggu'] }} --}}
-                        </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
                 </div>
             @endif
             <div class="card">
@@ -116,6 +85,7 @@
                                     <th>Nama Produk</th>
                                     <th>Keterangan</th>
                                     <th>Harga</th>
+                                    <th>Dilihat</th>
                                 </tr>
                             </thead>
                             <tbody class="text-capitalize">
@@ -136,6 +106,7 @@
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ rupiah($item->harga) }}</td>
+                                        <td class="text-center">{{ $item->dilihat }}</td>
                                     </tr>
                                 @endforeach
                         </table>
@@ -167,19 +138,19 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Lapak</label>
+                        <label for="" class="col-md-4">Nama Lapak <strong class="text-danger">*</strong></label>
                         <input type="text" name="nama_lapak" class="form-control col-md-8" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">No. Handphone</label>
+                        <label for="" class="col-md-4">No. Handphone <strong class="text-danger">*</strong></label>
                         <input type="text" name="telp" class="form-control col-md-8" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Alamat Lapak</label>
+                        <label for="" class="col-md-4">Alamat Lapak <strong class="text-danger">*</strong></label>
                         <input type="text" name="alamat" id="alamat" class="form-control col-md-8" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Tentang Lapak</label>
+                        <label for="" class="col-md-4">Tentang Lapak <strong class="text-danger">*</strong></label>
                         <textarea name="tentang" id="tentang" cols="30" rows="4" class="form-control col-md-8" required></textarea>
                         </div>
                     <div class="form-group row">
@@ -215,16 +186,16 @@
                 <input type="hidden" name="lapak_id" value="{{ $lapak->id }}">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Produk</label>
+                        <label for="" class="col-md-4">Nama Produk <strong class="text-danger">*</strong></label>
                         <input type="text" name="nama" class="form-control col-md-8" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Harga Produk</label>
+                        <label for="" class="col-md-4">Harga Produk <strong class="text-danger">*</strong></label>
                         <input type="text" name="harga" id="rupiah" class="form-control col-md-8" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Uraian Produk</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+                        <label for="" class="col-md-4">Uraian Produk <strong class="text-danger">*</strong> <br> <i>* maksimal 255 karakter</i></label>
+                        <textarea name="keterangan" id="keterangan" cols="30" rows="4" class="form-control col-md-8" maxlength="255" required></textarea>
                         </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Poto Produk</label>

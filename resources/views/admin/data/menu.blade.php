@@ -1,4 +1,6 @@
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'datacovid')
+menu-is-opening menu-open
+@endif">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-heartbeat"></i>
       <p>
@@ -9,7 +11,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/pemudik')}}" class="nav-link">
+        <a href="{{ url('/pemudik')}}" class="nav-link {{ menuaktif($menu,'datacovid') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Pendataan</p>
         </a>
@@ -22,7 +24,10 @@
       </li> --}}
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'profil' || $menu == 'wilayah' || $menu == 'pemerintahdesa' || $menu == 'potensi')
+      menu-is-opening menu-open
+@endif">
+  
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-landmark"></i>
       <p>
@@ -33,32 +38,34 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/profil')}}" class="nav-link">
+        <a href="{{ url('/profil')}}" class="nav-link {{ menuaktif($menu,'profil') }}">
           &nbsp;&nbsp;<i class="far fa-id-card nav-icon"></i>
           <p>Identitas Desa</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/dusun')}}" class="nav-link">
+        <a href="{{ url('/dusun')}}" class="nav-link {{ menuaktif($menu,'wilayah') }}">
           &nbsp;&nbsp;<i class="far fa-map nav-icon"></i>
           <p>Wilayah Administratif</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/staf')}}" class="nav-link">
+        <a href="{{ url('/staf')}}" class="nav-link {{ menuaktif($menu,'pemerintahdesa') }}">
           &nbsp;&nbsp;<i class="far fa-building nav-icon"></i>
           <p>Pemerintahan Desa</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/potensi')}}" class="nav-link">
+        <a href="{{ url('/potensi')}}" class="nav-link {{ menuaktif($menu,'potensi') }}">
           &nbsp;&nbsp;<i class="far fa-building nav-icon"></i>
           <p>Potensi Desa</p>
         </a>
       </li>
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok')
+menu-is-opening menu-open
+@endif">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-users"></i>
       <p>
@@ -69,25 +76,25 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/penduduk')}}" class="nav-link">
+        <a href="{{ url('/penduduk')}}" class="nav-link {{ menuaktif($menu,'penduduk') }}">
           &nbsp;&nbsp;<i class="far fa-id-badge nav-icon"></i>
           <p>Penduduk</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/keluarga')}}" class="nav-link">
+        <a href="{{ url('/keluarga')}}" class="nav-link {{ menuaktif($menu,'keluarga') }}">
           &nbsp;&nbsp;<i class="far fa-address-card nav-icon"></i>
           <p>Keluarga</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/rumahtangga')}}" class="nav-link">
+        <a href="{{ url('/rumahtangga')}}" class="nav-link {{ menuaktif($menu,'rumahtangga') }}">
           &nbsp;&nbsp;<i class="fas fa-house-user nav-icon"></i>
           <p>Rumah Tangga</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/kelompok')}}" class="nav-link">
+        <a href="{{ url('/kelompok')}}" class="nav-link {{ menuaktif($menu,'kelompok') }}">
           &nbsp;&nbsp;<i class="fas fa-user-friends nav-icon"></i>
           <p>Kelompok</p>
         </a>
@@ -106,7 +113,9 @@
       </li> --}}
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'statistikpenduduk' || $menu == 'laporanbulanan' || $menu == 'laporankelompok')
+menu-is-opening menu-open
+@endif">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-chart-line"></i>
       <p>
@@ -117,26 +126,28 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/statistik/kependudukan/penduduk/umur-rentang')}}" class="nav-link">
+        <a href="{{ url('/statistik/kependudukan/penduduk/umur-rentang')}}" class="nav-link {{ menuaktif($menu,'statistikpenduduk') }}">
           &nbsp;&nbsp;<i class="fas fa-chart-area nav-icon"></i>
           <p>Statistik Kependudukan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('statistik/laporanbulanan')}}" class="nav-link">
+        <a href="{{ url('statistik/laporanbulanan')}}" class="nav-link {{ menuaktif($menu,'laporanbulanan') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Bulanan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('statistik/laporankelompokrentan')}}" class="nav-link">
+        <a href="{{ url('statistik/laporankelompokrentan')}}" class="nav-link {{ menuaktif($menu, 'laporankelompok') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Kelompok Rentan</p>
         </a>
       </li>
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat')
+menu-is-opening menu-open
+@endif">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-archive"></i>
       <p>
@@ -165,37 +176,39 @@
         </a>
       </li> --}}
       <li class="nav-item">
-        <a href="{{ url('/informasipublik')}}" class="nav-link">
+        <a href="{{ url('/informasipublik')}}" class="nav-link {{ menuaktif($menu,'informasipublik') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Informasi Publik</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/inventaris/list/tanah')}}" class="nav-link">
+        <a href="{{ url('/inventaris/list/tanah')}}" class="nav-link {{ menuaktif($menu,'inventaris') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Inventaris</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/klasifikasisurat')}}" class="nav-link">
+        <a href="{{ url('/klasifikasisurat')}}" class="nav-link {{ menuaktif($menu,'klasifikasisurat') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Klarifikasi Surat</p>
+          <p>Klasifikasi Surat</p>
         </a>
       </li>
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'formatsurat' || $menu == 'syaratsurat')
+menu-is-opening menu-open
+@endif">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-envelope-open"></i>
       <p>
         Layanan Surat
         <i class="fas fa-angle-left right"></i>
-        <span class="badge badge-info right">6</span>
+        {{-- <span class="badge badge-info right">6</span> --}}
       </p>
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/formatsurat')}}" class="nav-link">
+        <a href="{{ url('/formatsurat')}}" class="nav-link {{ menuaktif($menu,'formatsurat') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Pengaturan Surat</p>
         </a>
@@ -219,7 +232,7 @@
         </a>
       </li> --}}
       <li class="nav-item">
-        <a href="{{ url('datasyaratsurat') }}" class="nav-link">
+        <a href="{{ url('datasyaratsurat') }}" class="nav-link {{ menuaktif($menu,'syaratsurat') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Daftar Persyaratan</p>
         </a>
@@ -275,12 +288,14 @@
   </ul>
 </li> --}}
 <li class="nav-item">
-  <a href="{{ url('/bantuan')}}" class="nav-link">
+  <a href="{{ url('/bantuan')}}" class="nav-link {{ menuaktif($menu,'bantuan') }}">
     <i class="nav-icon fas fa-people-carry"></i>
     <p class="text">Bantuan</p>
   </a>
 </li>
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'laporpenduduk' || $menu == 'lapakdesa' || $menu == 'forumpenduduk' || $menu == 'suratpenduduk' || $menu == 'layananpenduduk' || $menu == 'layanankk' || $menu == 'layanancovid')
+menu-is-opening menu-open
+@endif">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-map-marked-alt"></i>
     <p class="text">
@@ -291,43 +306,43 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{ url('/lapor')}}" class="nav-link">
+      <a href="{{ url('/lapor')}}" class="nav-link {{ menuaktif($menu,'laporpenduduk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Laporan Penduduk</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/lapak')}}" class="nav-link">
+      <a href="{{ url('/tampilan/lapak')}}" class="nav-link {{ menuaktif($menu,'lapakdesa') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Lapak Desa</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/forum')}}" class="nav-link">
+      <a href="{{ url('/forum')}}" class="nav-link {{ menuaktif($menu,'forumpenduduk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Forum</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/covid')}}" class="nav-link">
+      <a href="{{ url('/tampilan/covid')}}" class="nav-link {{ menuaktif($menu,'layanancovid') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Covid 19</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/suratpenduduk')}}" class="nav-link">
+      <a href="{{ url('/suratpenduduk')}}" class="nav-link {{ menuaktif($menu,'suratpenduduk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Surat</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/penduduk')}}" class="nav-link">
+      <a href="{{ url('/tampilan/penduduk')}}" class="nav-link {{ menuaktif($menu,'layananpenduduk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Penduduk</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/kk')}}" class="nav-link">
+      <a href="{{ url('/tampilan/kk')}}" class="nav-link {{ menuaktif($menu,'layanankk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Kartu Keluarga</p>
       </a>
@@ -442,7 +457,9 @@
     </li>
   </ul>
 </li> --}}
-<li class="nav-item">
+<li class="nav-item @if ($menu == 'datapokok' || $menu == 'datauser' || $menu == 'artikel' || $menu == 'galeri' || $menu == 'slider')
+menu-is-opening menu-open
+@endif">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-desktop"></i>
     <p>
@@ -453,43 +470,43 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{ url('/datapokok')}}" class="nav-link">
+      <a href="{{ url('/datapokok')}}" class="nav-link {{  menuaktif($menu,'datapokok') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Data Pokok</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/user')}}" class="nav-link">
+      <a href="{{ url('/user')}}" class="nav-link {{  menuaktif($menu,'datauser') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Data User</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/artikel')}}" class="nav-link">
+      <a href="{{ url('/artikel')}}" class="nav-link {{  menuaktif($menu,'artikel') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Artikel</p>
       </a>
     </li>
     {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+      <a href="pages/layout/top-nav-sidebar.html" class="nav-link {{  menuaktif($menu,'') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Widget</p>
       </a>
     </li> --}}
     {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+      <a href="pages/layout/top-nav-sidebar.html" class="nav-link {{  menuaktif($menu,'') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Menu</p>
       </a>
     </li> --}}
     {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+      <a href="pages/layout/top-nav-sidebar.html" class="nav-link {{  menuaktif($menu,'') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Komentar</p>
       </a>
     </li> --}}
     <li class="nav-item">
-      <a href="{{ url('/galeri')}}" class="nav-link">
+      <a href="{{ url('/galeri')}}" class="nav-link {{  menuaktif($menu,'galeri') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Galeri</p>
       </a>
@@ -501,7 +518,7 @@
       </a>
     </li> --}}
     <li class="nav-item">
-      <a href="{{ url('/slider')}}" class="nav-link">
+      <a href="{{ url('/slider')}}" class="nav-link {{ menuaktif($menu,'slider') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Slider</p>
       </a>

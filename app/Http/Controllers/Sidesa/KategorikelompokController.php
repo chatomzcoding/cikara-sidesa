@@ -16,8 +16,8 @@ class KategorikelompokController extends Controller
     public function index()
     {
         $kategorikelompok = Kategorikelompok::all();
-
-        return view('admin.kependudukan.kelompok.kategori.index', compact('kategorikelompok'));
+        $menu           = 'kelompok';
+        return view('admin.kependudukan.kelompok.kategori.index', compact('kategorikelompok','menu'));
     }
 
     /**

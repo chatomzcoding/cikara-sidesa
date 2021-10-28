@@ -28,7 +28,9 @@ class ProdukController extends Controller
         } else {
             $produk     = null;
         }
-        return view('penduduk.produk.index', compact('user','judul','lapak','produk'));
+        $menu = 'produk';
+        $totaldilihat = Produk::where('lapak_id',$lapak->id)->sum('dilihat');
+        return view('penduduk.produk.index', compact('user','judul','lapak','produk','menu','totaldilihat'));
     }
 
     /**

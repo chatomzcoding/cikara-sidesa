@@ -17,8 +17,8 @@ class ProfilController extends Controller
     public function index()
     {
         $profil     = Profil::first();
-
-        return view('admin.infodesa.identitas.index', compact('profil'));
+        $menu   = 'profil';
+        return view('admin.infodesa.identitas.index', compact('profil','menu'));
     }
 
     /**
@@ -62,8 +62,8 @@ class ProfilController extends Controller
     public function edit($profil)
     {
         $profil = Profil::find(Crypt::decryptString($profil));
-
-        return view('admin.infodesa.identitas.edit', compact('profil'));
+        $menu   = 'profil';
+        return view('admin.infodesa.identitas.edit', compact('profil','menu'));
     }
 
     /**

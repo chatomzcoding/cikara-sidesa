@@ -102,14 +102,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // ADMIN SETTING
         Route::resource('datapokok', 'App\Http\Controllers\Admin\InfowebsiteController');
-        Route::resource('user', 'App\Http\Controllers\Admin\UserController');
         Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
         Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
         Route::resource('kategoriartikel', 'App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController');
         Route::resource('galeri', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriController');
         Route::resource('galeriphoto', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriphotoController');
     });
-
+    
+    Route::resource('user', 'App\Http\Controllers\Admin\UserController');
     
     
 });

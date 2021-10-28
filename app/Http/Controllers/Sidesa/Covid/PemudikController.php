@@ -16,8 +16,8 @@ class PemudikController extends Controller
     public function index()
     {
         $pemudik = Pemudik::all();
-
-        return view('admin.covid.pendataan.index', compact('pemudik'));
+        $menu   = 'datacovid';
+        return view('admin.covid.pendataan.index', compact('pemudik','menu'));
     }
 
     /**

@@ -27,7 +27,8 @@ class KeluargaController extends Controller
                         ->join('dusun','rw.dusun_id','=','dusun.id')
                         ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
                         ->get();
-        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk'));
+        $menu       = 'keluarga';
+        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk','menu'));
     }
 
     /**
@@ -78,7 +79,8 @@ class KeluargaController extends Controller
                             ->join('penduduk','anggota_keluarga.penduduk_id','=','penduduk.id')
                             ->select('anggota_keluarga.*','penduduk.nik','penduduk.nama_penduduk','penduduk.tgl_lahir','penduduk.jk')
                             ->get();
-        return view('admin.kependudukan.keluarga.show', compact('keluarga','penduduk','anggotakeluarga','listpenduduk'));
+        $menu       = 'keluarga';
+        return view('admin.kependudukan.keluarga.show', compact('keluarga','penduduk','anggotakeluarga','listpenduduk','menu'));
     }
 
     /**

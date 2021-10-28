@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +17,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $folder = 'public/img/user';
+
     public function index()
     {
         // $user   = User::where('level','penduduk')->get();
@@ -26,7 +30,8 @@ class UserController extends Controller
                     ->get();
         $judul  = 'User Penduduk';
         $penduduk   = Penduduk::select('nik','nama_penduduk')->get();
-        return view('admin.user.index', compact('user','judul','penduduk'));
+        $menu   = 'datauser';
+        return view('admin.user.index', compact('user','judul','penduduk','menu'));
     }
 
     /**
@@ -63,9 +68,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
-        //
+       
     }
 
     /**
@@ -74,9 +79,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($user)
     {
-        //
+        $user   = User::find(Crypt::decryptString($user));
+        $menu   = 'pengaturan';
+        return view('sistem.edituser', compact('user','menu'));
     }
 
     /**
@@ -88,14 +95,36 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        $user   = User::find($request->id);
+        // profile_photo_path
+        if (isset($request->profile_photo_path)) {
+            $request->validate([
+                'profile_photo_path' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+            ]);
+            // menyimpan data file yang diupload ke variabel $file
+            $file = $request->file('profile_photo_path');
+            
+            $nama_file = time()."_".$file->getClientOriginalName();
+            
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = $this->folder;
+            $file->move($tujuan_upload,$nama_file);
+        } else {
+            $nama_file = $user->profile_photo_path;
+        }
+        
         if (isset($request->password)) {
             User::where('id',$request->id)->update([
+                'name' => $request->name,
                 'email' => $request->email,
+                'profile_photo_path' => $nama_file,
                 'password' => Hash::make($request->password),
             ]);
         } else {
             User::where('id',$request->id)->update([
+                'name' => $request->name,
                 'email' => $request->email,
+                'profile_photo_path' => $nama_file,
             ]);
         }
         

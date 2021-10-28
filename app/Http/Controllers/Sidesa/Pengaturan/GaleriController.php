@@ -22,7 +22,8 @@ class GaleriController extends Controller
     public function index()
     {
         $galeri     = Galeri::all();
-        return view('admin.pengaturan.galeri.index', compact('galeri'));
+        $menu       = 'galeri';
+        return view('admin.pengaturan.galeri.index', compact('galeri','menu'));
     }
 
     /**
@@ -74,7 +75,8 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::find(Crypt::decryptString($galeri));
         $galeriphoto = Galeriphoto::where('galeri_id',$galeri->id)->get();
-        return view('admin.pengaturan.galeri.show', compact('galeri','galeriphoto'));
+        $menu       = 'galeri';
+        return view('admin.pengaturan.galeri.show', compact('galeri','galeriphoto','menu'));
     }
 
     /**

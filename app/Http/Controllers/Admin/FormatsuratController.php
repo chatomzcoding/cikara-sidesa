@@ -30,7 +30,9 @@ class FormatsuratController extends Controller
             'menunggu' => Penduduksurat::where('status','menunggu')->count(),
             'proses' => Penduduksurat::where('status','proses')->count(),
         ];
-        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat','total'));
+
+        $menu   = 'formatsurat';
+        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat','total','menu'));
     }
 
     /**

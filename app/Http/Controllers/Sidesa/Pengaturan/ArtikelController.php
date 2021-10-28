@@ -29,8 +29,8 @@ class ArtikelController extends Controller
                         ->orderByDesc('artikel.id')
                         ->get();
         $kategori   = Kategoriartikel::all();
-
-        return view('admin.pengaturan.artikel.index', compact('artikel','kategori'));
+        $menu       = 'artikel';
+        return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu'));
     }
 
     /**

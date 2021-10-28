@@ -21,8 +21,8 @@ class BantuanController extends Controller
     public function index()
     {
         $bantuan = Bantuan::all();
-
-        return view('admin.bantuan.index', compact('bantuan'));
+        $menu   = 'bantuan';
+        return view('admin.bantuan.index', compact('bantuan','menu'));
     }
 
     /**
@@ -39,7 +39,8 @@ class BantuanController extends Controller
     {
         $bantuan    = Bantuan::find(Crypt::decryptString($bantuan));
         $penduduk   = Penduduk::all();
-        return view('admin.bantuan.peserta.create', compact('bantuan','penduduk'));
+        $menu       = 'bantuan';
+        return view('admin.bantuan.peserta.create', compact('bantuan','penduduk','menu'));
     }
 
     /**
@@ -65,8 +66,8 @@ class BantuanController extends Controller
     {
         $bantuan = Bantuan::find(Crypt::decryptString($bantuan));
         $pesertabantuan = Pesertabantuan::where('bantuan_id',$bantuan->id)->get();
-
-        return view('admin.bantuan.show', compact('bantuan','pesertabantuan'));
+        $menu       = 'bantuan';
+        return view('admin.bantuan.show', compact('bantuan','pesertabantuan','menu'));
     }
 
     /**

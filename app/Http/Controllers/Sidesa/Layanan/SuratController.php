@@ -27,8 +27,8 @@ class SuratController extends Controller
             'proses' => Penduduksurat::where('status','proses')->count(),
             'menunggu' => Penduduksurat::where('status','menunggu')->count(),
         ];
-
-        return view('admin.layananmandiri.surat.index', compact('surat','judul','total'));
+        $menu   = 'suratpenduduk';
+        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu'));
     }
 
     /**
