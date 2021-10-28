@@ -31,7 +31,14 @@ class UserController extends Controller
         $judul  = 'User Penduduk';
         $penduduk   = Penduduk::select('nik','nama_penduduk')->get();
         $menu   = 'datauser';
-        return view('admin.user.index', compact('user','judul','penduduk','menu'));
+        $belumdaftar    = count($penduduk) - count($user);
+        $total   = [
+            'user' => count($user),
+            'penduduk' => count($penduduk),
+            'belumdaftar' => $belumdaftar
+        ];
+
+        return view('admin.user.index', compact('user','judul','penduduk','menu','total'));
     }
 
     /**

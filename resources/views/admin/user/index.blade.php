@@ -27,14 +27,14 @@
           <div class="col-md-12">
             <!-- statistik -->
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-store"></i></span>
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total User</span>
                       <span class="info-box-number">
-                        {{ count($user) }}
+                        {{ $total['user'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -43,13 +43,15 @@
                   <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tshirt"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Total Sub Potensi</span>
-                      <span class="info-box-number">140</span>
+                      <span class="info-box-text">Total Penduduk</span>
+                      <span class="info-box-number">
+                        {{ $total['penduduk'] }}
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -60,26 +62,15 @@
                 <!-- fix for small devices only -->
                 <div class="clearfix hidden-md-up"></div>
       
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-times"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Total Transaksi</span>
-                      <span class="info-box-number">40</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-store-alt"></i></span>
-      
-                    <div class="info-box-content">
-                      <span class="info-box-text">Total Dilihat</span>
-                      <span class="info-box-number">10</span>
+                      <span class="info-box-text">Penduduk Belum Daftar</span>
+                      <span class="info-box-number">
+                        {{ $total['belumdaftar'] }}
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
