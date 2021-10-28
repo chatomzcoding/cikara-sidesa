@@ -122,7 +122,9 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url('cetaksurat/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
+                                        @if ($item->status == 'selesai')
+                                          <a href="{{ url('cetaksurat/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
+                                        @endif
                                         @if ($item->status == 'menunggu')
                                           <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                               <i class="fa fa-edit"></i>
