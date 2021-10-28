@@ -72,6 +72,8 @@ class LayananmandiriController extends Controller
             'isi' => $request->isi,
             'kategori' => $request->kategori,
             'status' => $request->status,
+            'identitas' => $request->identitas,
+            'posting' => $request->posting,
             'photo' => $nama_file,
         ]);
 

@@ -48,6 +48,8 @@ class LaporController extends Controller
             $data->isi = $request->isi;
             $data->kategori = $request->kategori;
             $data->status = $request->status;
+            $data->identitas = $request->identitas;
+            $data->posting = $request->posting;
             $data->photo = $request->photo;
     
             $data->save();
@@ -104,6 +106,7 @@ class LaporController extends Controller
             Lapor::where('id',$lapor->id)->update([
                 'isi' => $request->isi,
                 'kategori' => $request->kategori,
+                'posting' => $request->posting,
                 'photo' => $request->photo,
             ]);
                 $result["success"] = "1";

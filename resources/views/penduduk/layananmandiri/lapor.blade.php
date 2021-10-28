@@ -109,9 +109,10 @@
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
                                 <th>Photo</th>
-                                <th>Nama Penduduk</th>
                                 <th>Isi Laporan</th>
                                 <th>Kategori</th>
+                                <th>Identitas</th>
+                                <th>Posting</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -132,9 +133,10 @@
                                         @endif
                                     </td>
                                     <td><img src="{{ asset('img/penduduk/lapor/'.$item->photo) }}" alt="" width="100px"></td>
-                                    <td>{{ $nama }}</td>
                                     <td>{{ $item->isi }}</td>
                                     <td>{{ $item->kategori }}</td>
+                                    <td class="text-center">{{ $item->identitas }}</td>
+                                    <td class="text-center">{{ $item->posting }}</td>
                                     <td>
                                         @switch($item->status)
                                             @case('selesai')
@@ -187,6 +189,20 @@
                  <div class="form-group row">
                      <label for="" class="col-md-4">Isi Laporan</label>
                      <textarea name="isi" id="isi" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+                  </div>
+                 <div class="form-group row">
+                     <label for="" class="col-md-4">Tampilkan identitas</label>
+                     <select name="identitas" id="identitas" class="form-control col-md-8">
+                       <option value="ya">Ya</option>
+                       <option value="tidak">Tidak</option>
+                     </select>
+                  </div>
+                 <div class="form-group row">
+                     <label for="" class="col-md-4">Tampilkan Di UMUM</label>
+                     <select name="posting" id="posting" class="form-control col-md-8">
+                       <option value="ya">Ya</option>
+                       <option value="tidak">Tidak</option>
+                     </select>
                   </div>
                  <div class="form-group row">
                      <label for="" class="col-md-4">Photo Laporan</label>
