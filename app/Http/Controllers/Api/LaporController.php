@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Lapor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LaporController extends Controller
 {
@@ -15,7 +16,11 @@ class LaporController extends Controller
      */
     public function index()
     {
-        return Lapor::all();
+        return DB::table('lapor')
+                ->join('users','lapor.user_id','=','users.id')
+                ->join('penduduk','users.name','=','penduduk.nik')
+                ->select('lapor.*','users.profile_photo_path','penduduk.nama_penduduk')
+                ->get();
     }
 
     public function listbyuser($userid)
