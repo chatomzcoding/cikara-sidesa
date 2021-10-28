@@ -350,7 +350,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Nomor Telepon</label>
-                                        <input type="text" name="no_telp" class="form-control" pattern="[0-9]{16}" value="{{ old('no_telp')}}" placeholder="Nomor Telepon">
+                                        <input type="text" name="no_telp" class="form-control" pattern="[0-9]+" value="{{ old('no_telp')}}" placeholder="Nomor Telepon">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
