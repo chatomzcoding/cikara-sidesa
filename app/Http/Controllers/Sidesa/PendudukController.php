@@ -30,7 +30,8 @@ class PendudukController extends Controller
     public function create()
     {
         $rt     = Rt::all();
-        return view('admin.kependudukan.penduduk.create', compact('rt'));
+        $menu   = 'penduduk';
+        return view('admin.kependudukan.penduduk.create', compact('rt','menu'));
     }
 
     /**
@@ -46,8 +47,7 @@ class PendudukController extends Controller
         ]);
         
         Penduduk::create($request->all());
-        $menu = 'penduduk';
-        return redirect('/penduduk')->with('ds','Penduduk','menu');
+        return redirect('/penduduk')->with('ds','Penduduk');
     }
 
     /**
