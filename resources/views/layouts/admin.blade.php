@@ -212,13 +212,13 @@
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
       <img src="{{  asset('img/'.$info->logo_brand)}}" alt="JantungDesa" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Jantung Desa</span>
+      <span class="brand-text font-weight-light"><strong>Jantung Desa</strong></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-2 pb-2 mb-1 d-flex">
         <div class="image">
           <img src="{{ asset('img/user/'.$user->profile_photo_path)}}" class="img-circle elevation-2" alt="Photo Profile">
         </div>
@@ -246,20 +246,8 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-         
-          {{-- <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li> --}}
           <li class="nav-item">
-            <a href="{{ url('/dashboard')}}" class="nav-link {{ menuaktif($menu,'beranda') }}">
+            <a href="{{ url('/dashboard')}}" class="nav-link small {{ menuaktif($menu,'beranda') }}">
               <i class="nav-icon fas fa-home"></i>
               <p class="text">Beranda</p>
             </a>
@@ -273,35 +261,10 @@
                 @include('penduduk.data.menu')
                   @break
               @default
-                  
           @endswitch
-         
-          <li class="nav-header">SISTEM</li>
-          {{-- <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-question-circle"></i>
-              <p>
-                Bantuan
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-book-open nav-icon"></i>
-                  <p>Panduan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-address-book nav-icon"></i>
-                  <p>Kontak Kami</p>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
+          <li class="nav-header pt-0">SISTEM</li>
           <li class="nav-item">
-            <a href="{{ url('user/'.Crypt::encryptString(Auth::user()->id).'/edit') }}" class="nav-link {{ menuaktif($menu,'pengaturan') }}">
+            <a href="{{ url('user/'.Crypt::encryptString(Auth::user()->id).'/edit') }}" class="nav-link small {{ menuaktif($menu,'pengaturan') }}">
               <i class="nav-icon fas fa-cogs"></i>
               <p class="text">Pengaturan</p>
             </a>
@@ -309,7 +272,7 @@
           <li class="nav-item bg-secondary">
               <form method="POST" action="{{ route('logout') }}">
                @csrf
-               <a href="{{ route('logout') }}"  class="nav-link text-light"
+               <a href="{{ route('logout') }}"  class="nav-link text-light small"
                         onclick="event.preventDefault();
                                this.closest('form').submit();">
               <i class="nav-icon fas fa-sign-out-alt"></i><p>Keluar</p>
