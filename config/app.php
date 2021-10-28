@@ -169,7 +169,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -237,6 +237,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DbCikara' => App\Helpers\Cikara\DbCikara::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

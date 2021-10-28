@@ -17,6 +17,7 @@ use App\Http\Livewire\Members; //Load class Members
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
 Route::get('/kirimpesan','App\Http\Controllers\HomepageController@kirimpesan');
+Route::get('/cetak','App\Http\Controllers\HomeController@cetak');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
 Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');
 Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
@@ -36,6 +37,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // kebutuhan tampilan
     Route::get('tampilan/{sesi}','App\Http\Controllers\HomeController@tampilan');
     Route::get('ujisurat','App\Http\Controllers\HomeController@ujisurat');
+    
+    // CETAK
+    Route::get('cetak/listdusun','App\Http\Controllers\CetakController@listdusun');
+    Route::get('cetak/listrwperdusun/{id}','App\Http\Controllers\CetakController@listrwperdusun');
+    Route::get('cetak/listrtperwilayahrw/{id}','App\Http\Controllers\CetakController@listrtperwilayahrw');
     
     // ROUTE UNTUK PENDUDUK
     

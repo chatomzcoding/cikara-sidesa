@@ -11,6 +11,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,12 @@ class HomeController extends Controller
                 break;
         }
         return view('dashboard');
+    }
+
+    public function cetak()
+    {
+        $pdf    = PDF::loadview('cetak');
+        return $pdf->download('laporan.pdf');
     }
 
     public function tampilan($sesi)

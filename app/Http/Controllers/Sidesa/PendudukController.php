@@ -46,8 +46,8 @@ class PendudukController extends Controller
         ]);
         
         Penduduk::create($request->all());
-
-        return redirect('/penduduk')->with('ds','Penduduk');
+        $menu = 'penduduk';
+        return redirect('/penduduk')->with('ds','Penduduk','menu');
     }
 
     /**
