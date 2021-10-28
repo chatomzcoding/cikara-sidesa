@@ -25,11 +25,12 @@ class ProdukController extends Controller
         $lapak  = Lapak::where('user_id',$user->id)->first();
         if ($lapak) {
             $produk = Produk::where('lapak_id',$lapak->id)->get();
+            $totaldilihat = Produk::where('lapak_id',$lapak->id)->sum('dilihat');
         } else {
+            $totaldilihat = 0;
             $produk     = null;
         }
         $menu = 'produk';
-        $totaldilihat = Produk::where('lapak_id',$lapak->id)->sum('dilihat');
         return view('penduduk.produk.index', compact('user','judul','lapak','produk','menu','totaldilihat'));
     }
 
