@@ -47,13 +47,7 @@ class HomeController extends Controller
         }
         return view('dashboard');
     }
-
-    public function cetak()
-    {
-        $pdf    = PDF::loadview('cetak');
-        return $pdf->download('laporan.pdf');
-    }
-
+    
     public function tampilan($sesi)
     {
         switch ($sesi) {

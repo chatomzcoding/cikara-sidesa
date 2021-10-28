@@ -5,7 +5,7 @@
           <div class="d-flex">
             <p class="d-flex flex-column">
               <span class="text-bold text-lg">{{ DbCikara::chartDashboard('jumlahkunjungan') }}</span>
-              <span>Kunjungan per hari</span>
+              <span>Total Kunjungan</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
@@ -30,7 +30,7 @@
           <div class="d-flex">
             <p class="d-flex flex-column">
               <span class="text-bold text-lg">{{ DbCikara::countData('lapor') }}</span>
-              <span>Laporan Penduduk</span>
+              <span>Total Laporan Penduduk</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
@@ -53,8 +53,8 @@
         <div class="card-body">
           <div class="d-flex">
             <p class="d-flex flex-column">
-              <span class="text-bold text-lg">8</span>
-              <span>Permintaan Surat</span>
+              <span class="text-bold text-lg">{{ DbCikara::countData('penduduk_surat') }}</span>
+              <span>Total Permintaan Surat</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
@@ -79,8 +79,8 @@
           <div class="card-body">
             <div class="d-flex">
               <p class="d-flex flex-column">
-                <span class="text-bold text-lg">Total 270</span>
-                <span>Klasifikasi Laporan Penduduk</span>
+                <span class="text-bold text-lg">{{ DbCikara::countData('lapor') }}</span>
+                <span>Total Laporan Penduduk</span>
               </p>
               <p class="ml-auto d-flex flex-column text-right">
                 <span class="text-success">

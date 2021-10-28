@@ -100,7 +100,7 @@
         },
 
         subtitle: {
-          text: 'Source: thesolarfoundation.com'
+          text: 'Halaman Awal Jantung Desa'
         },
 
         yAxis: {
