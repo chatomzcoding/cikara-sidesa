@@ -41,3 +41,6 @@ Route::get('listklasifikasisurat','App\Http\Controllers\Api\SuratController@list
 Route::get('listformatsurat','App\Http\Controllers\Api\SuratController@listformatsurat');
 Route::get('formatsuratbykode/{kode}','App\Http\Controllers\Api\SuratController@formatsuratbykode');
 Route::get('listsuratbyuser/{user}','App\Http\Controllers\Api\SuratController@listsuratbyuser');
+
+// dashboard user
+Route::get('dashboarduser/{sesi}/{user}','App\Http\Controllers\Api\MobileController@dashboarduser');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\Lapak;
+use App\Models\Lapor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -46,5 +47,26 @@ class MobileController extends Controller
     public function listartikel()
     {
         return Artikel::all();
+    }
+
+    public function dashboarduser($sesi,$user)
+    {
+        switch ($sesi) {
+            case 'lapor':
+                $result  = [
+                    'total' => Lapor::where('user_id',$user)->count(),
+                    'selesai' => Lapor::where('user_id',$user)->where('status','selesai')->count(),
+                    'proses' => Lapor::where('user_id',$user)->where('status','proses')->count(),
+                    'menunggu' => Lapor::where('user_id',$user)->where('status','menunggu')->count(),
+                ];
+
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        return $result;
     }
 }
