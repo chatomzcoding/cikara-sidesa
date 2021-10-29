@@ -97,7 +97,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Laporan </a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('cetak/list/lapor') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -108,21 +108,28 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Photo</th>
                                 <th>Nama Penduduk</th>
                                 <th>Isi Laporan</th>
                                 <th>Kategori</th>
+                                <th>Posting</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @foreach ($lapor as $item)
                                 @php
-                                    $nama = DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk;
+                                    if ($item->identitas == 'ya') {
+                                      $nama = DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk;
+                                    } else {
+                                      $nama   = "nama disamarkan";
+                                    }
+                                    
                                 @endphp
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url('/potensi',$item->id)}}" method="post">
+                                      <form id="data-{{ $item->id }}" action="{{url('/lapor',$item->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         </form>
@@ -133,9 +140,19 @@
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
 
                                     </td>
-                                    <td>{{ $nama }}</td>
-                                    <td>{{ $item->isi }}</td>
+                                    <td><img src="{{ asset('img/penduduk/lapor/'.$item->photo) }}" alt="laporan" width="100px"></td>
+                                    @if ($item->identitas == 'ya')
+                                     <td>{{ $nama }}</td>
+                                    @else
+                                      <td class="text-danger font-italic">{{ $nama }}</td>
+                                    @endif
+                                    <td>{{ $item->isi }} <br> 
+                                    @if (!is_null($item->tanggapan))
+                                      <i class="text-secondary">Tanggapan :{{ $item->tanggapan }}</i>
+                                    @endif
+                                    </td>
                                     <td>{{ $item->kategori }}</td>
+                                    <td class="text-center">{{ $item->posting }}</td>
                                     <td>
                                         @switch($item->status)
                                             @case('selesai')
@@ -254,6 +271,8 @@
                 "responsive": true,
             });
             });
+
+           
         </script>
     @endsection
 

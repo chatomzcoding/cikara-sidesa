@@ -45,7 +45,7 @@
                 <!-- /.col -->
                 <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tshirt"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-tshirt"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Produk</span>
@@ -65,12 +65,12 @@
       
                 <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-store"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Total Transaksi</span>
+                      <span class="info-box-text">Menunggu Konfirmasi</span>
                       <span class="info-box-number">
-                        {{ $total['transaksi'] }}
+                        {{ $total['menunggu'] }}
 
                       </span>
                     </div>
@@ -100,7 +100,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 {{-- <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Produk </a> --}}
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('cetak/list/lapak') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -111,6 +111,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Logo</th>
                                 <th>Nama Lapak</th>
                                 <th>Nama Pemilik</th>
                                 <th>Keterangan</th>
@@ -141,6 +142,7 @@
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
 
                                     </td>
+                                    <td><img src="{{ asset('img/penduduk/lapak/'.$item->logo) }}" alt="logo" width="100px"></td>
                                     <td>{{ $item->nama_lapak }}</td>
                                     <td>{{ $nama }}</td>
                                     <td>{{ $item->tentang }}</td>
@@ -150,7 +152,7 @@
                                       @case('lapak')
                                         <span class="badge badge-success w-100">{{ $item->status_lapak }}</span></td>
                                           @break
-                                      @case('konfirmasi')
+                                      @case('menunggu')
                                         <span class="badge badge-danger w-100">{{ $item->status_lapak }}</span></td>
                                           @break
                                       @case('tutup')

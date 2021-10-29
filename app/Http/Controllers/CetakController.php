@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Dusun;
 use App\Models\Keluarga;
+use App\Models\Lapak;
+use App\Models\Lapor;
 use App\Models\Penduduk;
 use App\Models\Potensi;
 use App\Models\Rt;
@@ -38,6 +40,16 @@ class CetakController extends Controller
                 $penduduk   = Penduduk::all();
                 $namafile   = 'Laporan Data Penduduk';
                 $pdf        = PDF::loadview('sistem.cetak.list.penduduk', compact('penduduk'))->setPaper('a4','landscape');
+                break;
+            case 'lapor':
+                $lapor   = Lapor::all();
+                $namafile   = 'Data Laporan Penduduk';
+                $pdf        = PDF::loadview('sistem.cetak.list.lapor', compact('lapor'))->setPaper('a4','landscape');
+                break;
+            case 'lapak':
+                $lapak   = Lapak::all();
+                $namafile   = 'Laporan Data Lapak';
+                $pdf        = PDF::loadview('sistem.cetak.list.lapak', compact('lapak'))->setPaper('a4','landscape');
                 break;
             case 'kelompok':
                 $kelompok   = DB::table('kelompok')

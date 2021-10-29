@@ -133,7 +133,10 @@
                                         @endif
                                     </td>
                                     <td><img src="{{ asset('img/penduduk/lapor/'.$item->photo) }}" alt="" width="100px"></td>
-                                    <td>{{ $item->isi }}</td>
+                                    <td>{{ $item->isi }} <br> 
+                                      @if (!is_null($item->tanggapan))
+                                        <i class="text-secondary">Tanggapan :{{ $item->tanggapan }}</i>
+                                      @endif</td>
                                     <td>{{ $item->kategori }}</td>
                                     <td class="text-center">{{ $item->identitas }}</td>
                                     <td class="text-center">{{ $item->posting }}</td>
@@ -179,29 +182,30 @@
               <section class="p-3">
                 <div class="form-group row">
                       <label for="" class="col-md-4">Kategori Laporan</label>
-                      <select name="kategori" id="" class="form-control col-md-8">
-                          <option value="">pilih kategori laporan</option>
+                      <select name="kategori" id="" class="form-control col-md-8" required>
+                          <option value="">-- pilih kategori --</option>
                           @foreach (DbCikara::showtable('kategori',['label','lapor']) as $item)
-                              <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+                              <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
                           @endforeach
                       </select>
                 </div>
                  <div class="form-group row">
-                     <label for="" class="col-md-4">Isi Laporan</label>
-                     <textarea name="isi" id="isi" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+                     <label for="" class="col-md-4">Isi Laporan <br> <i>maksimal 255 karakter</i></label>
+                     <textarea name="isi" id="isi" cols="30" rows="4" maxlength="255" class="form-control col-md-8" required></textarea>
                   </div>
                  <div class="form-group row">
                      <label for="" class="col-md-4">Tampilkan identitas</label>
-                     <select name="identitas" id="identitas" class="form-control col-md-8">
+                     <select name="identitas" id="identitas" class="form-control col-md-8 data-pilihan" required>
+                       <option value="">-- pilih --</option>
                        <option value="ya">Ya</option>
                        <option value="tidak">Tidak</option>
                      </select>
                   </div>
-                 <div class="form-group row">
+                 <div class="form-group row hide-pilihan" style="display : none;">
                      <label for="" class="col-md-4">Tampilkan Di UMUM</label>
                      <select name="posting" id="posting" class="form-control col-md-8">
-                       <option value="ya">Ya</option>
                        <option value="tidak">Tidak</option>
+                       <option value="ya">Ya</option>
                      </select>
                   </div>
                  <div class="form-group row">
@@ -285,7 +289,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
+                // "buttons": ["excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -297,6 +301,16 @@
                 "responsive": true,
             });
             });
+
+            $(function () {
+            $(".data-pilihan").change(function () {
+                if ($(this).val() == "ya") {
+                    $(".hide-pilihan").show();
+                } else {
+                    $(".hide-pilihan").hide();
+                }
+            });
+        });
         </script>
     @endsection
 

@@ -60,7 +60,7 @@ class HomeController extends Controller
                 $total = [
                     'lapak' => Lapak::count(),
                     'produk' => Produk::count(),
-                    'transaksi' => 0,
+                    'menunggu' => Lapak::where('status_lapak','menunggu')->count(),
                     'mitra' => 0,
                 ];
                 $lapak  = Lapak::all();
