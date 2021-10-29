@@ -57,7 +57,7 @@ menu-is-opening menu-open
       </li>
       <li class="nav-item">
         <a href="{{ url('/potensi')}}" class="nav-link small {{ menuaktif($menu,'potensi') }}">
-          &nbsp;&nbsp;<i class="far fa-building nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-campground nav-icon"></i>
           <p>Potensi Desa</p>
         </a>
       </li>

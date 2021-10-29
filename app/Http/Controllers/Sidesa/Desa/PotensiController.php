@@ -22,7 +22,12 @@ class PotensiController extends Controller
         $potensi    = Potensi::all();
         $judul      = 'Potensi Desa';
         $menu       = 'potensi';
-        return view('admin.infodesa.potensi.index', compact('potensi','judul','menu'));
+        $total      = [
+            'potensi' => count($potensi),
+            'subpotensi' => Potensisub::count(),
+            'dilihat' => Potensi::sum('dilihat')
+        ];
+        return view('admin.infodesa.potensi.index', compact('potensi','judul','menu','total'));
     }
 
     /**

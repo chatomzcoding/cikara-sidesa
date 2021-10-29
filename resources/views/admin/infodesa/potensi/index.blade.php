@@ -27,14 +27,14 @@
           <div class="col-md-12">
             <!-- statistik -->
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-store"></i></span>
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-campground"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Potensi</span>
                       <span class="info-box-number">
-                        {{ count($potensi) }}
+                        {{ $total['potensi'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -43,13 +43,15 @@
                   <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tshirt"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-archway"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Sub Potensi</span>
-                      <span class="info-box-number">140</span>
+                      <span class="info-box-number">
+                        {{ $total['subpotensi'] }}
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -58,9 +60,9 @@
                 <!-- /.col -->
       
                 <!-- fix for small devices only -->
-                <div class="clearfix hidden-md-up"></div>
+                {{-- <div class="clearfix hidden-md-up"></div> --}}
       
-                <div class="col-12 col-sm-6 col-md-3">
+                {{-- <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box mb-3">
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
       
@@ -71,15 +73,17 @@
                     <!-- /.info-box-content -->
                   </div>
                   <!-- /.info-box -->
-                </div>
+                </div> --}}
                 <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
+                <div class="col-12 col-sm-6 col-md-4">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-store-alt"></i></span>
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-eye"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Dilihat</span>
-                      <span class="info-box-number">10</span>
+                      <span class="info-box-number">
+                         {{ $total['dilihat'] }}
+                      </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -91,7 +95,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Potensi</a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('cetak/list/potensi') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
