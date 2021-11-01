@@ -11,7 +11,7 @@ if (! function_exists('list_statusrekam')) {
             'print ready record',
             'card shipped',
             'sent for card printing',
-            'card issued'
+            'lainnya'
         ];
         return $list;
     }
@@ -47,7 +47,7 @@ if (! function_exists('list_agama')) {
             'hindu',
             'budha',
             'khonghucu',
-            'kepercayaan terhadap tuhan yme / lainnya'
+            'lainnya'
         ];
         return $list;
     }
@@ -95,7 +95,8 @@ if (! function_exists('list_jeniskelahiran')) {
             'tunggal',
             'kembar 2',
             'kembar 3',
-            'kembar 4'
+            'kembar 4',
+            'lainnya'
         ];
         return $list;
     }
@@ -127,7 +128,8 @@ if (! function_exists('list_pendidikandalamkk')) {
             'akademi/diploma III/s. muda',
             'diploma IV/strata I',
             'strata II',
-            'strata III'
+            'strata III',
+            'lainnya'
         ];
         return $list;
     }
@@ -153,7 +155,8 @@ if (! function_exists('list_pendidikantempuh')) {
             'sedang slb b/sederajat',
             'sedang slb c/sederajat',
             'tidak dapat membaca dan menulis huruf latin/arab',
-            'tidak sedang sekolah'
+            'tidak sedang sekolah',
+            'lainnya'
         ];
         return $list;
     }
@@ -251,7 +254,7 @@ if (! function_exists('list_pekerjaan')) {
             'kepala desa',
             'biarawati',
             'wiraswasta',
-            'lainya'
+            'lainnya'
         ];
         return $list;
     }
@@ -298,7 +301,7 @@ if (! function_exists('list_golongandarah')) {
             'AB-',
             'O+',
             'O-',
-            'TIDAK TAHU'
+            'tidak tahu'
         ];
         return $list;
     }
@@ -308,14 +311,15 @@ if (! function_exists('list_akseptorkb')) {
     function list_akseptorkb()
     {
         $list = [
-            'PIL',
-            'IUD',
-            'SUNTIK',
-            'KONDOM',
-            'SUSUK KB',
-            'STERILISASI WANITA',
-            'STERILISASI PRIA',
-            'LAINNYA'
+            'pil',
+            'iud',
+            'suntik',
+            'kondom',
+            'susuk kb',
+            'sterilisasi wanita',
+            'sterilisasi pria',
+            'lainnya',
+            'tidak'
         ];
         return $list;
     }
@@ -325,13 +329,13 @@ if (! function_exists('list_cacat')) {
     function list_cacat()
     {
         $list = [
-            'CACAT FISIK',
-            'CACAT NETRA/BUTA',
-            'CACAT RUNGU/WICARA',
-            'CACAT MENTAL/JIWA',
-            'CACAT FISIK DAN MENTAL',
-            'CACAT LAINNYA',
-            'TIDAK CACAT'
+            'cacat fisik',
+            'cacat netra/buta',
+            'cacat rungu/wicara',
+            'cacat mental/jiwa',
+            'cacat fisik dan mental',
+            'cacat lainnya',
+            'tidak',
         ];
         return $list;
     }
@@ -344,7 +348,7 @@ if (! function_exists('list_asuransi')) {
             'tidak/belum punya',
             'bpjs penerima bantuan iuran',
             'bpjs non penerima bantuan iuran',
-            'asuransi lainnya'
+            'lainnya'
         ];
         return $list;
     }
@@ -367,7 +371,7 @@ if (! function_exists('list_sakitmenahun')) {
             'gila/stres',
             'tbc',
             'asthma',
-            'tidak ada/tidak sakit'
+            'tidak'
         ];
         return $list;
     }

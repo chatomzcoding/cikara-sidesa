@@ -30,7 +30,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/penduduk')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Kembali ke daftar penduduk</a>
+                <a href="{{ url('/penduduk')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Kembali ke daftar penduduk</a>
+                <a href="{{ url('/penduduk/'.Crypt::encryptString($penduduk->id))}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-user"></i> Kembali ke detail penduduk</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -72,7 +73,7 @@
                                             <option value="belum" @if ($penduduk->status_ktp == 'belum')
                                                 selected
                                             @endif>BELUM</option>
-                                            <option value="ktp-el" @if ($penduduk->status_ktp == 'ktp_el')
+                                            <option value="ktp-el" @if ($penduduk->status_ktp == 'ktp-el')
                                                 selected
                                             @endif>KTP-EL</option>
                                         </select>

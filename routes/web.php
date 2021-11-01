@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 use App\Http\Livewire\Members; //Load class Members 
+use App\Imports\KategoriartikelImport;
+use App\Imports\PendudukImport;
+use App\Imports\PenduduksimpleImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +45,23 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     // CETAK
     Route::get('cetak/list/{sesi}','App\Http\Controllers\CetakController@list');
+    Route::get('cetak/penduduk/{id}','App\Http\Controllers\CetakController@penduduk');
     Route::get('cetak/listrwperdusun/{id}','App\Http\Controllers\CetakController@listrwperdusun');
     Route::get('cetak/listrtperwilayahrw/{id}','App\Http\Controllers\CetakController@listrtperwilayahrw');
+
+    // IMPORT
+    Route::post('/import/kategoriartikel', function () {
+        Excel::import(new KategoriartikelImport, request()->file('file'));
+        return back();
+    });
+    Route::post('/import/penduduk', function () {
+        Excel::import(new PendudukImport, request()->file('file'));
+        return back();
+    });
+    Route::post('/import/penduduksimple', function () {
+        Excel::import(new PenduduksimpleImport, request()->file('file'));
+        return back();
+    });
     
     // ROUTE UNTUK PENDUDUK
     

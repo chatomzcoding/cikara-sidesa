@@ -50,34 +50,36 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
                 <a href="{{ url('/artikel/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Artikel </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
+                <div class="float-right">
+                    <a href="#" class="btn btn-outline-dark btn-flat btn-sm" data-target="#import" data-toggle="modal"><i class="fas fa-file-import"></i> Import</a>
+                    <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
+                </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="mb-3">
-                      <form action="" method="post">
+                  <section class="mb-3">
+                      <form action="" method="get">
                         <div class="row">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">Kategori Kelompok</option>
-                                    @foreach ($kategorikelompok as $item)
-                                        <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
+                                    <option value="">Semua Kategori</option>
+                                    @foreach ($kategori as $item)
+                                        <option value="{{ $item->id}}">{{ ucwords($item->nama_kategori)}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </form>
-                  </section> --}}
+                  </section>
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
+                                <th width="15%">Aksi</th>
                                 <th>Nama Artikel</th>
-                                <th>Kategori Artikel</th>
-                                <th>Jumlah Dilihat</th>
+                                <th>Kategori</th>
+                                <th>Dilihat</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -94,7 +96,7 @@
                                 </td>
                                 <td>{{ $item->judul_artikel}}</td>
                                 <td>{{ $item->nama_kategori}}</td>
-                                <td>{{ $item->view}}</td>
+                                <td class="text-center">{{ $item->view}}</td>
                             </tr>
                             @empty
                                 <tr class="text-center">
@@ -110,6 +112,33 @@
     </div>
     {{-- modal --}}
     {{-- modal tambah --}}
+    <div class="modal fade" id="import">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/import/kategoriartikel')}}" method="post" enctype="multipart/form-data">
+                @csrf
+            <div class="modal-header">
+            <h4 class="modal-title">Import Data</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <div class="form-group">
+                        <label for="">Upload File</label>
+                        <input type="file" name="file" class="form-control" required>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-file-import"></i> IMPORT</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -214,7 +243,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

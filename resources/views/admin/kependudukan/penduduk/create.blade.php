@@ -74,7 +74,8 @@
                                         <select name="status_ktp" id="" class="form-control" required>
                                             <option value="">Pilih KTP-EL</option>
                                             <option value="belum">BELUM</option>
-                                            <option value="ktp-el">KTP-EL</option>
+                                            <option value="sudah">KTP-EL</option>
+                                            <option value="proses">Dalam Proses</option>
                                         </select>
                                     </div>
                                 </div>

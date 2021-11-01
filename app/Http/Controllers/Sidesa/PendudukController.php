@@ -19,9 +19,18 @@ class PendudukController extends Controller
     {
         $penduduk   = Penduduk::all();
         $menu       = 'penduduk';
-        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu'));
-    }
+        // proses get data
+        $status_penduduk = (isset($_GET['status_penduduk'])) ? $_GET['status_penduduk'] : 'semua';
+        $jk = (isset($_GET['jk'])) ? $_GET['jk'] : 'semua';
+        $dusun = (isset($_GET['dusun'])) ? $_GET['dusun'] : 'semua';
+        $filter     = [
+            'status_penduduk' => $status_penduduk,
+            'jk' => $jk,
+            'dusun' => $dusun,
+        ];
 
+        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -56,9 +65,11 @@ class PendudukController extends Controller
      * @param  \App\Models\Penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function show(Penduduk $penduduk)
+    public function show($penduduk)
     {
-        //
+        $penduduk   = Penduduk::find(Crypt::decryptString($penduduk));
+        $menu       = 'penduduk';
+        return view('admin.kependudukan.penduduk.show', compact('penduduk','menu'));
     }
 
     /**
@@ -147,6 +158,6 @@ class PendudukController extends Controller
     {
         $penduduk->delete();
 
-        return redirect()->back()->with('dd','Penduduk');
+        return redirect('penduduk')->with('dd','Penduduk');
     }
 }

@@ -104,4 +104,10 @@ class CetakController extends Controller
         $pdf    = PDF::loadview('sistem.cetak.listrtperwilayahrw', compact('rw','rt'));
         return $pdf->download('laporan data rt per wilayah rw.pdf');
     }
+    public function penduduk($id)
+    {
+        $penduduk   = Penduduk::find($id);
+        $pdf    = PDF::loadview('sistem.cetak.penduduk', compact('penduduk'));
+        return $pdf->download('Data Penduduk - '.$penduduk->nik.' '.$penduduk->nama_penduduk.'.pdf');
+    }
 }
