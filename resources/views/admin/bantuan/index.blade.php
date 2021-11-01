@@ -30,9 +30,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Program Bantuan </a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
+                <a href="{{ url('cetak/list/bantuan') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -40,13 +38,15 @@
                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
                   </section> --}}
                   <section class="mb-3">
-                      <form action="" method="post">
+                      <form action="{{ url('bantuan') }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">-- Pilih Sasaran --</option>
+                                <select name="sasaran" id="" class="form-control form-control-sm" onchange="this.form.submit();" required>
+                                    <option value="semua">-- Pilih Sasaran --</option>
                                     @foreach (list_sasaranbantuan() as $item)
-                                        <option value="{{ $item}}">{{ $item}}</option>
+                                        <option value="{{ $item}}" @if ($filter['sasaran'] == $item)
+                                            selected
+                                        @endif>{{ ucwords($item)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -69,7 +69,8 @@
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($bantuan as $item)
-                            <tr>
+                            @if ($filter['sasaran'] == 'semua' || ($filter['sasaran'] <> 'semua' AND $filter['sasaran'] == $item->sasaran))
+                                <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/bantuan',$item->id)}}" method="post">
@@ -89,6 +90,7 @@
                                     <td>{{ $item->sasaran}}</td>
                                     <td class="text-center">{{ $item->status}}</td>
                                 </tr>
+                            @endif
                             @empty
                                 <tr class="text-center">
                                     <td colspan="8">tidak ada data</td>

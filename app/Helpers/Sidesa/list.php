@@ -601,10 +601,10 @@ if (! function_exists('list_sasaranbantuan')) {
     function list_sasaranbantuan()
     {
         $list = [
-            'penduduk Perorangan',
+            'penduduk perorangan',
             'keluarga - kk',
-            'Rumah Tangga',
-            'Kelompok / Organisasi'
+            'rumah tangga',
+            'Kelompok / organisasi'
         ];
         return $list;
     }

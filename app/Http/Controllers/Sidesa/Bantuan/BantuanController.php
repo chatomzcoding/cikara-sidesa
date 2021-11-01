@@ -22,7 +22,11 @@ class BantuanController extends Controller
     {
         $bantuan = Bantuan::all();
         $menu   = 'bantuan';
-        return view('admin.bantuan.index', compact('bantuan','menu'));
+        $sasaran = (isset($_GET['sasaran'])) ? $_GET['sasaran'] : 'semua' ;
+        $filter     = [
+            'sasaran' => $sasaran
+        ];
+        return view('admin.bantuan.index', compact('bantuan','menu','filter'));
     }
 
     /**

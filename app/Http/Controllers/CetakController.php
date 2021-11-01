@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bantuan;
 use App\Models\Dusun;
 use App\Models\Keluarga;
 use App\Models\Lapak;
@@ -50,6 +51,11 @@ class CetakController extends Controller
                 $lapak   = Lapak::all();
                 $namafile   = 'Laporan Data Lapak';
                 $pdf        = PDF::loadview('sistem.cetak.list.lapak', compact('lapak'))->setPaper('a4','landscape');
+                break;
+            case 'bantuan':
+                $bantuan   = Bantuan::all();
+                $namafile   = 'Laporan Data Bantuan';
+                $pdf        = PDF::loadview('sistem.cetak.list.bantuan', compact('bantuan'))->setPaper('a4','potrait');
                 break;
             case 'kelompok':
                 $kelompok   = DB::table('kelompok')
