@@ -26,9 +26,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/profil/'.Crypt::encryptString($profil->id).'/edit')}}" class="btn btn-warning btn-sm">Ubah Data Desa</a>
-                <a href="#" class="btn btn-secondary btn-sm">Lokasi Kantor Desa</a>
-                <a href="#" class="btn btn-info btn-sm">Peta Wilayah Desa</a>
+                <a href="{{ url('/profil/'.Crypt::encryptString($profil->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="fas fa-pen"></i> Ubah Data Desa</a>
+                {{-- <a href="#" class="btn btn-secondary btn-sm">Lokasi Kantor Desa</a> --}}
+                {{-- <a href="#" class="btn btn-info btn-sm">Peta Wilayah Desa</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
