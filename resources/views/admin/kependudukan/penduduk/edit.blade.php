@@ -55,7 +55,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nik">NIK <span class="text-danger">*</span></label>
-                                        <input type="text" name="nik" class="form-control" placeholder="Nomor NIK"  value="{{ $penduduk->nik}}" maxlength="16" required>
+                                        <input type="text" name="nik" class="form-control" placeholder="Nomor NIK" pattern="[0-9]+"  value="{{ $penduduk->nik}}" minlength="16" maxlength="16" required>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
