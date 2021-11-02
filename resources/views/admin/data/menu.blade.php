@@ -1,4 +1,4 @@
-<li class="nav-item @if ($menu == 'datacovid')
+{{-- <li class="nav-item @if ($menu == 'datacovid')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small small">
@@ -6,7 +6,6 @@ menu-is-opening menu-open
       <p>
         Siaga Covid-19
         <i class="fas fa-angle-left right"></i>
-        {{-- <span class="badge badge-info right">6</span> --}}
       </p>
     </a>
     <ul class="nav nav-treeview">
@@ -22,14 +21,8 @@ menu-is-opening menu-open
           <p>Data Pemudik</p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Pemantauan</p>
-        </a>
-      </li> --}}
     </ul>
-</li>
+</li> --}}
 <li class="nav-item @if ($menu == 'profil' || $menu == 'wilayah' || $menu == 'pemerintahdesa' || $menu == 'potensi')
       menu-is-opening menu-open
 @endif">
