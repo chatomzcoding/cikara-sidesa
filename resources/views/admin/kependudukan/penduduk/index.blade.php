@@ -155,13 +155,13 @@
                                         </div>
                                     </td>
                                     <td class="small text-danger">
-                                        @if ($item->nik < 99999999999999)
+                                        @if ($item->nik < 999999999999999)
                                             - NIK kurang dari 16 digit <br>
                                         @endif
-                                        @if ($item->nik_ayah < 99999999999999)
+                                        @if ($item->nik_ayah < 999999999999999)
                                             - NIK Ayah kurang dari 16 digit <br>
                                         @endif
-                                        @if ($item->nik_ibu < 99999999999999)
+                                        @if ($item->nik_ibu < 999999999999999)
                                             - NIK Ibu kurang dari 16 digit <br>
                                         @endif
                                         @if ($item->tgl_lahir == '2222-01-01')
