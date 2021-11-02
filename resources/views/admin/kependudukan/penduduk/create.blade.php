@@ -52,7 +52,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nik">NIK <span class="text-danger">*</span></label>
-                                        <input type="text" name="nik" class="form-control" placeholder="Nomor NIK" pattern="[0-9]{16}"  value="{{ old('nik')}}" minlength="16" maxlength="16" required>
+                                        <input type="text" name="nik" class="form-control" placeholder="Nomor NIK" pattern="[0-9]{16}"  value="{{ old('nik')}}" maxlength="16" required>
                                         @if (session('nik'))
                                             <span class="text-danger">
                                                 {{ session('nik') }}
