@@ -92,13 +92,12 @@
             <div class="card">
                 <div class="card-header">
                     {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                    <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-                    <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+                    <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                    {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
                   </div>
                   <div class="card-body">
                       @include('sistem.notifikasi')
-                      <section class="mb-3">
+                      {{-- <section class="mb-3">
                         <form action="" method="post">
                           <div class="row">
                               <div class="form-group col-md-2">
@@ -111,9 +110,19 @@
                               </div>
                           </div>
                       </form>
-                    </section>
+                    </section> --}}
                 <section>
-                    <div class="table-responsive">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Grafik</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead class="text-center">
                                 <tr>
@@ -127,7 +136,8 @@
                             <tbody class="text-capitalize">
                               @switch($sesi)
                                   @case('penduduk')
-                                    @include('admin.statistik.penduduk.'.$pilih)
+                                    {{-- @include('admin.statistik.penduduk.'.$pilih) --}}
+                                    @include('admin.statistik.penduduk.agama')
                                     @break
                                   @case('bantuan')
                                     @include('admin.statistik.bantuan.index')
@@ -138,6 +148,24 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      {{-- grafik --}}
+                      <figure class="highcharts-figure">
+                        <div id="batang"></div>
+                        <p class="highcharts-description">
+                            Data agama dalam bentuk diagram batang
+                        </p>
+                    </figure>
+                      <figure class="highcharts-figure">
+                        <div id="pie"></div>
+                        <p class="highcharts-description">
+                            Data agama dalam bentuk diagram lingkaran
+                        </p>
+                    </figure>
+                    </div>
+                  </div>
+                  
                 </section>
               </div>
             </div>
@@ -259,7 +287,85 @@
     <!-- /.modal -->
 
     @section('script')
-        
+        <script>
+          Highcharts.chart('batang', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Data Penduduk berdasarkan Agama'
+            },
+            xAxis: {
+                categories: ['Islam', 'kristen', 'khatolik', 'Hindu', 'Budha','Khonghucu',' Lainnya']
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Jumlah Penganut',
+                data: [20, 2, 1, 0, 0,2,3]
+            }]
+        });
+        // pie
+        Highcharts.chart('pie', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Data Penduduk Berdasarkan Agama'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Islam',
+                y: 20,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Kristen',
+                y: 2
+            }, {
+                name: 'Khatolik',
+                y: 1
+            }, {
+                name: 'Hindu',
+                y: 0
+            }, {
+                name: 'Budha',
+                y: 0
+            }, {
+                name: 'khonghucu',
+                y: 2
+            }, {
+                name: 'lainnya',
+                y: 3
+            }]
+
+        }]
+    });
+        </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -284,8 +390,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                "buttons": ["csv", "excel", "pdf", "print"],
+                "buttons": ["copy", "excel"],
                 "paging": false,
                 "ordering": false,
                 "searching": false,
