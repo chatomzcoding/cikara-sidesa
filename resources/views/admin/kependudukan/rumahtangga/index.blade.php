@@ -139,10 +139,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="" class="form-control" required>
+                        <select name="penduduk_id" id="" data-width="100%" class="form-control penduduk" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                         <div class="alert alert-secondary mt-2">
@@ -187,10 +187,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
                             <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                         <div class="alert alert-secondary mt-2">

@@ -154,12 +154,14 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Ketua Kelompok</label>
-                        <select name="penduduk_id" id="" class="form-control col-md-8 penduduk" data-width="60%" required>
-                            <option value="">-- Silahkan Masukkan NIK / Nama --</option>
-                            @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-md-8 p-0">
+                            <select name="penduduk_id" id="" class="form-control col-md-8 penduduk" data-width="100%" required>
+                                <option value="">-- Silahkan Masukkan NIK / Nama --</option>
+                                @foreach ($penduduk as $item)
+                                    <option value="{{ $item->id}}">{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Deskripsi Kelompok</label>
@@ -213,12 +215,14 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Ketua Kelompok</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control col-md-8" required>
-                            <option value="">-- Silahkan Masukkan NIK / Nama --</option>
-                            @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-md-8 p-0">
+                            <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
+                                <option value="">-- Silahkan Masukkan NIK / Nama --</option>
+                                @foreach ($penduduk as $item)
+                                    <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Deskripsi Kelompok</label>

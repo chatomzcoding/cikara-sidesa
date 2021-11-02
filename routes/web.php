@@ -5,6 +5,7 @@ use App\Http\Livewire\Example;
 use App\Http\Livewire\Members; //Load class Members 
 use App\Imports\KategoriartikelImport;
 use App\Imports\PendudukImport;
+use App\Imports\PendudukpenyesuainaImport;
 use App\Imports\PenduduksimpleImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -61,6 +62,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('/import/penduduksimple', function () {
         Excel::import(new PenduduksimpleImport, request()->file('file'));
         return back();
+    });
+    Route::post('/import/pendudukpenyesuaian', function () {
+        Excel::import(new PendudukpenyesuainaImport, request()->file('file'));
+        return back()->with('dsc','Data Penyesuaian berhasil diimport');
     });
     
     // ROUTE UNTUK PENDUDUK

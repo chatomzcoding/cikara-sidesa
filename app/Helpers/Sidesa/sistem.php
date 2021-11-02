@@ -54,3 +54,21 @@ if (! function_exists('format_surat')) {
         return $list;
     }
 }
+if (! function_exists('custom_notif')) {
+    function custom_notif($error)
+    {
+        switch ($error) {
+            case 'The email has already been taken.':
+                $result = 'Maaf, email sudah digunakan';
+                break;
+            case 'The no kk has already been taken.':
+                $result = 'Maaf, Nomor KK sudah digunakan';
+                break;
+            
+            default:
+                $result = $error;
+                break;
+        }
+        return $result;
+    }
+}

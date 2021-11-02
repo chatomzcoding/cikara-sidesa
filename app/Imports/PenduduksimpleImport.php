@@ -22,6 +22,12 @@ class PenduduksimpleImport implements ToModel
             //  cek RT
             $rt     = Rt::where('rw_id',$rw->id)->where('nama_rt',$row[1])->first();
             if ($rt) {
+                if (strlen($row[8]) == 10) {
+                    $tgl = $row[8];
+                } else {
+                    $tgl = '2222-01-01';
+                }
+                
                 return new ModelsPenduduk([
                     'rt_id' => $rt->id,
                     'nik' => $row[2],
@@ -32,7 +38,7 @@ class PenduduksimpleImport implements ToModel
                     'agama' => $row[5],
                     'status_penduduk' => $row[6],
                     'tempat_lahir' => $row[7],
-                    'tgl_lahir' => $row[8],
+                    'tgl_lahir' => $tgl,
                     'tempat_dilahirkan' => 'lainnya',
                     'jenis_kelahiran' => $row[9],
                     'anak_ke' => $row[10],

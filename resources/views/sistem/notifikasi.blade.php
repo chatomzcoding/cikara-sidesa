@@ -53,11 +53,7 @@
     <div class="callout callout-danger">
         <ul>
             @foreach ($errors->all() as $error)
-              @if ($error == 'The email has already been taken.')
-                <li>Email sudah digunakan</li>
-              @else
-                <li>{{ $error }}</li>
-              @endif
+                <li>{{ custom_notif($error) }}</li>
             @endforeach
         </ul>
     </div>

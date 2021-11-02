@@ -466,6 +466,11 @@
     });
   });
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $(".penduduk").select2();
+  })
+</script>
 <script>
   	function deleteRow(id)
         {

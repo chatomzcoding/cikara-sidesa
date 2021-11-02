@@ -49,6 +49,10 @@ class KeluargaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'no_kk' => 'unique:keluarga,no_kk'
+        ]);
+
         Keluarga::create($request->all());
 
         // tambahkan kepala keluarga otomatis
@@ -101,9 +105,35 @@ class KeluargaController extends Controller
      * @param  \App\Models\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keluarga $keluarga)
+    public function update(Request $request)
     {
-        //
+        // $request->validate([
+        //     'no_kk' => 'unique:keluarga'
+        // ]);
+
+        Keluarga::where('id',$request->id)->update([
+            'penduduk_id' => $request->penduduk_id,
+            'no_kk' => $request->no_kk,
+        ]);
+
+        // cek kepala keluarga
+        $keluarga = Keluarga::where('penduduk_id',$request->penduduk_id)->first();
+        $kepala     = Anggotakeluarga::where('penduduk_id',$request->penduduk_id)->first();
+        if (!$kepala) {
+            Anggotakeluarga::create([
+                'keluarga_id' => $keluarga->id,
+                'penduduk_id' => $keluarga->penduduk_id,
+                'hubungan' => 'suami'
+            ]);
+
+            Anggotakeluarga::where('penduduk_id','<>',$request->penduduk_id)->where('hubungan','suami')->first()->delete();
+            
+        }
+        
+
+        // ambil data keluarga dari penduduk_id
+
+        return redirect('/keluarga/'.Crypt::encryptString($keluarga->id))->with('du','Keluarga');
     }
 
     /**

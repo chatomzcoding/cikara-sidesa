@@ -93,7 +93,7 @@
                                                     <div class="dropdown-menu" role="menu">
                                                       <a class="dropdown-item text-primary" href="{{ url('/penduduk/'.Crypt::encryptString($item->penduduk_id))}}"><i class="fas fa-list"></i> Detail Penduduk</a>
                                                         <button type="button" data-toggle="modal" data-penduduk_id="{{ $item->penduduk_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                        <i class="fa fa-edit"></i> Edit Dusun
+                                                        <i class="fa fa-edit"></i> Edit Data
                                                         </button>
                                                       <div class="dropdown-divider"></div>
                                                       <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
@@ -154,10 +154,10 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">NIK / Nama Penduduk</label>
-                        <select name="penduduk_id" id="" class="form-control" required>
+                        <select name="penduduk_id" id="" class="form-control penduduk" data-width="100%" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ $item->nik .' | '. ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -191,10 +191,10 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">NIK / Nama Penduduk</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nama_penduduk}}</option>
+                                <option value="{{ $item->id}}">{{ $item->nik .' | '. ucwords($item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>

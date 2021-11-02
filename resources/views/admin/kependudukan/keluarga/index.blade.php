@@ -95,7 +95,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
                                                   <a class="dropdown-item text-primary" href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Keluarga</a>
-                                                    <button type="button" data-toggle="modal" data-no_kk="{{ $item->no_kk }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <button type="button" data-toggle="modal" data-no_kk="{{ $item->no_kk }}"  data-penduduk_id="{{ $item->penduduk_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                     <i class="fa fa-edit"></i> Edit Keluarga
                                                     </button>
                                                   <div class="dropdown-divider"></div>
@@ -141,16 +141,16 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control" required>
-                            <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
-                            @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
-                            @endforeach
-                        </select>
+                            <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
+                                <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                                @foreach ($penduduk as $item)
+                                    <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
+                                @endforeach
+                            </select>
                     </div>
                     <div class="form-group">
                         <label for="">Nomor Kartu Keluarga (KK)</label>
-                        <input type="text" name="no_kk" class="form-control" maxlength="16" placeholder="Nomor KK" required>
+                        <input type="text" name="no_kk" class="form-control" pattern="[0-9]{16}" maxlength="16" value="{{ old('no_kk') }}" placeholder="Nomor Kartu Keluarga" required>
                     </div>
                 </section>
             </div>
@@ -165,15 +165,14 @@
     <!-- /.modal -->
 
     {{-- modal edit --}}
-    {{-- <div class="modal fade" id="ubah">
+    <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('unit.update','test')}}" method="post">
+            <form action="{{ route('keluarga.update','test')}}" method="post">
                 @csrf
                 @method('patch')
-                <input type="hidden" name="logo_unit" value="">
             <div class="modal-header">
-            <h4 class="modal-title">Form Edit Unit</h4>
+            <h4 class="modal-title">Edit Data Keluarga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -181,17 +180,18 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Unit</label>
-                        <input type="text" id="nama_unit" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
+                    <div class="form-group">
+                        <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
+                            <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                            @foreach ($penduduk as $item)
+                                <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
-                        <input type="text" id="manajer_unit" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Staf Unit</label>
-                        <input type="text" id="staf_unit" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
+                    <div class="form-group">
+                        <label for="">Nomor Kartu Keluarga (KK)</label>
+                        <input type="text" name="no_kk" id="no_kk" class="form-control" pattern="[0-9]{16}" maxlength="16" placeholder="Nomor Kartu Keluarga" required>
                     </div>
                 </section>
             </div>
@@ -202,28 +202,22 @@
             </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
 
     @section('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#penduduk_id").select2();
-        })
-    </script>
+   
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama_unit = button.data('nama_unit')
-                var manajer_unit = button.data('manajer_unit')
-                var staf_unit = button.data('staf_unit')
+                var no_kk = button.data('no_kk')
+                var penduduk_id = button.data('penduduk_id')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama_unit').val(nama_unit);
-                modal.find('.modal-body #manajer_unit').val(manajer_unit);
-                modal.find('.modal-body #staf_unit').val(staf_unit);
+                modal.find('.modal-body #no_kk').val(no_kk);
+                modal.find('.modal-body #penduduk_id').val(penduduk_id);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

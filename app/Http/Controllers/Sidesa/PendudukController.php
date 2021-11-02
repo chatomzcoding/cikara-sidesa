@@ -29,6 +29,10 @@ class PendudukController extends Controller
             'dusun' => $dusun,
         ];
 
+        if (isset($_GET['data'])) {
+            $penduduk   = Penduduk::where('tgl_lahir','2222-01-01')->Orwhere('nik','<',999999999999999)->Orwhere('nik_ayah','<',999999999999999)->Orwhere('nik_ibu','<',999999999999999)->get();
+        }
+
         return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter'));
     }
     /**
