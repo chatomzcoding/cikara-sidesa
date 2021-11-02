@@ -132,15 +132,24 @@
                                         @csrf
                                         @method('delete')
                                         </form>
-                                        @if ($item->status_lapak == 'konfirmasi')
-                                          <button type="button" data-toggle="modal" data-target="#ubah" data-id="{{ $item->id }}" data-nama="{{ $item->nama_lapak }}" data-alamat="{{ $item->alamat }}" data-pemilik="{{ $nama }}" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                              <i class="fa fa-edit"></i>
+                                        <div class="btn-group">
+                                          <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                          <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span>
                                           </button>
-                                        @else
-                                          <a href="{{ url('lapak/'.Crypt::encryptString($item->id)) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        @endif
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-
+                                          <div class="dropdown-menu" role="menu">
+                                            @if ($item->status_lapak == 'konfirmasi')
+                                            <button type="button" data-toggle="modal" data-nama="{{ $item->nama_lapak }}" data-alamat="{{ $item->alamat }}" data-pemilik="{{ $nama }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                              <i class="fa fa-edit"></i> Edit Lapak
+                                            </button>
+                                            @else
+                                            <a class="dropdown-item text-primary" href="{{ url('lapak/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-list"></i> Detail Lapak</a>
+                                                
+                                            @endif
+                                            <div class="dropdown-divider"></div>
+                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                          </div>
+                                      </div>         
                                     </td>
                                     <td><img src="{{ asset('img/penduduk/lapak/'.$item->logo) }}" alt="logo" width="100px"></td>
                                     <td>{{ $item->nama_lapak }}</td>
@@ -237,7 +246,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

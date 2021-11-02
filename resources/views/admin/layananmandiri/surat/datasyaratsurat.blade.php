@@ -30,11 +30,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Persyaratan </a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
-                {{-- <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a> --}}
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-list"></i> Pilih Aksi Lainnya</a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -56,10 +52,19 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <button type="button" data-toggle="modal" data-nama_syarat="{{ $item->nama_syarat }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <button type="button" data-toggle="modal" data-nama_syarat="{{ $item->nama_syarat }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Data Syarat
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td>{{ $item->nama_syarat}}</td>
                                 </tr>
@@ -155,7 +160,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

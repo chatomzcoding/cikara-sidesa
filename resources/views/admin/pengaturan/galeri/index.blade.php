@@ -32,28 +32,10 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Galeri Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
-                  {{-- <section class="mb-3">
-                      <form action="" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">-- Semua --</option>
-                                    @foreach (list_status() as $item)
-                                        <option value="{{ $item}}">{{ $item}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -75,11 +57,20 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/galeri/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
-                                        <button type="button" data-toggle="modal"  data-nama_galeri="{{ $item->nama_galeri }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                  <a class="dropdown-item text-primary" href="{{ url('/galeri/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Galeri</a>
+                                                    <button type="button" data-toggle="modal" data-nama_galeri="{{ $item->nama_galeri }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Galeri
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td><img src="{{ asset('/img/pengaturan/galeri/'.$item->gambar_galeri)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_galeri}}</td>
@@ -216,7 +207,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

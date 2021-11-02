@@ -112,6 +112,10 @@ class ForumController extends Controller
      */
     public function destroy(Forum $forum)
     {
-        //
+        deletefile($this->folder.'/'.$forum->poto);
+
+        $forum->delete();
+
+        return redirect()->back()->with('dd','Forum');
     }
 }

@@ -27,10 +27,10 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
+                  <a href="{{ url('/bantuan')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar bantuan</a>
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/bantuan/tambahpeserta/'.Crypt::encryptString($bantuan->id))}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Peserta Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a>
-                <a href="{{ url('/keluarga')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                 @include('sistem.notifikasi')

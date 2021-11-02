@@ -32,7 +32,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/inventaris/list/'.$inventaris->kode)}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Kembali ke daftar Inventaris {{ $title}}</a>
+                <a href="{{ url('/inventaris/list/'.$inventaris->kode)}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Kembali ke daftar Inventaris {{ $title}}</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

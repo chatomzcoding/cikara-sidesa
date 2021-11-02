@@ -29,8 +29,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('/galeri')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar galeri</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Photo Baru </a>
-                <a href="{{ url('/galeri')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar album</a>
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -71,11 +72,19 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        {{-- <a href="{{ url('/galeriphoto/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a> --}}
-                                        <button type="button" data-toggle="modal"  data-nama_photo="{{ $item->nama_photo }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <button type="button" data-toggle="modal" data-nama_photo="{{ $item->nama_photo }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Photo
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td><img src="{{ asset('/img/pengaturan/galeriphoto/'.$item->photo)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_photo}}</td>
@@ -202,7 +211,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

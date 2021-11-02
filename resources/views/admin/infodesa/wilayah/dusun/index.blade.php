@@ -62,11 +62,20 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i></a>
-                                        <button type="button" data-toggle="modal" data-nama_dusun="{{ $item->nama_dusun }}" data-nik="{{ $item->nik }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                              <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                              <a class="dropdown-item text-primary" href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Wilayah Dusun</a>
+                                                <button type="button" data-toggle="modal" data-nama_dusun="{{ $item->nama_dusun }}" data-nik="{{ $item->nik }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                <i class="fa fa-edit"></i> Edit Dusun
+                                                </button>
+                                              <div class="dropdown-divider"></div>
+                                              <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ $item->nama_dusun}}</td>
                                     <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
@@ -104,17 +113,19 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Dusun</label>
+                        <label for="" class="col-md-4">Nama Dusun <strong class="text-danger">*</strong></label>
                         <input type="text" name="nama_dusun" class="form-control col-md-8" placeholder="Nama Dusun" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIK / Nama Kepala Dusun</label>
-                        <select name="nik" id="nik" class="form-control col-md-8">
-                            <option value="">-- Pilih Kepala Dusun --</option>
-                            @foreach ($penduduk as $item)
-                                <option value="{{ $item->nik}}">{{ $item->nik.' | '.$item->nama_penduduk}}</option>
-                            @endforeach
-                        </select>
+                        <label for="" class="col-md-4 p-2">NIK / Nama Kepala Dusun <strong class="text-danger">*</strong></label>
+                        <div class="col-md-8 p-0">
+                            <select name="nik" id="nik" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1"  aria-hidden="true" required>
+                                <option value="">-- Pilih Kepala Dusun --</option>
+                                @foreach ($penduduk as $item)
+                                    <option value="{{ $item->nik}}">{{ ucwords($item->nik.' | '.$item->nama_penduduk)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -149,13 +160,15 @@
                         <input type="text" name="nama_dusun" id="nama_dusun" class="form-control col-md-8" placeholder="Nama Dusun" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIK / Nama Kepala Dusun</label>
-                        <select name="nik" id="nik" class="form-control col-md-8">
-                            <option value="">-- Pilih Kepala Dusun --</option>
-                            @foreach ($penduduk as $item)
-                                <option value="{{ $item->nik}}">{{ $item->nik.' | '.$item->nama_penduduk}}</option>
-                            @endforeach
-                        </select>
+                        <label for="" class="col-md-4 p-2">NIK / Nama Kepala Dusun <strong class="text-danger">*</strong></label>
+                        <div class="col-md-8 p-0">
+                            <select name="nik" id="nik" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1"  aria-hidden="true" required>
+                                <option value="">-- Pilih Kepala Dusun --</option>
+                                @foreach ($penduduk as $item)
+                                    <option value="{{ $item->nik}}">{{ ucwords($item->nik.' | '.$item->nama_penduduk)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -170,8 +183,8 @@
     <!-- /.modal -->
 
     @section('script')
-        
-        <script>
+    <script>
+           
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var nama_dusun = button.data('nama_dusun')
@@ -189,7 +202,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

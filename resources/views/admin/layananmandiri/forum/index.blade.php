@@ -122,11 +122,24 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> --}}
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      <form id="data-{{ $item->id }}" action="{{url('/forum',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        </form>
+                                      <div class="btn-group">
+                                        <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                        <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                          <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                          <a class="dropdown-item text-primary" href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Forum</a>
+                                            {{-- <button type="button" data-toggle="modal" data-nama_dusun="{{ $item->nama_dusun }}" data-nik="{{ $item->nik }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                            <i class="fa fa-edit"></i> Edit Dusun
+                                            </button> --}}
+                                          <div class="dropdown-divider"></div>
+                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        </div>
+                                    </div>
                                     </td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->ket_forum }}</td>
@@ -193,7 +206,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

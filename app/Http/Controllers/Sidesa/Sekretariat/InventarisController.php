@@ -205,8 +205,8 @@ class InventarisController extends Controller
     {
         $inventaris     = Inventaris::find(Crypt::decryptString($inventaris));
         $title  = list_inventaris()[$inventaris->kode];
-
-        return view('admin.sekretariat.inventaris.edit', compact('inventaris','title'));
+        $menu           = 'inventaris';
+        return view('admin.sekretariat.inventaris.edit', compact('inventaris','title','menu'));
     }
 
     /**

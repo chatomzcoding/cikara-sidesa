@@ -31,7 +31,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke artikel</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Artikel Baru </a>
-                {{-- <a href="{{ url('/artikel')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke artikel</a> --}}
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right" ><i class="fas fa-print"></i> CETAK </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -54,10 +54,19 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <button type="button" data-toggle="modal" data-nama_kategori="{{ $item->nama_kategori }}" data-keterangan="{{ $item->keterangan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <button type="button" data-toggle="modal" data-nama_kategori="{{ $item->nama_kategori }}" data-keterangan="{{ $item->keterangan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Kategori
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td>{{ $item->nama_kategori}}</td>
                                     <td>{{ $item->keterangan}}</td>
@@ -165,7 +174,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

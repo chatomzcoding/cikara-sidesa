@@ -88,11 +88,20 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/kelompok/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
-                                        <button type="button" data-toggle="modal" data-nama_kelompok="{{ $item->nama_kelompok }}" data-kode_kelompok="{{ $item->kode_kelompok }}" data-penduduk_id="{{ $item->penduduk_id }}" data-kategorikelompok_id="{{ $item->kategorikelompok_id }}" data-deskripsi_kelompok="{{ $item->deskripsi_kelompok }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                  <a class="dropdown-item text-primary" href="{{ url('/kelompok/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Kelompok</a>
+                                                    <button type="button" data-toggle="modal" data-nama_kelompok="{{ $item->nama_kelompok }}" data-kode_kelompok="{{ $item->kode_kelompok }}" data-penduduk_id="{{ $item->penduduk_id }}" data-kategorikelompok_id="{{ $item->kategorikelompok_id }}" data-deskripsi_kelompok="{{ $item->deskripsi_kelompok }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Kelompok
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td>{{ $item->nama_kelompok}}</td>
                                     <td>{{ $item->nama_penduduk}}</td>
@@ -253,7 +262,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

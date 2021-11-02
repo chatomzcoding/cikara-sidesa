@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/staf')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar Staf </a>
+                <a href="{{ url('/staf')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar Staf </a>
               </div>
               <div class="card-body">
                   <form action="{{ url('/staf')}}" method="post" enctype="multipart/form-data">

@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/keluarga')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar keluarga</a>
+                <a href="{{ url('/keluarga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar keluarga</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota </a>
               </div>
               <div class="card-body">
@@ -79,11 +79,20 @@
                                                 @csrf
                                                 @method('delete')
                                                 </form>
-                                            <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> </a>
-                                            <button type="button" data-toggle="modal" data-penduduk_id="{{ $item->penduduk_id }}" data-hubungan="{{ $item->hubungan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                      <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                      <a class="dropdown-item text-primary" href="{{ url('/penduduk/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Penduduk</a>
+                                                        <button type="button" data-toggle="modal" data-penduduk_id="{{ $item->penduduk_id }}" data-hubungan="{{ $item->hubungan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i> Edit Anggota Keluarga
+                                                        </button>
+                                                      <div class="dropdown-divider"></div>
+                                                      <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    </div>
+                                                </div>
                                         </td>
                                         <td>{{ $item->nik}}</td>
                                         <td>{{ $item->nama_penduduk}}</td>
@@ -217,7 +226,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

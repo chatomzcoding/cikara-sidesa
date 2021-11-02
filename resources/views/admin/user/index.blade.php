@@ -109,11 +109,19 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        {{-- <a href="{{ url('potensi/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a> --}}
-                                        <button type="button" data-toggle="modal" data-target="#ubah" title="" data-name ="{{ $item->name }}" data-email ="{{ $item->email }}" data-id ="{{ $item->id }}" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                              <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                              <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                              </button>
+                                              <div class="dropdown-menu" role="menu">
+                                                  <button type="button" data-toggle="modal" data-name ="{{ $item->name }}" data-email ="{{ $item->email }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                  <i class="fa fa-edit"></i> Edit User
+                                                  </button>
+                                                <div class="dropdown-divider"></div>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                              </div>
+                                          </div>
                                     </td>
                                     <td>{{ $item->nama_penduduk }}</td>
                                     <td>{{ $item->name }}</td>
@@ -228,7 +236,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

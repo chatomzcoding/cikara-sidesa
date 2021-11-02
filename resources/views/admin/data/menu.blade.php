@@ -11,9 +11,15 @@ menu-is-opening menu-open
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
+        <a href="#" class="nav-link small small {{ menuaktif($menu,'covidpenduduk') }}">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Info Covid</p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{ url('/pemudik')}}" class="nav-link small small {{ menuaktif($menu,'datacovid') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Pendataan</p>
+          <p>Data Pemudik</p>
         </a>
       </li>
       {{-- <li class="nav-item">

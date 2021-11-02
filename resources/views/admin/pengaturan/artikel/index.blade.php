@@ -35,7 +35,7 @@
                   <section class="mb-3">
                       <ul>
                           @foreach ($kategori as $item)
-                              <li>{{ $item->nama_kategori}}</li>
+                              <li class="text-uppercase">{{ $item->nama_kategori}}</li>
                           @endforeach
                       </ul>
                   </section>
@@ -51,8 +51,7 @@
                 {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
                 <a href="{{ url('/artikel/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Artikel </a>
                 <div class="float-right">
-                    <a href="#" class="btn btn-outline-dark btn-flat btn-sm" data-target="#import" data-toggle="modal"><i class="fas fa-file-import"></i> Import</a>
-                    <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
+                    <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a>
                 </div>
               </div>
               <div class="card-body">
@@ -91,8 +90,17 @@
                                         @csrf
                                         @method('delete')
                                         </form>
-                                    <a href="{{ url('/artikel/'.Crypt::encryptString($item->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>
-                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                              <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                              <a class="dropdown-item text-success" href="{{  url('/artikel/'.Crypt::encryptString($item->id).'/edit') }}"><i class="fas fa-pen"></i> Edit Artikel</a>
+                                              <div class="dropdown-divider"></div>
+                                              <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            </div>
+                                        </div>
                                 </td>
                                 <td>{{ $item->judul_artikel}}</td>
                                 <td>{{ $item->nama_kategori}}</td>
@@ -243,7 +251,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

@@ -34,7 +34,7 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <h4>{{ $rw->nama_rw}}</h4>
+                  <h4>RT - {{ $rw->nama_rw}}</h4>
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -64,12 +64,20 @@
                                         <form id="data-{{ $item->id }}" action="{{url('/rt',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
-                                            </form>
-                                        {{-- <a href="{{ url('/rt/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i></a> --}}
-                                        <button type="button" data-toggle="modal" data-nama_rt="{{ $item->nama_rt }}" data-nik="{{ $item->nik }}" data-rw_id="{{ $item->rw_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                                <button type="button" data-toggle="modal" data-nama_rt="{{ $item->nama_rt }}" data-nik="{{ $item->nik }}" data-rw_id="{{ $item->rw_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                <i class="fa fa-edit"></i> Edit RT
+                                                </button>
+                                                <div class="dropdown-divider"></div>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ $item->nama_rt}}</td>
                                     <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
@@ -196,7 +204,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

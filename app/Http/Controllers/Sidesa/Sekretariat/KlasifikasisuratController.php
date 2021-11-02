@@ -15,7 +15,7 @@ class KlasifikasisuratController extends Controller
      */
     public function index()
     {
-        $klasifikasisurat = Klasifikasisurat::all();
+        $klasifikasisurat = Klasifikasisurat::where('nama','<>','-')->get();
         $menu               = 'klasifikasisurat';
         return view('admin.sekretariat.klasifikasisurat.index', compact('klasifikasisurat','menu'));
     }

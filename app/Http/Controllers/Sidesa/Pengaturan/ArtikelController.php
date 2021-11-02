@@ -28,7 +28,7 @@ class ArtikelController extends Controller
                         ->select('artikel.*','kategori_artikel.nama_kategori')
                         ->orderByDesc('artikel.id')
                         ->get();
-        $kategori   = Kategoriartikel::all();
+        $kategori   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         $menu       = 'artikel';
         return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu'));
     }
@@ -41,7 +41,9 @@ class ArtikelController extends Controller
     public function create()
     {
         $kategori = Kategoriartikel::all();
-        return view('admin.pengaturan.artikel.create', compact('kategori'));
+        $menu       = 'artikel';
+
+        return view('admin.pengaturan.artikel.create', compact('kategori','menu'));
     }
 
     /**
@@ -98,7 +100,9 @@ class ArtikelController extends Controller
     {
         $artikel    = Artikel::find(Crypt::decryptString($artikel));
         $kategori = Kategoriartikel::all();
-        return view('admin.pengaturan.artikel.edit', compact('kategori','artikel'));
+        $menu       = 'artikel';
+
+        return view('admin.pengaturan.artikel.edit', compact('kategori','artikel','menu'));
     }
 
     /**

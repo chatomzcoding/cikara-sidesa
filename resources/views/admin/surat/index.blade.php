@@ -126,12 +126,20 @@
                                         @csrf
                                         @method('delete')
                                         </form>
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        <button type="button" data-toggle="modal"  data-nama_surat="{{ $item->nama_surat }}" data-kode="{{ $item->kode }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                          <i class="fa fa-edit"></i>
-                                      </button>
-                                      {{-- <a href="{{ url('/artikel/'.Crypt::encryptString($item->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a> --}}
-                                      <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <div class="btn-group">
+                                          <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                          <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                          </button>
+                                          <div class="dropdown-menu" role="menu">
+                                            <a class="dropdown-item text-primary" href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Format Surat</a>
+                                              <button type="button" data-toggle="modal" data-nama_surat="{{ $item->nama_surat }}" data-kode="{{ $item->kode }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                              <i class="fa fa-edit"></i> Edit Format Surat
+                                              </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                          </div>
+                                      </div>
                                     </td>
                                     <td>{{ $item->nama_surat }}</td>
                                     <td>{{ $item->kode }}</td>
@@ -264,7 +272,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

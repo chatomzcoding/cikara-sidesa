@@ -29,14 +29,9 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/staf/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Aparat Pemerintahan Desa </a>
                 <a href="{{ url('cetak/list/staf') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
                   <section class="mb-3">
                       <form action="" method="post">
                         <div class="row">
@@ -79,10 +74,17 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/staf/'.Crypt::encryptString($item->id).'/edit')}}" title="" class="btn btn-success btn-sm">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                                <a class="dropdown-item text-success" href="{{ url('/staf/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Edit Data</a>
+                                                <div class="dropdown-divider"></div>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ $item->nama_pegawai.$item->nip.$item->nipd}}</td>
                                     <td>{{ $item->tempat_lahir.$item->tgl_lahir}}</td>
@@ -209,8 +211,8 @@
         <script>
             $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

@@ -95,12 +95,10 @@
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
                                 <th>NIK</th>
-                                {{-- <th>Tag ID Card</th> --}}
                                 <th>Nama</th>
                                 <th>No. KK</th>
                                 <th>Nama Ayah</th>
                                 <th>Nama Ibu</th>
-                                {{-- <th>No. Rumah Tangga</th> --}}
                                 <th>Jenis Kelamin</th>
                                 <th>Alamat</th>
                                 <th>Dusun</th>
@@ -110,6 +108,7 @@
                                 <th>Umur</th>
                                 <th>Pekerjaan</th>
                                 <th>Kawin</th>
+                                <th>Tanggal Input</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -127,23 +126,18 @@
                                           <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu" role="menu">
-                                          {{-- <a class="dropdown-item" href="#">Lihat Detail Biodata Penduduk</a> --}}
                                           <a class="dropdown-item" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Ubah Biodata Penduduk</a>
                                           <a class="dropdown-item" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
-                                          {{-- <a class="dropdown-item" href="#">Upload Dokumen Penduduk</a> --}}
-                                          {{-- <a class="dropdown-item" href="#">Cetak Biodata Penduduk</a> --}}
                                           <div class="dropdown-divider"></div>
-                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                         </div>
                                       </div>
                                 </td>
                                 <td>{{ $item->nik}}</td>
-                                {{-- <td>{{ $item->id_card}}</td> --}}
                                 <td>{{ $item->nama_penduduk}}</td>
                                 <td>{{ $item->kk_sebelum}}</td>
                                 <td>{{ $item->nama_ayah}}</td>
                                 <td>{{ $item->nama_ibu}}</td>
-                                {{-- <td>-</td> --}}
                                 <td>{{ $item->jk}}</td>
                                 <td>{{ $item->alamat_sekarang}}</td>
                                 @php
@@ -158,6 +152,7 @@
                                 <td>umur</td>
                                 <td>{{ $item->pekerjaan}}</td>
                                 <td>{{ $item->status_perkawinan}}</td>
+                                <td>{{ $item->created_at}}</td>
                             </tr>
                             @empty
                                 <tr>
@@ -263,7 +258,7 @@
         <script>
             $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": false, "lengthChange": false, "autoWidth": true,
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({

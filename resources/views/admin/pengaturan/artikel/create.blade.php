@@ -30,7 +30,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
-                <a href="{{ url('/artikel')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar artikel </a>
+                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar artikel </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -46,7 +46,7 @@
                                 <select name="kategoriartikel_id" id="" class="form-control col-md-8">
                                     <option value="">-- Pilih Kategori Artikel --</option>
                                     @foreach ($kategori as $item)
-                                        <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
+                                        <option value="{{ $item->id}}">{{ strtoupper($item->nama_kategori)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -63,10 +63,10 @@
                                 // instance, using default configuration.
                                 CKEDITOR.replace('isi_artikel', {
                                 width: '100%',
-                                height: 400
+                                height: 300
                                 });
                             </script>
-                            <div class="form-group">
+                            <div class="form-group text-right">
                                 <button type="submit" class="btn btn-primary btn-sm">POSTING ARTIKEL</button>
                             </div>
                         </form>

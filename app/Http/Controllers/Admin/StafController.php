@@ -30,7 +30,8 @@ class StafController extends Controller
      */
     public function create()
     {
-        return view('admin.infodesa.pemerintahdesa.create');
+        $menu   = 'pemerintahdesa';
+        return view('admin.infodesa.pemerintahdesa.create', compact('menu'));
     }
 
     /**
@@ -96,7 +97,8 @@ class StafController extends Controller
     public function edit($staf)
     {
         $staf = Staf::find(Crypt::decryptString($staf));
-        return view('admin.infodesa.pemerintahdesa.edit', compact('staf'));
+        $menu   = 'pemerintahdesa';
+        return view('admin.infodesa.pemerintahdesa.edit', compact('staf','menu'));
     }
 
     /**

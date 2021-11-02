@@ -26,7 +26,7 @@
           <div class="col-md-3">
             <!-- general form elements -->
             <div class="card">
-              <div class="card-header">
+              <div class="card-header bg-secondary">
                 <h3 class="card-title">Kategori Inventaris</h3>
               </div>
               <div class="card-body">
@@ -35,7 +35,7 @@
                         @foreach (list_inventaris() as $id => $nama)
                             <a href="{{ url('/inventaris/list/'.$id)}}" class="list-group-item list-group-item-action @if ($id == $kode)
                             list-group-item-primary
-                            @endif">{{ $nama}}</a>
+                            @endif">{{ ucwords($nama)}}</a>
                         @endforeach
                     </div>
                   </section>
@@ -48,9 +48,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/inventaris/tambah/'.$kode)}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Data </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a>
-                <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a>
-                <a href="#" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Aksi Data Terpilih</a>
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -81,8 +79,17 @@
                                                     @csrf
                                                     @method('delete')
                                                     </form>
-                                                <a href="{{ url('/inventaris/'.Crypt::encryptString($item->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i></a>
-                                                <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                        <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                          <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <div class="dropdown-menu" role="menu">
+                                                          <a class="dropdown-item text-success" href="{{ url('/inventaris/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Edit Data</a>
+                                                          <div class="dropdown-divider"></div>
+                                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                        </div>
+                                                    </div>
                                             </td>
                                             <td>{{ $item->nama_barang}}</td>
                                             <td>{{ $item->kode_barang}}</td>
@@ -458,8 +465,8 @@
         <script>
             $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
