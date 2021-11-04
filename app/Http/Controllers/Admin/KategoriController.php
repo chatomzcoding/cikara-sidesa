@@ -36,7 +36,9 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kategori::create($request->all());
+
+        return back()->with('ds','Jenis Vaksin');
     }
 
     /**
@@ -68,9 +70,14 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request)
     {
-        //
+        Kategori::where('id',$request->id)->update([
+            'nama_kategori' => $request->nama_kategori,
+            'keterangan_kategori' => $request->keterangan_kategori
+        ]);
+        return back()->with('du','Jenis Vaksin');
+
     }
 
     /**
@@ -81,6 +88,7 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-        //
+        $kategori->delete();
+        return back()->with('dd','Jenis Vaksin');
     }
 }

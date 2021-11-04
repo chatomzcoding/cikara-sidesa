@@ -49,6 +49,12 @@
     <p>Data {{ session('dd') }} telah dihapus.</p>
   </div>
 @endif
+@if (session('ddc'))
+<div class="callout callout-danger">
+    <h5>Berhasil!</h5>
+    <p>{{ session('ddc') }}</p>
+  </div>
+@endif
 @if ($errors->any())
     <div class="callout callout-danger">
         <ul>

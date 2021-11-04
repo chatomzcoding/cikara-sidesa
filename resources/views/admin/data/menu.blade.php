@@ -1,4 +1,4 @@
-{{-- <li class="nav-item @if ($menu == 'datacovid')
+<li class="nav-item @if ($menu == 'datacovid')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small small">
@@ -16,13 +16,19 @@ menu-is-opening menu-open
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{ url('/vaksinasi')}}" class="nav-link small small {{ menuaktif($menu,'vaksinasi') }}">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Vaksinasi</p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{ url('/pemudik')}}" class="nav-link small small {{ menuaktif($menu,'datacovid') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Data Pemudik</p>
         </a>
       </li>
     </ul>
-</li> --}}
+</li>
 <li class="nav-item @if ($menu == 'profil' || $menu == 'wilayah' || $menu == 'pemerintahdesa' || $menu == 'potensi')
       menu-is-opening menu-open
 @endif">
