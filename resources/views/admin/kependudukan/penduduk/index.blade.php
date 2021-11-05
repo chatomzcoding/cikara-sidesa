@@ -217,6 +217,12 @@
                                         </table>
                                 </tr>
                                 @else
+                                @php
+                                    $rt     = DbCikara::showtablefirst('rt',['id',$item->rt_id]);
+                                    $rw     = DbCikara::showtablefirst('rw',['id',$rt->rw_id]);
+                                    $dusun  = DbCikara::showtablefirst('dusun',['id',$rw->dusun_id]);
+                                @endphp
+                                @if (filter_data_get(['jk','status_penduduk','dusun'],[$item->jk,$item->status_penduduk,$dusun->id]))
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration}}</td>
                                         <td class="text-center">
@@ -259,32 +265,13 @@
                                         <td>{{ $item->created_at}}</td>
                                     </tr>
                                 @endif
+                                
+                                @endif
                             @empty
                                 <tr>
                                     <td colspan="17" class="text-center">belum ada data</td>
                                 </tr>
                             @endforelse
-                        {{-- <tfoot class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Aksi</th>
-                                <th>NIK</th>
-                                <th>Tag ID Card</th>
-                                <th>Nama</th>
-                                <th>No. KK</th>
-                                <th>Nama Ayah</th>
-                                <th>Nama Ibu</th>
-                                <th>No. Rumah Tangga</th>
-                                <th>Alamat</th>
-                                <th>Dusun</th>
-                                <th>RW</th>
-                                <th>RT</th>
-                                <th>Pendidikan dalam KK</th>
-                                <th>Umur</th>
-                                <th>Pekerjaan</th>
-                                <th>Kawin</th>
-                            </tr>
-                        </tfoot> --}}
                     </table>
                 </div>
               </div>

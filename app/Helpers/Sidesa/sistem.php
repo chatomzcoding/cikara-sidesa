@@ -72,3 +72,30 @@ if (! function_exists('custom_notif')) {
         return $result;
     }
 }
+if (! function_exists('filter_data_get')) {
+    function filter_data_get($get,$data)
+    {
+        $result     = FALSE;
+        if (is_array($get)) {
+            $index_a    = 0;
+            $look       = 0; // tanda kebenaran
+            foreach ($get as $index) {
+                // cek jika field tidak ada
+                if (isset($_GET[$index])) {
+                    if ($_GET[$index] == $data[$index_a] || $_GET[$index] == 'semua') {
+                        $look++;
+                    }
+                } else {
+                    $look++;
+                }
+                $index_a++;
+            }
+            if ($look == count($get)) {
+                $result = TRUE;
+            }
+        } else {
+            $result = TRUE;
+        }
+        return $result;
+    }
+}
