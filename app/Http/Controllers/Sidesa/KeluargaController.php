@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anggotakeluarga;
+use App\Models\Dusun;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
@@ -25,10 +26,21 @@ class KeluargaController extends Controller
                         ->join('rt','penduduk.rt_id','=','rt.id')
                         ->join('rw','rt.rw_id','=','rw.id')
                         ->join('dusun','rw.dusun_id','=','dusun.id')
-                        ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
+                        ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun','dusun.id as dusun_id')
                         ->get();
         $menu       = 'keluarga';
-        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk','menu'));
+        $data     = [
+            'dusun' => Dusun::all(),
+        ];
+        // filter data
+        $status_kk = (isset($_GET['status_kk'])) ? $_GET['status_kk'] : 'semua' ;
+        $dusun = (isset($_GET['dusun'])) ? $_GET['dusun'] : 'semua' ;
+        $filter     = [
+            'status_kk' => $status_kk,
+            'dusun' => $dusun,
+        ];
+
+        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk','menu','data','filter'));
     }
 
     /**
@@ -114,6 +126,7 @@ class KeluargaController extends Controller
         Keluarga::where('id',$request->id)->update([
             'penduduk_id' => $request->penduduk_id,
             'no_kk' => $request->no_kk,
+            'status_kk' => $request->status_kk,
         ]);
 
         // cek kepala keluarga

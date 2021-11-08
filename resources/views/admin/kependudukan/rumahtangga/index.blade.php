@@ -29,23 +29,25 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Rumah Tangga </a>
-                <a href="{{ url('cetak/list/rumahtangga') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Data Rumah Tangga"><i class="fas fa-plus"></i> Tambah</a>
+                <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+
+                <a href="{{ url('cetak/list/rumahtangga') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Rumah Tangga"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
                   <section class="mb-3">
-                      <form action="" method="post">
+                      <form action="{{ url('rumahtangga') }}" method="get">
+                        @csrf
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm" disabled>
-                                    <option value="">Pilih Dusun</option>
-                                    <option value="">KK Aktif</option>
-                                    <option value="">KK hilang/pindah/mati</option>
-                                    <option value="">KK Kosong</option>
+                                <select name="dusun" id="" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    <option value="semua">-- Semua Dusun --</option>
+                                    @foreach ($data['dusun'] as $item)
+                                        <option value="{{ $item->id }}" @if ($filter['dusun'] == $item->id)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama_dusun) }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -70,7 +72,8 @@
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($rumahtangga as $item)
-                            <tr>
+                            @if (filter_data_get($filter,[$item->dusun_id]))
+                                <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/rumahtangga',$item->id)}}" method="post">
@@ -80,15 +83,15 @@
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
                                                 <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                    <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a class="dropdown-item text-primary" href="{{ url('/rumahtangga/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Rumah Tangga</a>
+                                                    <a class="dropdown-item text-primary" href="{{ url('/rumahtangga/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Rumah Tangga</a>
                                                     <button type="button" data-toggle="modal" data-penduduk_id="{{ $item->penduduk_id }}" data-nomor="{{ $item->nomor }}" data-tgl_daftar="{{ $item->tgl_daftar }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                     <i class="fa fa-edit"></i> Edit Rumah Tangga
                                                     </button>
-                                                  <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                                 </div>
                                             </div>
                                     </td>
@@ -102,6 +105,7 @@
                                     <td>{{ $item->nama_rt }}</td>
                                     <td>{{ date_indo($item->tgl_daftar) }}</td>
                                 </tr>
+                            @endif
                             @empty
                                 <tr class="text-center">
                                     <td colspan="11">tidak ada data</td>

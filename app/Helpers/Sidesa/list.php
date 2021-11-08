@@ -609,6 +609,18 @@ if (! function_exists('list_sasaranbantuan')) {
         return $list;
     }
 }
+// BANTUAN
+if (! function_exists('list_statuskk')) {
+    function list_statuskk()
+    {
+        $list = [
+            'aktif',
+            'hilang/pindah/mati',
+            'kosong',
+        ];
+        return $list;
+    }
+}
 if (! function_exists('list_asaldana')) {
     function list_asaldana()
     {

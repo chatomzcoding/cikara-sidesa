@@ -465,6 +465,9 @@
       closeOnSelect: true
     });
   });
+  $(function () {
+    $('.pop-info').tooltip()
+  })
 </script>
 <script type="text/javascript">
   $(document).ready(function() {

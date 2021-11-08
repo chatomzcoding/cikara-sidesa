@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anggotarumahtangga;
+use App\Models\Dusun;
 use App\Models\Penduduk;
 use App\Models\Rumahtangga;
 use Illuminate\Http\Request;
@@ -24,11 +25,18 @@ class RumahtanggaController extends Controller
                             ->join('rt','penduduk.rt_id','=','rt.id')
                             ->join('rw','rt.rw_id','=','rw.id')
                             ->join('dusun','rw.dusun_id','=','dusun.id')
-                            ->select('rumah_tangga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
+                            ->select('rumah_tangga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun','dusun.id as dusun_id')
                             ->get();
         $penduduk       = Penduduk::all();
         $menu           = 'rumahtangga';
-        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk','menu'));
+        $data           = [
+            'dusun' => Dusun::all()
+        ];
+        $dusun = (isset($_GET['dusun'])) ? $_GET['dusun'] : 'semua' ;
+        $filter         = [
+            'dusun'     => $dusun
+        ];
+        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk','menu','data','filter'));
     }
 
     /**

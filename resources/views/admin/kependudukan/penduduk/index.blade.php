@@ -30,9 +30,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Penduduk Domisili</a>
-                <a href="{{ url('/penduduk?data=perubahan')}}" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-user-times"></i> Data belum sesuai</a>
-                <a href="{{ url('/penduduk')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a>
+                <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Penduduk Baru"><i class="fas fa-plus"></i> Tambah</a>
+                <a href="{{ url('/penduduk?data=perubahan')}}" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Daftar Penduduk dengan data tidak sesuai"><i class="fas fa-user-times"></i> Data belum sesuai</a>
+                <a href="{{ url('/penduduk')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
                 <div class="float-right">
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +43,7 @@
                           <a class="dropdown-item" href="#" data-target="#importsimple" data-toggle="modal">Data Mudah</a>
                           <a class="dropdown-item" href="#" data-target="#importpenyesuaian" data-toggle="modal">Data Penyesuaian</a>
                         </div>
-                        <a href="{{ url('cetak/list/penduduk') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a>
+                        <a href="{{ url('cetak/list/penduduk') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Daftar Penduduk"><i class="fas fa-print"></i> CETAK</a>
                       </div>
 
                 </div>
@@ -57,9 +57,9 @@
                       <form action="{{ url('penduduk') }}" method="get">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <select name="status_penduduk" id="" class="form-control form-control-sm" onchange="this.form.submit();">
-                                    <option value="semua">-- Status Penduduk --</option>
+                                    <option value="semua">-- Semua Status Penduduk --</option>
                                     @foreach (list_statuspenduduk() as $item)
                                         <option value="{{ $item}}" @if ($filter['status_penduduk'] == $item)
                                             selected
@@ -67,11 +67,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <select name="jk" id="" class="form-control form-control-sm" onchange="this.form.submit();">
-                                    <option value="semua" @if ($filter['jk'] == 'semua')
-                                    selected
-                                @endif>-- Jenis Kelamin --</option>
+                                    <option value="semua">-- Semua Jenis Kelamin --</option>
                                     <option value="laki-laki" @if ($filter['jk'] == 'laki-laki')
                                     selected
                                 @endif>Laki - laki</option>
@@ -80,9 +78,9 @@
                                 @endif>Perempuan</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <select name="dusun" id="" class="form-control form-control-sm" onchange="this.form.submit()">
-                                    <option value="semua">-- Dusun --</option>
+                                    <option value="semua">-- Semua Dusun --</option>
                                     @foreach (DbCikara::showtable('dusun') as $item)
                                         <option value="{{ $item->id }}" @if ($filter['dusun'] == $item->id)
                                             selected
@@ -222,7 +220,7 @@
                                     $rw     = DbCikara::showtablefirst('rw',['id',$rt->rw_id]);
                                     $dusun  = DbCikara::showtablefirst('dusun',['id',$rw->dusun_id]);
                                 @endphp
-                                @if (filter_data_get(['jk','status_penduduk','dusun'],[$item->jk,$item->status_penduduk,$dusun->id]))
+                                @if (filter_data_get($filter,[$item->status_penduduk,$item->jk,$dusun->id]))
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration}}</td>
                                         <td class="text-center">

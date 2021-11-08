@@ -79,7 +79,7 @@ if (! function_exists('filter_data_get')) {
         if (is_array($get)) {
             $index_a    = 0;
             $look       = 0; // tanda kebenaran
-            foreach ($get as $index) {
+            foreach ($get as $index => $value) {
                 // cek jika field tidak ada
                 if (isset($_GET[$index])) {
                     if ($_GET[$index] == $data[$index_a] || $_GET[$index] == 'semua') {

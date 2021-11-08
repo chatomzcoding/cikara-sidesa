@@ -28,8 +28,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/keluarga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar keluarga</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota </a>
+                <a href="{{ url('/keluarga')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" data-placement="top" title="Kembali Ke Daftar Keluarga"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" data-placement="top" title="Tambah Data Anggota Keluarga" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
               </div>
               <div class="card-body">
                 @include('sistem.notifikasi')
@@ -48,11 +48,10 @@
                             <th>Alamat</th>
                             <td>: {{ $penduduk->alamat_sekarang}}</td>
                         </tr>
-                        {{-- <tr>
-                            <th>Program Bantuan</th>
-                            <td>: -</td>
-                        </tr> --}}
-
+                        <tr>
+                            <th>Status Kartu Keluarga</th>
+                            <td>: {{ $keluarga->status_kk }}</td>
+                        </tr>
                     </table>
                   </section>
                   <section>
