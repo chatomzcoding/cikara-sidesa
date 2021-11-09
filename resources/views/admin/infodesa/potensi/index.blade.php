@@ -94,8 +94,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Potensi</a>
-                <a href="{{ url('cetak/list/potensi') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Data Potensi Baru"><i class="fas fa-plus"></i> Tambah</a>
+                <a href="{{ url('cetakdata?s=potensi') }}" target="_blank" title="Cetak Daftar Potensi" class="btn btn-outline-info btn-sm float-right pop-info"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

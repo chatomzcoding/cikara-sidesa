@@ -27,8 +27,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/staf/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Aparat Pemerintahan Desa </a>
-                <a href="{{ url('cetak/list/staf') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('/staf/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Aparat Pemerintahan"><i class="fas fa-plus"></i> Tambah </a>
+                <a href="{{ url('cetakdata?s=staf') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Aparat Pemerintahan"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

@@ -329,27 +329,9 @@ menu-is-opening menu-open
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ url('/tampilan/covid')}}" class="nav-link small {{ menuaktif($menu,'layanancovid') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Covid 19</p>
-      </a>
-    </li>
-    <li class="nav-item">
       <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratpenduduk') }}">
         &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
         <p>Surat</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ url('/tampilan/penduduk')}}" class="nav-link small {{ menuaktif($menu,'layananpenduduk') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Penduduk</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ url('/tampilan/kk')}}" class="nav-link small {{ menuaktif($menu,'layanankk') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Kartu Keluarga</p>
       </a>
     </li>
   </ul>

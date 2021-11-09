@@ -7,7 +7,7 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0">Data Penduduk @if (isset($_GET['data']))
+        <h1 class="m-0">Data Penduduk @if ($sesi == 'perubahan')
             (penyesuaian penduduk)
         @endif</h1>
         </div><!-- /.col -->
@@ -26,6 +26,67 @@
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Total Penduduk</span>
+                      <span class="info-box-number">
+                        {{ $total['penduduk'] }}
+                        {{-- <small>%</small> --}}
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-check"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Terdaftar E-KTP</span>
+                      <span class="info-box-number">{{ $total['terdaftar'] }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+      
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+      
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tag"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Penduduk Asli</span>
+                      <span class="info-box-number">{{ $total['tetap'] }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-minus"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Penduduk Pendatang</span>
+                      <span class="info-box-number">{{ $total['pendatang'] }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              </div>
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
@@ -43,16 +104,18 @@
                           <a class="dropdown-item" href="#" data-target="#importsimple" data-toggle="modal">Data Mudah</a>
                           <a class="dropdown-item" href="#" data-target="#importpenyesuaian" data-toggle="modal">Data Penyesuaian</a>
                         </div>
-                        <a href="{{ url('cetak/list/penduduk') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Daftar Penduduk"><i class="fas fa-print"></i> CETAK</a>
+                        <a href="{{ url('cetakdata?s=penduduk&status_penduduk='.$filter['status_penduduk'].'&jk='.$filter['jk'].'&dusun='.$filter['dusun']) }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Daftar Penduduk"><i class="fas fa-print"></i> CETAK</a>
                       </div>
 
                 </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
+                  @if ($sesi == 'cari')
+                  <section class="alert alert-info my-2 font-italic">
+                      Pencarian dengan keywords : <strong>{{ $_GET['cari'] }}</strong>
+                  </section>
+                  @endif
                   <section class="mb-3">
                       <form action="{{ url('penduduk') }}" method="get">
                         @csrf
@@ -94,7 +157,7 @@
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
-                            @if (isset($_GET['data']))
+                            @if ($sesi == 'perubahan')
                                 <tr>
                                     <th width="5%">No</th>
                                     <th width="10%">Aksi</th>
@@ -131,7 +194,7 @@
                             $rw     = DbCikara::showtablefirst('rw',['id',$rt->rw_id]);
                             $dusun  = DbCikara::showtablefirst('dusun',['id',$rw->dusun_id]);
                         @endphp
-                                @if (isset($_GET['data']))
+                                @if ($sesi == 'perubahan')
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
@@ -145,8 +208,8 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Ubah Biodata Penduduk</a>
-                                            <a class="dropdown-item" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
+                                            <a class="dropdown-item text-success" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Ubah Biodata Penduduk</a>
+                                            <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
                                             <div class="dropdown-divider"></div>
                                             <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                             </div>
@@ -234,8 +297,8 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Ubah Biodata Penduduk</a>
-                                                <a class="dropdown-item" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
+                                                <a class="dropdown-item text-success" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Ubah Biodata Penduduk</a>
+                                                <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
                                                 <div class="dropdown-divider"></div>
                                                 <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                                 </div>
@@ -248,11 +311,6 @@
                                         <td>{{ $item->jk}}</td>
                                         <td>{{ $item->tgl_lahir}}</td>
                                         <td>{{ $item->alamat_sekarang}}</td>
-                                        @php
-                                            $rt     = DbCikara::showtablefirst('rt',['id',$item->rt_id]);
-                                            $rw     = DbCikara::showtablefirst('rw',['id',$rt->rw_id]);
-                                            $dusun  = DbCikara::showtablefirst('dusun',['id',$rw->dusun_id]);
-                                        @endphp
                                         <td>{{ $dusun->nama_dusun }}</td>
                                         <td>{{ $rw->nama_rw }}</td>
                                         <td>{{ $rt->nama_rt }}</td>

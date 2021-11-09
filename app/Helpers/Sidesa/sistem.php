@@ -99,3 +99,71 @@ if (! function_exists('filter_data_get')) {
         return $result;
     }
 }
+
+if (! function_exists('nilai_kelengkapan')) {
+    function nilai_kelengkapan($data)
+    {
+        $nilai  = 0;
+        if (!is_null($data->status_rekam)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->kk_sebelum)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->hubungan_keluarga)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->no_akta)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->waktu_lahir)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->berat_lahir)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->panjang_lahir)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->nomor_paspor)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->tgl_akhirpaspor)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->nomor_kitas)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->lat_penduduk)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->long_penduduk)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->no_telp)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->email)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->alamat_sebelum)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->no_bukunikah)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->tgl_perkawinan)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->akta_perceraian)) {
+            $nilai = $nilai + 1;
+        }
+        if (!is_null($data->tgl_perceraian)) {
+            $nilai = $nilai + 1;
+        }
+        $jumlah = 19;
+
+        $persen     = $nilai/$jumlah * 100;
+        return round($persen);
+    }
+}

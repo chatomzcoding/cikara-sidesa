@@ -9,6 +9,7 @@ use App\Models\Lapak;
 use App\Models\Lapor;
 use App\Models\Penduduk;
 use App\Models\Potensi;
+use App\Models\Potensisub;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Staf;
@@ -18,40 +19,91 @@ use Illuminate\Support\Facades\DB;
 
 class CetakController extends Controller
 {
+    // function untuk all data
+    public function cetak()
+    {
+        if (isset($_GET['s'])) {
+            $sesi   = $_GET['s'];
+            $id     = (isset($_GET['id'])) ? $_GET['id'] : NULL ;
+            switch ($sesi) {
+                case 'dusun':
+                    $dusun      = Dusun::all();
+                    $namafile   = 'Laporan Data Dusun';
+                    $pdf        = PDF::loadview('sistem.cetak.list.dusun', compact('dusun'));
+                    break;
+                case 'listrw':
+                    $rw     = Rw::where('dusun_id',$id)->get();
+                    $dusun  = Dusun::find($id);
+                    $namafile = 'laporan data rw per dusun';
+                    $pdf    = PDF::loadview('sistem.cetak.listrwperdusun', compact('rw','dusun'));
+                    break;
+                case 'listrt':
+                    $rw  = Rw::find($id);
+                    $rt     = Rt::where('rw_id',$id)->get();
+                    $namafile = 'laporan data rt per wilayah rw';
+                    $pdf    = PDF::loadview('sistem.cetak.listrtperwilayahrw', compact('rw','rt'));
+                    break;
+                case 'staf':
+                    $staf       = Staf::all();
+                    $namafile   = 'Laporan Data Staf';
+                    $pdf        = PDF::loadview('sistem.cetak.list.staf', compact('staf'));
+                    break;
+                case 'potensi':
+                    $potensi    = Potensi::all();
+                    $namafile   = 'Laporan Data Potensi Desa';
+                    $pdf        = PDF::loadview('sistem.cetak.list.potensi', compact('potensi'));
+                    break;
+                case 'subpotensi':
+                    $potensi    = Potensi::find($id);
+                    $subpotensi = Potensisub::where('potensi_id',$id)->get();
+                    $namafile   = 'Laporan Data Potensi Desa';
+                    $pdf        = PDF::loadview('sistem.cetak.list.subpotensi', compact('potensi','subpotensi'));
+                    break;
+                case 'penduduk':
+                    // proses get data
+                    $status_penduduk = $_GET['status_penduduk'];
+                    $jk = $_GET['jk'];
+                    $dusun = $_GET['dusun'];
+                    $filter     = [
+                        'status_penduduk' => $status_penduduk,
+                        'jk' => $jk,
+                        'dusun' => $dusun,
+                    ];
+                    $penduduk   = Penduduk::all();
+                    $namafile   = 'Laporan Data Penduduk';
+                    $pdf        = PDF::loadview('sistem.cetak.list.penduduk', compact('penduduk','filter'))->setPaper('a4','landscape');
+                    break;
+                case 'detailpenduduk':
+                    $penduduk   = Penduduk::find($id);
+                    $namafile   = 'Data Penduduk - '.$penduduk->nik.' '.$penduduk->nama_penduduk;
+                    $pdf    = PDF::loadview('sistem.cetak.penduduk', compact('penduduk'));
+                    break;
+                case 'lapor':
+                    $lapor   = Lapor::all();
+                    $namafile   = 'Data Laporan Penduduk';
+                    $pdf        = PDF::loadview('sistem.cetak.list.lapor', compact('lapor'))->setPaper('a4','landscape');
+                    break;
+                case 'lapak':
+                    $lapak   = Lapak::all();
+                    $namafile   = 'Laporan Data Lapak';
+                    $pdf        = PDF::loadview('sistem.cetak.list.lapak', compact('lapak'))->setPaper('a4','landscape');
+                    break;
+                default:
+                    return 'sesi tidak ada';
+                    break;
+                }
+            return $pdf->download($namafile.'.pdf');
+        } else {
+            return 'page not found';
+        }
+    }
     // cetak data berbentuk list
     public function list($sesi)
     {
         switch ($sesi) {
-            case 'dusun':
-                $dusun      = Dusun::all();
-                $namafile   = 'Laporan Data Dusun';
-                $pdf        = PDF::loadview('sistem.cetak.list.dusun', compact('dusun'));
-                break;
-            case 'staf':
-                $staf       = Staf::all();
-                $namafile   = 'Laporan Data Staf';
-                $pdf        = PDF::loadview('sistem.cetak.list.staf', compact('staf'));
-                break;
-            case 'potensi':
-                $potensi    = Potensi::all();
-                $namafile   = 'Laporan Data Potensi Desa';
-                $pdf        = PDF::loadview('sistem.cetak.list.potensi', compact('potensi'));
-                break;
-            case 'penduduk':
-                $penduduk   = Penduduk::all();
-                $namafile   = 'Laporan Data Penduduk';
-                $pdf        = PDF::loadview('sistem.cetak.list.penduduk', compact('penduduk'))->setPaper('a4','landscape');
-                break;
-            case 'lapor':
-                $lapor   = Lapor::all();
-                $namafile   = 'Data Laporan Penduduk';
-                $pdf        = PDF::loadview('sistem.cetak.list.lapor', compact('lapor'))->setPaper('a4','landscape');
-                break;
-            case 'lapak':
-                $lapak   = Lapak::all();
-                $namafile   = 'Laporan Data Lapak';
-                $pdf        = PDF::loadview('sistem.cetak.list.lapak', compact('lapak'))->setPaper('a4','landscape');
-                break;
+            
+           
+            
             case 'bantuan':
                 $bantuan   = Bantuan::all();
                 $namafile   = 'Laporan Data Bantuan';
@@ -88,32 +140,11 @@ class CetakController extends Controller
                 $namafile   = 'Laporan Data Keluarga';
                 $pdf        = PDF::loadview('sistem.cetak.list.keluarga', compact('keluarga'))->setPaper('a4','landscape');
                 break;
-            
+          
             default:
                 return 'page not found';
                 break;
         }
         return $pdf->download($namafile.'.pdf');
-    }
-
-    public function listrwperdusun($id)
-    {
-        $rw     = Rw::where('dusun_id',$id)->get();
-        $dusun  = Dusun::find($id);
-        $pdf    = PDF::loadview('sistem.cetak.listrwperdusun', compact('rw','dusun'));
-        return $pdf->download('laporan data rw per dusun.pdf');
-    }
-    public function listrtperwilayahrw($id)
-    {
-        $rw  = Rw::find($id);
-        $rt     = Rt::where('rw_id',$id)->get();
-        $pdf    = PDF::loadview('sistem.cetak.listrtperwilayahrw', compact('rw','rt'));
-        return $pdf->download('laporan data rt per wilayah rw.pdf');
-    }
-    public function penduduk($id)
-    {
-        $penduduk   = Penduduk::find($id);
-        $pdf    = PDF::loadview('sistem.cetak.penduduk', compact('penduduk'));
-        return $pdf->download('Data Penduduk - '.$penduduk->nik.' '.$penduduk->nama_penduduk.'.pdf');
     }
 }

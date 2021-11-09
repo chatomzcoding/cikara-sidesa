@@ -30,9 +30,9 @@
             <div class="card">
               <div class="card-header">
                   {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                  <a href="{{ url('potensi') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar potensi</a>
-                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Sub Potensi {{ $potensi->nama_potensi }}</a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                  <a href="{{ url('potensi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar Potensi"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Sub Potensi {{ $potensi->nama_potensi }}"><i class="fas fa-plus"></i> Tambah</a>
+                <a href="{{ url('cetakdata?s=subpotensi&id='.$potensi->id) }}" target="_blank" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Sub Potensi"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

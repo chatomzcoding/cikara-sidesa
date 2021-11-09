@@ -34,19 +34,31 @@
                           @csrf
                           @method('delete')
                           </form>
-                      <a href="{{ url('/penduduk')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
-                      <a href="{{ url('/penduduk/'.Crypt::encryptString($penduduk->id).'/edit')}}" class="btn btn-outline-success btn-flat btn-sm"><i class="fas fa-pen"></i> Ubah</a>
-                      <button onclick="deleteRow( {{ $penduduk->id }} )" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
+                      <a href="{{ url('/penduduk')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="kembali ke daftar penduduk"><i class="fas fa-angle-left"></i> Kembali</a>
+                      <a href="{{ url('/penduduk/'.Crypt::encryptString($penduduk->id).'/edit')}}" class="btn btn-outline-success btn-flat btn-sm pop-info" title="ubah data penduduk"><i class="fas fa-pen"></i> Ubah</a>
+                      <button onclick="deleteRow( {{ $penduduk->id }} )" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Hapus Data Penduduk"><i class="fas fa-trash-alt"></i> Hapus</button>
 
                   </div>
                   <div class="col-md-4 text-right">
-                      <a href="{{ url('/cetak/penduduk/'.$penduduk->id)}}" target="_blank" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a>
+                      <a href="{{ url('/cetakdata?s=detailpenduduk&id='.$penduduk->id)}}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Detail Penduduk"><i class="fas fa-print"></i> CETAK</a>
                   </div>
             </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                         <section>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-info alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-info"></i> Persentase Kelengkapan Data!</h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ nilai_kelengkapan($penduduk) }}" aria-valuemin="0"
+                                                 aria-valuemax="100" style="width: {{ nilai_kelengkapan($penduduk) }}%">
+                                              <span>{{ nilai_kelengkapan($penduduk) }}% Complete</span>
+                                            </div>
+                                          </div>
+                                      </div>
+                                </div>
                                 <div class="col-3">
                                   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-user"></i> Biodata</a>

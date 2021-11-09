@@ -97,7 +97,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Laporan </a>
-                <a href="{{ url('cetak/list/lapor') }}" target="_blank" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="{{ url('cetakdata?s=lapor') }}" target="_blank" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Laporan Penduduk"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

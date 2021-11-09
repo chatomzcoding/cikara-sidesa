@@ -19,6 +19,13 @@ class PendudukController extends Controller
     {
         $penduduk   = Penduduk::all();
         $menu       = 'penduduk';
+        // data statistik
+        $total      = [
+            'penduduk' => Penduduk::count(),
+            'terdaftar' => Penduduk::where('status_ktp','ktp-el')->count(),
+            'tetap' => Penduduk::where('status_penduduk','tetap')->count(),
+            'pendatang' => Penduduk::where('status_penduduk','pendatang')->count(),
+        ];
         // proses get data
         $status_penduduk = (isset($_GET['status_penduduk'])) ? $_GET['status_penduduk'] : 'semua';
         $jk = (isset($_GET['jk'])) ? $_GET['jk'] : 'semua';
@@ -29,11 +36,25 @@ class PendudukController extends Controller
             'dusun' => $dusun,
         ];
 
+        $sesi   = 'normal';
+
         if (isset($_GET['data'])) {
-            $penduduk   = Penduduk::where('tgl_lahir','2222-01-01')->Orwhere('nik','<',999999999999999)->Orwhere('nik_ayah','<',999999999999999)->Orwhere('nik_ibu','<',999999999999999)->get();
+            switch ($_GET['data']) {
+                case 'perubahan':
+                    $penduduk   = Penduduk::where('tgl_lahir','2222-01-01')->Orwhere('nik','<',999999999999999)->Orwhere('nik_ayah','<',999999999999999)->Orwhere('nik_ibu','<',999999999999999)->get();
+                    $sesi       = 'perubahan';
+                    break;
+                case 'cari':
+                    $penduduk   = Penduduk::where('nama_penduduk','LIKE','%'.$_GET['cari'].'%')->orWhere('nik',$_GET['cari'])->get();
+                    $sesi       = 'cari';
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }
 
-        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter'));
+        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter','sesi','total'));
     }
     /**
      * Show the form for creating a new resource.
@@ -148,7 +169,7 @@ class PendudukController extends Controller
             'asuransi' => $request->asuransi,
         ]);
 
-        return redirect('/penduduk')->with('du','Penduduk');
+        return redirect('/penduduk/'.Crypt::encryptString($penduduk->id))->with('du','Penduduk');
 
     }
 
