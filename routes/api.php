@@ -38,6 +38,7 @@ Route::get('listartikel','App\Http\Controllers\Api\MobileController@listartikel'
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');
 // surat
 Route::get('listklasifikasisurat','App\Http\Controllers\Api\SuratController@listklasifikasisurat');
+Route::post('buatsurat','App\Http\Controllers\Api\SuratController@buatsurat');
 Route::get('listformatsurat','App\Http\Controllers\Api\SuratController@listformatsurat');
 Route::get('formatsuratbykode/{kode}','App\Http\Controllers\Api\SuratController@formatsuratbykode');
 Route::get('listsuratbyuser/{user}','App\Http\Controllers\Api\SuratController@listsuratbyuser');
