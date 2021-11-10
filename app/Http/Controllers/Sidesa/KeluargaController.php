@@ -32,6 +32,12 @@ class KeluargaController extends Controller
         $data     = [
             'dusun' => Dusun::all(),
         ];
+        $total  = [
+            'keluarga' => count($keluarga),
+            'aktif' => Keluarga::where('status_kk','aktif')->count(),
+            'kosong' => Keluarga::where('status_kk','kosong')->count(),
+            'lainnya' => Keluarga::where('status_kk','hilang/pindah/mati')->count(),
+        ];
         // filter data
         $status_kk = (isset($_GET['status_kk'])) ? $_GET['status_kk'] : 'semua' ;
         $dusun = (isset($_GET['dusun'])) ? $_GET['dusun'] : 'semua' ;
@@ -40,7 +46,7 @@ class KeluargaController extends Controller
             'dusun' => $dusun,
         ];
 
-        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk','menu','data','filter'));
+        return view('admin.kependudukan.keluarga.index', compact('keluarga','penduduk','menu','data','filter','total'));
     }
 
     /**

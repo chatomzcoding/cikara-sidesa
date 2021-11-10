@@ -25,6 +25,71 @@
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Total Keluarga</span>
+                      <span class="info-box-number">
+                        {{ $total['keluarga'] }}
+                        {{-- <small>%</small> --}}
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">KK Hilang/Pindah/Mati</span>
+                      <span class="info-box-number">
+                        {{ $total['lainnya'] }}
+                        {{-- <small>%</small> --}}
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+      
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+      
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tag"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">KK Aktif</span>
+                      <span class="info-box-number">{{ $total['aktif'] }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tag"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">KK Kosong</span>
+                      <span class="info-box-number">{{ $total['kosong'] }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                
+                <!-- /.col -->
+              </div>
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">

@@ -29,6 +29,10 @@ class RumahtanggaController extends Controller
                             ->get();
         $penduduk       = Penduduk::all();
         $menu           = 'rumahtangga';
+        $total  = [
+            'rumahtangga' => count($rumahtangga),
+            'penduduk' => Anggotarumahtangga::count(),
+        ];
         $data           = [
             'dusun' => Dusun::all()
         ];
@@ -36,7 +40,7 @@ class RumahtanggaController extends Controller
         $filter         = [
             'dusun'     => $dusun
         ];
-        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk','menu','data','filter'));
+        return view('admin.kependudukan.rumahtangga.index', compact('rumahtangga','penduduk','menu','data','filter','total'));
     }
 
     /**
