@@ -9,6 +9,7 @@ use App\Models\Penduduk;
 use App\Models\Penduduksurat;
 use App\Models\Profil;
 use App\Models\User;
+use App\Models\Userakses;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -120,12 +121,11 @@ class DbCikara {
     public static function datapenduduk($input,$sesi='nik')
     {
         if ($sesi == 'nik') {
-            $nik    = $input;
+            $penduduk   = Penduduk::where('nik',$input)->first();
         } else {
-            $user   = User::find($input);
-            $nik    = $user->name;
+            $akses      = Userakses::where('user_id',$input)->first();
+            $penduduk   = Penduduk::find($akses->penduduk_id);
         }
-        $penduduk   = Penduduk::select('nama_penduduk')->where('nik',$nik)->first();
         return $penduduk;
     }
 

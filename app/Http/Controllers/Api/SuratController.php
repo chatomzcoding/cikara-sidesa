@@ -142,8 +142,6 @@ class SuratController extends Controller
             'prov_saksi1' => $request->prov_saksi1,
             'prov_saksi2' => $request->prov_saksi2,
         ]);
-
         return 'success';
-
     }
 }

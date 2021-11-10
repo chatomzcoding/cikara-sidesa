@@ -24,7 +24,8 @@ class UserController extends Controller
     {
         // $user   = User::where('level','penduduk')->get();
         $user   = DB::table('users')
-                    ->join('penduduk','users.name','=','penduduk.nik')
+                    ->join('user_akses','users.id','=','user_akses.user_id')
+                    ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
                     ->select('users.*','penduduk.nama_penduduk')
                     ->where('users.level','penduduk')
                     ->get();

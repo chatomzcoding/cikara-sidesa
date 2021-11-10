@@ -98,6 +98,7 @@
                                 <th>Nama User</th>
                                 <th>NIK</th>
                                 <th>Email</th>
+                                <th>Tanggal Daftar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,6 +116,7 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                               </button>
                                               <div class="dropdown-menu" role="menu">
+                                                  <a href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}" class="dropdown-item text-primary"><i class="fas fa-user"></i> Detail Penduduk</a>
                                                   <button type="button" data-toggle="modal" data-name ="{{ $item->name }}" data-email ="{{ $item->email }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                   <i class="fa fa-edit"></i> Edit User
                                                   </button>
@@ -123,9 +125,10 @@
                                               </div>
                                           </div>
                                     </td>
-                                    <td>{{ $item->nama_penduduk }}</td>
+                                    <td class="text-capitalize">{{ $item->nama_penduduk }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>{{ $item->created_at }} </td>
                                 </tr>
                             @endforeach
                     </table>
