@@ -128,16 +128,16 @@
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Jenis Kelompok</th>
-                                    <th>Jumlah</th>
                                     <th>Laki - laki</th>
                                     <th>Perempuan</th>
+                                    <th>Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody class="text-capitalize">
                               @switch($sesi)
                                   @case('penduduk')
-                                    {{-- @include('admin.statistik.penduduk.'.$pilih) --}}
-                                    @include('admin.statistik.penduduk.agama')
+                                    @include('admin.statistik.penduduk.'.$pilih)
+                                    {{-- @include('admin.statistik.penduduk.agama') --}}
                                     @break
                                   @case('bantuan')
                                     @include('admin.statistik.bantuan.index')

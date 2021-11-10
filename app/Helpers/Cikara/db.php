@@ -224,4 +224,18 @@ class DbCikara {
         }
         return $jumlah;
     }
+
+    // data statistik
+    public static function datastatistik($sesi,$data)
+    {
+        switch ($sesi) {
+            case 'agama':
+                $jumlah = Penduduk::where('agama',$data['agama'])->where('jk',$data['jk'])->count();
+                break;
+            default:
+                $jumlah = 0;
+                break;
+        }
+        return $jumlah;
+    }
 }
