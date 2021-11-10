@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-times"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">KK Hilang/Pindah/Mati</span>
@@ -64,7 +64,7 @@
       
                 <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tag"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-check"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">KK Aktif</span>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                   <div class="info-box mb-3">
-                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tag"></i></span>
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users-slash"></i></span>
       
                     <div class="info-box-content">
                       <span class="info-box-text">KK Kosong</span>
@@ -96,7 +96,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" data-placement="top" title="Tambah Kartu Keluarga Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="{{ url('/keluarga')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
-                <a href="{{ url('cetak/list/keluarga') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" data-placement="top" title="Cetak Daftar Kartu Keluarga"><i class="fas fa-print"></i> CETAK</a>
+                <a href="{{ url('cetakdata?s=keluarga&status_kk='.$filter['status_kk'].'&dusun='.$filter['dusun']) }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" data-placement="top" title="Cetak Daftar Kartu Keluarga"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

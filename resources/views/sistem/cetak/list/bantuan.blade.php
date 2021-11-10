@@ -7,7 +7,7 @@
 <body>
 	<div class="container-fluid">
 		<section class="text-center">
-            <h4>Data Dusun</h4>
+            <h4>Data Program Bantuan</h4>
             <hr>
         </section>
         <table class="table table-bordered small">

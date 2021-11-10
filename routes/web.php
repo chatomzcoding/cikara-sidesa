@@ -47,7 +47,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // CETAK
     Route::get('cetakdata','App\Http\Controllers\CetakController@cetak');
 
-    Route::get('cetak/list/{sesi}','App\Http\Controllers\CetakController@list');
     Route::get('cetak/penduduk/{id}','App\Http\Controllers\CetakController@penduduk');
     Route::get('cetak/listrwperdusun/{id}','App\Http\Controllers\CetakController@listrwperdusun');
     Route::get('cetak/listrtperwilayahrw/{id}','App\Http\Controllers\CetakController@listrtperwilayahrw');

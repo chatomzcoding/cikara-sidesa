@@ -70,7 +70,7 @@
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Data Rumah Tangga"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
 
-                <a href="{{ url('cetak/list/rumahtangga') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Rumah Tangga"><i class="fas fa-print"></i> CETAK</a>
+                <a href="{{ url('cetakdata?s=rumahtangga') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Rumah Tangga"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
