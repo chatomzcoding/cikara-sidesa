@@ -42,7 +42,16 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Forumdiskusi::create($request->all());
+
+        if (response()) {
+            $result["success"] = "1";
+            $result["message"] = "success";
+        } else {
+            $result["success"] = "0";
+            $result["message"] = "error";
+        }
+        return $result;
     }
 
     /**

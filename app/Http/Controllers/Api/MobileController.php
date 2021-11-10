@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artikel;
+use App\Models\Forum;
 use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\Lapor;
+use App\Models\Penduduksurat;
+use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -60,6 +63,20 @@ class MobileController extends Controller
                     'menunggu' => Lapor::where('user_id',$user)->where('status','menunggu')->count(),
                 ];
 
+                break;
+            case 'home':
+                $lapak  = Lapak::where('user_id',$user)->first();
+                if ($lapak) {
+                    $totalproduk = Produk::where('lapak_id',$lapak->id)->count();
+                } else {
+                    $totalproduk = 0;
+                }
+                $result = [
+                    'laporan' => Lapor::where('user_id',$user)->count(),
+                    'surat' => Penduduksurat::where('user_id',$user)->count(),
+                    'produk' => $totalproduk,
+                    'forum' => Forum::count(),
+                ];
                 break;
             
             default:
