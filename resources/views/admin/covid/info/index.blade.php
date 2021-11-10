@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
 @section('title')
-    Data {{ $judul }}
+    Data Info Covid Penduduk
 @endsection
 
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0">Data {{ $judul }}</h1>
+        <h1 class="m-0">Data Info Covid Penduduk</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar {{ $judul }}</li>
+            <li class="breadcrumb-item active">Daftar Info Covid Penduduk</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -34,7 +34,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Terkonfirmasi</span>
                       <span class="info-box-number">
-                        12
+                        {{ $total['terkonfirmasi'] }}
                         {{-- <small>%</small> --}}
                       </span>
                     </div>
@@ -49,7 +49,7 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Sembuh</span>
-                      <span class="info-box-number">8</span>
+                      <span class="info-box-number">{{ $total['sembuh'] }}</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -66,7 +66,7 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Meninggal</span>
-                      <span class="info-box-number">1</span>
+                      <span class="info-box-number">{{ $total['meninggal'] }}</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -79,7 +79,7 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Dalam Pemantauan</span>
-                      <span class="info-box-number">27</span>
+                      <span class="info-box-number">{{ $total['pemantauan'] }}</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -90,8 +90,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data </a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" title="Tambah Data Covid Penduduk" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                <a href="#" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Data Covid"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -108,19 +108,46 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @foreach (data_covid() as $item)
+                            @foreach ($covid as $item)
                                 <tr>
-                                    <td class="text-center">{{ $item[0] }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> --}}
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                      <form id="data-{{ $item->id }}" action="{{url('/covid',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                      </form>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                        <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                        {{-- <span class="sr-only">Toggle Dropdown</span> --}}
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                        <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($item->penduduk_id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
+                                        <div class="dropdown-divider"></div>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        </div>
+                                    </div>
                                     </td>
-                                    <td>{{ $item[1] }}</td>
-                                    <td>{{ $item[2] }}</td>
-                                    <td><span class="badge badge-{{ $item[4] }} w-100">{{ $item[3] }}</span></td>
+                                    <td>{{ $item->nama_penduduk }}</td>
+                                    <td>{{ $item->alamat_sekarang }}</td>
+                                    <td>
+                                      @switch($item->status)
+                                          @case('terkonfirmasi')
+                                              <button class="btn btn-info btn-sm btn-block">Terkonfirmasi</button>
+                                              @break
+                                          @case('sembuh')
+                                              <button class="btn btn-success btn-sm btn-block">Sembuh</button>
+                                              @break
+                                          @case('meninggal')
+                                              <button class="btn btn-danger btn-sm btn-block">Meninggal</button>
+                                              @break
+                                          @case('pemantauan')
+                                              <button class="btn btn-secondary btn-sm btn-block">Pemantauan</button>
+                                              @break
+                                          @default
+                                              
+                                      @endswitch
+                                    </td>
                                 </tr>
                             @endforeach
                     </table>
@@ -130,26 +157,139 @@
           </div>
         </div>
     </div>
-    @section('script')
-        
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-            });
-        </script>
-    @endsection
+       {{-- modal --}}
+    {{-- modal tambah --}}
+    <div class="modal fade" id="tambah">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form action="{{ url('/covid')}}" method="post">
+            @csrf
+          <div class="modal-header">
+          <h4 class="modal-title">Tambah Data Covid Penduduk</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body p-3">
+              <section class="p-3">
+                  <div class="form-group">
+                      <label for="">Nama Penduduk</label>
+                          <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
+                              <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                              @foreach ($penduduk as $item)
+                                  <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
+                              @endforeach
+                          </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Status Covid</label>
+                      <select name="status" id="status" class="form-control">
+                          @foreach (list_statuscovid() as $item)
+                              <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Tanggal Status Covid</label>
+                      <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                  </div>
+              </section>
+          </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+          </div>
+      </form>
+      </div>
+      </div>
+  </div>
+  <!-- /.modal -->
+
+  {{-- modal edit --}}
+  <div class="modal fade" id="ubah">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form action="{{ route('keluarga.update','test')}}" method="post">
+              @csrf
+              @method('patch')
+          <div class="modal-header">
+          <h4 class="modal-title">Edit Data Keluarga</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body p-3">
+              <input type="hidden" name="id" id="id">
+              <section class="p-3">
+                  <div class="form-group">
+                      <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
+                      <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
+                          <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
+                          @foreach ($penduduk as $item)
+                              <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Nomor Kartu Keluarga (KK)</label>
+                      <input type="text" name="no_kk" id="no_kk" class="form-control" pattern="[0-9]{16}" maxlength="16" placeholder="Nomor Kartu Keluarga" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Nomor Kartu Keluarga (KK)</label>
+                      <select name="status_kk" id="status_kk" class="form-control">
+                          @foreach (list_statuskk() as $item)
+                              <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+              </section>
+          </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+          </div>
+          </form>
+      </div>
+      </div>
+  </div>
+  <!-- /.modal -->
+
+  @section('script')
+ 
+      <script>
+          $('#ubah').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget)
+              var no_kk = button.data('no_kk')
+              var penduduk_id = button.data('penduduk_id')
+              var status_kk = button.data('status_kk')
+              var id = button.data('id')
+      
+              var modal = $(this)
+      
+              modal.find('.modal-body #no_kk').val(no_kk);
+              modal.find('.modal-body #penduduk_id').val(penduduk_id);
+              modal.find('.modal-body #status_kk').val(status_kk);
+              modal.find('.modal-body #id').val(id);
+          })
+      </script>
+      <script>
+          $(function () {
+          $("#example1").DataTable({
+              "responsive": true, "lengthChange": false, "autoWidth": false,
+              "buttons": ["copy","excel"]
+          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+          $('#example2').DataTable({
+              "paging": true,
+              "lengthChange": false,
+              "searching": false,
+              "ordering": true,
+              "info": true,
+              "autoWidth": false,
+              "responsive": true,
+          });
+          });
+      </script>
+  @endsection
 
     @endsection
 

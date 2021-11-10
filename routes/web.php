@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // COVID 19
         Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
         Route::resource('vaksinasi', 'App\Http\Controllers\Sidesa\Covid\VaksinasiController');
+        Route::resource('covid', 'App\Http\Controllers\Sidesa\Covid\CovidController');
         
         // INFO DESA
         Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');

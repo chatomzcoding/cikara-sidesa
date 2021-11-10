@@ -1,4 +1,4 @@
-<li class="nav-item @if ($menu == 'datacovid')
+<li class="nav-item @if ($menu == 'datacovid' || $menu == 'covid' || $menu == 'vaksinasi')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small small">
@@ -10,7 +10,7 @@ menu-is-opening menu-open
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="#" class="nav-link small small {{ menuaktif($menu,'covidpenduduk') }}">
+        <a href="{{ url('covid') }}" class="nav-link small small {{ menuaktif($menu,'covid') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Info Covid</p>
         </a>

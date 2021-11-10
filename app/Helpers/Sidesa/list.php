@@ -284,6 +284,18 @@ if (! function_exists('list_statusperkawinan')) {
         return $list;
     }
 }
+if (! function_exists('list_statuscovid')) {
+    function list_statuscovid()
+    {
+        $list = [
+            'terkonfirmasi',
+            'sembuh',
+            'meninggal',
+            'pemantauan'
+        ];
+        return $list;
+    }
+}
 
 if (! function_exists('list_golongandarah')) {
     function list_golongandarah()
