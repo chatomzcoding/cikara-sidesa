@@ -8,10 +8,14 @@ use App\Models\Forum;
 use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\Lapor;
+use App\Models\Penduduk;
+use App\Models\Pendudukaduan;
 use App\Models\Penduduksurat;
 use App\Models\Produk;
 use App\Models\User;
+use App\Models\Userakses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MobileController extends Controller
 {
@@ -64,6 +68,20 @@ class MobileController extends Controller
                 ];
 
                 break;
+            case 'surat':
+                $surat  = DB::table('penduduk_surat')
+                ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+                ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.file_surat')
+                ->where('user_id',$user)
+                ->orderByDesc('id')
+                ->get();
+                $result  = [
+                    'total' => count($surat),
+                    'selesai' => Penduduksurat::where('user_id',$user)->where('status','selesai')->count(),
+                    'proses' => Penduduksurat::where('user_id',$user)->where('status','proses')->count(),
+                    'menunggu' => Penduduksurat::where('user_id',$user)->where('status','menunggu')->count(),
+                ];
+                break;
             case 'home':
                 $lapak  = Lapak::where('user_id',$user)->first();
                 if ($lapak) {
@@ -85,5 +103,56 @@ class MobileController extends Controller
         }
 
         return $result;
+    }
+
+    public function persentasependuduk()
+    {
+        $token  = $_GET['token'];
+        if (cektoken($token)) {
+            $user   = $_GET['user'];
+            $akses  = Userakses::where('user_id',$user)->first();
+            $penduduk   = Penduduk::find($akses->penduduk_id);
+            return nilai_kelengkapan($penduduk);
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
+
+    public function laporankesalahan(Request $request)
+    {
+        $token  = $request->token;
+        if (cektoken($token)) {
+            Pendudukaduan::create($request->all());
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
+    public function editphoto(Request $request)
+    {
+        $token  = $request->token;
+        if (cektoken($token)) {
+            $namafile = uploadgambar($request,'user');
+            User::where('id',$request->user_id)->update([
+                'profile_photo_path' => $namafile
+            ]);
+
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+            return $result;
+        } else {
+            return response()->json('akses dilarang');
+        }
     }
 }

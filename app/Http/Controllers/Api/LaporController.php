@@ -48,6 +48,8 @@ class LaporController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile = uploadgambar($request,'penduduk/lapor');
+
             $data = New Lapor();
             $data->user_id = $request->user_id;
             $data->isi = $request->isi;
@@ -55,7 +57,7 @@ class LaporController extends Controller
             $data->status = $request->status;
             $data->identitas = $request->identitas;
             $data->posting = $request->posting;
-            $data->photo = $request->photo;
+            $data->photo = $namafile;
     
             $data->save();
     

@@ -38,6 +38,7 @@ class LapakController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile   = uploadgambar($request,'penduduk/lapak');
             Lapak::create([
                 'user_id' => $request->user_id,
                 'nama_lapak' => $request->nama_lapak,
@@ -45,7 +46,7 @@ class LapakController extends Controller
                 'alamat' => $request->alamat,
                 'status_lapak' => $request->status_lapak,
                 'telp' => $request->telp,
-                'logo' => $request->logo,
+                'logo' => $namafile,
             ]);
 
             if (response()) {

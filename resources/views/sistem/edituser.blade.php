@@ -55,7 +55,7 @@
                                     <input type="text" name="name" value="{{ $user->name}}" class="form-control">
                                     
                                     @else
-                                    <input type="text" value="{{ DbCikara::datapenduduk($user->name,'nik')->nama_penduduk}}" class="form-control" disabled>
+                                    <input type="text" value="{{ DbCikara::datapenduduk($user->id,'id')->nama_penduduk}}" class="form-control" disabled>
                                     <input type="hidden" name="name" value="{{ $user->name}}">
                                     @endif
                                 </div>

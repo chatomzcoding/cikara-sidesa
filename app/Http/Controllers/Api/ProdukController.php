@@ -42,11 +42,12 @@ class ProdukController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile   = uploadgambar($request,'penduduk/produk');
             $produk = New Produk;
             $produk->lapak_id = $request->lapak_id;
             $produk->nama = $request->nama;
             $produk->keterangan = $request->keterangan;
-            $produk->gambar = $request->gambar;
+            $produk->gambar = $namafile;
             $produk->harga = $request->harga;
             $produk->dilihat = $request->dilihat;
     
@@ -114,11 +115,12 @@ class ProdukController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile   = uploadgambar($request,'penduduk/produk');
             $produk = Produk::find($produk);
-            $produk->lapak_id = $request->lapak_id;
+            deletefile('public/img/penduduk/produk/'.$produk->gambar);
             $produk->nama = $request->nama;
             $produk->keterangan = $request->keterangan;
-            $produk->gambar = $request->gambar;
+            $produk->gambar = $namafile;
             $produk->harga = $request->harga;
     
             $produk->save();

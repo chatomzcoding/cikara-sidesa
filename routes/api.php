@@ -34,6 +34,9 @@ Route::get('penduduk/{id}','App\Http\Controllers\Api\PendudukController@userid')
 // mobile api
 Route::get('lapakuser/{userid}','App\Http\Controllers\Api\MobileController@lapakByUser');
 Route::get('listuser','App\Http\Controllers\Api\MobileController@listuser');
+Route::post('laporankesalahan','App\Http\Controllers\Api\MobileController@laporankesalahan');
+Route::patch('editphoto','App\Http\Controllers\Api\MobileController@editphoto');
+Route::get('persentasependuduk','App\Http\Controllers\Api\MobileController@persentasependuduk');
 Route::get('listartikel','App\Http\Controllers\Api\MobileController@listartikel');
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');
 // surat

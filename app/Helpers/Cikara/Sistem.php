@@ -49,6 +49,32 @@ if (! function_exists('cektoken')) {
         }
     }
 }
+if (! function_exists('uploadgambar')) {
+    function uploadgambar($request,$folder)
+    {
+         $decode     = base64_decode($request->image);
+        file_put_contents('public/img/bulan.png', $decode);
+        // open the output file for writing
+        $output_file    = 'public/img/bulan.png';
+        $namafile       = time().'-'.tgl_sekarang().'.png';
+        $filebaru = 'public/img/'.$folder.'/'.$namafile;
+        copy($output_file,$filebaru);
+        $ifp = fopen( $filebaru, 'wb' ); 
+
+        // split the string on commas
+        // $data[ 0 ] == "data:image/png;base64"
+        // $data[ 1 ] == <actual base64 string>
+        $data = explode( ',', $request->image );
+
+        // we could add validation here with ensuring count( $data ) > 1
+        fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+
+        // clean up the file resource
+        fclose( $ifp ); 
+
+        return $namafile; 
+    }
+}
 
 // IP
 // Mendapatkan IP pengunjung menggunakan getenv()

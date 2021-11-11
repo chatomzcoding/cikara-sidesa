@@ -33,28 +33,7 @@ class SuratController extends Controller
 
     public function buatsurat(Request $request)
     {
-        // $decode     = base64_decode($request->image);
-        // file_put_contents('public/img/bulan.png', $decode);
-        // open the output file for writing
-        // $output_file = 'public/img/bulan.png';
-        // $namabaru = 'public/img/restu.'.tgl_sekarang().'.png';
-        // copy($output_file,$namabaru);
-        // $ifp = fopen( $namabaru, 'wb' ); 
-
-        // split the string on commas
-        // $data[ 0 ] == "data:image/png;base64"
-        // $data[ 1 ] == <actual base64 string>
-        // $data = explode( ',', $request->image );
-
-        // we could add validation here with ensuring count( $data ) > 1
-        // fwrite( $ifp, base64_decode( $data[ 1 ] ) );
-
-        // clean up the file resource
-        // fclose( $ifp ); 
-
-        // return $output_file; 
-
-        // die();
+       
         $format     = Formatsurat::find($request->formatsurat_id);
         Penduduksurat::create([
             'user_id' => $request->user_id,

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
+use App\Models\Pendudukaduan;
 use App\Models\User;
+use App\Models\Userakses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PendudukController extends Controller
 {
@@ -21,8 +24,18 @@ class PendudukController extends Controller
 
     public function userid($id)
     {
-        $user   = User::find($id);
-        return Penduduk::where('nik',$user->name)->first();
+        $akses  = Userakses::where('user_id',$id)->first();
+        if ($akses) {
+            $data = DB::table('penduduk')
+                    ->join('rt','penduduk.rt_id','=','rt.id')
+                    ->select('penduduk.*','rt.nama_rt')
+                    ->where('penduduk.id',$akses->penduduk_id)
+                    ->get();
+            return $data;
+        } else {
+            return 'tidak ada data';
+        }
+        
     }
 
     /**

@@ -312,7 +312,7 @@
         </div>
         <div class="info">
           @if ($user->level == 'penduduk')
-            <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->name,'nik')->nama_penduduk}}</a>
+            <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->id,'id')->nama_penduduk}}</a>
           @else
             <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
           @endif
