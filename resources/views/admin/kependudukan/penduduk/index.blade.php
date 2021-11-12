@@ -93,6 +93,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Penduduk Baru"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="{{ url('/penduduk?data=perubahan')}}" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Daftar Penduduk dengan data tidak sesuai"><i class="fas fa-user-times"></i> Data belum sesuai</a>
+                <a href="{{ url('/penduduk?data=aduan')}}" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Daftar Pengaduan Kelengkapan Data Penduduk"><i class="fas fa-user-clock"></i> Pengaduan Data</a>
                 <a href="{{ url('/penduduk')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
                 <div class="float-right">
                     <div class="dropdown">

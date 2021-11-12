@@ -7,6 +7,7 @@ use App\Models\Penduduk;
 use App\Models\Rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class PendudukController extends Controller
 {
@@ -47,6 +48,15 @@ class PendudukController extends Controller
                 case 'cari':
                     $penduduk   = Penduduk::where('nama_penduduk','LIKE','%'.$_GET['cari'].'%')->orWhere('nik',$_GET['cari'])->get();
                     $sesi       = 'cari';
+                    break;
+                case 'aduan':
+                    $penduduk   = DB::table('penduduk_aduan')
+                                    ->join('user_akses','penduduk_aduan.user_id','=','user_akses.user_id')
+                                    ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
+                                    ->select('penduduk_aduan.*','penduduk.*','penduduk_aduan.id as idaduan')
+                                    ->get();                    
+                    $sesi       = 'aduan';
+                    return view('admin.kependudukan.penduduk.aduandata', compact('penduduk','menu','sesi'));
                     break;
                 default:
                     # code...

@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('anggotakelompok', 'App\Http\Controllers\Sidesa\AnggotakelompokController');
         Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
         Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
+        Route::resource('pendudukaduan', 'App\Http\Controllers\Penduduk\PendudukaduanController');
         
         // STATISTIK
         Route::get('statistik/kependudukan/{sesi}/{pilih}', 'App\Http\Controllers\Sidesa\Statistik\KependudukanController@pilih');
