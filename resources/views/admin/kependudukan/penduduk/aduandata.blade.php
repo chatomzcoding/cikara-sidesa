@@ -38,9 +38,11 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Tiket</th>
                                 <th>Nama Penduduk</th>
+                                <th>Data</th>
+                                <th>Data Awal</th>
                                 <th>Pengaduan</th>
-                                <th>Data Asli</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -66,16 +68,20 @@
                                         </div>
                                     </td>
                                     <td>
+                                        {{ $item->id.$item->user_id.tgl_sekarang() }}
+                                    </td>
+                                    <td>
                                         {{ $item->nama_penduduk}}
                                     </td>
-                                    <td class="text-danger">
-                                       {{ $item->isi }}
-                                    </td>
+                                    <td>{{ $item->key }}</td>
                                     <td>
                                         @php
                                             $key = $item->key; 
                                         @endphp
                                         {{ $item->$key }}
+                                    </td>
+                                    <td class="text-danger">
+                                       {{ $item->isi }}
                                     </td>
                                 </tr>
                             @empty
