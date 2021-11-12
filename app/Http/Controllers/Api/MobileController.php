@@ -112,7 +112,9 @@ class MobileController extends Controller
             $user   = $_GET['user'];
             $akses  = Userakses::where('user_id',$user)->first();
             $penduduk   = Penduduk::find($akses->penduduk_id);
-            return nilai_kelengkapan($penduduk);
+            $result     = [
+                'persentase' => nilai_kelengkapan($penduduk)            ];
+            return $result;
         } else {
             return response()->json('akses dilarang');
         }
