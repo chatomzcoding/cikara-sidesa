@@ -162,7 +162,12 @@
                                     @endif
                                     </td>
                                     <td>{{ $item->kategori }}</td>
-                                    <td class="text-center">{{ $item->posting }}</td>
+                                    <td class="text-center">
+                                      {{ $item->posting }} <br>
+                                      @if ($item->posting == 'ya')
+                                          Like : {{ jumlahlikelapor($item->like) }}
+                                      @endif
+                                    </td>
                                     <td>
                                         @switch($item->status)
                                             @case('selesai')

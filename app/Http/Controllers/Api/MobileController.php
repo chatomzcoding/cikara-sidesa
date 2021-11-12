@@ -155,4 +155,30 @@ class MobileController extends Controller
             return response()->json('akses dilarang');
         }
     }
+
+    public function likelaporan(Request $request)
+    {
+        $token  = $request->token;
+        if (cektoken($token)) {
+            $lapor  = Lapor::find($request->id);
+            $like   = $lapor->like;
+            $datalike   = [
+                [
+                    'id' => $request->user_id,
+                ]
+            ];
+            if (!is_null($like) || !empty($like)) {
+                $like       = json_decode($like);
+                $datalike   = array_merge($like,$datalike);
+            }
+            Lapor::where('id',$request->id)->update([
+                'like' => json_encode($datalike)
+            ]);
+            $result["success"] = "1";
+            $result["message"] = "success";
+            return $result;
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
 }

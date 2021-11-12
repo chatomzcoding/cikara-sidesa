@@ -18,7 +18,8 @@ class LaporController extends Controller
     {
         return DB::table('lapor')
                 ->join('users','lapor.user_id','=','users.id')
-                ->join('penduduk','users.name','=','penduduk.nik')
+                ->join('user_akses','users.id','=','user_akses.user_id')
+                ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
                 ->select('lapor.*','users.profile_photo_path','penduduk.nama_penduduk')
                 ->get();
     }

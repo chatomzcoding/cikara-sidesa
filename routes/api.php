@@ -38,6 +38,7 @@ Route::post('laporankesalahan','App\Http\Controllers\Api\MobileController@lapora
 Route::patch('editphoto','App\Http\Controllers\Api\MobileController@editphoto');
 Route::get('persentasependuduk','App\Http\Controllers\Api\MobileController@persentasependuduk');
 Route::get('listartikel','App\Http\Controllers\Api\MobileController@listartikel');
+Route::post('likelaporan','App\Http\Controllers\Api\MobileController@likelaporan');
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');
 // surat
 Route::get('listklasifikasisurat','App\Http\Controllers\Api\SuratController@listklasifikasisurat');

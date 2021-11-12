@@ -54,6 +54,19 @@ if (! function_exists('format_surat')) {
         return $list;
     }
 }
+if (! function_exists('jumlahlikelapor')) {
+    function jumlahlikelapor($data)
+    {
+        if (is_null($data)) {
+            $jumlah  = 0;
+        } else {
+            $data   = json_decode($data);
+            $jumlah = count($data);
+        }
+        return $jumlah;
+    }
+}
+
 if (! function_exists('custom_notif')) {
     function custom_notif($error)
     {
