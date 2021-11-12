@@ -161,7 +161,7 @@ class MobileController extends Controller
         $token  = $request->token;
         if (cektoken($token)) {
             $lapor  = Lapor::find($request->id);
-            $like   = $lapor->like;
+            $like   = $lapor->datalike;
             $datalike   = [
                 [
                     'id' => $request->user_id,
@@ -172,7 +172,7 @@ class MobileController extends Controller
                 $datalike   = array_merge($like,$datalike);
             }
             Lapor::where('id',$request->id)->update([
-                'like' => json_encode($datalike)
+                'datalike' => json_encode($datalike)
             ]);
             $result["success"] = "1";
             $result["message"] = "success";
