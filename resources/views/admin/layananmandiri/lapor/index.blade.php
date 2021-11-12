@@ -165,7 +165,7 @@
                                     <td class="text-center">
                                       {{ $item->posting }} <br>
                                       @if ($item->posting == 'ya')
-                                          Like : {{ jumlahlikelapor($item->like) }}
+                                          Like : {{ jumlahlikelapor($item->datalike) }}
                                       @endif
                                     </td>
                                     <td>
