@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 use App\Http\Livewire\Members; //Load class Members 
+use App\Imports\DataPenduduk;
 use App\Imports\KategoriartikelImport;
 use App\Imports\PendudukImport;
 use App\Imports\PendudukpenyesuainaImport;
@@ -54,6 +55,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // IMPORT
     Route::post('/import/kategoriartikel', function () {
         Excel::import(new KategoriartikelImport, request()->file('file'));
+        return back();
+    });
+    Route::post('/import/demo', function () {
+        Excel::import(new DataPenduduk, request()->file('file'));
         return back();
     });
     Route::post('/import/penduduk', function () {
