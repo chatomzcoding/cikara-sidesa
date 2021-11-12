@@ -130,6 +130,7 @@ class MobileController extends Controller
                 $result["success"] = "0";
                 $result["message"] = "error";
             }
+            return $result;
         } else {
             return response()->json('akses dilarang');
         }
