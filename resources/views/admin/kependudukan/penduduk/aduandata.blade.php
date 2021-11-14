@@ -86,7 +86,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">belum ada data</td>
+                                    <td colspan="7" class="text-center">belum ada data</td>
                                 </tr>
                             @endforelse
                     </table>
