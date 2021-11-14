@@ -124,13 +124,20 @@ class MobileController extends Controller
     {
         $token  = $request->token;
         if (cektoken($token)) {
-            Pendudukaduan::create($request->all());
-            if (response()) {
-                $result["success"] = "1";
-                $result["message"] = "success";
-            } else {
+            // cek apakah sudah ada pengaduan atau tidak berdasarkan user dan key dan status
+            $cekaduan = Pendudukaduan::where([['user_id',$request->user_id],['key',$request->key],['status','proses']])->first();
+            if ($cekaduan) {
                 $result["success"] = "0";
-                $result["message"] = "error";
+                $result["message"] = "sudah ada";
+            } else {
+                Pendudukaduan::create($request->all());
+                if (response()) {
+                    $result["success"] = "1";
+                    $result["message"] = "success";
+                } else {
+                    $result["success"] = "0";
+                    $result["message"] = "error";
+                }
             }
             return $result;
         } else {
