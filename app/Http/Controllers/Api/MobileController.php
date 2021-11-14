@@ -204,4 +204,16 @@ class MobileController extends Controller
             return response()->json('akses dilarang');
         }
     }
+    public function listaduan()
+    {
+        if (cektoken($_GET['token'])) {
+            if ($_GET['status'] == 'semua') {
+                return Pendudukaduan::where('user_id',$_GET['user_id'])->get();
+            } else {
+                return Pendudukaduan::where('user_id',$_GET['user_id'])->where('status',$_GET['status'])->get();
+            }
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
 }
