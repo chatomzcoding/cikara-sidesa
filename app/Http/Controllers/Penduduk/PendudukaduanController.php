@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Penduduk;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk;
 use App\Models\Pendudukaduan;
+use App\Models\Userakses;
 use Illuminate\Http\Request;
 
 class PendudukaduanController extends Controller
@@ -68,9 +70,22 @@ class PendudukaduanController extends Controller
      * @param  \App\Models\Pendudukaduan  $pendudukaduan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pendudukaduan $pendudukaduan)
+    public function update(Request $request)
     {
-        //
+        $aduan = Pendudukaduan::find($request->id);
+
+        Pendudukaduan::where('id',$request->id)->update([
+            'status' => $request->status
+        ]);
+
+        // ubah data penduduk
+        $userakses  = Userakses::where('user_id',$aduan->user_id)->first();
+        $key        = $aduan->key;
+        Penduduk::where('id',$userakses->penduduk_id)->update([
+            $key => $request->databaru
+        ]);
+
+        return back()->with('du','Data Aduan');
     }
 
     /**

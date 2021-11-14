@@ -109,7 +109,7 @@
                                                             <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
                                                             <div class="dropdown-menu" role="menu">
-                                                            <button type="button" data-toggle="modal" data-key="{{ ubahdatakey($row->key) }}" data-isi="{{ $row->isi }}" data-awal="{{ $dawal }}"  data-sesi="{{ $item->key }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                            <button type="button" data-toggle="modal" data-key="{{ ubahdatakey($row->key) }}" data-isi="{{ $row->isi }}" data-awal="{{ $dawal }}"  data-sesi="{{ $row->key }}"  data-id="{{ $row->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                                 <i class="fa fa-edit"></i> Edit Data
                                                                 </button>
                                                             <div class="dropdown-divider"></div>
@@ -160,7 +160,7 @@
         </div>
         <div class="modal-body p-3">
             <input type="hidden" name="id" id="id">
-            <input type="hidden" name="status" id="selesai">
+            <input type="hidden" name="status" value="selesai">
             <section class="p-3">
                 <div class="form-group row">
                     <label for="" class="col-md-4 p-2">Data</label>
@@ -174,9 +174,15 @@
                     <label for="" class="col-md-4 p-2">Data Pengaduan</label>
                     <input type="text" name="isi" id="isi" class="form-control col-md-8" disabled>
                 </div>
-                <div class="form-group row tanggal" id="tgl" style="display: none;">
+                {{-- form khusus tanggal lahir --}}
+                <div class="form-group row tanggal tgl_lahir" id="tgl_lahir" style="display : none;">
                     <label for="" class="col-md-4 p-2">Tanggal</label>
-                    <input type="date" name="databaru" class="form-control col-md-8" required>
+                    <input type="date" name="databaru" class="form-control col-md-8">
+                </div>
+                {{-- form khusus input --}}
+                <div class="form-group row tanggal data_input" id="data_input" style="display : none;">
+                    <label for="" class="col-md-4 p-2">Ubah Data</label>
+                    <input type="text" name="databaru" class="form-control col-md-8" placeholder="masukkan data baru disini">
                 </div>
             </section>
         </div>
@@ -201,16 +207,19 @@
             var awal = button.data('awal')
             var sesi = button.data('sesi')
             var id = button.data('id')
-    
-            var modal = $(this)
+
             switch (sesi) {
                 case 'tgl_lahir':
-                    $(".tanggal").show();
+                    $("#tgl_lahir").show();
+                    $("#data_input").hide();
                     break;
-            
                 default:
+                    $("#data_input").show();
+                    $("#tgl_lahir").hide();
                     break;
             }
+    
+            var modal = $(this)
             modal.find('.modal-body #isi').val(isi);
             modal.find('.modal-body #key').val(key);
             modal.find('.modal-body #awal').val(awal);
