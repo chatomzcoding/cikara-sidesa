@@ -144,6 +144,25 @@ class MobileController extends Controller
             return response()->json('akses dilarang');
         }
     }
+    public function ubahnotifaduan(Request $request)
+    {
+        $token  = $request->token;
+        if (cektoken($token)) {
+            Pendudukaduan::where('id',$request->id)->update([
+                'notif' => $request->notif
+            ]);
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+            return $result;
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
     public function editphoto(Request $request)
     {
         $token  = $request->token;

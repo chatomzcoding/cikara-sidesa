@@ -41,6 +41,7 @@ Route::get('listartikel','App\Http\Controllers\Api\MobileController@listartikel'
 Route::get('statusaduan','App\Http\Controllers\Api\MobileController@statusaduan');
 Route::get('listaduan','App\Http\Controllers\Api\MobileController@listaduan');
 Route::post('likelaporan','App\Http\Controllers\Api\MobileController@likelaporan');
+Route::post('ubahnotifaduan','App\Http\Controllers\Api\MobileController@ubahnotifaduan');
 Route::get('kategori/{sesi}','App\Http\Controllers\Api\MobileController@kategori');
 // surat
 Route::get('listklasifikasisurat','App\Http\Controllers\Api\SuratController@listklasifikasisurat');
