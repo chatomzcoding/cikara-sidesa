@@ -224,44 +224,7 @@
   </div>
   <!-- /.modal -->
 
-   <div class="modal fade" id="ubah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('lapor.update','test')}}" method="post">
-                @csrf
-                @method('patch')
-                <input type="hidden" name="logo_unit" value="">
-            <div class="modal-header">
-            <h4 class="modal-title">Form Edit Unit</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <input type="hidden" name="id" id="id">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Unit</label>
-                        <input type="text" id="nama_unit" name="nama_unit" class="col-md-8 form-control" placeholder="masukkan nama unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Manajer Unit</label>
-                        <input type="text" id="manajer_unit" name="manajer_unit" class="col-md-8 form-control" placeholder="masukkan nama manajer unit" required>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Staf Unit</label>
-                        <input type="text" id="staf_unit" name="staf_unit" class="col-md-8 form-control" placeholder="masukkan nama staff unit" required>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
+  
 
     @section('script')
           <script>

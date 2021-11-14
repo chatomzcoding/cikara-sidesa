@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sidesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
+use App\Models\Pendudukaduan;
 use App\Models\Rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -50,13 +51,13 @@ class PendudukController extends Controller
                     $sesi       = 'cari';
                     break;
                 case 'aduan':
-                    $penduduk   = DB::table('penduduk_aduan')
-                                    ->join('user_akses','penduduk_aduan.user_id','=','user_akses.user_id')
-                                    ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
-                                    ->select('penduduk_aduan.*','penduduk.*','penduduk_aduan.id as idaduan')
-                                    ->get();                    
-                    $sesi       = 'aduan';
-                    return view('admin.kependudukan.penduduk.aduandata', compact('penduduk','menu','sesi'));
+                    // $penduduk   = DB::table('penduduk_aduan')
+                    //                 ->join('user_akses','penduduk_aduan.user_id','=','user_akses.user_id')
+                    //                 ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
+                    //                 ->select('penduduk_aduan.*','penduduk.*','penduduk_aduan.id as idaduan')
+                    //                 ->get();   
+                    $user           = Pendudukaduan::distinct()->get('user_id'); 
+                    return view('admin.kependudukan.penduduk.aduandata', compact('user','menu','sesi'));
                     break;
                 default:
                     # code...

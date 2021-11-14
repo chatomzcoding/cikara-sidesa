@@ -11,5 +11,5 @@ class Pendudukaduan extends Model
 
     protected $table = 'penduduk_aduan';
     
-    protected $fillable = ['user_id','key','isi'];
+    protected $fillable = ['user_id','key','isi','status'];
 }

@@ -184,4 +184,24 @@ class MobileController extends Controller
             return response()->json('akses dilarang');
         }
     }
+
+    public function statusaduan()
+    {
+        if (cektoken($_GET['token'])) {
+            $pendudukaduan  = Pendudukaduan::where('user_id',$_GET['user_id'])->where('key',$_GET['key'])->first();
+            if ($pendudukaduan) {
+                $result = [
+                    'status' => $pendudukaduan->status
+                ];
+            } else {
+                $result = [
+                    'status' => 0,
+                    'message' => 'data tidak ada'
+                ];
+            }
+            return $result;
+        } else {
+            return response()->json('akses dilarang');
+        }
+    }
 }

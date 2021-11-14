@@ -37,56 +37,103 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
-                                <th>Tiket</th>
+                                <th width="5%">Aksi</th>
                                 <th>Nama Penduduk</th>
-                                <th>Data</th>
-                                <th>Data Awal</th>
-                                <th>Pengaduan</th>
+                                <th>Data Pengaduan</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @forelse ($penduduk as $item)
+                            @forelse ($user as $item)
+                                @php
+                                    $penduduk = DB::table('penduduk')
+                                                ->join('user_akses','penduduk.id','=','user_akses.penduduk_id')
+                                                ->select('penduduk.*')
+                                                ->where('user_akses.user_id',$item->user_id)
+                                                ->first();
+                                @endphp
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->idaduan }}" action="{{url('/pendudukaduan',$item->idaduan)}}" method="post">
+                                    <td>
+                                        <form id="data-{{ $penduduk->id }}" action="{{url('/pendudukaduan',$penduduk->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-info btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                             <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item text-success" href="{{ url('/penduduk/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Perbaiki Data</a>
-                                            <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($item->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
+                                            <a class="dropdown-item text-success" href="{{ url('/penduduk/'.Crypt::encryptString($penduduk->id).'/edit')}}"><i class="fas fa-pen"></i> Perbaiki Data</a>
+                                            <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($penduduk->id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
                                             <div class="dropdown-divider"></div>
-                                            <button onclick="deleteRow( {{ $item->idaduan }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            <button onclick="deleteRow( {{ $penduduk->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        {{ $item->id.$item->user_id.tgl_sekarang() }}
-                                    </td>
-                                    <td>
-                                        {{ $item->nama_penduduk}}
-                                    </td>
-                                    <td>{{ $item->key }}</td>
-                                    <td>
+                                    <td>{{ $penduduk->nama_penduduk }} <br> {{ $penduduk->nik }}</td>
+                                    <td class="text-center">
                                         @php
-                                            $key = $item->key; 
-                                        @endphp
-                                        {{ $item->$key }}
-                                    </td>
-                                    <td class="text-danger">
-                                       {{ $item->isi }}
+                                            $aduan = DB::table('penduduk_aduan')
+                                                        ->where('user_id',$item->user_id)
+                                                        ->get();
+                                        @endphp 
+                                        <table class="table">
+                                            <tr>
+                                                <td width="5%">Aksi</td>
+                                                <td width="20%">Tanggal Aduan</td>
+                                                <td>Data</td>
+                                                <td>Data Awal</td>
+                                                <td>Data Pengaduan</td>
+                                            </tr>
+                                            @foreach ($aduan as $row)
+                                                @php
+                                                    $dawal = 'type data tidak ada';
+                                                    $key = $row->key; 
+                                                @endphp
+                                                @if (isset($penduduk->$key))
+                                                    @php
+                                                        $dawal = $penduduk->$key;
+                                                    @endphp
+                                                @endif
+                                        </td>
+                                                <tr>
+                                                    <td>
+                                                        <form id="data-{{ $row->id }}" action="{{url('/pendudukaduan',$row->id)}}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            </form>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                            </button>
+                                                            <div class="dropdown-menu" role="menu">
+                                                            <button type="button" data-toggle="modal" data-key="{{ ubahdatakey($row->key) }}" data-isi="{{ $row->isi }}" data-awal="{{ $dawal }}"  data-sesi="{{ $item->key }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                                <i class="fa fa-edit"></i> Edit Data
+                                                                </button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button onclick="deleteRow( {{ $row->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $row->created_at }}</td>
+                                                    <td>{{ ubahdatakey($row->key) }}</td>
+                                                    <td>
+                                                        {{ $dawal }}
+                                                    </td>
+                                                    <td class="text-danger">
+                                                       {{ $row->isi }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                       
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">belum ada data</td>
+                                    <td colspan="4" class="text-center">belum ada data</td>
                                 </tr>
                             @endforelse
                     </table>
@@ -98,110 +145,78 @@
     </div>
     {{-- modal --}}
 
-    <div class="modal fade" id="importpenyesuaian">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/import/pendudukpenyesuaian')}}" method="post" enctype="multipart/form-data">
-                @csrf
-            <div class="modal-header">
-            <h4 class="modal-title">Import Data Penyesuaian</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="callout callout-success">
-                        <p><i class="fas fa-bullhorn"></i> Informasi</p>
-                        <p>Metode Penyesuaian adalah cara import data penduduk dari file excel dengan tujuan penyesuaian data penduduk, data akan diperbaharui berdasarkan NIK penduduk, apabila NIK belum ada maka akan menambahkan data baru. <strong>gunakan metode ini jika ingin memperbaharui data penduduk secara serentak, perhatikan nomor NIK agar sesuai dengan data penduduk !</strong></p>
-                        <strong>Download Format Import Penduduk Penyesuaian</strong> <a href="{{ asset('file/format_penduduk_simple.xlsx') }}">Klik Disini</a>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Upload File</label>
-                        <input type="file" name="file" class="form-control col-md-8" required>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-file-import"></i> IMPORT</button>
-            </div>
+  {{-- modal edit --}}
+  <div class="modal fade" id="ubah">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form action="{{ route('pendudukaduan.update','test')}}" method="post">
+            @csrf
+            @method('patch')
+        <div class="modal-header">
+        <h4 class="modal-title">Perbaiki Data</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body p-3">
+            <input type="hidden" name="id" id="id">
+            <input type="hidden" name="status" id="selesai">
+            <section class="p-3">
+                <div class="form-group row">
+                    <label for="" class="col-md-4 p-2">Data</label>
+                    <input type="text" name="key" id="key" class="form-control col-md-8" disabled>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4 p-2">Data Awal</label>
+                    <input type="text" name="isi" id="awal" class="form-control col-md-8" disabled>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4 p-2">Data Pengaduan</label>
+                    <input type="text" name="isi" id="isi" class="form-control col-md-8" disabled>
+                </div>
+                <div class="form-group row tanggal" id="tgl" style="display: none;">
+                    <label for="" class="col-md-4 p-2">Tanggal</label>
+                    <input type="date" name="databaru" class="form-control col-md-8" required>
+                </div>
+            </section>
+        </div>
+        <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+        </div>
         </form>
-        </div>
-        </div>
     </div>
-    <div class="modal fade" id="importsimple">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/import/penduduksimple')}}" method="post" enctype="multipart/form-data">
-                @csrf
-            <div class="modal-header">
-            <h4 class="modal-title">Import Data Metode Mudah</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="callout callout-success">
-                        <p><i class="fas fa-bullhorn"></i> Informasi</p>
-                        <p>Metode Mudah adalah cara import data penduduk dari file excel dengan kolom isian hanya biodata penting penduduk seperti yang tertuang dalam KTP, data sisanya dapat diedit sesuai dengan kebutuhan penduduk. <strong>gunakan metode ini jika data penduduk kurang lengkap !</strong></p>
-                        <strong>Download Format Import Penduduk Mudah</strong> <a href="{{ asset('file/format_penduduk_simple.xlsx') }}">Klik Disini</a>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Upload File</label>
-                        <input type="file" name="file" class="form-control col-md-8" required>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-file-import"></i> IMPORT</button>
-            </div>
-        </form>
-        </div>
-        </div>
     </div>
-    <div class="modal fade" id="import">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/import/penduduk')}}" method="post" enctype="multipart/form-data">
-                @csrf
-            <div class="modal-header">
-            <h4 class="modal-title">Import Data Metode Lengkap</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="callout callout-success">
-                        <p><i class="fas fa-bullhorn"></i> Informasi</p>
-                        <p>Metode Lengkap adalah cara import data penduduk dari file excel dengan kolom isian yang lengkap dimulai dari biodata penduduk, anggota keluarga, kewarganegaraan, perkawinan, kesehatan dan data lainnya. <strong>gunakan metode ini jika data penduduk lengkap !</strong></p>
-                        <strong>Download Format Import Penduduk Lengkap </strong> <a href="{{ asset('file/format_import_penduduk.xlsx') }}">Klik Disini</a>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Upload File</label>
-                        <div class="col-md-8 p-0">
-                            <input type="file" name="file" class="form-control col-md-8" required>
-                            <span class="text-danger">file berformat excel .xlsx</span>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-file-import"></i> IMPORT</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    
+</div>
+<!-- /.modal -->
 
 
     @section('script')
-        
+    <script>
+           
+        $('#ubah').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var key = button.data('key')
+            var isi = button.data('isi')
+            var awal = button.data('awal')
+            var sesi = button.data('sesi')
+            var id = button.data('id')
+    
+            var modal = $(this)
+            switch (sesi) {
+                case 'tgl_lahir':
+                    $(".tanggal").show();
+                    break;
+            
+                default:
+                    break;
+            }
+            modal.find('.modal-body #isi').val(isi);
+            modal.find('.modal-body #key').val(key);
+            modal.find('.modal-body #awal').val(awal);
+            modal.find('.modal-body #id').val(id);
+        })
+    </script>
         <script>
             $(function () {
             $("#example1").DataTable({

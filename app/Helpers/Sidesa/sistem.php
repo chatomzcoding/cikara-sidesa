@@ -66,6 +66,47 @@ if (! function_exists('jumlahlikelapor')) {
         return $jumlah;
     }
 }
+if (! function_exists('ubahdatakey')) {
+    function ubahdatakey($key)
+    {
+        switch ($key) {
+            case 'nik':
+                $result = 'NIK';
+                break;
+            case 'nama_penduduk':
+                $result = 'Nama';
+                break;
+            case 'golongan_darah':
+                $result = 'Golongan Darah';
+                break;
+            case 'status_perkawinan':
+                $result = 'Status Perkawinan';
+                break;
+            case 'nama_ayah':
+                $result = 'Nama Ayah';
+                break;
+            case 'nama_ibu':
+                $result = 'Nama Ibu';
+                break;
+            case 'tempat_lahir':
+                $result = 'Tempat Lahir';
+                break;
+            case 'alamat_sekarang':
+                $result = 'Alamat Sekarang';
+                break;
+            case 'anak_ke':
+                $result = 'Anak Ke';
+                break;
+            case 'tgl_lahir':
+                $result = 'Tanggal Lahir';
+                break;
+            default:
+                $result  = '(kosong)';
+               break;
+       }
+        return $result;
+    }
+}
 
 if (! function_exists('custom_notif')) {
     function custom_notif($error)

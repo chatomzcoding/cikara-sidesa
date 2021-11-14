@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
 use App\Models\User;
+use App\Models\Userakses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +66,13 @@ class UserController extends Controller
             'email' => $request->email,
             'level' => $request->level,
             'password' => Hash::make($request->password),
+        ]);
+        // tambahkan ke user akses
+        $penduduk   = Penduduk::where('nik',$request->name)->first();
+        $user       = User::where('name',$request->name)->first();
+        Userakses::create([
+            'user_id' => $user->id,
+            'penduduk_id' => $penduduk->id,
         ]);
 
         return redirect()->back()->with('ds','User');
