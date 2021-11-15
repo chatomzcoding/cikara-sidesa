@@ -332,18 +332,18 @@
             colorByPoint: true,
             data: [{
                 name: 'Terkonfirmasi',
-                y: 12,
+                y: {{ DbCikara::countData('covid',['status','terkonfirmasi']) }},
                 sliced: true,
                 selected: true
             }, {
                 name: 'Meninggal',
-                y: 1
+                y: {{ DbCikara::countData('covid',['status','meninggal']) }}
             }, {
                 name: 'Sembuh',
-                y: 8
+                y: {{ DbCikara::countData('covid',['status','sembuh']) }}
             }, {
                 name: 'Dalam Pemantauan',
-                y: 27
+                y: {{ DbCikara::countData('covid',['status','pemantauan']) }}
             }]
         }]
     });

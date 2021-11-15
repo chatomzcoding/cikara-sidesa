@@ -104,7 +104,7 @@
           <div class="card-body">
             <div class="d-flex">
               <p class="d-flex flex-column">
-                <span class="text-bold text-lg">12</span>
+                <span class="text-bold text-lg">{{ DbCikara::countData('covid') }}</span>
                 <span>Statistik Data Covid 19</span>
               </p>
               <p class="ml-auto d-flex flex-column text-right">
