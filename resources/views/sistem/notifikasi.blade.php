@@ -1,17 +1,27 @@
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
 @if (session('danger'))
-<div class="alert alert-danger">
-    {!! session('danger') !!}
-</div>
+<div class="callout callout-danger">
+    <p>{{ session('danger') }}</p>
+  </div>
+@endif
+@if (session('success'))
+<div class="callout callout-success">
+    <p>{{ session('success') }}</p>
+  </div>
+@endif
+@if (session('info'))
+<div class="callout callout-info">
+    <p>{{ session('info') }}</p>
+  </div>
 @endif
 @if (session('warning'))
-<div class="alert alert-warning">
-    {{ session('warning') }}
-</div>
+<div class="callout callout-warning">
+    <p>{{ session('warning') }}</p>
+  </div>
+@endif
+@if (session('secondary'))
+<div class="callout callout-secondary">
+    <p>{{ session('secondary') }}</p>
+  </div>
 @endif
 
 {{-- notifikasi data berhasil di simpan --}}
