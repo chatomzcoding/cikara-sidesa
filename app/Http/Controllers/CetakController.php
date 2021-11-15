@@ -84,6 +84,26 @@ class CetakController extends Controller
                     $namafile   = 'Data Laporan Penduduk';
                     $pdf        = PDF::loadview('sistem.cetak.list.lapor', compact('lapor'))->setPaper('a4','landscape');
                     break;
+                case 'vaksinasi':
+                    if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
+                        $vaksinasi  = DB::table('vaksinasi')
+                                        ->join('penduduk','vaksinasi.penduduk_id','=','penduduk.id')
+                                        ->join('kategori','vaksinasi.kategori_id','=','kategori.id')
+                                        ->select('vaksinasi.*','penduduk.nama_penduduk','kategori.nama_kategori')
+                                        ->where('vaksinasi.kategori_id',$_GET['kategori'])
+                                        ->get();
+                        $filter['kategori'] = $_GET['kategori'];
+                    } else {
+                        $vaksinasi  = DB::table('vaksinasi')
+                                        ->join('penduduk','vaksinasi.penduduk_id','=','penduduk.id')
+                                        ->join('kategori','vaksinasi.kategori_id','=','kategori.id')
+                                        ->select('vaksinasi.*','penduduk.nama_penduduk','kategori.nama_kategori')
+                                        ->get();
+                        $filter['kategori']  = 'semua';
+                    }
+                    $namafile   = 'Data Laporan Penduduk';
+                    $pdf        = PDF::loadview('sistem.cetak.list.vaksinasi', compact('vaksinasi'))->setPaper('a4','landscape');
+                    break;
                 case 'lapak':
                     $lapak   = Lapak::all();
                     $namafile   = 'Laporan Data Lapak';

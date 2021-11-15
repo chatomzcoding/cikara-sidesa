@@ -41,7 +41,11 @@ class VaksinasiController extends Controller
         if (isset($_GET['page']) AND $_GET['page'] == 'kategori') {
             return view('admin.covid.vaksinasi.kategori', compact('kategori','menu'));
         } else {
-            return view('admin.covid.vaksinasi.index', compact('vaksinasi','kategori','menu','penduduk','filter'));
+            $total  = [
+                'kategori' => count($kategori),
+                'vaksinasi' => Vaksinasi::count()
+            ];
+            return view('admin.covid.vaksinasi.index', compact('vaksinasi','kategori','menu','penduduk','filter','total'));
         }
         
     }

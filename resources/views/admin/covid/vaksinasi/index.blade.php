@@ -22,29 +22,16 @@
     
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-lungs-virus"></i></span>
-  
-                <div class="info-box-content">
-                  <span class="info-box-text">Total Penduduk</span>
-                  <span class="info-box-number">
-                    7
-                    {{-- <small>%</small> --}}
-                  </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
             <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-heart"></i></span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-cubes"></i></span>
   
                 <div class="info-box-content">
-                  <span class="info-box-text">Sembuh</span>
-                  <span class="info-box-number">1</span>
+                  <span class="info-box-text">Kategori</span>
+                  <span class="info-box-number">
+                      {{ $total['kategori'] }}
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -55,26 +42,15 @@
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
   
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-heart-broken"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-nurse"></i></span>
   
                 <div class="info-box-content">
-                  <span class="info-box-text">Meninggal</span>
-                  <span class="info-box-number">1</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-exclamation-triangle"></i></span>
-  
-                <div class="info-box-content">
-                  <span class="info-box-text">Dalam Pemantauan</span>
-                  <span class="info-box-number">0</span>
+                  <span class="info-box-text">Vaksinasi</span>
+                  <span class="info-box-number">
+                      {{ $total['vaksinasi'] }}
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -108,8 +84,8 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 @if (count($kategori) > 0)
-                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data Baru </a>
-                    <a href="{{ url('cetak/list/vaksinasi') }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Baru Vaksinasi" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="{{ url('cetakdata?s=vaksinasi&kategori='.$filter['kategori']) }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Vaksinasi"><i class="fas fa-print"></i> CETAK</a>
                 @else
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm disabled"><i class="fas fa-info"></i> Tambah Data Jenis Vaksin Terlebih dahulu </a>
                 @endif

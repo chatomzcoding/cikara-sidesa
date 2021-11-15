@@ -27,8 +27,8 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                  <a href="{{ url('/vaksinasi')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data </a>
+                  <a href="{{ url('/vaksinasi')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali Ke Daftar Vaksinasi"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Vaksin" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
