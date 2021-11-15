@@ -1,37 +1,13 @@
-
-@forelse (list_pendidikandalamkk() as $item)
-<tr>
-    <td class="text-center">{{ $loop->iteration}}</td>
-    <td>{{ $item}}</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-</tr>
-
+@forelse ($data['tabel'] as $item)
+    <tr>
+        <td class="text-center">{{ $item['no']}}</td>
+        <td>{{ $item['nama']}}</td>
+        <td class="text-center">{{ $item['l']}}</td>
+        <td class="text-center">{{ $item['p']}}</td>
+        <td class="text-center">{{ $item['lp']}}</td>
+    </tr>
 @empty
-<tr class="text-center">
-    <td colspan="5">tidak ada data</td>
-</tr>
+    <tr class="text-center">
+        <td colspan="5">tidak ada data</td>
+    </tr>
 @endforelse
-<tr>
-<td></td>
-<th>JUMLAH</th>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<th>BELUM MENGISI</th>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<th>TOTAL</th>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-       

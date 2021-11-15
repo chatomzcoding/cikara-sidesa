@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sidesa\Statistik;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Bantuan;
 use App\Models\Dusun;
@@ -14,6 +15,7 @@ class KependudukanController extends Controller
         $dusun  = Dusun::all();
         $bantuan    = Bantuan::all();
         $menu   = 'statistikpenduduk';
-        return view('admin.statistik.index', compact('sesi','dusun','bantuan','pilih','menu'));
+        $data   = DbCikara::datastatistik($pilih);
+        return view('admin.statistik.index', compact('sesi','dusun','bantuan','pilih','menu','data'));
     }
 }

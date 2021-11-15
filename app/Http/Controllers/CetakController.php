@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Models\Bantuan;
 use App\Models\Dusun;
 use App\Models\Keluarga;
@@ -150,6 +151,18 @@ class CetakController extends Controller
                                 ->get();
                     $namafile   = 'Laporan Data Keluarga';
                     $pdf        = PDF::loadview('sistem.cetak.list.keluarga', compact('keluarga'))->setPaper('a4','landscape');
+                    break;
+                case 'statistik':
+                    $keluarga   = DB::table('keluarga')
+                                ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                                ->join('rt','penduduk.rt_id','=','rt.id')
+                                ->join('rw','rt.rw_id','=','rw.id')
+                                ->join('dusun','rw.dusun_id','=','dusun.id')
+                                ->select('keluarga.*','penduduk.nama_penduduk','penduduk.jk','penduduk.alamat_sekarang','penduduk.nik','rt.nama_rt','rw.nama_rw','dusun.nama_dusun')
+                                ->get();
+                    $data   = DbCikara::datastatistik($_GET['sesi']);
+                    $namafile   = 'Laporan Data Statistik '.$data['header'];
+                    $pdf        = PDF::loadview('sistem.cetak.list.statistik', compact('data'));
                     break;
                 default:
                     return 'sesi tidak ada';

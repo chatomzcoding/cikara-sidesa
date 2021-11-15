@@ -226,16 +226,203 @@ class DbCikara {
     }
 
     // data statistik
-    public static function datastatistik($sesi,$data)
+    public static function datastatistik($sesi)
     {
         switch ($sesi) {
+            case 'pendidikan-dalam-kk':
+                $data   = [
+                    'loop' => list_pendidikandalamkk(),
+                    'key' => 'pendidikan_kk',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'pendidikan-sedang-ditempuh':
+                $data   = [
+                    'loop' => list_pendidikantempuh(),
+                    'key' => 'pendidikan_tempuh',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'status-perkawinan':
+                $data   = [
+                    'loop' => list_statusperkawinan(),
+                    'key' => 'status_perkawinan',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'pekerjaan':
+                $data   = [
+                    'loop' => list_pekerjaan(),
+                    'key' => 'pekerjaan',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
             case 'agama':
-                $jumlah = Penduduk::where('agama',$data['agama'])->where('jk',$data['jk'])->count();
+                $data   = [
+                    'loop' => list_agama(),
+                    'key' => 'agama',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
                 break;
-            default:
-                $jumlah = 0;
+            case 'jk':
+                $data   = [
+                    'loop' => list_jeniskelamin(),
+                    'key' => 'jk',
+                    'header' => 'jenis kelamin',
+                ];
                 break;
-        }
-        return $jumlah;
+            case 'hubungan-dalam-kk':
+                $data   = [
+                    'loop' => list_hubungankeluarga(),
+                    'key' => 'hubungan_keluarga',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'warga-negara':
+                $data   = [
+                    'loop' => list_statuskewarganegaraan(),
+                    'key' => 'status_warganegara',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'status-penduduk':
+                $data   = [
+                    'loop' => list_statuspenduduk(),
+                    'key' => 'status_penduduk',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'goldar':
+                $data   = [
+                    'loop' => list_golongandarah(),
+                    'key' => 'golongan_darah',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'penyandang-cacat':
+                $data   = [
+                    'loop' => list_cacat(),
+                    'key' => 'cacat',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'penyakit-menahun':
+                $data   = [
+                    'loop' => list_sakitmenahun(),
+                    'key' => 'sakit_menahun',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'akseptor-kb':
+                $data   = [
+                    'loop' => list_akseptorkb(),
+                    'key' => 'akseptor_kb',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'kepemilikan-ktp':
+                $data   = [
+                    'loop' => list_statusktp(),
+                    'key' => 'status_ktp',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+            case 'jenis-asuransi':
+                $data   = [
+                    'loop' => list_asuransi(),
+                    'key' => 'asuransi',
+                    'header' => str_replace('_',' ',$sesi),
+                ];
+                break;
+                default:
+                $result     = [
+                    'tabel' => 'tabel',
+                    'judul' => 'judul',
+                    'nilai' => 'nilai',
+                    'pie' => 'pie',
+                    'header' => 'Pendidikan Dalam KK'
+                ];
+                return $result;
+                    break;
+            }
+
+                $result = array();
+                $jdl    = Penduduk::where('jk','laki-laki')->count();
+                $jdp    = Penduduk::where('jk','perempuan')->count();
+                $nomor  = 1; 
+                $jl    = 0;
+                $jp    = 0;
+                $judul  = NULL;
+                $nilai  = NULL;
+                $pie    = [];
+                foreach ($data['loop'] as $row) {
+                    $l = Penduduk::where('jk','laki-laki')->where($data['key'],$row)->count();
+                    $p = Penduduk::where('jk','perempuan')->where($data['key'],$row)->count();
+                    $lp = $l + $p;
+                    $jl = $jl + $l;
+                    $jp = $jp + $p;
+                    $result[] = [
+                        'no' => $nomor,
+                        'nama' => $row,
+                        'l' => $l,
+                        'p' => $p,
+                        'lp' => $lp,
+                    ];
+                    $nomor++;
+                    // kebutuhan untuk grafik judul
+                    $judul .= "'".$row."',";
+                    $nilai .= $lp.",";
+
+                    // grafik pie
+                    $pie[]  = [
+                        'nama' => $row,
+                        'nilai' => $lp
+                    ];
+                }
+
+                $jlp    = $jl + $jp;
+
+                // data untuk belum mengisi
+                $jbl    = $jdl - $jl;
+                $jbp    = $jdp - $jp;
+                $jblp   = $jbl + $jbp;
+
+                // data total
+                $jtl    = $jl + $jbl;
+                $jtp    = $jp + $jbp;
+                $jtlp   = $jtl + $jtp;
+
+                $footer     = [
+                    [
+                        'no' => '',
+                        'nama' => 'JUMLAH',
+                        'l' => $jl,
+                        'p' => $jp,
+                        'lp' => $jlp
+                    ],
+                    [
+                        'no' => '',
+                        'nama' => 'BELUM MENGISI',
+                        'l' => $jbl,
+                        'p' => $jbp,
+                        'lp' => $jblp
+                    ],
+                    [
+                        'no' => '',
+                        'nama' => 'TOTAL',
+                        'l' => $jtl,
+                        'p' => $jtp,
+                        'lp' => $jtlp
+                    ],
+                ];
+                $tabel      = array_merge($result,$footer);
+                $result     = [
+                    'tabel' => $tabel,
+                    'judul' => $judul,
+                    'nilai' => $nilai,
+                    'pie' => $pie,
+                    'header' => $data['header']
+                ];
+        return $result;
     }
 }

@@ -16,6 +16,17 @@ if (! function_exists('list_statusrekam')) {
         return $list;
     }
 }
+if (! function_exists('list_statusktp')) {
+    function list_statusktp()
+    {
+        $list = [
+            'belum',
+            'sudah',
+            'proses',
+        ];
+        return $list;
+    }
+}
 
 if (! function_exists('list_hubungankeluarga')) {
     function list_hubungankeluarga()

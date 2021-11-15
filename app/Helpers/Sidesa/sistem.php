@@ -105,6 +105,16 @@ if (! function_exists('historicovid')) {
         return $result;
     }
 }
+if (! function_exists('css_statistik')) {
+    function css_statistik($data)
+    {
+        $result = NULL;
+        if ($data == '') {
+            $result = 'font-weight-bold table-info';
+        }
+        return $result;
+    }
+}
 
 if (! function_exists('custom_notif')) {
     function custom_notif($error)
