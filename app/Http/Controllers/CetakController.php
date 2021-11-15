@@ -8,6 +8,7 @@ use App\Models\Keluarga;
 use App\Models\Lapak;
 use App\Models\Lapor;
 use App\Models\Penduduk;
+use App\Models\Pendudukaduan;
 use App\Models\Potensi;
 use App\Models\Potensisub;
 use App\Models\Rt;
@@ -101,6 +102,12 @@ class CetakController extends Controller
                                 ->get();
                     $namafile   = 'Laporan Data Kelompok';
                     $pdf        = PDF::loadview('sistem.cetak.list.kelompok', compact('kelompok'));
+                    break;
+                case 'pendudukaduan':
+                    $user           = Pendudukaduan::distinct()->get('user_id'); 
+                    $status         = (isset($_GET['status'])) ? $_GET['status'] : 'proses' ;
+                    $namafile       = 'Laporan Data Aduan';
+                    $pdf            = PDF::loadview('sistem.cetak.list.pendudukaduan', compact('user','status'))->setPaper('a4','landscape');
                     break;
                 case 'rumahtangga':
                     $rumahtangga    = DB::table('rumah_tangga')

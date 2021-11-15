@@ -81,9 +81,16 @@ class PendudukaduanController extends Controller
         // ubah data penduduk
         $userakses  = Userakses::where('user_id',$aduan->user_id)->first();
         $key        = $aduan->key;
-        Penduduk::where('id',$userakses->penduduk_id)->update([
-            $key => $request->databaru
-        ]);
+        if (isset($request->databaru)) {
+            Penduduk::where('id',$userakses->penduduk_id)->update([
+                $key => $request->databaru
+            ]);
+        } else {
+            Penduduk::where('id',$userakses->penduduk_id)->update([
+                $key => $request->$key
+            ]);
+        }
+        
 
         return back()->with('du','Data Aduan');
     }

@@ -57,7 +57,11 @@ class PendudukController extends Controller
                     //                 ->select('penduduk_aduan.*','penduduk.*','penduduk_aduan.id as idaduan')
                     //                 ->get();   
                     $user           = Pendudukaduan::distinct()->get('user_id'); 
-                    return view('admin.kependudukan.penduduk.aduandata', compact('user','menu','sesi'));
+                    $status = (isset($_GET['status'])) ? $_GET['status'] : 'proses' ;
+                    $filter = [
+                        'status' => $status
+                    ];
+                    return view('admin.kependudukan.penduduk.aduandata', compact('user','menu','sesi','filter'));
                     break;
                 default:
                     # code...
