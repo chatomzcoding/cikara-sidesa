@@ -103,8 +103,9 @@
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
                                 <th>Nama Penduduk</th>
-                                <th>Alamat</th>
+                                <th>Tanggal</th>
                                 <th>Status</th>
+                                <th>Histori</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -123,30 +124,43 @@
                                         </button>
                                         <div class="dropdown-menu" role="menu">
                                         <a class="dropdown-item text-primary" href="{{ url('penduduk/'.Crypt::encryptString($item->penduduk_id)) }}"><i class="fas fa-user"></i> Detail Penduduk</a>
+                                        <button type="button" data-toggle="modal" data-status="{{ $item->status }}" data-tanggal="{{ $item->tanggal }}" data-penduduk_id="{{ $item->penduduk_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                          <i class="fa fa-edit"></i> Ubah Status
+                                        </button>
                                         <div class="dropdown-divider"></div>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                         </div>
                                     </div>
                                     </td>
                                     <td>{{ $item->nama_penduduk }}</td>
-                                    <td>{{ $item->alamat_sekarang }}</td>
+                                    <td>{{ date_indo($item->tanggal) }}</td>
                                     <td>
                                       @switch($item->status)
                                           @case('terkonfirmasi')
-                                              <button class="btn btn-info btn-sm btn-block">Terkonfirmasi</button>
+                                              <span class="badge badge-info btn-block">Terkonfirmasi</span>
                                               @break
                                           @case('sembuh')
-                                              <button class="btn btn-success btn-sm btn-block">Sembuh</button>
+                                              <span class="badge badge-success btn-block">Sembuh</span>
                                               @break
                                           @case('meninggal')
-                                              <button class="btn btn-danger btn-sm btn-block">Meninggal</button>
+                                              <span class="badge badge-danger btn-block">Meninggal</span>
                                               @break
                                           @case('pemantauan')
-                                              <button class="btn btn-secondary btn-sm btn-block">Pemantauan</button>
+                                              <span class="badge badge-secondary btn-block">Pemantauan</span>
                                               @break
                                           @default
                                               
                                       @endswitch
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        selengkapnya <i class="fas fa-angle-bottom"></i>
+                                      </button>
+                                      <div class="collapse" id="collapseExample">
+                                        <div class="card card-body">
+                                          {!! historicovid($item->keterangan) !!}
+                                        </div>
+                                      </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -209,11 +223,11 @@
   <div class="modal fade" id="ubah">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form action="{{ route('keluarga.update','test')}}" method="post">
+          <form action="{{ route('covid.update','test')}}" method="post">
               @csrf
               @method('patch')
           <div class="modal-header">
-          <h4 class="modal-title">Edit Data Keluarga</h4>
+          <h4 class="modal-title">Edit Data Covid Penduduk</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
@@ -222,26 +236,25 @@
               <input type="hidden" name="id" id="id">
               <section class="p-3">
                   <div class="form-group">
-                      <label for="">Kepala Keluarga (dari penduduk yang tidak memiliki No. KK)</label>
-                      <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control penduduk" required>
-                          <option value="">-- Silahkan Cari NIK / Nama Kepala Keluarga --</option>
-                          @foreach ($penduduk as $item)
-                              <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                  <div class="form-group">
-                      <label for="">Nomor Kartu Keluarga (KK)</label>
-                      <input type="text" name="no_kk" id="no_kk" class="form-control" pattern="[0-9]{16}" maxlength="16" placeholder="Nomor Kartu Keluarga" required>
-                  </div>
-                  <div class="form-group">
-                      <label for="">Nomor Kartu Keluarga (KK)</label>
-                      <select name="status_kk" id="status_kk" class="form-control">
-                          @foreach (list_statuskk() as $item)
-                              <option value="{{ $item}}">{{ strtoupper($item) }}</option>
-                          @endforeach
-                      </select>
-                  </div>
+                    <label for="">Nama Penduduk</label>
+                        <select name="penduduk_id" id="penduduk_id" data-width="100%" class="form-control" disabled>
+                            @foreach ($penduduk as $item)
+                                <option value="{{ $item->id}}">{{ $item->nik.' | '. ucwords($item->nama_penduduk)}}</option>
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Status Covid</label>
+                    <select name="status" id="status" class="form-control">
+                        @foreach (list_statuscovid() as $item)
+                            <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Tanggal Status Covid</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                </div>
               </section>
           </div>
           <div class="modal-footer justify-content-between">
@@ -259,16 +272,16 @@
       <script>
           $('#ubah').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget)
-              var no_kk = button.data('no_kk')
               var penduduk_id = button.data('penduduk_id')
-              var status_kk = button.data('status_kk')
+              var tanggal = button.data('tanggal')
+              var status = button.data('status')
               var id = button.data('id')
       
               var modal = $(this)
       
-              modal.find('.modal-body #no_kk').val(no_kk);
               modal.find('.modal-body #penduduk_id').val(penduduk_id);
-              modal.find('.modal-body #status_kk').val(status_kk);
+              modal.find('.modal-body #tanggal').val(tanggal);
+              modal.find('.modal-body #status').val(status);
               modal.find('.modal-body #id').val(id);
           })
       </script>

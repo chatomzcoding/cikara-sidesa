@@ -52,13 +52,16 @@ class CovidController extends Controller
     public function store(Request $request)
     {
         $keterangan    = [
+            [
             'status' => $request->status,
             'tanggal' => $request->tanggal,
+            ]
         ];
 
         Covid::create([
             'penduduk_id' => $request->penduduk_id,
             'status' => $request->status,
+            'tanggal' => $request->tanggal,
             'keterangan' => json_encode($keterangan)
         ]);
 
@@ -94,9 +97,46 @@ class CovidController extends Controller
      * @param  \App\Models\Covid  $covid
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Covid $covid)
+    public function update(Request $request)
     {
-        //
+        $covid  = Covid::find($request->id);
+        // cek jika status dan tanggal sama
+        if ($covid->status == $request->status AND $covid->tanggal == $request->tanggal) {
+            return back()->with('danger','Tidak ada perubahan data!');
+        }else{
+            $keterangan = json_decode($covid->keterangan);
+            $ceksama    = FALSE;
+            foreach ($keterangan as $row) {
+                if ($row->status == $request->status) {
+                    $ceksama = TRUE;
+                }
+            }
+            if ($ceksama) {
+                $keteranganbaru    = [
+                    [
+                    'status' => $request->status,
+                    'tanggal' => $request->tanggal,
+                    'update' => tgl_sekarang()
+                    ]
+                ];
+            } else {
+                $keteranganbaru    = [
+                    [
+                    'status' => $request->status,
+                    'tanggal' => $request->tanggal,
+                    ]
+                ];
+            }
+
+            $dataketerangan    = array_merge($keterangan,$keteranganbaru);
+            Covid::where('id',$request->id)->update([
+                'status' => $request->status,
+                'tanggal' => $request->tanggal,
+                'keterangan' => json_encode($dataketerangan)
+            ]);
+        }
+        return back()->with('du','Covid Penduduk');
+
     }
 
     /**

@@ -89,6 +89,22 @@ if (! function_exists('ubahdatakey')) {
         return $result;
     }
 }
+if (! function_exists('historicovid')) {
+    function historicovid($data)
+    {
+        $data       = json_decode($data);
+        $result     = NULL;
+        foreach ($data as $row) {
+            $result .= 'Status : '.$row->status.' </br>';
+            $result .= 'Tanggal : '.date_indo($row->tanggal).' </br>';
+            if (isset($row->update)) {
+                $result .= 'Update : '.date_indo($row->update).'</br>';
+            }
+            $result .= '<hr>';
+        }
+        return $result;
+    }
+}
 
 if (! function_exists('custom_notif')) {
     function custom_notif($error)
