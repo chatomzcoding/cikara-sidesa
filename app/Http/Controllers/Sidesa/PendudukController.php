@@ -20,6 +20,7 @@ class PendudukController extends Controller
     public function index()
     {
         $penduduk   = Penduduk::paginate(100);
+        $page       = TRUE;
         $menu       = 'penduduk';
         // data statistik
         $total      = [
@@ -46,12 +47,13 @@ class PendudukController extends Controller
         if (isset($_GET['data'])) {
             switch ($_GET['data']) {
                 case 'perubahan':
-                    $penduduk   = Penduduk::where('tgl_lahir','2222-01-01')->Orwhere('nik','<',999999999999999)->Orwhere('nik_ayah','<',999999999999999)->Orwhere('nik_ibu','<',999999999999999)->get();
+                    $penduduk   = Penduduk::where('tgl_lahir','2222-01-01')->Orwhere('nik','<',999999999999999)->Orwhere('nik_ayah','<',999999999999999)->Orwhere('nik_ibu','<',999999999999999)->paginate(10);
                     $sesi       = 'perubahan';
                     break;
                 case 'cari':
                     $penduduk   = Penduduk::where('nama_penduduk','LIKE','%'.$_GET['cari'].'%')->orWhere('nik',$_GET['cari'])->get();
                     $sesi       = 'cari';
+                    $page       = FALSE;
                     break;
                 case 'aduan':
                     $user           = Pendudukaduan::distinct()->get('user_id'); 
@@ -67,7 +69,7 @@ class PendudukController extends Controller
             }
         }
 
-        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter','sesi','total'));
+        return view('admin.kependudukan.penduduk.index', compact('penduduk','menu','filter','sesi','total','page'));
     }
     /**
      * Show the form for creating a new resource.

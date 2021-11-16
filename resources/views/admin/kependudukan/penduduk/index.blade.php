@@ -115,7 +115,7 @@
                   @include('sistem.notifikasi')
                   @if ($sesi == 'cari')
                   <section class="alert alert-info my-2 font-italic">
-                      Pencarian dengan keywords : <strong>{{ $_GET['cari'] }}</strong>
+                      Pencarian dengan keywords : <strong>{{ $_GET['cari'] }}</strong> (total data : {{ count($penduduk) }})
                   </section>
                   @endif
                   <section class="mb-3">
@@ -157,11 +157,11 @@
                     </form>
                   </section>
                   <div class="table-responsive">
-                      @if (isset($_GET['jk']))
-                      <table id="datanormal" class="table table-bordered table-striped">
-                      @else
-                      <table id="example1" class="table table-bordered table-striped">
-                      @endif
+                        @if ($page)
+                            <table id="example1" class="table table-bordered table-striped">
+                        @else
+                            <table id="datanormal" class="table table-bordered table-striped">
+                        @endif
                         <thead class="text-center">
                             @if ($sesi == 'perubahan')
                                 <tr>
@@ -336,7 +336,7 @@
                             @endforelse
                     </table>
                 </div>
-                @if (!isset($_GET['jk']))
+                @if ($page)
                 {{ $penduduk->links('vendor.pagination.bootstrap-4') }}
                 @endif
               </div>
