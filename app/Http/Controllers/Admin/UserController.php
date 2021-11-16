@@ -31,7 +31,7 @@ class UserController extends Controller
                     ->where('users.level','penduduk')
                     ->get();
         $judul  = 'User Penduduk';
-        $penduduk   = Penduduk::select('nik','nama_penduduk')->get();
+        $penduduk   = Penduduk::select('nik','nama_penduduk')->orderBy('nama_penduduk','ASC')->get();
         $menu   = 'datauser';
         $belumdaftar    = count($penduduk) - count($user);
         $total   = [
