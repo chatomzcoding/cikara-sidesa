@@ -425,4 +425,20 @@ class DbCikara {
                 ];
         return $result;
     }
+
+    public static function namapenduduk($data)
+    {
+        $result     = '-';
+        $penduduk   = Penduduk::where('nik',$data)->first();
+        if ($penduduk) {
+            $result = $penduduk->nama_penduduk;
+        } else {
+            $akses = Userakses::where('user_id',$data)->first();
+            if ($akses) {
+                $penduduk   = Penduduk::find($akses->penduduk_id);
+                $result     = $penduduk->nama_penduduk;
+            }    
+        }
+        return $result;
+    }
 }

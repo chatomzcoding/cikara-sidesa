@@ -78,7 +78,12 @@
                                         </div>
                                     </td>
                                     <td>{{ $item->nama_dusun}}</td>
-                                    <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
+                                    @php
+                                        $nama = DbCikara::namapenduduk($item->nik);
+                                    @endphp
+                                    <td @if ($nama == '-')
+                                        class="text-center"
+                                    @endif>{{ $nama }}</td>
                                     <td class="text-center">{{ DbCikara::countData('rw',['dusun_id',$item->id]) }}</td>
                                     <td class="text-center">{{ DbCikara::jumlahKK('dusun',$item->id) }}</td>
                                     <td class="text-center">{{ $jumlahlakilaki }}</td>
