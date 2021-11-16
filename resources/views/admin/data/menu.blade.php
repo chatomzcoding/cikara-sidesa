@@ -131,23 +131,23 @@ menu-is-opening menu-open
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/statistik/kependudukan/penduduk/umur-rentang')}}" class="nav-link small {{ menuaktif($menu,'statistikpenduduk') }}">
+        <a href="{{ url('/statistik/kependudukan/penduduk/pendidikan-dalam-kk')}}" class="nav-link small {{ menuaktif($menu,'statistikpenduduk') }}">
           &nbsp;&nbsp;<i class="fas fa-chart-area nav-icon"></i>
           <p>Statistik Kependudukan</p>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('statistik/laporanbulanan')}}" class="nav-link small {{ menuaktif($menu,'laporanbulanan') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Bulanan</p>
         </a>
-      </li>
-      <li class="nav-item">
+      </li> --}}
+      {{-- <li class="nav-item">
         <a href="{{ url('statistik/laporankelompokrentan')}}" class="nav-link small {{ menuaktif($menu, 'laporankelompok') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>Laporan Kelompok Rentan</p>
         </a>
-      </li>
+      </li> --}}
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat')

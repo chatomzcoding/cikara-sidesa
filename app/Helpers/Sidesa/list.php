@@ -663,8 +663,8 @@ if (! function_exists('list_statistikpenduduk')) {
     function list_statistikpenduduk()
     {
         $list = [
-            'umur-rentang' => 'Umur (Rentang)',
-            'umur-kategori' => 'Umur (Kategori)',
+            // 'umur-rentang' => 'Umur (Rentang)',
+            // 'umur-kategori' => 'Umur (Kategori)',
             'pendidikan-dalam-kk' => 'Pendidikan Dalam KK',
             'pendidikan-sedang-ditempuh' => 'Pendidikan Sedang Ditempuh',
             'pekerjaan' => 'pekerjaan',
@@ -681,7 +681,7 @@ if (! function_exists('list_statistikpenduduk')) {
             'akta-kelahiran' => 'Akta Kelahiran',
             'kepemilikan-ktp' => 'Kepemilikan KTP',
             'jenis-asuransi' => 'Jenis Asuransi',
-            'status-covid' => 'Status Covid'
+            // 'status-covid' => 'Status Covid'
         ];
         return $list;
     }

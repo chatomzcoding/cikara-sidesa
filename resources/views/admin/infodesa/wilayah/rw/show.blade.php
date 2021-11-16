@@ -79,7 +79,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $item->nama_rt}}</td>
-                                    <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
+                                    <td>{{ DbCikara::namapenduduk($item->nik)}}</td>
                                     <td>{{ $item->nik}}</td>
                                     <td class="text-center">{{ DbCikara::jumlahKK('rt',$item->id) }}</td>
                                     <td class="text-center">{{ $jumlahlakilaki }}</td>

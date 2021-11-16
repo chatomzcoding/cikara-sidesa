@@ -83,7 +83,7 @@
                                             </div>
                                     </td>
                                     <td>{{ $item->nama_rw}}</td>
-                                    <td>{{ DbCikara::datapenduduk($item->nik,'nik')->nama_penduduk}}</td>
+                                    <td>{{ DbCikara::namapenduduk($item->nik)}}</td>
                                     <td>{{ $item->nik}}</td>
                                     <td class="text-center">{{ DbCikara::countData('rt',['rw_id',$item->id]) }}</td>
                                     <td class="text-center">{{ DbCikara::jumlahKK('rw',$item->id) }}</td>

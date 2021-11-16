@@ -19,7 +19,7 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        $penduduk   = Penduduk::all();
+        $penduduk   = Penduduk::paginate(100);
         $menu       = 'penduduk';
         // data statistik
         $total      = [
@@ -29,6 +29,9 @@ class PendudukController extends Controller
             'pendatang' => Penduduk::where('status_penduduk','pendatang')->count(),
         ];
         // proses get data
+        if (isset($_GET['status_penduduk'])) {
+            $penduduk   = Penduduk::all();
+        }
         $status_penduduk = (isset($_GET['status_penduduk'])) ? $_GET['status_penduduk'] : 'semua';
         $jk = (isset($_GET['jk'])) ? $_GET['jk'] : 'semua';
         $dusun = (isset($_GET['dusun'])) ? $_GET['dusun'] : 'semua';
@@ -51,11 +54,6 @@ class PendudukController extends Controller
                     $sesi       = 'cari';
                     break;
                 case 'aduan':
-                    // $penduduk   = DB::table('penduduk_aduan')
-                    //                 ->join('user_akses','penduduk_aduan.user_id','=','user_akses.user_id')
-                    //                 ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
-                    //                 ->select('penduduk_aduan.*','penduduk.*','penduduk_aduan.id as idaduan')
-                    //                 ->get();   
                     $user           = Pendudukaduan::distinct()->get('user_id'); 
                     $status = (isset($_GET['status'])) ? $_GET['status'] : 'proses' ;
                     $filter = [

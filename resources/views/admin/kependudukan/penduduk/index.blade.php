@@ -157,7 +157,11 @@
                     </form>
                   </section>
                   <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
+                      @if (isset($_GET['jk']))
+                      <table id="datanormal" class="table table-bordered table-striped">
+                      @else
+                      <table id="example1" class="table table-bordered table-striped">
+                      @endif
                         <thead class="text-center">
                             @if ($sesi == 'perubahan')
                                 <tr>
@@ -332,6 +336,9 @@
                             @endforelse
                     </table>
                 </div>
+                @if (!isset($_GET['jk']))
+                {{ $penduduk->links('vendor.pagination.bootstrap-4') }}
+                @endif
               </div>
             </div>
           </div>
@@ -477,12 +484,17 @@
         
         <script>
             $(function () {
-            $("#example1").DataTable({
+            $("#datanormal").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#example1").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "paging": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
-                "paging": true,
+                "paging": false,
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
