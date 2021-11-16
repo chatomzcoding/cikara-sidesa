@@ -48,7 +48,7 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:6000',
         ]);
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('gambar');
@@ -103,7 +103,7 @@ class SliderController extends Controller
         $slider = Slider::find($request->id);
         if (isset($request->gambar)) {
             $request->validate([
-                'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('gambar');
