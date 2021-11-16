@@ -38,6 +38,7 @@ class DataPenduduk implements ToCollection
                         ]);
                     }
                 }
+                // ok bagus
                 // $kepala       = strtolower($row[10]);
                 // if ($kepala == 'kepala keluarga') {
                 //     $nik            = strtolower($row[7]);
