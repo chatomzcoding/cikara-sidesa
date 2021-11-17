@@ -12,6 +12,7 @@ use App\Models\Penduduk;
 use App\Models\Pendudukaduan;
 use App\Models\Penduduksurat;
 use App\Models\Produk;
+use App\Models\Staf;
 use App\Models\User;
 use App\Models\Userakses;
 use Illuminate\Http\Request;
@@ -30,6 +31,25 @@ class MobileController extends Controller
         $token = $_GET['token'];
         if (cektoken($token)) {
             return User::where('level','penduduk')->get();
+        } else {
+            return response()->json('akses dilarang');
+        }
+        
+    }
+    public function list($sesi)
+    {
+        $token = $_GET['token'];
+        if (cektoken($token)) {
+            switch ($sesi) {
+                case 'perangkatdesa':
+                    $result     = Staf::where('status_pegawai','aktif')->get();
+                    break;
+                
+                default:
+                    $result = [];
+                    break;
+            }
+            return $result;
         } else {
             return response()->json('akses dilarang');
         }
