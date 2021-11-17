@@ -47,7 +47,12 @@ class UserController extends Controller
      */
     public function show($user)
     {
-        return User::find($user);
+        $token = $_GET['token'];
+        if (cektoken($token)) {
+            return User::find($user);
+        } else {
+            return response()->json('akses dilarang');
+        }
     }
 
     /**
