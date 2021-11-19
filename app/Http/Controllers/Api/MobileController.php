@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Forum;
 use App\Models\Kategori;
+use App\Models\Kategoriartikel;
 use App\Models\Lapak;
 use App\Models\Lapor;
 use App\Models\Penduduk;
@@ -46,6 +47,25 @@ class MobileController extends Controller
                     break;
                 case 'kategorisurat':
                     $result     = list_kategorisurat();
+                    break;
+                case 'kategoriartikel':
+                    $result     = Kategoriartikel::all();
+                    break;
+                case 'artikel';
+                if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
+                    $result     = DB::table('artikel')
+                                ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
+                                ->select('artikel.*','kategori_artikel.nama_kategori')
+                                ->where('artikel.kategoriartikel_id',$_GET['kategori'])
+                                ->get();
+                } else {
+                    $result     = DB::table('artikel')
+                                ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
+                                ->select('artikel.*','kategori_artikel.nama_kategori')
+                                ->get();
+                    # code...
+                }
+                
                     break;
                 default:
                     $result = [];
