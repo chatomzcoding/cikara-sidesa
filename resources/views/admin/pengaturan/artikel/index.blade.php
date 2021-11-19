@@ -20,16 +20,14 @@
 
 @section('container')
     
-
-
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
           <div class="col-md-3">
             <!-- general form elements -->
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Kategori Artikel</h3>
+              <div class="card-header bg-secondary">
+                <h3 class="card-title">KATEGORI ARTIKEL</h3>
               </div>
               <div class="card-body">
                   <section class="mb-3">
@@ -39,7 +37,7 @@
                           @endforeach
                       </ul>
                   </section>
-                  <a href="{{ url('/kategoriartikel')}}" class="btn btn-primary btn-sm btn-block">Kelola Kategori Artikel</a>
+                  <a href="{{ url('/kategoriartikel')}}" class="btn btn-outline-primary btn-sm btn-flat btn-block">Kelola Kategori Artikel</a>
               </div>
             </div>
           </div>
@@ -47,23 +45,24 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
-                <a href="{{ url('/artikel/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Artikel </a>
+                <a href="{{ url('/artikel/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Artikel Baru"><i class="fas fa-plus"></i> Tambah</a>
                 <div class="float-right">
-                    <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a>
+                    {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a> --}}
                 </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <section class="mb-3">
-                      <form action="" method="get">
+                      <form action="{{ url('artikel') }}" method="get">
+                        @csrf
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">Semua Kategori</option>
+                                <select name="kategori" id="" class="form-control form-control-sm" onchange="this.form.submit();">
+                                    <option value="semua">Semua Kategori</option>
                                     @foreach ($kategori as $item)
-                                        <option value="{{ $item->id}}">{{ ucwords($item->nama_kategori)}}</option>
+                                        <option value="{{ $item->id}}" @if ($filter['kategori'] == $item->id)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama_kategori)}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -96,6 +95,7 @@
                                               <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
+                                              <a class="dropdown-item text-primary" href="{{  url('halaman/berita/'.$item->slug) }}" target="_blank"><i class="fas fa-paper-plane"></i> Lihat Postingan</a>
                                               <a class="dropdown-item text-success" href="{{  url('/artikel/'.Crypt::encryptString($item->id).'/edit') }}"><i class="fas fa-pen"></i> Edit Artikel</a>
                                               <div class="dropdown-divider"></div>
                                               <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>

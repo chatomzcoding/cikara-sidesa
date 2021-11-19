@@ -107,6 +107,11 @@ class HomepageController extends Controller
         $menu       = 'berita';
         $kategori   = Kategoriartikel::all();
         $lastberita = Artikel::where('id','<>',$berita->id)->orderBy('id','DESC')->limit(5)->get();
+        // tambah view
+        $jumlah     = $berita->view + 1;
+        Artikel::where('id',$berita->id)->update([
+            'view' => $jumlah
+        ]);
         return view('homepage.detailberita', compact('menu','berita','kategori','lastberita'));
     }
     public function produkdetail($id)

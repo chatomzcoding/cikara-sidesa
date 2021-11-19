@@ -29,9 +29,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke artikel</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Artikel Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right" ><i class="fas fa-print"></i> CETAK </a>
+                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar artikel"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Kategori Artikel Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right" ><i class="fas fa-print"></i> CETAK </a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -98,13 +98,13 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" class="form-control" placeholder="Nama Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Kategori</label>
+                        <input type="text" name="nama_kategori" class="form-control col-md-8" placeholder="Nama Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
                 </section>
             </div>
@@ -134,13 +134,13 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" placeholder="Nama Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Kategori</label>
+                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" placeholder="Nama Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
                 </section>
             </div>

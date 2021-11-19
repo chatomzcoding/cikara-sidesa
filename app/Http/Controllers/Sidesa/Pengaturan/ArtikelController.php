@@ -23,14 +23,26 @@ class ArtikelController extends Controller
 
     public function index()
     {
-        $artikel    = DB::table('artikel')
-                        ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
-                        ->select('artikel.*','kategori_artikel.nama_kategori')
-                        ->orderByDesc('artikel.id')
-                        ->get();
+        $kategori = (isset($_GET['kategori'])) ? $_GET['kategori'] : 'semua' ;
+        $filter['kategori'] = $kategori;
+        if ($kategori == 'semua') {
+            $artikel    = DB::table('artikel')
+                            ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
+                            ->select('artikel.*','kategori_artikel.nama_kategori')
+                            ->orderByDesc('artikel.id')
+                            ->get();
+                            # code...
+        } else {
+            $artikel    = DB::table('artikel')
+                            ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
+                            ->select('artikel.*','kategori_artikel.nama_kategori')
+                            ->where('kategori_artikel.id',$kategori)
+                            ->orderByDesc('artikel.id')
+                            ->get();
+        }
         $kategori   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         $menu       = 'artikel';
-        return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu'));
+        return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu','filter'));
     }
 
     /**
@@ -54,17 +66,20 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
-        ]);
-        // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('gambar_artikel');
-        
-        $nama_file = time()."_".$file->getClientOriginalName();
-        
-        // isi dengan nama folder tempat kemana file diupload
-        $tujuan_upload = $this->folder;
-        $file->move($tujuan_upload,$nama_file);
+        $nama_file  = NULL;
+        if (isset($request->gambar_artikel)) {
+            $request->validate([
+                'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+            ]);
+            // menyimpan data file yang diupload ke variabel $file
+            $file = $request->file('gambar_artikel');
+            
+            $nama_file = time()."_".$file->getClientOriginalName();
+            
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = $this->folder;
+            $file->move($tujuan_upload,$nama_file);
+        }
 
         Artikel::create([
             'user_id' => Auth::user()->id,
@@ -76,7 +91,7 @@ class ArtikelController extends Controller
             'gambar_artikel' => $nama_file,
         ]);
 
-        return redirect('/artikel')->with('ds', 'Artikel');
+        return redirect('/artikel')->with('dsc', 'Artikel dengan judul '.$request->judul_artikel.' telah berhasil diposting');
     }
 
     /**
@@ -99,7 +114,7 @@ class ArtikelController extends Controller
     public function edit($artikel)
     {
         $artikel    = Artikel::find(Crypt::decryptString($artikel));
-        $kategori = Kategoriartikel::all();
+        $kategori = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         $menu       = 'artikel';
 
         return view('admin.pengaturan.artikel.edit', compact('kategori','artikel','menu'));

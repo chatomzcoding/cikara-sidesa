@@ -28,9 +28,7 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
-                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar artikel </a>
+                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="kembali ke daftar artikel"><i class="fas fa-angle-left"></i> Kembali</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -38,12 +36,12 @@
                         <form action="{{ url('/artikel')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Judul Artikel</label>
+                                <label for="" class="col-md-4 p-2">Judul Artikel <span class="text-danger">*</span></label>
                                 <input type="text" name="judul_artikel" id="judul_artikel" class="form-control col-md-8" value="{{ old('judul_artikel')}}" required>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Kategori Artikel</label>
-                                <select name="kategoriartikel_id" id="" class="form-control col-md-8">
+                                <label for="" class="col-md-4 p-2">Kategori Artikel <span class="text-danger">*</span></label>
+                                <select name="kategoriartikel_id" id="" class="form-control col-md-8" required>
                                     <option value="">-- Pilih Kategori Artikel --</option>
                                     @foreach ($kategori as $item)
                                         <option value="{{ $item->id}}">{{ strtoupper($item->nama_kategori)}}</option>
@@ -51,12 +49,12 @@
                                 </select>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Gambar Artikel</label>
-                                <input type="file" name="gambar_artikel" id="judul_artikel" class="form-control col-md-8" required>
+                                <label for="" class="col-md-4 p-2">Gambar Artikel (opsional)</label>
+                                <input type="file" name="gambar_artikel" id="judul_artikel" class="form-control col-md-8">
                             </div>
                             <div class="form-group">
                                 <label for="">isi artikel</label>
-                                <textarea name="isi_artikel" id="isi_artikel" cols="30" rows="10"></textarea>
+                                <textarea name="isi_artikel" id="isi_artikel" cols="30" rows="10" required>{{ old('isi_artikel') }}</textarea>
                             </div>
                             <script>
                                 // Replace the <textarea id="editor1"> with a CKEditor 4
@@ -67,7 +65,7 @@
                                 });
                             </script>
                             <div class="form-group text-right">
-                                <button type="submit" class="btn btn-primary btn-sm">POSTING ARTIKEL</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> POSTING ARTIKEL</button>
                             </div>
                         </form>
                   </section>

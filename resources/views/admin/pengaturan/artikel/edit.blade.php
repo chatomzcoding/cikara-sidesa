@@ -27,9 +27,7 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Artikel </a> --}}
-                <a href="{{ url('/artikel')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar artikel </a>
+                <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar artikel"><i class="fas fa-angle-left"></i> Kembali</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -38,25 +36,31 @@
                             @csrf
                             @method('patch')
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Judul Artikel</label>
+                                <label for="" class="col-md-4 p-2">Judul Artikel <span class="text-danger">*</span></label>
                                 <input type="text" name="judul_artikel" id="judul_artikel" class="form-control col-md-8" value="{{ $artikel->judul_artikel}}" required>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Kategori Artikel</label>
+                                <label for="" class="col-md-4 p-2">Kategori Artikel <span class="text-danger">*</span></label>
                                 <select name="kategoriartikel_id" id="" class="form-control col-md-8">
                                     @foreach ($kategori as $item)
                                         <option value="{{ $item->id}}" @if ($item->id == $artikel->kategoriartikel_id)
                                             selected
-                                        @endif>{{ $item->nama_kategori}}</option>
+                                        @endif>{{ strtoupper($item->nama_kategori)}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-md-4 p-2">Gambar Artikel (ubah gambar)</label>
-                                <input type="file" name="gambar_artikel" id="judul_artikel" class="form-control col-md-8">
+                                <label for="" class="col-md-4 p-2">Gambar Artikel</label>
+                                <div class="col-md-4">
+                                    <img src="{{ asset('img/pengaturan/artikel/'.$artikel->gambar_artikel) }}" alt="" width="100%">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">upload gambar jika ingin merubah</label>
+                                    <input type="file" name="gambar_artikel" id="judul_artikel" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">isi artikel</label>
+                                <label for="">isi artikel <span class="text-danger">*</span></label>
                                 <textarea name="isi_artikel" id="isi_artikel" cols="30" rows="10">{{ $artikel->isi_artikel}}</textarea>
                             </div>
                             <script>
@@ -64,11 +68,11 @@
                                 // instance, using default configuration.
                                 CKEDITOR.replace('isi_artikel', {
                                 width: '100%',
-                                height: 400
+                                height: 350
                                 });
                             </script>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-sm">SIMPAN PERUBAHAN</button>
+                            <div class="form-group text-right">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
                             </div>
                         </form>
                   </section>
