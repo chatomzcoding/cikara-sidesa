@@ -18,7 +18,14 @@ class SuratController extends Controller
 
     public function listformatsurat()
     {
-        return Formatsurat::all();
+        $kategori = (isset($_GET['kategori'])) ? $_GET['kategori'] : 'semua' ;
+        if ($kategori == 'semua') {
+            return Formatsurat::all();
+            # code...
+        } else {
+            return Formatsurat::where('kategori',$kategori)->get();
+        }
+        
     }
 
     public function formatsuratbykode($kode)

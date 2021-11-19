@@ -44,7 +44,9 @@ class MobileController extends Controller
                 case 'perangkatdesa':
                     $result     = Staf::where('status_pegawai','aktif')->get();
                     break;
-                
+                case 'kategorisurat':
+                    $result     = list_kategorisurat();
+                    break;
                 default:
                     $result = [];
                     break;
