@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Cikara\DbCikara;
 use App\Models\Bantuan;
 use App\Models\Dusun;
+use App\Models\Formatsurat;
 use App\Models\Keluarga;
 use App\Models\Lapak;
 use App\Models\Lapor;
@@ -151,6 +152,17 @@ class CetakController extends Controller
                                 ->get();
                     $namafile   = 'Laporan Data Keluarga';
                     $pdf        = PDF::loadview('sistem.cetak.list.keluarga', compact('keluarga'))->setPaper('a4','landscape');
+                    break;
+                case 'formatsurat':
+                    if (isset($_GET['kategori'])) {
+                        $filter['kategori'] = $_GET['kategori'];
+                        $formatsurat        = Formatsurat::where('kategori',$_GET['kategori'])->orderBy('id','DESC')->get();
+                    } else {
+                        $filter['kategori'] = 'semua';
+                        $formatsurat        = Formatsurat::orderBy('id','DESC')->get();
+                    }
+                    $namafile   = 'Laporan Daftar Format Surat';
+                    $pdf        = PDF::loadview('sistem.cetak.list.formatsurat', compact('formatsurat'));
                     break;
                 case 'statistik':
                     $keluarga   = DB::table('keluarga')

@@ -21,18 +21,22 @@ class FormatsuratController extends Controller
 
     public function index()
     {
-        $formatsurat        = Formatsurat::orderBy('id','DESC')->get();
+        if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
+            $filter['kategori'] = $_GET['kategori'];
+            $formatsurat        = Formatsurat::where('kategori',$_GET['kategori'])->orderBy('id','DESC')->get();
+        } else {
+            $filter['kategori'] = 'semua';
+            $formatsurat        = Formatsurat::orderBy('id','DESC')->get();
+        }
         $judul              = 'Format Surat';
         $klasifikasisurat   = Klasifikasisurat::where('nama','<>','-')->select('id','nama','kode')->get();
         $total              = [
-            'jumlah' => Penduduksurat::count(),
-            'selesai' => Penduduksurat::where('status','selesai')->count(),
-            'menunggu' => Penduduksurat::where('status','menunggu')->count(),
-            'proses' => Penduduksurat::where('status','proses')->count(),
+            'jumlah' => Formatsurat::count(),
+            'klasifikasi' => count($klasifikasisurat),
         ];
 
         $menu   = 'formatsurat';
-        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat','total','menu'));
+        return view('admin.surat.index', compact('formatsurat','judul','klasifikasisurat','total','menu','filter'));
     }
 
     /**
@@ -71,6 +75,7 @@ class FormatsuratController extends Controller
             'nilai_masaberlaku' => $request->nilai_masaberlaku,
             'status_masaberlaku' => $request->status_masaberlaku,
             'layanan_mandiri' => $request->layanan_mandiri,
+            'kategori' => $request->kategori,
             'klasifikasisurat_id' => $request->klasifikasisurat_id,
             'file_surat' => $nama_file,
         ]);
@@ -112,6 +117,7 @@ class FormatsuratController extends Controller
         Formatsurat::where('id',$request->id)->update([
             'nama_surat' => $request->nama_surat,
             'kode' => $request->kode,
+            'kategori' => $request->kategori,
         ]);
 
         return redirect()->back()->with('du', 'Format Surat');

@@ -632,6 +632,19 @@ if (! function_exists('list_sasaranbantuan')) {
         return $list;
     }
 }
+// KATEGORI SURAT
+if (! function_exists('list_kategorisurat')) {
+    function list_kategorisurat()
+    {
+        $list = [
+            'surat keterangan',
+            'surat pengantar',
+            'surat rekomendasi',
+            'surat lainnya'
+        ];
+        return $list;
+    }
+}
 // BANTUAN
 if (! function_exists('list_statuskk')) {
     function list_statuskk()
