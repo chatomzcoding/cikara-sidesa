@@ -69,16 +69,17 @@ class ArtikelController extends Controller
         $nama_file  = NULL;
         if (isset($request->gambar_artikel)) {
             $request->validate([
-                'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:10000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('gambar_artikel');
             
-            $nama_file = time()."_".$file->getClientOriginalName();
+            $nama_file = kompres($file,$this->folder);
+            // $nama_file = time()."_".$file->getClientOriginalName();
             
             // isi dengan nama folder tempat kemana file diupload
-            $tujuan_upload = $this->folder;
-            $file->move($tujuan_upload,$nama_file);
+            // $tujuan_upload = $this->folder;
+            // $file->move($tujuan_upload,$nama_file);
         }
 
         Artikel::create([
@@ -131,18 +132,18 @@ class ArtikelController extends Controller
     {
         if (isset($request->gambar_artikel)) {
             $request->validate([
-                'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:10000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('gambar_artikel');
             
-            $nama_file = time()."_".$file->getClientOriginalName();
+            // $nama_file = time()."_".$file->getClientOriginalName();
+            $nama_file = kompres($file,$this->folder);
             
             // isi dengan nama folder tempat kemana file diupload
-            $tujuan_upload = $this->folder;
-            $file->move($tujuan_upload,$nama_file);
-
-            deletefile($tujuan_upload.'/'.$artikel->gambar_artikel);
+            // $tujuan_upload = $this->folder;
+            // $file->move($tujuan_upload,$nama_file);
+            // deletefile($tujuan_upload.'/'.$artikel->gambar_artikel);
         } else {
             $nama_file = $artikel->gambar_artikel;
         }
