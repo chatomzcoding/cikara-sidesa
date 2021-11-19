@@ -24,7 +24,7 @@ class SliderController extends Controller
 
     public function index()
     {
-        $slider = Slider::all();
+        $slider = Slider::orderBy('id','ASC')->get();
         $menu   = 'slider';
         return view('admin.pengaturan.slider.index', compact('slider','menu'));
     }

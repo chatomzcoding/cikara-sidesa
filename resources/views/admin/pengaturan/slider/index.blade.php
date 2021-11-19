@@ -29,28 +29,11 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Slider Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Slider Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
-                  {{-- <section class="mb-3">
-                      <form action="" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">-- Semua --</option>
-                                    @foreach (list_status() as $item)
-                                        <option value="{{ $item}}">{{ $item}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -60,7 +43,7 @@
                                 <th>Gambar</th>
                                 <th>Nama Slider</th>
                                 <th>Keterangan</th>
-                                <th>Link</th>
+                                {{-- <th>Link</th> --}}
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -90,12 +73,12 @@
                                     <td><img src="{{ asset('/img/pengaturan/slider/'.$item->gambar)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_slider}}</td>
                                     <td>{{ $item->keterangan}}</td>
-                                    <td>
+                                    {{-- <td>
                                         @if (!is_null($item->link))
                                             <a href="{{ $item->link}}" target="_blank">link</a>
                                         @endif
-                                    </td>
-                                    <td>{{ $item->status}}</td>
+                                    </td> --}}
+                                    <td class="text-center">{{ $item->status}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -116,8 +99,9 @@
           <div class="modal-content">
             <form action="{{ url('/slider')}}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="link" value="">
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Slider</h4>
+            <h4 class="modal-title">Tambah Slider Baru</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -125,29 +109,20 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Slider</label>
-                        <input type="text" name="nama_slider" id="nama_slider" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Link</label>
-                        <input type="url" name="link" id="link" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Unggah Gambar</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Nama Slider <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_slider" id="nama_slider" value="{{ old('nama_slider') }}" class="form-control col-md-8" required>
                    </div>
                    {{-- <div class="form-group row">
-                        <label for="" class="col-md-4">Kategori Informasi Publik</label>
-                        <select name="kategori_informasi" id="kategori_informasi" class="form-control col-md-8" required>
-                            <option value="">-- Pilih Kategori Informasi Publik</option>
-                            @foreach (list_kategoriinformasipublik() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
+                        <label for="" class="col-md-4">Link</label>
+                        <input type="url" name="link" id="link" class="form-control col-md-8">
                    </div> --}}
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                        <label for="" class="col-md-4">Unggah Gambar <span class="text-danger">*</span></label>
+                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan (opsional)</label>
+                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8">{{ old('keterangan') }}</textarea>
                     </div>
                 </section>
             </div>
@@ -176,15 +151,16 @@
             </div>
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
+                <input type="hidden" name="link" id="link">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Slider</label>
+                        <label for="" class="col-md-4">Nama Slider <span class="text-danger">*</span></label>
                         <input type="text" name="nama_slider" id="nama_slider" class="form-control col-md-8" required>
                    </div>
-                   <div class="form-group row">
+                   {{-- <div class="form-group row">
                         <label for="" class="col-md-4">Link</label>
                         <input type="url" name="link" id="link" class="form-control col-md-8">
-                   </div>
+                   </div> --}}
                    <div class="form-group row">
                         <label for="" class="col-md-4">Unggah Gambar (upload jika ingin mengubah)</label>
                         <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
