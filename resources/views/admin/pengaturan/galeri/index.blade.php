@@ -20,8 +20,6 @@
    
 
 @section('container')
-    
-
    
     <div class="container-fluid">
         <div class="row">
@@ -30,9 +28,8 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Galeri Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Galeri Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -41,7 +38,7 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
+                                <th width="10%">Aksi</th>
                                 <th>Gambar</th>
                                 <th>Nama Galeri</th>
                                 <th>Keterangan</th>
@@ -75,7 +72,7 @@
                                     <td><img src="{{ asset('/img/pengaturan/galeri/'.$item->gambar_galeri)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_galeri}}</td>
                                     <td>{{ $item->keterangan}}</td>
-                                    <td>{{ $item->status}}</td>
+                                    <td class="text-center">{{ $item->status}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -105,25 +102,16 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Galeri</label>
-                        <input type="text" name="nama_galeri" id="nama_galeri" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Nama Galeri <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_galeri" id="nama_galeri" value="{{ old('nama_galeri') }}" class="form-control col-md-8" required>
                    </div>
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Unggah Gambar</label>
+                        <label for="" class="col-md-4">Unggah Gambar <span class="text-danger">*</span></label>
                         <input type="file" name="gambar_galeri" id="gambar_galeri" class="form-control col-md-8" required>
                    </div>
-                   {{-- <div class="form-group row">
-                        <label for="" class="col-md-4">Kategori Informasi Publik</label>
-                        <select name="kategori_informasi" id="kategori_informasi" class="form-control col-md-8" required>
-                            <option value="">-- Pilih Kategori Informasi Publik</option>
-                            @foreach (list_kategoriinformasipublik() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div> --}}
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8">{{ old('keterangan') }}</textarea>
                     </div>
                 </section>
             </div>

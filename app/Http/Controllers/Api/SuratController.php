@@ -30,7 +30,34 @@ class SuratController extends Controller
 
     public function formatsuratbykode($kode)
     {
-        return format_surat($kode);
+
+        $kode       =  format_surat($kode);
+        switch ($_GET['versi']) {
+            case '1':
+                $result     = [];
+                foreach (daftarformatsurat() as $row) {
+                    $status = 'tidak';
+                    foreach ($kode as $key) {
+                        if ($row == $key) {
+                            $status = 'ya';
+                        }
+                    }
+                    $result[]     = [
+                        $row => $status
+                    ];
+                }
+                break;
+            case '2':
+                $result = [
+                    'form' => $kode
+                ];
+                break;
+            
+            default:
+                $result = $kode;
+                break;
+        }
+        return $result;
     }
 
     public function listsuratbyuser($user)
