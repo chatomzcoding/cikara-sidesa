@@ -52,6 +52,14 @@ class SuratController extends Controller
                     'form' => $kode
                 ];
                 break;
+            case '3':
+                $result = [];
+                foreach ($kode as $key) {
+                    $result[] = [
+                        'form' => $key
+                    ];
+                }
+                break;
             
             default:
                 $result = $kode;
