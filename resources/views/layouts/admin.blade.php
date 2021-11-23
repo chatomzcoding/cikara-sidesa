@@ -166,18 +166,20 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form action="{{ url('penduduk') }}" method="get" class="form-inline ml-3">
-      @csrf
-      <input type="hidden" name="data" value="cari">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" name="cari" type="search" placeholder="Cari NIK/Nama" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
+    @if ($user->level == 'admin')
+      <form action="{{ url('penduduk') }}" method="get" class="form-inline ml-3">
+        @csrf
+        <input type="hidden" name="data" value="cari">
+        <div class="input-group input-group-sm">
+          <input class="form-control form-control-navbar" name="cari" type="search" placeholder="Cari NIK/Nama" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    @endif
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
