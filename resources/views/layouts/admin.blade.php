@@ -308,7 +308,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-2 pb-2 mb-1 d-flex">
         <div class="image">
-          <img src="{{ asset('img/user/'.$user->profile_photo_path)}}" class="img-circle elevation-2" alt="Photo Profile">
+          <img src="{{ asset(avatar($user))}}" class="img-circle elevation-2" alt="Photo Profile">
         </div>
         <div class="info">
           @if ($user->level == 'penduduk')

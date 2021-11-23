@@ -163,6 +163,14 @@ class SuratController extends Controller
             'prov_saksi1' => $request->prov_saksi1,
             'prov_saksi2' => $request->prov_saksi2,
         ]);
-        return 'success';
+        if (response()) {
+            $result["success"] = "1";
+            $result["message"] = "success";
+        } else {
+            $result["success"] = "0";
+            $result["message"] = "error";
+        }
+
+        return $result;
     }
 }

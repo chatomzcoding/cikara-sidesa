@@ -7,6 +7,16 @@ if (! function_exists('format_surat')) {
         return $list;
     }
 }
+if (! function_exists('avatar')) {
+    function avatar($user)
+    {
+        $link = 'img/user/'.$user->profile_photo_path;
+        if (!file_exists($link)) {
+           $link    = 'img/avatar.png'; 
+        }
+        return $link;
+    }
+}
 if (! function_exists('format_surat')) {
     function format_surat($kode)
     {
