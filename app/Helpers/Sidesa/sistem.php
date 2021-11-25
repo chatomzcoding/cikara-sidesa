@@ -13,6 +13,8 @@ if (! function_exists('avatar')) {
         $link = 'public/img/user/'.$user->profile_photo_path;
         if (!file_exists($link)) {
            $link    = 'img/avatar.png'; 
+        } else {
+            $link   = 'img/user/'.$user->profile_photo_path;
         }
         return $link;
     }
