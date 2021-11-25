@@ -53,10 +53,6 @@
                                         <th>Nomor Surat</th>
                                         <td>: {{ $surat->nomor_surat }}</td>
                                     </tr>
-                                    {{-- pilih halaman berdasarkan kode --}}
-                                    @php
-                                        $ak     = explode('-',$format->kode)
-                                    @endphp
                                     @include('penduduk.layananmandiri.formatsurat.index')
                                     
                                     <tr>

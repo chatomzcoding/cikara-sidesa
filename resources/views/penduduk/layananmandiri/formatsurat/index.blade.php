@@ -1,5 +1,34 @@
-@php
-    $list = format_surat($format->kode)
+{{-- form looping --}}
+@foreach (format_surat($format->kode) as $item)
+    <tr>
+        <th width="30%">
+            <div class="form-group pt-2 pb-0">
+                <label for="" class="text-capitalize">{{ nama_label($item) }} <strong class="text-danger">*</strong></label>
+            </div>
+        </th>
+        <td>
+            <div class="form-group">
+                @switch($item)
+                    @case('no_kk')
+                    <input type="text" name="{{ $item }}" pattern="[0-9]{16}" maxlength="16" class="form-control" required>
+                    @break
+                    @case('tanggal_pindah')
+                    <input type="date" name="{{ $item }}" class="form-control" required>
+                        @break
+                    @case('jumlah_pengikut')
+                    <input type="number" name="{{ $item }}" min="1" max="20" class="form-control" value="1" required>
+                        @break
+                    @default
+                        <input type="text" name="{{ $item }}" class="form-control" required>
+                        
+                @endswitch
+            </div>
+        </td>
+    </tr>
+@endforeach
+
+{{-- @php
+    $list = format_surat($format->kode);
 @endphp
 @if (in_array('kepala_kk',$list))
     
@@ -186,12 +215,6 @@
     </td>
 </tr>
 @endif
-{{-- untuk format surat kelahiran --}}
-@if ($format->kode == 'S-17')
-    <tr>
-        <th colspan="2">Data Bayi</th>
-    </tr>
-@endif
 @if (in_array('nama',$list))
 <tr>
     <td>
@@ -206,6 +229,20 @@
     </td>
 </tr>
 @endif
+@if (in_array('nama_anak',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Anak <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_anak" maxlength="100" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
 @if (in_array('no_identitas',$list))
 <tr>
     <td>
@@ -216,6 +253,20 @@
     <td>
         <div class="form-group">
             <input type="text" name="no_identitas" maxlength="100" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('nama_bayi',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Nama Bayi <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="nama_bayi" maxlength="100" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -272,6 +323,20 @@
     <td>
         <div class="form-group">
             <input type="text" name="hari_lahir" maxlength="20" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('alamat_anak',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Alamat Anak <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="alamat_anak" maxlength="255" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -468,6 +533,20 @@
 
 
 
+@if (in_array('lokasi_disdukcapil',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Lokasi Disdukcapil <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="lokasi_disdukcapil" maxlength="100" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
 @if (in_array('nama_ibu',$list))
 <tr>
     <td>
@@ -491,7 +570,35 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="nik_ibu" maxlength="255" class="form-control" required>
+            <input type="text" name="nik_ibu" pattern="[0-9]{16}" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tempat_lahir_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tempat Lahir Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="tempat_lahir_ibu" maxlength="100" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
+@if (in_array('tanggal_lahir_ibu',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Tanggal Lahir Ibu <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="date" name="tanggal_lahir_ibu" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -603,7 +710,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="nik_ayah" maxlength="255" class="form-control" required>
+            <input type="text" name="nik_ayah" pattern="[0-9]{16}" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -692,6 +799,20 @@
     </td>
 </tr>
 @endif
+@if (in_array('alamat_orangtua',$list))
+<tr>
+    <td>
+        <div class="form-group">
+            <label for="">Alamat Orang Tua <strong class="text-danger">*</strong></label>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="text" name="alamat_orangtua" maxlength="255" class="form-control" required>
+        </div>
+    </td>
+</tr>
+@endif
 @if (in_array('nama_pelapor',$list))
 <tr>
     <td>
@@ -715,7 +836,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="nik_pelapor" maxlength="255" class="form-control" required>
+            <input type="text" name="nik_pelapor" pattern="[0-9]{16}" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -869,7 +990,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="nik_saksi1" maxlength="255" class="form-control" required>
+            <input type="text" name="nik_saksi1" pattern="[0-9]{16}" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -1009,7 +1130,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="nik_saksi2" maxlength="255" class="form-control" required>
+            <input type="text" name="nik_saksi2" pattern="[0-9]{16}" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -1037,7 +1158,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="text" name="tanggal_lahir_saksi2" maxlength="255" class="form-control" required>
+            <input type="date" name="tanggal_lahir_saksi2" class="form-control" required>
         </div>
     </td>
 </tr>
@@ -1122,20 +1243,6 @@
     <td>
         <div class="form-group">
             <input type="text" name="prov_saksi2" maxlength="255" class="form-control" required>
-        </div>
-    </td>
-</tr>
-@endif
-{{-- @if (in_array('desa_saksi1',$list))
-<tr>
-    <td>
-        <div class="form-group">
-            <label for=""> <strong class="text-danger">*</strong></label>
-        </div>
-    </td>
-    <td>
-        <div class="form-group">
-            <input type="text" name="desa_saksi1" maxlength="255" class="form-control" required>
         </div>
     </td>
 </tr>

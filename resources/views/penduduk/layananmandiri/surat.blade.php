@@ -184,14 +184,13 @@
                       <select name="formatsurat_id" id="" data-width="100%" class="form-control penduduk" required>
                           <option value="">-- Pilih Surat --</option>
                           @foreach ($formatsurat as $item)
-                              <option value="{{ $item->id }}">{{ $item->nama_surat }}</option>
+                          {{-- versi demo --}}
+                            @if (DbCikara::countData('penduduk_surat',['formatsurat_id',$item->id]) == 0)
+                            <option value="{{ $item->id }}">{{ strtoupper($item->nama_surat.' | '.$item->kode) }}</option>
+                            @endif
                           @endforeach
                       </select>
                 </div>
-                 {{-- <div class="form-group row">
-                     <label for="" class="col-md-4">Tanggal Ambil</label>
-                     <input type="date" name="tgl_ambil" id="tgl_ambil" class="form-control col-md-8" required> 
-                  </div> --}}
               </section>
           </div>
           <div class="modal-footer justify-content-between">

@@ -122,15 +122,28 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
+                                      <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        </form>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                        <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
                                         @if ($item->status == 'selesai')
-                                          <a href="{{ url('cetaksurat/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
+                                          <a class="dropdown-item text-primary" href="{{ url('cetaksurat/'.$item->id) }}"><i class="fas fa-print"></i> Cetak Surat</a>
                                         @endif
                                         @if ($item->status == 'menunggu')
-                                          <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                              <i class="fa fa-edit"></i>
+                                          <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                              <i class="fa fa-edit"> Tanggapi Surat</i>
                                           </button>
-                                          <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                         @endif
+                                        <div class="dropdown-divider"></div>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        </div>
+                                    </div>
                                     </td>
                                     <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
                                     <td>{{ $item->created_at }}</td>
@@ -176,13 +189,23 @@
               <input type="hidden" name="status" value="selesai">
                   <div class="form-group row">
                       <label for="" class="col-md-4">Berlaku dari <strong class="text-danger">*</strong></label>
-                      <input type="date" name="tgl_awal" class="form-control col-md-8" required>
+                      <input type="date" name="tgl_awal" value="2021-11-20" class="form-control col-md-8" required>
                   </div>
                   <div class="form-group row">
                       <label for="" class="col-md-4">Berlaku sampai <strong class="text-danger">*</strong></label>
-                      <input type="date" name="tgl_akhir" class="form-control col-md-8" required>
+                      <input type="date" name="tgl_akhir" value="2021-11-30" class="form-control col-md-8" required>
                   </div>
-                  <div class="form-group text-center">
+                  <div class="form-group row">
+                      <label for="" class="col-md-4">Ditandatangani oleh <strong class="text-danger">*</strong></label>
+                      <div class="col-md-8 p-0">
+                        <select name="staf_id" class="form-control penduduk" data-width="100%" required>
+                          @foreach ($staf as $item)
+                          <option value="{{ $item->id }}">{{ strtoupper($item->nama_pegawai.' | '.$item->jabatan) }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                  </div>
+                  <div class="form-group text-right">
                     <button type="submit" class="btn btn-success"> KONFIRMASI SURAT</button>
                   </div>
             </div>

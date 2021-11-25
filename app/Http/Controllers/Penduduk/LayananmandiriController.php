@@ -41,7 +41,7 @@ class LayananmandiriController extends Controller
                         ->where('user_id',$user->id)
                         ->orderByDesc('id')
                         ->get();
-                $formatsurat   = Formatsurat::all();
+                $formatsurat   = Formatsurat::orderBy('kode','ASC')->get();
                 $total  = [
                     'total' => count($surat),
                     'selesai' => Penduduksurat::where('user_id',$user->id)->where('status','selesai')->count(),

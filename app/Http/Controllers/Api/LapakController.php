@@ -96,13 +96,14 @@ class LapakController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile   = uploadgambar($request,'penduduk/lapak');
             Lapak::where('id',$lapak->id)->update([
                 'nama_lapak' => $request->nama_lapak,
                 'tentang' => $request->tentang,
                 'alamat' => $request->alamat,
                 'status_lapak' => $request->status_lapak,
                 'telp' => $request->telp,
-                'logo' => $request->logo,
+                'logo' => $namafile,
             ]);
     
             if (response()) {

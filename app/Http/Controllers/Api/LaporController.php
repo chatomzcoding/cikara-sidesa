@@ -16,12 +16,36 @@ class LaporController extends Controller
      */
     public function index()
     {
-        return DB::table('lapor')
+        $user_id    = $_GET['user_id'];
+        $data = DB::table('lapor')
                 ->join('users','lapor.user_id','=','users.id')
                 ->join('user_akses','users.id','=','user_akses.user_id')
                 ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
                 ->select('lapor.*','users.profile_photo_path','penduduk.nama_penduduk')
                 ->get();
+        $result     = [];
+        foreach ($data as $item) {
+            $dresult = [];
+            foreach ($item as $key => $value) {
+                $dresult[$key] = $value;
+            }
+            $like = json_decode($item->datalike);
+            $status = 0;
+            $jumlah     = 0;
+            if (!is_null($like)) {
+                for ($i=0; $i < count($like); $i++) { 
+                    if ($like[$i]->id == $user_id) {
+                        $status = 1;
+                    }
+                }
+                $jumlah = count($like);
+            }
+            $dresult['jumlahlike'] = $jumlah;
+            $dresult['statuslike'] = $status;
+            $result[] = $dresult;
+        }
+
+        return $result;
     }
 
     public function listbyuser($userid)

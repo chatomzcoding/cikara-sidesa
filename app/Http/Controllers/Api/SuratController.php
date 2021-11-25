@@ -8,6 +8,7 @@ use App\Models\Formatsurat;
 use App\Models\Klasifikasisurat;
 use App\Models\Penduduksurat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SuratController extends Controller
 {
@@ -70,98 +71,47 @@ class SuratController extends Controller
 
     public function listsuratbyuser($user)
     {
-        return Penduduksurat::where('user_id',$user)->get();
+        $data     = DB::table('penduduk_surat')
+                        ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+                        ->select('penduduk_surat.*','format_surat.nama_surat')
+                        ->where('penduduk_surat.user_id',$user)
+                        ->orderByDesc('penduduk_surat.id')
+                        ->get();
+        $result     = [];
+        foreach ($data as $item) {
+            $dresult    = [];
+            foreach ($item as $key => $value) {
+                if ($key == 'detail' || $key == 'ttd') {
+                    $dresult[$key] = json_decode($value);
+                } else {
+                    $dresult[$key] = $value;
+                }
+                
+            }
+            $result[] = $dresult;
+        }
+        return $result;
     }
 
     public function buatsurat(Request $request)
     {
        
+        $detail     = [];
+        foreach (format_surat($request->kode) as $key) {
+            $nilai = [
+                $key => $request->$key
+            ];
+
+            $detail     = array_merge($detail,$nilai);
+        }
+        $detail     = json_encode($detail);
         $format     = Formatsurat::find($request->formatsurat_id);
         Penduduksurat::create([
             'user_id' => $request->user_id,
             'formatsurat_id' => $request->formatsurat_id,
             'nomor_surat' => DbCikara::nomorsurat($format->kode),
             'status' => $request->status,
-            'keperluan' => $request->keperluan,
-            'keterangan' => $request->keterangan,
-            'no_kk' => $request->no_kk,
-            'kepala_kk' => $request->kepala_kk,
-            'status' => $request->status, 
-            'rt_tujuan' => $request->rt_tujuan,
-            'rw_tujuan' => $request->rw_tujuan,
-            'dusun_tujuan' => $request->dusun_tujuan,
-            'desa_tujuan' => $request->desa_tujuan,
-            'kecamatan_tujuan' => $request->kecamatan_tujuan,
-            'kabupaten_tujuan' => $request->kabupaten_tujuan,
-            'alasan_pindah' => $request->alasan_pindah,
-            'tanggal_pindah' => $request->tanggal_pindah,
-            'jumlah_pengikut' => $request->jumlah_pengikut,
-            'barang' => $request->barang,
-            'jenis' => $request->jenis,
-            'nama' => $request->nama,
-            'no_identitas' => $request->no_identitas,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
-            'jk' => $request->jk,
-            'alamat' => $request->alamat,
-            'agama' => $request->agama,
-            'pekerjaan' => $request->pekerjaan,
-            'ketua_adat' => $request->ketua_adat,
-            'perbedaan' => $request->perbedaan,
-            'kartu_identitas' => $request->kartu_identitas,
-            'rincian' => $request->rincian,
-            'usaha' => $request->usaha,
-            'no_jamkesos' => $request->no_jamkesos,
-            'hari_lahir' => $request->hari_lahir,
-            'waktu_lahir' => $request->waktu_lahir,
-            'kelahiran_ke' => $request->kelahiran_ke,
-            'nama_ibu' => $request->nama_ibu,
-            'nik_ibu' => $request->nik_ibu,
-            'umur_ibu' => $request->umur_ibu,
-            'pekerjaan_ibu' => $request->pekerjaan_ibu,
-            'alamat_ibu' => $request->alamat_ibu,
-            'desa_ibu' => $request->desa_ibu,
-            'kec_ibu' => $request->kec_ibu,
-            'kab_ibu' => $request->kab_ibu,
-            'nama_ayah' => $request->nama_ayah,
-            'nik_ayah' => $request->nik_ayah,
-            'umur_ayah' => $request->umur_ayah,
-            'pekerjaan_ayah' => $request->pekerjaan_ayah,
-            'alamat_ayah' => $request->alamat_ayah,
-            'desa_ayah' => $request->desa_ayah,
-            'kec_ayah' => $request->kec_ayah,
-            'kab_ayah' => $request->kab_ayah,
-            'nama_pelapor' => $request->nama_pelapor,
-            'nik_pelapor' => $request->nik_pelapor,
-            'umur_pelapor' => $request->umur_pelapor,
-            'pekerjaan_pelapor' => $request->pekerjaan_pelapor,
-            'desa_pelapor' => $request->desa_pelapor,
-            'kec_pelapor' => $request->kec_pelapor,
-            'kab_pelapor' => $request->kab_pelapor,
-            'prov_pelapor' => $request->prov_pelapor,
-            'hub_pelapor' => $request->hub_pelapor,
-            'tempat_lahir_pelapor' => $request->tempat_lahir_pelapor,
-            'tanggal_lahir_pelapor' => $request->tanggal_lahir_pelapor,
-            'nama_saksi1' => $request->nama_saksi1,
-            'nama_saksi2' => $request->nama_saksi2,
-            'nik_saksi1' => $request->nik_saksi1,
-            'nik_saksi2' => $request->nik_saksi2,
-            'tempat_lahir_saksi1' => $request->tempat_lahir_saksi1,
-            'tempat_lahir_saksi2' => $request->tempat_lahir_saksi2,
-            'tanggal_lahir_saksi1' => $request->tanggal_lahir_saksi1,
-            'tanggal_lahir_saksi2' => $request->tanggal_lahir_saksi2,
-            'umur_saksi1' => $request->umur_saksi1,
-            'umur_saksi2' => $request->umur_saksi2,
-            'pekerjaan_saksi1' => $request->pekerjaan_saksi1,
-            'pekerjaan_saksi2' => $request->pekerjaan_saksi2,
-            'desa_saksi1' => $request->desa_saksi1,
-            'desa_saksi2' => $request->desa_saksi2,
-            'kec_saksi1' => $request->kec_saksi1,
-            'kec_saksi2' => $request->kec_saksi2,
-            'kab_saksi1' => $request->kab_saksi1,
-            'kab_saksi2' => $request->kab_saksi2,
-            'prov_saksi1' => $request->prov_saksi1,
-            'prov_saksi2' => $request->prov_saksi2,
+            'detail' => $detail,
         ]);
         if (response()) {
             $result["success"] = "1";

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sidesa\Layanan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduksurat;
+use App\Models\Staf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,7 @@ class SuratController extends Controller
         $surat  = DB::table('penduduk_surat')
                     ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
                     ->select('penduduk_surat.*','format_surat.nama_surat')
+                    ->orderBy('penduduk_surat.id','DESC')
                     ->get();
         $judul  = 'Pengajuan Surat';
         $total  = [
@@ -28,7 +30,8 @@ class SuratController extends Controller
             'menunggu' => Penduduksurat::where('status','menunggu')->count(),
         ];
         $menu   = 'suratpenduduk';
-        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu'));
+        $staf   = Staf::where('status_pegawai','aktif')->orderby('nama_pegawai','ASC')->get();
+        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf'));
     }
 
     /**
@@ -83,10 +86,19 @@ class SuratController extends Controller
      */
     public function update(Request $request)
     {
+        $staf   = Staf::find($request->staf_id);
+        $ttd    = [
+            'nama' => $staf->nama_pegawai,
+            'jabatan' => $staf->jabatan,
+            'nip' => $staf->nip,
+            'nipd' => $staf->nipd,
+        ];
+
         Penduduksurat::where('id',$request->id)->update([
             'status' => $request->status,
             'tgl_awal' => $request->tgl_awal,
             'tgl_akhir' => $request->tgl_akhir,
+            'ttd' => json_encode($ttd),
         ]);
 
         return redirect()->back()->with('du','Surat Penduduk');
