@@ -10,7 +10,7 @@ if (! function_exists('format_surat')) {
 if (! function_exists('avatar')) {
     function avatar($user)
     {
-        $link = 'img/user/'.$user->profile_photo_path;
+        $link = 'public/img/user/'.$user->profile_photo_path;
         if (!file_exists($link)) {
            $link    = 'img/avatar.png'; 
         }

@@ -22,6 +22,7 @@ class LaporController extends Controller
                 ->join('user_akses','users.id','=','user_akses.user_id')
                 ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
                 ->select('lapor.*','users.profile_photo_path','penduduk.nama_penduduk')
+                ->orderByDesc('lapor.id')
                 ->get();
         $result     = [];
         foreach ($data as $item) {
