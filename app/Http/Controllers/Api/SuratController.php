@@ -35,10 +35,10 @@ class SuratController extends Controller
         return $result;
     }
 
-    public function formatsuratbykode($kode)
+    public function formatsuratbykode($akode)
     {
 
-        $kode       =  format_surat($kode);
+        $kode       =  format_surat($akode);
         switch ($_GET['versi']) {
             case '1':
                 $result     = [];
@@ -63,7 +63,8 @@ class SuratController extends Controller
                 $result = [];
                 foreach ($kode as $key) {
                     $result[] = [
-                        'form' => $key
+                        'form' => $key,
+                        'label' => nama_label($key,$akode)
                     ];
                 }
                 break;
@@ -72,6 +73,14 @@ class SuratController extends Controller
                 $result = $kode;
                 break;
         }
+        return $result;
+    }
+
+    public function namalabel($label,$kode)
+    {
+        $result = [
+            'label' => nama_label($label,$kode)
+        ];
         return $result;
     }
 
