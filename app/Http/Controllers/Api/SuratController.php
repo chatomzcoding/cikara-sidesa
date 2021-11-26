@@ -110,16 +110,19 @@ class SuratController extends Controller
 
     public function buatsurat(Request $request)
     {
-       
+       $formatsurat     = Formatsurat::find($request->formatsurat_id);
         $detail     = [];
-        foreach (format_surat($request->kode) as $key) {
-            $nilai = [
-                $key => $request->$key
-            ];
+        foreach (format_surat($formatsurat->kode) as $key) {
+            if (isset($request->$key)) {
+                $nilai = [
+                    $key => $request->$key
+                ];
+            }
 
             $detail     = array_merge($detail,$nilai);
         }
         $detail     = json_encode($detail);
+
         $format     = Formatsurat::find($request->formatsurat_id);
         Penduduksurat::create([
             'user_id' => $request->user_id,
