@@ -124,7 +124,126 @@ if (! function_exists('format_surat')) {
                 break;
             case 'S-21':
                 $list = [
-
+                    'tanggal_mati',
+                    'hari',
+                    'jam',
+                    'tempat_mati',
+                    'penyebab',
+                    'nama_pelapor',
+                    'nik_pelapor',
+                    'tanggal_lahir_pelapor',
+                    'pekerjaan_pelapor',
+                    'alamat_pelapor',
+                    'hubungan_pelapor'
+                ];
+                break;
+            case 'S-22':
+                $list = [
+                    'lama_kandungan',
+                    'hari',
+                    'tanggal_mati',
+                    'tempat_mati',
+                    'nama_pelapor',
+                    'hubungan_pelapor'
+                ];
+                break;
+            case 'S-30':
+                $list = [
+                    'tujuan',
+                    'keperluan',
+                ];
+                break;
+            case 'S-31':
+                $list = [
+                    'no_kk',
+                    'kepala_kk',
+                    'keperluan',
+                ];
+                break;
+            case 'S-33':
+                $list = [
+                    'no_kk',
+                    'kepala_kk',
+                    'kecamatan',
+                    'tgl_nikah',
+                    'nama_pasangan',
+                ];
+                break;
+            case 'S-34':
+                $list = [
+                    'nama_istri',
+                    'nik_istri',
+                    'tempat_lahir_istri',
+                    'tanggal_lahir_istri',
+                    'agama_istri',
+                    'pekerjaan_istri',
+                    'alamat_istri',
+                    'penyebab',
+                ];
+                break;
+            case 'S-35':
+                $list = [
+                    'nama_pasangan',
+                    'nama_ayah_pasangan',
+                    'tempat_lahir_pasangan',
+                    'tanggal_lahir_pasangan',
+                    'warga_negara_pasangan',
+                    'agama_pasangan',
+                    'pekerjaan_pasangan',
+                    'alamat_pasangan',
+                ];
+                break;
+            case 'S-36':
+                $list = [
+                    'no_kk'
+                ];
+                break;
+            case 'S-37':
+                $list = [
+                    'nama',
+                    'tempat_lahir',
+                    'tanggal_lahir',
+                    'nik',
+                    'no_kk',
+                    'warga_negara',
+                    'agama',
+                    'jk',
+                    'pekerjaan',
+                    'alamat',
+                    'nama_usaha',
+                    'jenis_usaha',
+                    'akta_usaha',
+                    'akta_tahun',
+                    'notaris',
+                    'bangunan',
+                    'peruntukan_bangunan',
+                    'status_bangunan',
+                    'alamat_usaha',
+                ];
+                break;
+            case 'S-38':
+                $list = [
+                    'keperluan'
+                ];
+                break;
+            case 'S-39':
+                $list = [
+                    'selaku',
+                    'mengizinkan',
+                    'nama',
+                    'tempat_lahir',
+                    'tanggal_lahir',
+                    'warga_negara',
+                    'agama',
+                    'pekerjaan',
+                    'alamat',
+                    'rt',
+                    'rw',
+                    'dusun',
+                    'negara_tujuan',
+                    'nama_pptkis',
+                    'pekerja',
+                    'masa_kontrak',
                 ];
                 break;
             default:
@@ -173,6 +292,17 @@ if (! function_exists('nama_label')) {
                     'alamat' => 'Alamat Tempat Usaha',
                 ];
                 break;
+            case 'S-22':
+                $cdata = [
+                    'lama_kandungan' => 'Lama Kandungan (bulan)',
+                    'alamat' => 'Alamat Tempat Usaha',
+                ];
+                break;
+            case 'S-33':
+                $cdata = [
+                    'kecamatan' => 'KUA di kecamatan',
+                ];
+                break;
             
             default:
                 $cdata = [];
@@ -191,12 +321,14 @@ if (! function_exists('nama_label')) {
 if (! function_exists('form_view')) {
     function form_view($key)
     {
-        $nomor      = ['no_kk','nik_ibu','nik_ayah','nik_saksi1','nik_saksi2','nik_pelapor','nik_anak'];
-        $tanggal    = ['tgl_lahir','tanggal_pindah','tanggal_lahir_ibu','tanggal_lahir_ayah','tanggal_lahir_pelapor','tanggal_lahir_saksi1','tanggal_lahir_saksi2'];
-        $angka      = ['jumlah_pengikut','kelahiran_ke','umur_ibu','umur_ayah','umur_pelapor','umur_saksi1','umur_saksi2'];
-        $pekerjaan  = ['pekerjaan','pekerjaan_ibu','pekerjaan_ayah','pekerjaan_pelapor','pekerjaan_saksi1','pekerjaan_saksi2'];
-        $waktu      = ['waktu_lahir'];
+        $nomor      = ['no_kk','nik_ibu','nik_ayah','nik_saksi1','nik_saksi2','nik_pelapor','nik_anak','nik_istri','nik'];
+        $tanggal    = ['tgl_lahir','tanggal_pindah','tanggal_lahir_ibu','tanggal_lahir_ayah','tanggal_lahir_pelapor','tanggal_lahir_saksi1','tanggal_lahir_saksi2','tanggal_mati','tgl_nikah','tanggal_lahir_istri','tanggal_lahir_pasangan','tanggal_lahir'];
+        $angka      = ['jumlah_pengikut','kelahiran_ke','umur_ibu','umur_ayah','umur_pelapor','umur_saksi1','umur_saksi2','lama_kandungan'];
+        $pekerjaan  = ['pekerjaan','pekerjaan_ibu','pekerjaan_ayah','pekerjaan_pelapor','pekerjaan_saksi1','pekerjaan_saksi2','pekerjaan_istri','pekerjaan_pasangan'];
+        $waktu      = ['waktu_lahir','jam'];
         $jk     = ['jk','jk_pelapor'];
+        $agama  = ['agama','agama_istri','agama_pasangan'];
+        $warganegara  = ['warga_negara_pasangan','warga_negara'];
         if (in_array($key,$nomor)) {
             $result     = 'nomor';
         }elseif (in_array($key,$tanggal)) {
@@ -209,16 +341,12 @@ if (! function_exists('form_view')) {
             $result     = 'waktu';
         }elseif (in_array($key,$jk)) {
             $result     = 'jk';
+        }elseif (in_array($key,$agama)) {
+            $result     = 'agama';
+        }elseif (in_array($key,$warganegara)) {
+            $result     = 'warganegara';
         } else {
-            switch ($key) {
-                case 'agama':
-                    $result = 'agama';
-                    break;
-                
-                default:
-                    $result     = 'string';
-                    break;
-            }
+            $result     = 'string';
         }
         return $result;
     }

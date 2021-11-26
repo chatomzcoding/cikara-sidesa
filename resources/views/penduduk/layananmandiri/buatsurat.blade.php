@@ -85,7 +85,7 @@
                                                         </select>
                                                         @break
                                                     @case('agama')
-                                                        <select name="agama" id="" class="form-control" required>
+                                                        <select name="{{ $item }}" id="" class="form-control" required>
                                                             <option value="">-- pilih agama --</option>
                                                             @foreach (list_agama() as $item)
                                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
@@ -96,6 +96,14 @@
                                                         <select name="{{ $item }}" id="" class="form-control" required>
                                                             <option value="">-- pilih pekerjaan --</option>
                                                             @foreach (list_pekerjaan() as $item)
+                                                                <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @break
+                                                    @case('warganegara')
+                                                        <select name="{{ $item }}" id="" class="form-control" required>
+                                                            <option value="">-- Pilih Warga Negara --</option>
+                                                            @foreach (list_statuskewarganegaraan() as $item)
                                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                                             @endforeach
                                                         </select>

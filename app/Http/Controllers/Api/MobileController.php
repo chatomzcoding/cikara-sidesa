@@ -63,9 +63,7 @@ class MobileController extends Controller
                                 ->join('kategori_artikel','artikel.kategoriartikel_id','=','kategori_artikel.id')
                                 ->select('artikel.*','kategori_artikel.nama_kategori')
                                 ->get();
-                    # code...
                 }
-                
                     break;
                 case 'jk':
                     $result = [
