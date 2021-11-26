@@ -205,7 +205,7 @@
                         $diskusi = DbCikara::showtablefirst('forum_diskusi',['forum_id',$item->id]);
                     @endphp  
                     @if ($diskusi)
-                    {{ ->isi }}
+                    {{ $diskusi->isi }}
                     @endif
                   </p>
                   <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
