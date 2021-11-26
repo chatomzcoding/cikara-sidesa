@@ -200,7 +200,14 @@
                     {{ $item->nama }}
                     <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                   </h3>
-                  <p class="text-sm">{{ DbCikara::showtablefirst('forum_diskusi',['forum_id',$item->id])->isi }}</p>
+                  <p class="text-sm">
+                    @php
+                        $diskusi = DbCikara::showtablefirst('forum_diskusi',['forum_id',$item->id]);
+                    @endphp  
+                    @if ($diskusi)
+                    {{ ->isi }}
+                    @endif
+                  </p>
                   <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                 </div>
               </div>
