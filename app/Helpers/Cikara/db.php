@@ -4,6 +4,7 @@ namespace App\Helpers\Cikara;
 use App\Models\Daftarakun;
 use App\Models\Daftarakunpembantu;
 use App\Models\Jurnalakun;
+use App\Models\Keluarga;
 use App\Models\Lapor;
 use App\Models\Penduduk;
 use App\Models\Penduduksurat;

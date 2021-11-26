@@ -53,7 +53,60 @@
                                         <th>Nomor Surat</th>
                                         <td>: {{ $surat->nomor_surat }}</td>
                                     </tr>
-                                    @include('penduduk.layananmandiri.formatsurat.index')
+                                    {{-- form looping --}}
+                                    @foreach (format_surat($format->kode) as $item)
+                                    <tr>
+                                        <th width="30%">
+                                            <div class="form-group pt-2 pb-0">
+                                                <label for="" class="text-capitalize">{{ nama_label($item,$format->kode) }} <strong class="text-danger">*</strong></label>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="form-group">
+                                                @switch(form_view($item))
+                                                    @case('nomor')
+                                                        <input type="text" name="{{ $item }}" pattern="[0-9]{16}" maxlength="16" class="form-control" required>
+                                                        <span class="text-danger small font-italic">* jumlah 16 angka</span>
+                                                    @break
+                                                    @case('tanggal')
+                                                        <input type="date" name="{{ $item }}" class="form-control" required>
+                                                        @break
+                                                    @case('waktu')
+                                                        <input type="time" name="{{ $item }}" class="form-control" required>
+                                                        @break
+                                                    @case('angka')
+                                                        <input type="number" name="{{ $item }}" min="1" class="form-control" required>
+                                                        @break
+                                                    @case('jk')
+                                                        <select name="jk" id="" class="form-control" required>
+                                                            @foreach (list_jeniskelamin() as $item)
+                                                                <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @break
+                                                    @case('agama')
+                                                        <select name="agama" id="" class="form-control" required>
+                                                            <option value="">-- pilih agama --</option>
+                                                            @foreach (list_agama() as $item)
+                                                                <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @break
+                                                    @case('pekerjaan')
+                                                        <select name="{{ $item }}" id="" class="form-control" required>
+                                                            <option value="">-- pilih pekerjaan --</option>
+                                                            @foreach (list_pekerjaan() as $item)
+                                                                <option value="{{ $item}}">{{ strtoupper($item) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @break
+                                                    @default
+                                                        <input type="text" name="{{ $item }}" class="form-control" required>
+                                                @endswitch
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                     
                                     <tr>
                                         <td colspan="2" class="text-right">

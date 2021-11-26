@@ -21,12 +21,18 @@ class SuratController extends Controller
     {
         $kategori = (isset($_GET['kategori'])) ? $_GET['kategori'] : 'semua' ;
         if ($kategori == 'semua') {
-            return Formatsurat::all();
-            # code...
+            $data     = Formatsurat::all();
         } else {
-            return Formatsurat::where('kategori',$kategori)->get();
+            $data     = Formatsurat::where('kategori',$kategori)->get();
         }
-        
+        $result     = [];
+        foreach ($data as $item) {
+            if (surataktif($item->kode)) {
+                $result[] = $item;
+            }
+        }
+
+        return $result;
     }
 
     public function formatsuratbykode($kode)

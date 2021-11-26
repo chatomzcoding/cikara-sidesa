@@ -10,12 +10,17 @@ if (! function_exists('format_surat')) {
 if (! function_exists('avatar')) {
     function avatar($user)
     {
-        $link = 'public/img/user/'.$user->profile_photo_path;
-        if (!file_exists($link)) {
-           $link    = 'img/avatar.png'; 
+        if (is_null($user->profile_photo_path)) {
+            $link    = 'img/avatar.png'; 
         } else {
-            $link   = 'img/user/'.$user->profile_photo_path;
+            $link = 'public/img/user/'.$user->profile_photo_path;
+            if (!file_exists($link)) {
+               $link    = 'img/avatar.png'; 
+            } else {
+                $link   = 'img/user/'.$user->profile_photo_path;
+            }
         }
+        
         return $link;
     }
 }
@@ -55,13 +60,13 @@ if (! function_exists('format_surat')) {
                 $list = ['kepala_kk','no_kk','keperluan','jenis'];
                 break;        
             case 'S-13':
-                $list = ['kepala_kk','no_kk','rincian','keterangan','barang'];
+                $list = ['kepala_kk','no_kk','barang','rincian','keterangan'];
                 break;        
             case 'S-14':
-                $list = ['kepala_kk','no_kk','keperluan','usaha'];
+                $list = ['kepala_kk','no_kk','usaha','keperluan'];
                 break;        
             case 'S-15':
-                $list = ['keperluan','no_jamkesos'];
+                $list = ['no_jamkesos','keperluan'];
                 break;
             case 'S-16':
                 $list = ['usaha','alamat'];
@@ -70,13 +75,57 @@ if (! function_exists('format_surat')) {
                 $list = ['nama_bayi','tempat_lahir','tgl_lahir','jk','hari_lahir','waktu_lahir','kelahiran_ke','nama_ibu','nik_ibu','tempat_lahir_ibu','tanggal_lahir_ibu','umur_ibu','pekerjaan_ibu','alamat_ibu','desa_ibu','kec_ibu','kab_ibu','nama_ayah','nik_ayah','umur_ayah','pekerjaan_ayah','alamat_ayah','desa_ayah','kec_ayah','kab_ayah','nama_pelapor','nik_pelapor','umur_pelapor','pekerjaan_pelapor','desa_pelapor','kec_pelapor','kab_pelapor','prov_pelapor','hub_pelapor','tempat_lahir_pelapor','tanggal_lahir_pelapor','nama_saksi1','nik_saksi1','tempat_lahir_saksi1','tanggal_lahir_saksi1','umur_saksi1','pekerjaan_saksi1','desa_saksi1','kec_saksi1','kab_saksi1','prov_saksi1','nama_saksi2','nik_saksi2','tempat_lahir_saksi2','tanggal_lahir_saksi2','umur_saksi2','pekerjaan_saksi2','desa_saksi2','kec_saksi2','kab_saksi2','prov_saksi2','lokasi_disdukcapil'];
                 break;        
             case 'S-18':
-                $list = ['alamat_orangtua','nama_ibu','nama_ayah','nama_anak','tempat_lahir','tgl_lahir','hari_lahir','alamat_anak'];
+                $list = [
+                    'nama_ayah',
+                    'nama_ibu',
+                    'alamat_orangtua',
+                    'nama_anak',
+                    'tempat_lahir',
+                    'alamat_anak',
+                    'tgl_lahir',
+                    'hari_lahir',
+                ];
                 break;
             case 'S-19':
-                $list = ['nama_ibu','nama_ayah','nik_ayah','nik_ibu'];
+                $list = [
+                    'nama_ayah',
+                    'nik_ayah',
+                    'nama_ibu',
+                    'nik_ibu'
+                ];
                 break;
             case 'S-20':
-                $list = ['nama_anak','nik_anak','hari_lahir','tgl_lahir','waktu_lahir','tempat_lahir','nama_ibu','nik_ibu','tanggal_lahir_ibu','pekerjaan_ibu','alamat_ibu','nama_ayah','nik_ayah','tanggal_lahir_ayah','pekerjaan_ayah','alamat_ayah','nama_pelapor','nik_pelapor','pekerjaan'];
+                $list = [
+                    'nama_anak',
+                    'nik_anak',
+                    'hari_lahir',
+                    'tgl_lahir',
+                    'waktu_lahir',
+                    'tempat_lahir',
+                    'bertempat',
+                    'nama_ibu',
+                    'nik_ibu',
+                    'tanggal_lahir_ibu',
+                    'pekerjaan_ibu',
+                    'alamat_ibu',
+                    'nama_ayah',
+                    'nik_ayah',
+                    'tanggal_lahir_ayah',
+                    'pekerjaan_ayah',
+                    'alamat_ayah',
+                    'nama_pelapor',
+                    'nik_pelapor',
+                    'tempat_lahir_pelapor',
+                    'tanggal_lahir_pelapor',
+                    'jk_pelapor',
+                    'pekerjaan_pelapor',
+                    'alamat_pelapor',
+                ];
+                break;
+            case 'S-21':
+                $list = [
+
+                ];
                 break;
             default:
                 # code...
@@ -86,14 +135,102 @@ if (! function_exists('format_surat')) {
     }
 }
 if (! function_exists('nama_label')) {
-    function nama_label($label)
+    function nama_label($label,$kode)
     {
-        $data = [
+        switch ($kode) {
+            case 'S-05':
+                $cdata = [
+                    'barang' => 'Nama Barang',
+                    'jenis' => 'Jenis Barang',
+                    'nama' => 'Nama Pihak Kedua',
+                ];
+                break;
+            case 'S-09':
+                $cdata = [
+                    'perbedaan' => 'Data yang berbeda',
+                    'kartu_identitas' => 'Kartu Identitas Pembeda',
+                ];
+                break;
+            case 'S-12':
+                $cdata = [
+                    'jenis' => 'Jenis Keramaian',
+                ];
+                break;
+            case 'S-13':
+                $cdata = [
+                    'barang' => 'Nama barang yang hilang',
+                    'rincian' => 'Rincian Barang',
+                ];
+                break;
+            case 'S-14':
+                $cdata = [
+                    'usaha' => 'Nama Usaha',
+                ];
+                break;
+            case 'S-16':
+                $cdata = [
+                    'usaha' => 'Nama Usaha',
+                    'alamat' => 'Alamat Tempat Usaha',
+                ];
+                break;
+            
+            default:
+                $cdata = [];
+                break;
+        }
+        $udata = [
             'no_kk' => 'Nomor Kartu Keluarga',
-            'barang' => 'Nama Barang',
+            'jk' => 'Jenis Kelamin'
         ];
+        $data   = array_merge($cdata,$udata);
         $dlabel     = str_replace('_',' ',$label);
         $result = (isset($data[$label])) ? $data[$label] : $dlabel ;
+        return $result;
+    }
+}
+if (! function_exists('form_view')) {
+    function form_view($key)
+    {
+        $nomor      = ['no_kk','nik_ibu','nik_ayah','nik_saksi1','nik_saksi2','nik_pelapor','nik_anak'];
+        $tanggal    = ['tgl_lahir','tanggal_pindah','tanggal_lahir_ibu','tanggal_lahir_ayah','tanggal_lahir_pelapor','tanggal_lahir_saksi1','tanggal_lahir_saksi2'];
+        $angka      = ['jumlah_pengikut','kelahiran_ke','umur_ibu','umur_ayah','umur_pelapor','umur_saksi1','umur_saksi2'];
+        $pekerjaan  = ['pekerjaan','pekerjaan_ibu','pekerjaan_ayah','pekerjaan_pelapor','pekerjaan_saksi1','pekerjaan_saksi2'];
+        $waktu      = ['waktu_lahir'];
+        $jk     = ['jk','jk_pelapor'];
+        if (in_array($key,$nomor)) {
+            $result     = 'nomor';
+        }elseif (in_array($key,$tanggal)) {
+            $result     = 'tanggal';
+        }elseif (in_array($key,$angka)) {
+            $result     = 'angka';
+        }elseif (in_array($key,$pekerjaan)) {
+            $result     = 'pekerjaan';
+        }elseif (in_array($key,$waktu)) {
+            $result     = 'waktu';
+        }elseif (in_array($key,$jk)) {
+            $result     = 'jk';
+        } else {
+            switch ($key) {
+                case 'agama':
+                    $result = 'agama';
+                    break;
+                
+                default:
+                    $result     = 'string';
+                    break;
+            }
+        }
+        return $result;
+    }
+}
+if (! function_exists('surataktif')) {
+    function surataktif($kode)
+    {
+        $result = FALSE;
+        $surat  = ['S-01','S-02','S-04','S-11','S-12','S-13','S-14','S-16','S-17','S-18'];
+        if (in_array($kode,$surat)) {
+            $result = TRUE;
+        }
         return $result;
     }
 }

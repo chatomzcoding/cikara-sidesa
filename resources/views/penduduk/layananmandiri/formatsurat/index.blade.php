@@ -1,31 +1,4 @@
-{{-- form looping --}}
-@foreach (format_surat($format->kode) as $item)
-    <tr>
-        <th width="30%">
-            <div class="form-group pt-2 pb-0">
-                <label for="" class="text-capitalize">{{ nama_label($item) }} <strong class="text-danger">*</strong></label>
-            </div>
-        </th>
-        <td>
-            <div class="form-group">
-                @switch($item)
-                    @case('no_kk')
-                    <input type="text" name="{{ $item }}" pattern="[0-9]{16}" maxlength="16" class="form-control" required>
-                    @break
-                    @case('tanggal_pindah')
-                    <input type="date" name="{{ $item }}" class="form-control" required>
-                        @break
-                    @case('jumlah_pengikut')
-                    <input type="number" name="{{ $item }}" min="1" max="20" class="form-control" value="1" required>
-                        @break
-                    @default
-                        <input type="text" name="{{ $item }}" class="form-control" required>
-                        
-                @endswitch
-            </div>
-        </td>
-    </tr>
-@endforeach
+
 
 {{-- @php
     $list = format_surat($format->kode);
