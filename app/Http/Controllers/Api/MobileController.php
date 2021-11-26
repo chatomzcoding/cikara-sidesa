@@ -67,6 +67,21 @@ class MobileController extends Controller
                 }
                 
                     break;
+                case 'jk':
+                    $result = [
+                        'list' => list_jeniskelamin()
+                    ];
+                    break;
+                case 'agama':
+                    $result = [
+                        'list' => list_agama()
+                    ];
+                    break;
+                case 'pekerjaan':
+                    $result = [
+                        'list' => list_pekerjaan()
+                    ];
+                    break;
                 default:
                     $result = [];
                     break;
