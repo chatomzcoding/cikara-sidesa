@@ -78,7 +78,7 @@
                                                         <input type="number" name="{{ $item }}" min="1" class="form-control" required>
                                                         @break
                                                     @case('jk')
-                                                        <select name="jk" id="" class="form-control" required>
+                                                        <select name="{{ $item }}" id="" class="form-control" required>
                                                             @foreach (list_jeniskelamin() as $item)
                                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                                             @endforeach

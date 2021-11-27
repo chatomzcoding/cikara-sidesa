@@ -246,6 +246,139 @@ if (! function_exists('format_surat')) {
                     'masa_kontrak',
                 ];
                 break;
+            case 'S-40':
+                $list = [
+                    'jalan',
+                    'dusun',
+                    'desa',
+                    'kecamatan',
+                    'kabupaten',
+                    'nib',
+                    'status_tanah',
+                    'keperluan',
+                    'luas',
+                    'batas_utara',
+                    'batas_timur',
+                    'batas_selatan',
+                    'batas_barat',
+                    'peroleh',
+                    'tahun_peroleh',
+                    'dengan_jalan',
+                    'nama_saksi1',
+                    'umur_saksi1',
+                    'pekerjaan_saksi1',
+                    'alamat_saksi1',
+                    'nama_saksi2',
+                    'umur_saksi2',
+                    'pekerjaan_saksi2',
+                    'alamat_saksi2',
+                ];
+                break;
+                case 'S-41':
+                    $list = [
+                        'no_kk'
+                    ];
+                    break;
+                case 'S-42':
+                    $list = [
+                        'nomor_induk',
+                        'jurusan',
+                        'sekolah',
+                        'kelas',
+                        'nama_ayah',
+                        'tempat_lahir_ayah',
+                        'tanggal_lahir_ayah',
+                        'nik_ayah',
+                        'agama_ayah',
+                        'pekerjaan_ayah',
+                        'penghasilan_ayah',
+                        'nama_ibu',
+                        'tempat_lahir_ibu',
+                        'tanggal_lahir_ibu',
+                        'nik_ibu',
+                        'agama_ibu',
+                        'pekerjaan_ibu',
+                        'penghasilan_ibu',
+                    ];
+                    break;
+                case 'S-44':
+                    $list = [
+                        'nama_ayah',
+                        'nik_ayah',
+                        'tempat_lahir_ayah',
+                        'tanggal_lahir_ayah',
+                        'alamat_ayah',
+                        'agama_ayah',
+                        'pekerjaan_ayah',
+                        'warga_negara_ayah',
+                        'penghasilan_ayah',
+                        'no_kk',
+                        'kepala_kk',
+                        'sekolah',
+                        'keperluan',
+                    ];
+                    break;
+                case 'S-45':
+                    $list = [
+                        'nama_ibu',
+                        'nik_ibu',
+                        'tempat_lahir_ibu',
+                        'tanggal_lahir_ibu',
+                        'alamat_ibu',
+                        'agama_ibu',
+                        'pekerjaan_ibu',
+                        'warga_negara_ibu',
+                        'penghasilan_ibu',
+                        'no_kk',
+                        'kepala_kk',
+                        'sekolah',
+                        'keperluan',
+                    ];
+                    break;
+                case 'S-47':
+                    $list = [
+                        'nama_kuasa',
+                        'nik_kuasa',
+                        'tempat_lahir_kuasa',
+                        'tanggal_lahir_kuasa',
+                        'umur_kuasa',
+                        'jk_kuasa',
+                        'pekerjaan_kuasa',
+                        'alamat_kuasa',
+                        'keperluan',
+                    ];
+                    break;
+                case 'S-48':
+                    $list = [
+                        'merk',
+                        'tahun_pembuatan',
+                        'warna',
+                        'no_polisi',
+                        'no_mesin',
+                        'no_rangka',
+                        'no_bpkb',
+                        'bahan_bakar',
+                        'isi_silinder',
+                        'atas_nama',
+                        'keperluan',
+                    ];
+                    break;
+                case 'S-49':
+                    $list = [
+                        'jenis_tanah',
+                        'atas_nama',
+                        'bukti_kepemilikan',
+                        'nomor_kepemilikan',
+                        'luas_tanah',
+                        'batas_utara',
+                        'batas_timur',
+                        'batas_selatan',
+                        'batas_barat',
+                        'asal_tanah',
+                        'bukti_pendukung',
+                    ];
+                    break;
+                
             default:
                 # code...
                 break;
@@ -321,14 +454,14 @@ if (! function_exists('nama_label')) {
 if (! function_exists('form_view')) {
     function form_view($key)
     {
-        $nomor      = ['no_kk','nik_ibu','nik_ayah','nik_saksi1','nik_saksi2','nik_pelapor','nik_anak','nik_istri','nik'];
-        $tanggal    = ['tgl_lahir','tanggal_pindah','tanggal_lahir_ibu','tanggal_lahir_ayah','tanggal_lahir_pelapor','tanggal_lahir_saksi1','tanggal_lahir_saksi2','tanggal_mati','tgl_nikah','tanggal_lahir_istri','tanggal_lahir_pasangan','tanggal_lahir'];
-        $angka      = ['jumlah_pengikut','kelahiran_ke','umur_ibu','umur_ayah','umur_pelapor','umur_saksi1','umur_saksi2','lama_kandungan'];
-        $pekerjaan  = ['pekerjaan','pekerjaan_ibu','pekerjaan_ayah','pekerjaan_pelapor','pekerjaan_saksi1','pekerjaan_saksi2','pekerjaan_istri','pekerjaan_pasangan'];
+        $nomor      = ['no_kk','nik_ibu','nik_ayah','nik_saksi1','nik_saksi2','nik_pelapor','nik_anak','nik_istri','nik','nik_kuasa'];
+        $tanggal    = ['tgl_lahir','tanggal_pindah','tanggal_lahir_ibu','tanggal_lahir_ayah','tanggal_lahir_pelapor','tanggal_lahir_saksi1','tanggal_lahir_saksi2','tanggal_mati','tgl_nikah','tanggal_lahir_istri','tanggal_lahir_pasangan','tanggal_lahir','tanggal_lahir_kuasa'];
+        $angka      = ['jumlah_pengikut','kelahiran_ke','umur_ibu','umur_ayah','umur_pelapor','umur_saksi1','umur_saksi2','lama_kandungan','umur_kuasa'];
+        $pekerjaan  = ['pekerjaan','pekerjaan_ibu','pekerjaan_ayah','pekerjaan_pelapor','pekerjaan_saksi1','pekerjaan_saksi2','pekerjaan_istri','pekerjaan_pasangan','pekerjaan_kuasa'];
         $waktu      = ['waktu_lahir','jam'];
-        $jk     = ['jk','jk_pelapor'];
-        $agama  = ['agama','agama_istri','agama_pasangan'];
-        $warganegara  = ['warga_negara_pasangan','warga_negara'];
+        $jk         = ['jk','jk_pelapor','jk_kuasa'];
+        $agama      = ['agama','agama_istri','agama_pasangan','agama_ayah','agama_ibu'];
+        $warganegara  = ['warga_negara_pasangan','warga_negara','warga_negara_ayah','warga_negara_ibu'];
         if (in_array($key,$nomor)) {
             $result     = 'nomor';
         }elseif (in_array($key,$tanggal)) {

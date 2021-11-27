@@ -184,10 +184,7 @@
                       <select name="formatsurat_id" id="" data-width="100%" class="form-control penduduk" required>
                           <option value="">-- Pilih Surat --</option>
                           @foreach ($formatsurat as $item)
-                          {{-- versi demo --}}
-                            @if (DbCikara::countData('penduduk_surat',['formatsurat_id',$item->id]) == 0)
                             <option value="{{ $item->id }}">{{ strtoupper($item->nama_surat.' | '.$item->kode) }}</option>
-                            @endif
                           @endforeach
                       </select>
                 </div>

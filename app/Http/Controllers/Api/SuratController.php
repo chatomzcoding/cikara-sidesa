@@ -64,7 +64,8 @@ class SuratController extends Controller
                 foreach ($kode as $key) {
                     $result[] = [
                         'form' => $key,
-                        'label' => nama_label($key,$akode)
+                        'label' => nama_label($key,$akode),
+                        'type' => form_view($key)
                     ];
                 }
                 break;
