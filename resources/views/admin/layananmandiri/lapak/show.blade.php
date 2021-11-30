@@ -32,19 +32,15 @@
                         <table width="100%">
                             <tr>
                                 <th>Nama Lapak</th>
-                                <td>: Ikan Pancing</td>
+                                <td>: {{ $lapak->nama_lapak }}</td>
                             </tr>
                             <tr>
                                 <th>Tanggal Bergabung</th>
-                                <td>: 12 Juni 2020</td>
+                                <td>: {{ $lapak->created_at }}</td>
                             </tr>
                             <tr>
                                 <th>Keterangan</th>
-                                <td>: Jual Beli Alat Pancing Ikan</td>
-                            </tr>
-                            <tr>
-                                <th>Status Mitra Desa</th>
-                                <td>: <span class="badge badge-success">YA</span></td>
+                                <td>: {{ $lapak->tentang }}</td>
                             </tr>
                         </table>
                     </div>
@@ -56,7 +52,7 @@
       
                     <div class="info-box-content">
                       <span class="info-box-text">Total Produk</span>
-                      <span class="info-box-number">7</span>
+                      <span class="info-box-number">{{ count($produk) }}</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -72,8 +68,8 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Total Transaksi</span>
-                      <span class="info-box-number">40</span>
+                      <span class="info-box-text">Total Dilihat</span>
+                      <span class="info-box-number">-</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -84,9 +80,7 @@
               </div>
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk </a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('tampilan/lapak') }}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar lapak"><i class="fas fa-angle-left"></i> Kembali </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -101,25 +95,33 @@
                                 <th>Nama Produk</th>
                                 <th>Keterangan</th>
                                 <th>Harga</th>
-                                <th>Status</th>
+                                <th>Dilihat</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @foreach (data_produk() as $item)
+                            @foreach ($produk as $item)
                                 <tr>
-                                    <td class="text-center">{{ $item[0] }}</td>
+                                    <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <a href="{{ url('tampilan/showlapak') }}" class="btn btn-primary btn-sm"><i class="fas fa-external-link-square-alt"></i> </a>
-                                        {{-- <button type="button" data-toggle="modal" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button> --}}
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        <form id="data-{{ $item->id }}" action="{{url('/produk',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            </form>
+                                            <div class="btn-group">
+                                              <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                              <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                              </button>
+                                              <div class="dropdown-menu" role="menu">
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                              </div>
+                                          </div> 
                                     </td>
-                                    <td><img src="{{ asset('img/demo/'.$item[1]) }}" alt="" width="100px"></td>
-                                    <td>{{ $item[2] }}</td>
-                                    <td>{{ $item[3] }}</td>
-                                    <td>{{ rupiah($item[4]) }}</td>
-                                    <td><span class="badge badge-success w-100">{{ $item[5] }}</span></td>
+                                    <td><img src="{{ asset('img/penduduk/produk/'.$item->gambar) }}" alt="" width="100px"></td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->keterangan}}</td>
+                                    <td>{{ rupiah($item->harga) }}</td>
+                                    <td class="text-center">{{ $item->dilihat}}</td>
                                 </tr>
                             @endforeach
                     </table>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Penduduk;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lapak;
+use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class LapakController extends Controller
 {
@@ -69,9 +71,13 @@ class LapakController extends Controller
      * @param  \App\Models\Lapak  $lapak
      * @return \Illuminate\Http\Response
      */
-    public function show(Lapak $lapak)
+    public function show($lapak)
     {
-        //
+        $lapak  = Lapak::find(Crypt::decryptString($lapak));
+        $produk = Produk::where('lapak_id',$lapak->id)->get();
+        $judul  = 'Detail Lapak';
+        $menu   = 'lapakdesa';
+        return view('admin.layananmandiri.lapak.show', compact('lapak','judul','produk','menu'));
     }
 
     /**

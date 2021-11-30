@@ -67,8 +67,10 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                @if ($lapak)
+                @if ($statuslapak)
                     <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk </a>
+                @else
+                <span class="font-italic">Menunggu Konfirmasi Admin</span>
                 @endif
                 {{-- <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a> --}}
               </div>
@@ -97,10 +99,19 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                            <button type="button" data-toggle="modal"  data-nama="{{ $item->nama }}" data-keterangan="{{ $item->keterangan }}" data-harga="{{ $item->harga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                  <button type="button" data-toggle="modal" data-nama="{{ $item->nama }}" data-keterangan="{{ $item->keterangan }}" data-harga="{{ $item->harga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit"></i> Edit Produk
+                                                  </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </div>
+                                            </div>  
                                         </td>
                                         <td><img src="{{ asset('img/penduduk/produk/'.$item->gambar) }}" alt="" width="100px"></td>
                                         <td>{{ $item->nama }}</td>

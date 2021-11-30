@@ -138,7 +138,7 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                           </button>
                                           <div class="dropdown-menu" role="menu">
-                                            @if ($item->status_lapak == 'konfirmasi')
+                                            @if ($item->status_lapak == 'menunggu')
                                             <button type="button" data-toggle="modal" data-nama="{{ $item->nama_lapak }}" data-alamat="{{ $item->alamat }}" data-pemilik="{{ $nama }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                               <i class="fa fa-edit"></i> Edit Lapak
                                             </button>
