@@ -82,9 +82,9 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 @if (count($user) <> count($penduduk))
-                    <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah User</a>
+                    <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah User Baru"><i class="fas fa-plus"></i> Tambah</a>
                 @endif
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('cetakdata?s=user') }}" class="btn btn-outline-info btn-sm float-right pop-info" target="_blank" title="Cetak daftar User"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

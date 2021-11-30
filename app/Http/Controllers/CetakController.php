@@ -29,6 +29,16 @@ class CetakController extends Controller
             $sesi   = $_GET['s'];
             $id     = (isset($_GET['id'])) ? $_GET['id'] : NULL ;
             switch ($sesi) {
+                case 'user':
+                    $data   = DB::table('users')
+                    ->join('user_akses','users.id','=','user_akses.user_id')
+                    ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
+                    ->select('users.*','penduduk.nama_penduduk')
+                    ->where('users.level','penduduk')
+                    ->get();
+                    $namafile   = 'Laporan Data Dusun';
+                    $pdf        = PDF::loadview('sistem.cetak.list.user', compact('data'));
+                    break;
                 case 'dusun':
                     $dusun      = Dusun::all();
                     $namafile   = 'Laporan Data Dusun';
