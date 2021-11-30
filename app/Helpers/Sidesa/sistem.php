@@ -597,10 +597,18 @@ if (! function_exists('filter_data_get')) {
             $look       = 0; // tanda kebenaran
             foreach ($get as $index => $value) {
                 // cek jika field tidak ada
-                if (isset($_GET[$index])) {
-                    if ($_GET[$index] == $data[$index_a] || $_GET[$index] == 'semua') {
-                        $look++;
+                if (isset($_GET[$index]) AND isset($data[$index_a])) {
+                    if ($index == 'tanggal') {
+                        $d_tanggal = explode(' ',$data[$index_a]);
+                        if ($_GET[$index] == $d_tanggal[0] || (empty($_GET[$index]) || $_GET[$index] == 'semua')) {
+                            $look++;
+                        }
+                    } else {
+                        if ($_GET[$index] == $data[$index_a] || $_GET[$index] == 'semua') {
+                            $look++;
+                        }
                     }
+                    
                 } else {
                     $look++;
                 }
@@ -681,5 +689,16 @@ if (! function_exists('nilai_kelengkapan')) {
 
         $persen     = $nilai/$jumlah * 100;
         return round($persen);
+    }
+}
+if (! function_exists('get_filter')) {
+    function get_filter($data)
+    {
+        $result = [];
+        for ($i=0; $i < count($data); $i++) { 
+            $filter = (isset($_GET[$data[$i]])) ? $_GET[$data[$i]] : 'semua' ;
+            $result[$data[$i]] = $filter;
+        }
+        return $result;
     }
 }
