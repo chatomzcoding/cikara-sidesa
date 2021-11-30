@@ -758,3 +758,14 @@ if (! function_exists('list_statuspegawai')) {
         return $list;
     }
 }
+if (! function_exists('list_statuslaporan')) {
+    function list_statuslaporan()
+    {
+        $list = [
+            'menunggu',
+            'proses',
+            'selesai',
+        ];
+        return $list;
+    }
+}
