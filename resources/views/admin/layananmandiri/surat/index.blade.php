@@ -100,11 +100,48 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
-                <a href="#" class="btn btn-outline-info btn-sm float-right"><i class="fas fa-print"></i> Cetak</a>
+                <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
+                <a href="{{ url('cetakdata?s=suratpenduduk&status='.$filter['status'].'&penduduk='.$filter['penduduk'].'&tanggal='.$filter['tanggal']) }}" target="_blank" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                 
+                  <section class="mb-3">
+                    <form action="{{ url('suratpenduduk') }}" method="get">
+                      @csrf
+                      <div class="row">
+                          <div class="form-group col-md-3">
+                            <label for="">status surat</label>
+                              <select name="status" id="" class="form-control" onchange="this.form.submit();">
+                                  <option value="semua">-- Semua Status --</option>
+                                      <option value="proses" @if ($filter['status'] == 'proses')
+                                          selected
+                                      @endif>PROSES</option>
+                                      <option value="menunggu" @if ($filter['status'] == 'menunggu')
+                                          selected
+                                      @endif>MENUNGGU</option>
+                                      <option value="selesai" @if ($filter['status'] == 'selesai')
+                                          selected
+                                      @endif>SELESAI</option>
+                              </select>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="">penduduk</label>
+                              <select name="penduduk" id="" class="form-control penduduk" onchange="this.form.submit();">
+                                  <option value="semua">-- Semua Penduduk --</option>
+                                  @foreach (DbCikara::showtable('user_akses') as $item)
+                                    <option value="{{ $item->user_id }}" @if ($filter['penduduk'] ==  $item->user_id)
+                                    selected
+                                    @endif>{{ strtoupper(DbCikara::namapenduduk($item->user_id)) }}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="">tanggal surat</label>
+                            <input type="date" name="tanggal" value="{{ $filter['tanggal'] }}" class="form-control" onchange="this.form.submit();">
+                          </div>
+                      </div>
+                  </form>
+                </section>
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -118,50 +155,58 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
+                            @php
+                                $no = 1;
+                            @endphp
                             @foreach ($surat as $item)
-                                <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        </form>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                        <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu" role="menu">
-                                        @if ($item->status == 'selesai')
-                                          <a class="dropdown-item text-primary" href="{{ url('cetaksurat/'.$item->id) }}"><i class="fas fa-print"></i> Cetak Surat</a>
-                                        @endif
-                                        @if ($item->status == 'menunggu')
-                                          <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                              <i class="fa fa-edit"> Tanggapi Surat</i>
+                                @if (filter_data_get($filter,[$item->status,$item->user_id,$item->created_at]))
+                                  <tr>
+                                      <td class="text-center">{{ $no }}</td>
+                                      <td class="text-center">
+                                        <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                          @csrf
+                                          @method('delete')
+                                          </form>
+                                      <div class="btn-group">
+                                          <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                          <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                          <span class="sr-only">Toggle Dropdown</span>
                                           </button>
-                                        @endif
-                                        <div class="dropdown-divider"></div>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                    <td>{{ $item->nama_surat }}</td>
-                                    <td>
-                                        @switch($item->status)
-                                            @case('selesai')
-                                                <span class="badge badge-success w-100">{{ $item->status }}</span></td>
-                                                @break
-                                            @case('proses')
-                                                <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
-                                                @break
-                                            @case('menunggu')
-                                                <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
-                                                @break
-                                            @default
-                                        @endswitch
-                                </tr>
+                                          <div class="dropdown-menu" role="menu">
+                                          @if ($item->status == 'selesai')
+                                            <a class="dropdown-item text-primary" href="{{ url('cetaksurat/'.$item->id) }}"><i class="fas fa-print"></i> Cetak Surat</a>
+                                          @endif
+                                          @if ($item->status == 'menunggu')
+                                            <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                <i class="fa fa-edit"> Tanggapi Surat</i>
+                                            </button>
+                                          @endif
+                                          <div class="dropdown-divider"></div>
+                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                          </div>
+                                      </div>
+                                      </td>
+                                      <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
+                                      <td>{{ $item->created_at }}</td>
+                                      <td>{{ $item->nama_surat }}</td>
+                                      <td>
+                                          @switch($item->status)
+                                              @case('selesai')
+                                                  <span class="badge badge-success w-100">{{ $item->status }}</span></td>
+                                                  @break
+                                              @case('proses')
+                                                  <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
+                                                  @break
+                                              @case('menunggu')
+                                                  <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
+                                                  @break
+                                              @default
+                                          @endswitch
+                                  </tr>
+                                  @php
+                                      $no++
+                                  @endphp
+                                @endif
                             @endforeach
                     </table>
                 </div>

@@ -31,7 +31,16 @@ class SuratController extends Controller
         ];
         $menu   = 'suratpenduduk';
         $staf   = Staf::where('status_pegawai','aktif')->orderby('nama_pegawai','ASC')->get();
-        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf'));
+        $f_status = (isset($_GET['status'])) ? $_GET['status'] : 'semua' ;
+        $f_penduduk = (isset($_GET['penduduk'])) ? $_GET['penduduk'] : 'semua' ;
+        $f_tanggal = (isset($_GET['tanggal'])) ? $_GET['tanggal'] : 'semua' ;
+        $filter = [
+            'status' => $f_status,
+            'penduduk' => $f_penduduk,
+            'tanggal' => $f_tanggal,
+        ];
+
+        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf','filter'));
     }
 
     /**

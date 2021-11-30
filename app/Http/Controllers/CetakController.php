@@ -176,6 +176,20 @@ class CetakController extends Controller
                     $namafile   = 'Laporan Data Statistik '.$data['header'];
                     $pdf        = PDF::loadview('sistem.cetak.list.statistik', compact('data'));
                     break;
+                case 'suratpenduduk':
+                    $data  = DB::table('penduduk_surat')
+                    ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+                    ->select('penduduk_surat.*','format_surat.nama_surat')
+                    ->orderBy('penduduk_surat.id','DESC')
+                    ->get();
+                    $filter = [
+                        'status' => $_GET['status'],
+                        'penduduk' => $_GET['penduduk'],
+                        'tanggal' => $_GET['tanggal'],
+                    ];
+                    $namafile   = 'Laporan Data Surat Penduduk';
+                    $pdf        = PDF::loadview('sistem.cetak.list.suratpenduduk', compact('data','filter'));
+                    break;
                 default:
                     return 'sesi tidak ada';
                     break;
