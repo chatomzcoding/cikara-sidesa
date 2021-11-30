@@ -101,7 +101,23 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                 
+                  <section class="mb-3">
+                    <form action="{{ url('lapor') }}" method="get">
+                      @csrf
+                      <div class="row">
+                          <div class="form-group col-md-3">
+                              <select name="status" id="" class="form-control form-control-sm" onchange="this.form.submit();">
+                                  <option value="semua">-- Semua Status --</option>
+                                  @foreach (list_statuslaporan() as $item)
+                                    <option value="{{ $item}}" @if ($filter['status'] == $item)
+                                        selected
+                                    @endif>{{ strtoupper($item) }}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                      </div>
+                  </form>
+                </section>
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -231,9 +247,9 @@
                   <div class="form-group row">
                     <label for="" class="col-md-4">Beri Status Laporan</label>
                     <select name="status" id="status" class="col-md-8 form-control">
-                      <option value="menunggu">Menunggu</option>
-                      <option value="proses">Diproses</option>
-                      <option value="selesai">Selesai</option>
+                      @foreach (list_statuslaporan() as $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                      @endforeach
                     </select>
               </div>
               </section>

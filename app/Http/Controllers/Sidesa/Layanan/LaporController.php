@@ -15,10 +15,15 @@ class LaporController extends Controller
      */
     public function index()
     {
-        $lapor  = Lapor::all();
         $judul  = 'Laporan Penduduk';
         $menu   = 'laporpenduduk';
-        return view('admin.layananmandiri.lapor.index', compact('lapor','judul','menu'));
+        $filter = get_filter(['status']);
+        if ($filter['status'] == 'semua') {
+            $lapor  = Lapor::all();
+        } else {
+            $lapor  = Lapor::where('status',$filter['status'])->orderBy('id','DESC')->get();
+        }
+        return view('admin.layananmandiri.lapor.index', compact('lapor','judul','menu','filter'));
     }
 
     /**
