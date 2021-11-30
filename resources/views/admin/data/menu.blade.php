@@ -312,25 +312,25 @@ menu-is-opening menu-open
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ url('/lapor')}}" class="nav-link small {{ menuaktif($menu,'laporpenduduk') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-file-signature nav-icon"></i>
         <p>Laporan Penduduk</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{ url('/tampilan/lapak')}}" class="nav-link small {{ menuaktif($menu,'lapakdesa') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-store nav-icon"></i>
         <p>Lapak Desa</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{ url('/forum')}}" class="nav-link small {{ menuaktif($menu,'forumpenduduk') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-comment-dots nav-icon"></i>
         <p>Forum</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratpenduduk') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-envelope-open-text nav-icon"></i>
         <p>Surat</p>
       </a>
     </li>
@@ -458,55 +458,31 @@ menu-is-opening menu-open
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ url('/datapokok')}}" class="nav-link small {{  menuaktif($menu,'datapokok') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-folder nav-icon"></i>
         <p>Data Pokok</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{ url('/user')}}" class="nav-link small {{  menuaktif($menu,'datauser') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
         <p>Data User</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{ url('/artikel')}}" class="nav-link small {{  menuaktif($menu,'artikel') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-file-alt nav-icon"></i>
         <p>Artikel</p>
       </a>
     </li>
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small {{  menuaktif($menu,'') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Widget</p>
-      </a>
-    </li> --}}
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small {{  menuaktif($menu,'') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Menu</p>
-      </a>
-    </li> --}}
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small {{  menuaktif($menu,'') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Komentar</p>
-      </a>
-    </li> --}}
     <li class="nav-item">
       <a href="{{ url('/galeri')}}" class="nav-link small {{  menuaktif($menu,'galeri') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-images nav-icon"></i>
         <p>Galeri</p>
       </a>
     </li>
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Media Social</p>
-      </a>
-    </li> --}}
     <li class="nav-item">
       <a href="{{ url('/slider')}}" class="nav-link small {{ menuaktif($menu,'slider') }}">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-image nav-icon"></i>
         <p>Slider</p>
       </a>
     </li>
