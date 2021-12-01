@@ -159,9 +159,9 @@ class LaporController extends Controller
      * @param  \App\Models\Lapor  $lapor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($lapor, Request $request)
+    public function destroy($lapor)
     {
-        $token = $request->token;
+        $token = $_GET['token'];
         if (cektoken($token)) {
             $lapor = Lapor::find($lapor);
             if ($lapor) {
@@ -171,7 +171,7 @@ class LaporController extends Controller
                 return $result;
             } else {
                 $result["success"] = "0";
-                $result["message"] = "error";
+                $result["message"] = "data tidak ada";
                 return $result;
             }
         } else {
