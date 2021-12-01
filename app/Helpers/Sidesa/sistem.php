@@ -425,6 +425,11 @@ if (! function_exists('nama_label')) {
                     'alamat' => 'Alamat Tempat Usaha',
                 ];
                 break;
+            case 'S-17':
+                $cdata = [
+                    'tgl_lahir' => 'Tanggal Lahir',
+                ];
+                break;
             case 'S-22':
                 $cdata = [
                     'lama_kandungan' => 'Lama Kandungan (bulan)',
