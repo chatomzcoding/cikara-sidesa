@@ -29,7 +29,7 @@
               <div class="card-header">
                 <a href="{{ url('/dusun/'.Crypt::encryptString($rw->dusun_id))}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar RW"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Rukun Tetangga (RT)" data-toggle="modal" data-target="#tambah" title="Tambah Data RT Baru"><i class="fas fa-plus"></i> Tambah</a>
-                <a href="{{ url('cetakdata?s=listrt&id='.$rw->dusun_id) }}" target="_blank" class="btn btn-outline-info btn-sm btn-flat float-right pop-info" title="Cetak Daftar Rukun Tetangga (RT)"><i class="fas fa-print"></i> CETAK</a>
+                <a href="{{ url('cetakdata?s=listrt&id='.$rw->id) }}" target="_blank" class="btn btn-outline-info btn-sm btn-flat float-right pop-info" title="Cetak Daftar Rukun Tetangga (RT)"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -79,8 +79,11 @@
                                         </div>
                                     </td>
                                     <td>{{ $item->nama_rt}}</td>
-                                    <td>{{ DbCikara::namapenduduk($item->nik)}}</td>
-                                    <td>{{ $item->nik}}</td>
+                                    @php
+                                    $center = ($item->nik == '-') ? 'text-center' : NULL; 
+                                @endphp
+                                <td class="{{ $center }}">{{ DbCikara::namapenduduk($item->nik)}}</td>
+                                <td class="{{ $center }}">{{ $item->nik}}</td>
                                     <td class="text-center">{{ DbCikara::jumlahKK('rt',$item->id) }}</td>
                                     <td class="text-center">{{ $jumlahlakilaki }}</td>
                                     <td class="text-center">{{ $jumlahperempuan }}</td>

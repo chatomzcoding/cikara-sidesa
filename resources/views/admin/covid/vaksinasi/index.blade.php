@@ -172,7 +172,7 @@
             <form action="{{ url('/vaksinasi')}}" method="post">
                 @csrf
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Kelompok</h4>
+            <h4 class="modal-title">Tambah Data Vaksinasi</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

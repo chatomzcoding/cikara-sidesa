@@ -28,9 +28,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar rumah tangga</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota </a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a> --}}
+                <a href="{{ url('/rumahtangga')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar rumah tangga"><i class="fas fa-angle-left"></i> kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Anggota Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
+                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Detail Rumah Tanggal"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                 @include('sistem.notifikasi')

@@ -28,8 +28,8 @@
             <div class="card">
               <div class="card-header">
                   {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                  <a href="{{ url('/kelompok')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar kelompok</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Kelompok Baru </a>
+                  <a href="{{ url('/kelompok')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar kelompok"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Kategori Kelompok Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a> --}}
               </div>
               <div class="card-body">
@@ -97,13 +97,13 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Klasifikasi/Kategori Kelompok</label>
-                        <input type="text" name="nama_kategori" class="form-control" placeholder="Kategori Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Klasifikasi/Kategori Kelompok <strong class="text-danger">*</strong> </label>
+                        <input type="text" name="nama_kategori" class="form-control col-md-8" placeholder="Kategori Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Deskripsi Kelompok</label>
-                        <input type="text" name="deskripsi_kategori" class="form-control" placeholder="Deskripsi Kategori Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Deskripsi Kelompok <strong class="text-danger">*</strong> </label>
+                        <input type="text" name="deskripsi_kategori" class="form-control col-md-8" placeholder="Deskripsi Kategori Kelompok" required>
                     </div>
                 </section>
             </div>
@@ -133,13 +133,13 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Klasifikasi/Kategori Kelompok</label>
-                        <input type="text" id="nama_kategori" name="nama_kategori" class="form-control" placeholder="Kategori Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Klasifikasi/Kategori Kelompok <strong class="text-danger">*</strong> </label>
+                        <input type="text" id="nama_kategori" name="nama_kategori" class="form-control col-md-8" placeholder="Kategori Kelompok" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Deskripsi Kelompok</label>
-                        <input type="text" id="deskripsi_kategori" name="deskripsi_kategori" class="form-control" placeholder="Deskripsi Kategori Kelompok" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Deskripsi Kelompok <strong class="text-danger">*</strong> </label>
+                        <input type="text" id="deskripsi_kategori" name="deskripsi_kategori" class="form-control col-md-8" placeholder="Deskripsi Kategori Kelompok" required>
                     </div>
                 </section>
             </div>

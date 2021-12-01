@@ -38,8 +38,8 @@
             <div class="card">
               <div class="card-header">
                   {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                  <a href="{{ url('/kelompok')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar kelompok</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Kelompok </a>
+                  <a href="{{ url('/kelompok')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar kelompok"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Anggota Kelompok" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kartu Keluarga</a> --}}
               </div>
               <div class="card-body">
@@ -140,10 +140,10 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">Nama Anggota</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" class="form-control penduduk" data-width="100%" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nik.' | '.$item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -181,10 +181,10 @@
                 <section class="p-3">
                     <div class="form-group">
                         <label for="">Nama Anggota</label>
-                        <select name="penduduk_id" id="penduduk_id" class="form-control" required>
+                        <select name="penduduk_id" id="penduduk_id" class="form-control penduduk" data-width="100%" required>
                             <option value="">-- Silahkan Cari NIK / Nama Penduduk --</option>
                             @foreach ($penduduk as $item)
-                                <option value="{{ $item->id}}">{{ ucwords($item->nama_penduduk)}}</option>
+                                <option value="{{ $item->id}}">{{ ucwords($item->nik.' | '.$item->nama_penduduk)}}</option>
                             @endforeach
                         </select>
                     </div>

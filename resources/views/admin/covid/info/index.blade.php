@@ -153,10 +153,10 @@
                                       @endswitch
                                     </td>
                                     <td>
-                                      <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                      <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseExample{{ $item->id }}" aria-expanded="false" aria-controls="collapseExample">
                                         selengkapnya <i class="fas fa-angle-bottom"></i>
                                       </button>
-                                      <div class="collapse" id="collapseExample">
+                                      <div class="collapse" id="collapseExample{{ $item->id }}">
                                         <div class="card card-body">
                                           {!! historicovid($item->keterangan) !!}
                                         </div>

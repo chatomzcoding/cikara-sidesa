@@ -348,8 +348,14 @@ class InventarisController extends Controller
      * @param  \App\Models\Inventaris  $inventaris
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inventaris $inventaris)
+    public function destroy($inventaris)
     {
-        //
+        $inventaris = Inventaris::find($inventaris);
+        
+        $kode       = $inventaris->kode;
+
+        $inventaris->delete();
+
+        return redirect('/inventaris/list/'.$kode)->with('dd','Inventaris');
     }
 }

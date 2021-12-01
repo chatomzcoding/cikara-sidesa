@@ -29,9 +29,9 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/galeri')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar galeri</a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Photo Baru </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK </a>
+                <a href="{{ url('/galeri')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar galeri"><i class="fas fa-angle-left"></i> Kembali</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Photo Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK </a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')

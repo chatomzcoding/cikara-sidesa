@@ -29,8 +29,8 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Persyaratan </a>
-                <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Persyaratan Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
+                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -95,9 +95,9 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Persyartaan</label>
-                        <input type="text" name="nama_syarat" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Persyartaan</label>
+                        <input type="text" name="nama_syarat" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>
@@ -127,9 +127,9 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Persyartaan</label>
-                        <input type="text" name="nama_syarat" id="nama_syarat" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Persyartaan</label>
+                        <input type="text" name="nama_syarat" id="nama_syarat" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>

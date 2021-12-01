@@ -100,6 +100,7 @@ class KeluargaController extends Controller
         $anggotakeluarga = DB::table('anggota_keluarga')
                             ->join('penduduk','anggota_keluarga.penduduk_id','=','penduduk.id')
                             ->select('anggota_keluarga.*','penduduk.nik','penduduk.nama_penduduk','penduduk.tgl_lahir','penduduk.jk')
+                            ->where('anggota_keluarga.keluarga_id',$keluarga->id)
                             ->get();
         $menu       = 'keluarga';
         return view('admin.kependudukan.keluarga.show', compact('keluarga','penduduk','anggotakeluarga','listpenduduk','menu'));

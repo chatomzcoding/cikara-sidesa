@@ -150,7 +150,6 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                           </button>
                                           <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item text-primary" href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Format Surat</a>
                                               <button type="button" data-toggle="modal" data-nama_surat="{{ $item->nama_surat }}" data-kode="{{ $item->kode }}" data-kategori="{{ $item->kategori }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                               <i class="fa fa-edit"></i> Edit Format Surat
                                               </button>

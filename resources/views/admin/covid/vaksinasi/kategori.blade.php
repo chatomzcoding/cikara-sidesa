@@ -96,13 +96,13 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Jenis Vaksin <strong class="text-danger">*</strong></label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" placeholder="masukkan nama jenis vaksin" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Jenis Vaksin <strong class="text-danger">*</strong></label>
+                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" placeholder="masukkan nama jenis vaksin" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan <strong class="text-danger">*</strong></label>
-                        <input type="text" name="keterangan_kategori" id="keterangan_kategori" class="form-control" maxlength="255" placeholder="tambahkan keterangan" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan <strong class="text-danger">*</strong></label>
+                        <input type="text" name="keterangan_kategori" id="keterangan_kategori" class="form-control col-md-8" maxlength="255" placeholder="tambahkan keterangan" required>
                     </div>
                 </section>
             </div>
@@ -132,13 +132,13 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Jenis Vaksin <strong class="text-danger">*</strong></label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" placeholder="masukkan nama jenis vaksin" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Jenis Vaksin <strong class="text-danger">*</strong></label>
+                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" placeholder="masukkan nama jenis vaksin" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan <strong class="text-danger">*</strong></label>
-                        <input type="text" name="keterangan_kategori" id="keterangan_kategori" class="form-control" maxlength="255" placeholder="tambahkan keterangan" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan <strong class="text-danger">*</strong></label>
+                        <input type="text" name="keterangan_kategori" id="keterangan_kategori" class="form-control col-md-8" maxlength="255" placeholder="tambahkan keterangan" required>
                     </div>
                 </section>
             </div>
