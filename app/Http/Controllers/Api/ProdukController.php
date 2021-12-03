@@ -19,7 +19,7 @@ class ProdukController extends Controller
 
     public function index()
     {
-        return Produk::all();
+        return Produk::orderBy('id','DESC')->get();
     }
 
     /**

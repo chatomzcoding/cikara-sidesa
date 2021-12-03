@@ -389,6 +389,23 @@ if (! function_exists('format_surat')) {
 if (! function_exists('nama_label')) {
     function nama_label($label,$kode)
     {
+        // cek karakter
+        if(preg_match("/kec_/i", $label)) {
+            $alabel = explode('_',$label);
+            $result = 'Kecamatan '.$alabel[1];
+            return $result;
+        }
+        if(preg_match("/kab_/i", $label)) {
+            $alabel = explode('_',$label);
+            $result = 'Kabupaten '.$alabel[1];
+            return $result;
+        }
+        if(preg_match("/prov_/i", $label)) {
+            $alabel = explode('_',$label);
+            $result = 'Provinsi '.$alabel[1];
+            return $result;
+        }
+
         switch ($kode) {
             case 'S-05':
                 $cdata = [
@@ -430,6 +447,11 @@ if (! function_exists('nama_label')) {
                     'tgl_lahir' => 'Tanggal Lahir',
                 ];
                 break;
+            case 'S-18':
+                $cdata = [
+                    'tgl_lahir' => 'Tanggal Lahir',
+                ];
+                break;
             case 'S-22':
                 $cdata = [
                     'lama_kandungan' => 'Lama Kandungan (bulan)',
@@ -448,7 +470,11 @@ if (! function_exists('nama_label')) {
         }
         $udata = [
             'no_kk' => 'Nomor Kartu Keluarga',
-            'jk' => 'Jenis Kelamin'
+            'kepala_kk' => 'Nama Kepala Keluarga',
+            'jk' => 'Jenis Kelamin',
+            'hub_pelapor' => 'Hubungan Pelapor',
+            'kec_ibu' => 'Kecamatan Ibu',
+            'kec_ibu' => 'Kecamatan Ibu',
         ];
         $data   = array_merge($cdata,$udata);
         $dlabel     = str_replace('_',' ',$label);
