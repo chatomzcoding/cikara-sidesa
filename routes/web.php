@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
 
     Route::middleware('admin')->group(function () {
+        Route::resource('info', 'App\Http\Controllers\Admin\InfoController');
         // COVID 19
         Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
         Route::resource('vaksinasi', 'App\Http\Controllers\Sidesa\Covid\VaksinasiController');

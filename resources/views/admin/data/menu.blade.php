@@ -66,6 +66,12 @@ menu-is-opening menu-open
           <p>Potensi Desa</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/info?page=tentang')}}" class="nav-link small {{ menuaktif($menu,'tentang') }}">
+          &nbsp;&nbsp;<i class="fas fa-book-reader nav-icon"></i>
+          <p>Tentang Desa</p>
+        </a>
+      </li>
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok')

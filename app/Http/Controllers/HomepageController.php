@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artikel;
 use App\Models\Galeri;
+use App\Models\Info;
 use App\Models\Infowebsite;
 use App\Models\Kategori;
 use App\Models\Kategoriartikel;
@@ -71,7 +72,8 @@ class HomepageController extends Controller
                 $info   = Infowebsite::first();
                 $potensi    = Potensi::all();
                 $staf   = Staf::limit(4)->get();
-                return view('homepage.profil', compact('menu','desa','info','potensi','staf'));
+                $tentang = Info::where('label','tentang')->get();
+                return view('homepage.profil', compact('menu','desa','info','potensi','staf','tentang'));
                 break;
             case 'pasardesa':
                 $menu   = 'produk';

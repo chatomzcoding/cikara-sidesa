@@ -40,39 +40,18 @@
             </div>
         </div>
         <div class="row about_row">
-            
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_left">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/sejarah.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Sejarah</a></div>
-                    <div class="about_item_text">
-                        <p>awal berdirinya sebuah desa dan sejarah berdirinya desa.</p>
+            @foreach ($tentang as $item)
+                <!-- About Item -->
+                <div class="col-lg-4 about_col about_col_left">
+                    <div class="about_item">
+                        <div class="about_item_image"><img src="{{ asset('img/pengaturan/'.$item->gambar)}}" alt=""></div>
+                        <div class="about_item_title text-center"><strong class="text-uppercase">{{ $item->nama }}</strong></div>
+                        <div class="about_item_text">
+                            {!! $item->detail !!}
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_middle">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/visi.jpeg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Visi Misi</a></div>
-                    <div class="about_item_text">
-                        <p>Visi Misi desa dimulai dari tujuan adanya pemerintah desa bagi masyarakat.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- About Item -->
-            <div class="col-lg-4 about_col about_col_right">
-                <div class="about_item">
-                    <div class="about_item_image"><img src="{{ asset('img/kantordesa.jpg')}}" alt=""></div>
-                    <div class="about_item_title"><a href="#">Kantor Desa</a></div>
-                    <div class="about_item_text">
-                        <p>Kantor desa terletak di sebelah barat kabupaten tasikmalaya.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>
