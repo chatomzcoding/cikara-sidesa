@@ -1,6 +1,7 @@
 @php
 	$info = App\Models\Infowebsite::first(); 
 	$desa = App\Models\Profil::first();
+	$teksberjalan = App\Models\Info::where('label','teksberjalan')->get();
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -124,7 +125,15 @@
 								</div>
 							</nav>
 						</div>
-						<marquee direction="left">Telah ditemukan beberapa varian baru covid 19 di desa gunung tanjung kecamatan selaawi kabupaten garut</marquee> 
+						@if (count($teksberjalan) > 0)
+						<marquee direction="left">
+							@foreach ($teksberjalan as $item)
+							INFO DESA : {{ ucfirst($item->detail) }} ||
+							@endforeach
+						</marquee> 
+						@else
+						<marquee direction="left">INFO DESA {{ $desa->nama_desa }}</marquee> 
+						@endif
 					</div>
 				</div>
 			</div>

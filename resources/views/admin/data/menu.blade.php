@@ -29,7 +29,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'profil' || $menu == 'wilayah' || $menu == 'pemerintahdesa' || $menu == 'potensi')
+<li class="nav-item @if ($menu == 'profil' || $menu == 'wilayah' || $menu == 'pemerintahdesa' || $menu == 'potensi' || $menu == 'tentang')
       menu-is-opening menu-open
 @endif">
   
@@ -110,18 +110,6 @@ menu-is-opening menu-open
           <p>Kelompok</p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="{{ url('/suplemen')}}" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Data Suplemen</p>
-        </a>
-      </li> --}}
-      {{-- <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Calon Pemilih</p>
-        </a>
-      </li> --}}
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'statistikpenduduk' || $menu == 'laporanbulanan' || $menu == 'laporankelompok')
@@ -142,18 +130,6 @@ menu-is-opening menu-open
           <p>Statistik Kependudukan</p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="{{ url('statistik/laporanbulanan')}}" class="nav-link small {{ menuaktif($menu,'laporanbulanan') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Laporan Bulanan</p>
-        </a>
-      </li> --}}
-      {{-- <li class="nav-item">
-        <a href="{{ url('statistik/laporankelompokrentan')}}" class="nav-link small {{ menuaktif($menu, 'laporankelompok') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Laporan Kelompok Rentan</p>
-        </a>
-      </li> --}}
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat')
@@ -168,24 +144,6 @@ menu-is-opening menu-open
       </p>
     </a>
     <ul class="nav nav-treeview">
-      {{-- <li class="nav-item">
-        <a href="{{ url('/')}}" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Surat Masuk</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Surat Keluar</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Produk Hukum</p>
-        </a>
-      </li> --}}
       <li class="nav-item">
         <a href="{{ url('/informasipublik')}}" class="nav-link small {{ menuaktif($menu,'informasipublik') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
@@ -224,24 +182,7 @@ menu-is-opening menu-open
           <p>Pengaturan Surat</p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Cetak Surat</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Arsip Layanan</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Panduan</p>
-        </a>
-      </li> --}}
+     
       <li class="nav-item">
         <a href="{{ url('datasyaratsurat') }}" class="nav-link small {{ menuaktif($menu,'syaratsurat') }}">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
@@ -250,54 +191,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-chart-bar"></i>
-    <p class="text text-danger">Analisis</p>
-  </a>
-</li> --}}
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-wallet"></i>
-    <p class=" text-danger">
-      Keuangan
-      <i class="fas fa-angle-left right"></i>
-      <span class="badge badge-info right">6</span>
-    </p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Import Data</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Laporan</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Input Data</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Laporan Manual</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Keuangan Harian</p>
-      </a>
-    </li>
-  </ul>
-</li> --}}
+
 <li class="nav-item">
   <a href="{{ url('/bantuan')}}" class="nav-link small {{ menuaktif($menu,'bantuan') }}">
     <i class="nav-icon fas fa-people-carry"></i>
@@ -342,115 +236,8 @@ menu-is-opening menu-open
     </li>
   </ul>
 </li>
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-map-signs"></i>
-    <p class="text text-danger">Pertanahan</p>
-  </a>
-</li> --}}
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-map-marked-alt"></i>
-    <p class=" text-danger">
-      Pemetaan
-      <i class="fas fa-angle-left right"></i>
-      <span class="badge badge-info right">6</span>
-    </p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Peta</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pengaturan Peta</p>
-      </a>
-    </li>
-  </ul>
-</li> --}}
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-envelope"></i>
-    <p class=" text-danger">
-      SMS
-      <i class="fas fa-angle-left right"></i>
-      <span class="badge badge-info right">6</span>
-    </p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>SMS</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Daftar Kontak</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pengaturan SMS</p>
-      </a>
-    </li>
-  </ul>
-</li> --}}
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-cog"></i>
-    <p class=" text-danger">
-      Pengaturan
-      <i class="fas fa-angle-left right"></i>
-      <span class="badge badge-info right">6</span>
-    </p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Modul</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Aplikasi</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pengguna</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Database</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Info Sistem</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>QR Code</p>
-      </a>
-    </li>
-  </ul>
-</li> --}}
-<li class="nav-item @if ($menu == 'datapokok' || $menu == 'datauser' || $menu == 'artikel' || $menu == 'galeri' || $menu == 'slider')
+
+<li class="nav-item @if ($menu == 'datapokok' || $menu == 'datauser' || $menu == 'artikel' || $menu == 'galeri' || $menu == 'slider' || $menu == 'berjalan')
 menu-is-opening menu-open
 @endif">
   <a href="#" class="nav-link small">
@@ -492,53 +279,11 @@ menu-is-opening menu-open
         <p>Slider</p>
       </a>
     </li>
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+    <li class="nav-item">
+      <a href="{{ url('info?page=teksberjalan') }}" class="nav-link small {{ menuaktif($menu,'berjalan') }}">
+        &nbsp;&nbsp;<i class="fas fa-list-alt nav-icon"></i>
         <p>Teks Berjalan</p>
       </a>
-    </li> --}}
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pengunjung</p>
-      </a>
-    </li> --}}
-    {{-- <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pengaturan</p>
-      </a>
-    </li> --}}
+    </li>
   </ul>
 </li>
-{{-- <li class="nav-item">
-  <a href="#" class="nav-link small">
-    <i class="nav-icon fas fa-house-user"></i>
-    <p class=" text-danger">
-      Layanan Mandiri
-      <i class="fas fa-angle-left right"></i>
-      <span class="badge badge-info right">6</span>
-    </p>
-  </a>
-  <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/')}}" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Permohonan Surat</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Kotak Pesan</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="pages/layout/top-nav-sidebar.html" class="nav-link small">
-        &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-        <p>Pendaftar Layanan Mandiri</p>
-      </a>
-    </li>
-  </ul>
-</li> --}}

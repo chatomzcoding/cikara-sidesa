@@ -15,10 +15,23 @@ class InfoController extends Controller
      */
     public function index()
     {
-        $menu   = 'tentang';
-        $info   = Info::where('label','tentang')->get();
-
-        return view('admin.infodesa.tentang.index', compact('menu','info'));
+        switch ($_GET['page']) {
+            case 'tentang':
+                $menu   = 'tentang';
+                $info   = Info::where('label','tentang')->get();
+        
+                return view('admin.infodesa.tentang.index', compact('menu','info'));
+                break;
+            case 'teksberjalan':
+                $menu   = 'berjalan';
+                $info   = Info::where('label','teksberjalan')->get();
+                return view('admin.pengaturan.teksberjalan.index', compact('menu','info'));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
 
     }
 
@@ -40,7 +53,26 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        switch ($request->page) {
+            case 'tentang':
+                $menu   = 'tentang';
+                $info   = Info::where('label','tentang')->get();
+        
+                return view('admin.infodesa.tentang.index', compact('menu','info'));
+                break;
+            case 'teksberjalan':
+                Info::create([
+                    'label' => $request->label,
+                    'nama' => $request->nama,
+                    'detail' => $request->detail,
+                ]);
+                return back()->with('ds','Teks Berjalan');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
     }
 
     /**
@@ -90,8 +122,9 @@ class InfoController extends Controller
      * @param  \App\Models\Info  $info
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Info $info)
+    public function update(Request $request)
     {
+        $info   = Info::find($request->id);
         switch ($request->page) {
             case 'tentang':
                 if (isset($request->gambar)) {
@@ -118,6 +151,13 @@ class InfoController extends Controller
                 return redirect('info?page=tentang')->with('du','Info Desa');
 
                 break;
+            case 'teksberjalan':
+                Info::where('id',$request->id)->update([
+                    'nama' => $request->nama,
+                    'detail' => $request->detail,
+                ]);
+                return back()->with('du','Teks Berjalan');
+                break;
             
             default:
                 # code...
@@ -133,6 +173,8 @@ class InfoController extends Controller
      */
     public function destroy(Info $info)
     {
-        //
+        $info->delete();
+
+        return back()->with('dd','Teks Berjalan');
     }
 }
