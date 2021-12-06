@@ -294,7 +294,7 @@
 					</div>
 				@empty
 				<div class="col-lg-4 event_col">
-					<div class="event event_left">
+					<div class="event event_left text-center">
 						<p>-- belum ada data --</p>
 					</div>
 				</div>

@@ -442,4 +442,30 @@ class DbCikara {
         }
         return $result;
     }
+
+    public static function datanotifikasi($sesi)
+    {
+        switch ($sesi) {
+            case 'suratpenduduk':
+                // hitung surat yang menunggu konfirmasi / proses pengajuan
+                $result     = Penduduksurat::where('status','menunggu')->count();
+                break;
+            case 'ubahpassword':
+                $result     = User::where('notifikasi','<>',NULL)->count();
+                break;
+            case 'laporan':
+                $result     = Lapor::where('status','menunggu')->count();
+                break;
+            case 'total':
+                $result1     = Penduduksurat::where('status','menunggu')->count();
+                $result2     = User::where('notifikasi','<>',NULL)->count();
+                $result3     = Lapor::where('status','menunggu')->count();
+                $result     = $result1 + $result2 + $result3;
+                break;
+            default:
+                $result = NULL;
+                break;
+        }
+        return $result;
+    }
 }

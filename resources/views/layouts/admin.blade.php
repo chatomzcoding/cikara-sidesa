@@ -184,7 +184,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">{{ DbCikara::countData('forum') }}</span>
@@ -217,32 +217,35 @@
           @endforeach
           <a href="{{ url('forumdiskusi') }}" class="dropdown-item dropdown-footer">Selengkapnya</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
+        @php
+            $totalnotifikasi = DbCikara::datanotifikasi('total');
+        @endphp
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">{{ $totalnotifikasi}}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">{{ $totalnotifikasi}} Notifikasi</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="{{ url('suratpenduduk') }}" class="dropdown-item">
+            <i class="fas fa-envelope-open mr-2"></i>  Surat Pengajuan
+            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('suratpenduduk') }}</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+          <a href="{{ url('user') }}" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Ubah Password
+            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('ubahpassword') }}</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
+          <a href="{{ url('lapor') }}" class="dropdown-item">
+            <i class="fas fa-file-signature mr-2"></i> Laporan Baru
+            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('laporan') }}</span>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          {{-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
         </div>
       </li>
       {{-- <li class="nav-item">
