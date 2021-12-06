@@ -27,9 +27,6 @@ class HomepageController extends Controller
     
     public function index()
     {
-        
-        die();
-
         $slider     = Slider::where('status','aktif')->get();
         $galeri     = Galeri::where('status','aktif')->limit(6)->get();
         $menu       = 'beranda';

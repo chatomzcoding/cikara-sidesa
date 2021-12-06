@@ -99,10 +99,14 @@
                                 <th>NIK</th>
                                 <th>Email</th>
                                 <th>Tanggal Daftar</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($user as $item)
+                              @php
+                                  $notifikasi = json_decode($item->notifikasi);
+                              @endphp
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
@@ -129,6 +133,15 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->created_at }} </td>
+                                    <td>
+                                      @if (!is_null($notifikasi))
+                                        <span class="badge badge-danger w-100">{{ $notifikasi->status }}</span> <br>
+                                        NIK : {{ $notifikasi->nik }} <br>
+
+                                      @else 
+                                        <p class="text-center">-</p>
+                                      @endif
+                                    </td>
                                 </tr>
                             @endforeach
                     </table>
@@ -201,6 +214,7 @@
             </div>
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
+                <input type="hidden" name="ubahpassword" value="TRUE">
                 <section class="p-3">
                    <div class="form-group row">
                         <label for="" class="col-md-4">Email</label>

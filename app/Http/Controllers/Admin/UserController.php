@@ -112,6 +112,16 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user   = User::find($request->id);
+        // ubah password
+        if (isset($request->ubahpassword)) {
+            User::where('id',$request->id)->update([
+                'password' => Hash::make($request->password),
+                'notifikasi' => NULL,
+            ]);
+
+            return redirect()->back()->with('du','User');
+
+        }
         // profile_photo_path
         if (isset($request->profile_photo_path)) {
             $request->validate([
