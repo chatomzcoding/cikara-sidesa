@@ -36,6 +36,13 @@ class HomepageController extends Controller
         $info       = Infowebsite::first();
         $beritaterbaru  = Artikel::orderBy('id','DESC')->first();
         $listberita     = Artikel::where('id','<>',$beritaterbaru->id)->limit(4)->get();
+        $kategoriartikel = Kategoriartikel::where('nama_kategori','Kegiatan Desa')->first();
+        if ($kategoriartikel) {
+            $beritadesa     = Artikel::where('kategoriartikel_id',$kategoriartikel->id)->limit(3)->get();
+        } else {
+            $beritadesa     = [];
+        }
+
         $berita     = [
             'terbaru' => $beritaterbaru,
             'list' => $listberita
@@ -45,7 +52,7 @@ class HomepageController extends Controller
             $user = Auth::user();
         }
         $staf   = Staf::limit(4)->get();
-        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi','user','kategori','staf'));
+        return view('homepage.index', compact('slider','galeri','menu','infodesa','info','berita','potensi','user','kategori','staf','beritadesa'));
     }
 
     public function potensi($id)

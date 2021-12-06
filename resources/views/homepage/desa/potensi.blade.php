@@ -45,9 +45,9 @@
             @forelse ($sub as $item)
                 <div class="col-lg-4 about_col about_col_left">
                     <div class="about_item">
-                        <div class="about_item_image"><img src="{{ asset('img/desa/potensi/'.$item->gambar)}}" alt=""></div>
-                        <div class="about_item_title"><a href="#">{{ $item->nama }}</a></div>
-                        <div class="about_item_text">
+                        <div class="about_item_image"><a href="{{ asset('img/desa/potensi/'.$item->gambar)}}" target="_blank"><img src="{{ asset('img/desa/potensi/'.$item->gambar)}}" alt=""></a></div>
+                        <div class="about_item_title text-capitalize"><a href="#">{{ $item->nama }}</a></div>
+                        <div class="about_item_text text-justify">
                             <p>{{ $item->detail }}</p>
                         </div>
                     </div>

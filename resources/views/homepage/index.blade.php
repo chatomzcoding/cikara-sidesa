@@ -121,8 +121,8 @@
 							<div class="course_body">
 								<h3 class="course_title"><a href="{{ url('desa/potensi/'.Crypt::encryptString($item->id)) }}">{{ $item->nama_potensi }}</a></h3>
 								{{-- <div class="course_teacher">Mr. John Taylor</div> --}}
-								<div class="course_text">
-									<p>{{ $item->keterangan_potensi }}</p>
+								<div class="course_text text-justify">
+									<p>{{ substr($item->keterangan_potensi,0,100) }} ...</p>
 								</div>
 							</div>
 							<div class="course_footer">
@@ -142,11 +142,11 @@
 					</div>
 				@endforeach
 			</div>
-			<div class="row">
+			{{-- <div class="row">
 				<div class="col">
 					<div class="courses_button trans_200"><a href="#">Potensi Lainnya</a></div>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 	</div>
 
@@ -268,81 +268,37 @@
 			</div>
 			<div class="row events_row">
 
-				<!-- Event -->
+				@forelse ($beritadesa as $item)
+					<div class="col-lg-4 event_col">
+						<div class="event event_left">
+							<div class="event_image"><img src="{{ asset('img/pengaturan/artikel/'.$item->gambar_artikel)}}" alt="" class="img-responsive"></div>
+							<div class="event_body d-flex flex-row align-items-start justify-content-start">
+								{{-- <div class="event_date">
+									<div class="d-flex flex-column align-items-center justify-content-center trans_200">
+										<div class="event_day trans_200">21</div>
+										<div class="event_month trans_200">Aug</div>
+									</div>
+								</div> --}}
+								<div class="event_content">
+									<div class="event_title"><a href="{{ url('halaman/berita/'.$item->slug) }}">{{ $item->judul_artikel }}</a></div>
+									<div class="event_info_container">
+										<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>{{ $item->created_at }}</span></div>
+										<div class="event_info"><i class="fa fa-user" aria-hidden="true"></i><span>Admin</span></div>
+										<div class="event_text">
+											{!! substr($item->isi_artikel,0,100) !!} ...
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				@empty
 				<div class="col-lg-4 event_col">
 					<div class="event event_left">
-						<div class="event_image"><img src="{{ asset('template/unicat/images/event_1.jpg')}}" alt=""></div>
-						<div class="event_body d-flex flex-row align-items-start justify-content-start">
-							<div class="event_date">
-								<div class="d-flex flex-column align-items-center justify-content-center trans_200">
-									<div class="event_day trans_200">21</div>
-									<div class="event_month trans_200">Aug</div>
-								</div>
-							</div>
-							<div class="event_content">
-								<div class="event_title"><a href="#">Seminar Anak Indonesia</a></div>
-								<div class="event_info_container">
-									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15.00 - 19.30</span></div>
-									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 New York City</span></div>
-									<div class="event_text">
-										<p>Banyaknya potensi akan sumber daya manusia menjadi kan hal penting...</p>
-									</div>
-								</div>
-							</div>
-						</div>
+						<p>-- belum ada data --</p>
 					</div>
 				</div>
-
-				<!-- Event -->
-				<div class="col-lg-4 event_col">
-					<div class="event event_mid">
-						<div class="event_image"><img src="{{ asset('template/unicat/images/event_2.jpg')}}" alt=""></div>
-						<div class="event_body d-flex flex-row align-items-start justify-content-start">
-							<div class="event_date">
-								<div class="d-flex flex-column align-items-center justify-content-center trans_200">
-									<div class="event_day trans_200">27</div>
-									<div class="event_month trans_200">Aug</div>
-								</div>
-							</div>
-							<div class="event_content">
-								<div class="event_title"><a href="#">Pelatihan Pengurus BUMDes</a></div>
-								<div class="event_info_container">
-									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>09.00 - 17.30</span></div>
-									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 Brooklyn City</span></div>
-									<div class="event_text">
-										<p>BUMDes menjadi wadah untuk meningkatkan perekonomian desa...</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Event -->
-				<div class="col-lg-4 event_col">
-					<div class="event event_right">
-						<div class="event_image"><img src="{{ asset('template/unicat/images/event_3.jpg')}}" alt=""></div>
-						<div class="event_body d-flex flex-row align-items-start justify-content-start">
-							<div class="event_date">
-								<div class="d-flex flex-column align-items-center justify-content-center trans_200">
-									<div class="event_day trans_200">01</div>
-									<div class="event_month trans_200">Sep</div>
-								</div>
-							</div>
-							<div class="event_content">
-								<div class="event_title"><a href="#">Sekolah mulai diaktifkan kembali</a></div>
-								<div class="event_info_container">
-									<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>13.00 - 18.30</span></div>
-									<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>25 New York City</span></div>
-									<div class="event_text">
-										<p>Masa pandemi merupakan hal yang begitu menyulitkan bagi para pelajar...</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
+				@endforelse
 			</div>
 		</div>
 	</div>
@@ -404,7 +360,7 @@
 					<div class="news_post_large_container">
 						<div class="news_post_large">
 							<div class="news_post_image"><img src="{{ asset('img/pengaturan/artikel/'.$berita['terbaru']->gambar_artikel)}}" alt=""></div>
-							<div class="news_post_large_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slud) }}">{{ $berita['terbaru']->judul_artikel }}</a></div>
+							<div class="news_post_large_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slug) }}">{{ $berita['terbaru']->judul_artikel }}</a></div>
 							<div class="news_post_meta">
 								<ul>
 									<li><a href="#">admin</a></li>
@@ -424,7 +380,7 @@
 
 						@forelse ($berita['list'] as $item)
 							<div class="news_post_small">
-								<div class="news_post_small_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slud) }}">{{ $item->judul_artikel }}</a></div>
+								<div class="news_post_small_title text-capitalize"><a href="{{ url('halaman/berita/'.$berita['terbaru']->slug) }}">{{ $item->judul_artikel }}</a></div>
 								<div class="news_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>

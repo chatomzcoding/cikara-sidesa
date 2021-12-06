@@ -60,11 +60,15 @@
                                                   <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <button type="button" data-toggle="modal" data-nama_kategori="{{ $item->nama_kategori }}" data-keterangan="{{ $item->keterangan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i> Edit Kategori
-                                                    </button>
-                                                  <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    @if ($item->nama_kategori <> 'Kegiatan Desa')
+                                                        <button type="button" data-toggle="modal" data-nama_kategori="{{ $item->nama_kategori }}" data-keterangan="{{ $item->keterangan }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i> Edit Kategori
+                                                        </button>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    @else
+                                                        <button class="dropdown-item text-danger">SISTEM</button>
+                                                    @endif
                                                 </div>
                                             </div>
                                     </td>

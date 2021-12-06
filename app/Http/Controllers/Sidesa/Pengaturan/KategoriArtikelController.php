@@ -15,7 +15,8 @@ class KategoriArtikelController extends Controller
      */
     public function index()
     {
-        $kategoriartikel = Kategoriartikel::all();
+        $kategoriartikel   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
+
         $menu   = 'artikel';
         return view('admin.pengaturan.artikel.kategori.index', compact('kategoriartikel','menu'));
     }

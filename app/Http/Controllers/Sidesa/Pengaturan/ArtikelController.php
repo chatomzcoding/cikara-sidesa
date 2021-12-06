@@ -52,7 +52,8 @@ class ArtikelController extends Controller
      */
     public function create()
     {
-        $kategori = Kategoriartikel::all();
+        $kategori   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
+
         $menu       = 'artikel';
 
         return view('admin.pengaturan.artikel.create', compact('kategori','menu'));
