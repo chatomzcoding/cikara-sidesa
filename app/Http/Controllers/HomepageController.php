@@ -9,14 +9,12 @@ use App\Models\Infowebsite;
 use App\Models\Kategori;
 use App\Models\Kategoriartikel;
 use App\Models\Lapak;
-use App\Models\Lapor;
 use App\Models\Potensi;
 use App\Models\Potensisub;
 use App\Models\Produk;
 use App\Models\Profil;
 use App\Models\Slider;
 use App\Models\Staf;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -29,6 +27,9 @@ class HomepageController extends Controller
     
     public function index()
     {
+        
+        die();
+
         $slider     = Slider::where('status','aktif')->get();
         $galeri     = Galeri::where('status','aktif')->limit(6)->get();
         $menu       = 'beranda';

@@ -87,7 +87,7 @@ class ProdukController extends Controller
     {
         $lapak  = Lapak::where('user_id',$userid)->first();
         if ($lapak) {
-            return Produk::where('lapak_id',$lapak->id)->get();
+            return Produk::where('lapak_id',$lapak->id)->orderBy('id','DESC')->get();
         } else {
             return response()->json('belum ada lapak');
         }

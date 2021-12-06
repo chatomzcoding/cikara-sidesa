@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -73,9 +73,28 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        if (isset($request->ubahpassword)) {
+            $detail     = [
+                'status' => 'ubah password',
+                'nik' => $request->nik,
+                'tanggal' => tgl_sekarang()
+            ];
+            User::where('email',$request->email)->update([
+                'notifikasi' => json_encode($detail)
+            ]);
+
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+
+            return $result;
+        }
     }
 
     /**
