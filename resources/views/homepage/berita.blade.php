@@ -5,7 +5,7 @@
 @endsection
 
 @section('head')
-    <link href="{{ asset('template/unicat/plugins/video-js/video-js.css')}}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{ asset('template/unicat/plugins/video-js/video-js.css')}}" rel="stylesheet" type="text/css"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('template/unicat/styles/blog.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('template/unicat/styles/blog_responsive.css')}}">
 @endsection
@@ -38,7 +38,11 @@
                         @foreach ($berita as $item)
                             <!-- Blog Post -->
                             <div class="blog_post trans_200">
-                                <div class="blog_post_image"><img src="{{ asset('img/pengaturan/artikel/'.$item->gambar_artikel)}}" alt=""></div>
+                                <div class="blog_post_image">
+                                    <a href="{{ url('halaman/berita/'.$item->slug) }}">
+                                    <img src="{{ asset('img/pengaturan/artikel/'.$item->gambar_artikel)}}" alt="">
+                                    </a>
+                                </div>
                                 <div class="blog_post_body">
                                     <div class="blog_post_title text-capitalize"><a href="{{ url('halaman/berita/'.$item->slug) }}">{{ $item->judul_artikel }}</a></div>
                                     <div class="blog_post_meta">
@@ -56,11 +60,6 @@
 					</div>
 				</div>
 			</div>
-			{{-- <div class="row">
-				<div class="col text-center">
-					<div class="load_more trans_200"><a href="{{ url('halaman/semuaberita') }}">Selengkapnya</a></div>
-				</div>
-			</div> --}}
 		</div>
 	</div>
 

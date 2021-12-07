@@ -73,25 +73,6 @@
     width: 1px !important
 }
 
-/* .form-control {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
-} */
-
 .select2-container--default .select2-selection--single,
 .select2-selection .select2-selection--single {
     border: 1px solid #d2d6de;
@@ -160,9 +141,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      {{-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Depan</a>
-      </li> --}}
     </ul>
 
     <!-- SEARCH FORM -->
@@ -281,7 +259,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
-      <img src="{{  asset('img/'.$info->logo_brand)}}" alt="JantungDesa" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{  asset('img/'.$info->logo_brand)}}" alt="JantungDesa" class="brand-image img-circle">
       <span class="brand-text font-weight-light"><strong>Jantung Desa</strong></span>
     </a>
 
@@ -294,7 +272,7 @@
         </div>
         <div class="info">
           @if ($user->level == 'penduduk')
-            <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->id,'id')->nama_penduduk.$user->profile_photo_path}}</a>
+            <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->id,'id')->nama_penduduk}}</a>
           @else
             <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
           @endif

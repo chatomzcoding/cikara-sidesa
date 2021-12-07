@@ -20,6 +20,7 @@ class CreateTableArtikel extends Migration
             $table->string('slug');
             $table->integer('view');
             $table->text('gambar_artikel');
+            $table->longText('komentar');
             $table->timestamps();
         });
     }

@@ -9,14 +9,19 @@ use App\Models\Infowebsite;
 use App\Models\Kategori;
 use App\Models\Kategoriartikel;
 use App\Models\Lapak;
+use App\Models\Penduduk;
 use App\Models\Potensi;
 use App\Models\Potensisub;
 use App\Models\Produk;
 use App\Models\Profil;
 use App\Models\Slider;
 use App\Models\Staf;
+use App\Models\User;
+use App\Models\Userakses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomepageController extends Controller
 {
@@ -70,6 +75,7 @@ class HomepageController extends Controller
 
     public function halaman($sesi)
     {
+        $datapokok = Infowebsite::first();
         switch ($sesi) {
             case 'profil':
                 $menu   = 'profil';
@@ -78,13 +84,19 @@ class HomepageController extends Controller
                 $potensi    = Potensi::all();
                 $staf   = Staf::limit(4)->get();
                 $tentang = Info::where('label','tentang')->get();
-                return view('homepage.profil', compact('menu','desa','info','potensi','staf','tentang'));
+                return view('homepage.profil', compact('menu','desa','info','potensi','staf','tentang','datapokok'));
                 break;
             case 'pasardesa':
                 $menu   = 'produk';
                 $desa   = Profil::first();
                 $info   = Infowebsite::first();
-                $produk = Produk::limit(12)->orderBy('id','DESC')->get();
+                // $produk = Produk::limit(12)->orderBy('id','DESC')->get();
+                $produk = DB::table('produk')
+                            ->join('lapak','produk.lapak_id','=','lapak.id')
+                            ->select('produk.*','lapak.nama_lapak')
+                            ->limit(18)
+                            ->orderByDesc('produk.id')
+                            ->get();
                 return view('homepage.pasar', compact('menu','desa','info','produk'));
                 break;
             
@@ -110,17 +122,57 @@ class HomepageController extends Controller
 
     public function detailberita($slug)
     {
+        $user       = Auth::user();
         $berita     = Artikel::where('slug',$slug)->first();
         $menu       = 'berita';
-        $kategori   = Kategoriartikel::all();
+        $kategori   = Kategoriartikel::orderby('nama_kategori','ASC')->get();
         $lastberita = Artikel::where('id','<>',$berita->id)->orderBy('id','DESC')->limit(5)->get();
         // tambah view
         $jumlah     = $berita->view + 1;
         Artikel::where('id',$berita->id)->update([
             'view' => $jumlah
         ]);
-        return view('homepage.detailberita', compact('menu','berita','kategori','lastberita'));
+        // komentar
+        if (!is_null($berita->komentar)) {
+            $komentar   = json_decode($berita->komentar);
+        } else {
+            $komentar   = [];
+        }
+        if ($user) {
+            $akses  = Userakses::where('user_id',$user->id)->first();
+            $penduduk   = Penduduk::find($akses->penduduk_id);
+
+        } else {
+            $penduduk   = [];
+        }
+        return view('homepage.detailberita', compact('menu','berita','kategori','lastberita','komentar','penduduk','user'));
     }
+
+    public function kirimkomentar(Request $request)
+    {
+        $artikel    = Artikel::find($request->id);
+        $komentar   = [
+            [
+                'nama' => $request->name,
+                'isi' => $request->isi,
+                'photo' => $request->photo,
+                'tanggal' => tgl_sekarang(),
+                'waktu' =>jam_sekarang()
+            ]
+        ];
+        if (!is_null($artikel->komentar)) {
+            $dkomentar  = json_decode($artikel->komentar,TRUE);
+            $komentar   = array_merge($dkomentar,$komentar);
+        }
+
+        Artikel::where('id',$request->id)->update([
+            'komentar' => json_encode($komentar)
+        ]);
+
+        return back()->with('dsc','Komentar telah terkirim');
+        
+    }
+
     public function produkdetail($id)
     {
         $menu       = 'produk';
@@ -131,7 +183,10 @@ class HomepageController extends Controller
         Produk::where('id',$produk->id)->update([
             'dilihat' => $dilihat
         ]);
-        return view('homepage.detailproduk', compact('menu','produk','lapak'));
+        $akses      = Userakses::where('user_id',$lapak->user_id)->first();
+        $penduduk   = Penduduk::find($akses->penduduk_id);
+        $produklainnya  = Produk::where('lapak_id',$lapak->id)->get();
+        return view('homepage.detailproduk', compact('menu','produk','lapak','produklainnya','penduduk'));
     }
 
     public function kategori($kategori)
@@ -156,7 +211,7 @@ class HomepageController extends Controller
         Artikel::where('id',$artikel->id)->update([
             'view' => $view
         ]);
-        $kategori   = Kategoriartikel::all();
+        $kategori   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         return view('homepage.artikel.show', compact('artikel','kategori'));
     }
 

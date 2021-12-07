@@ -20,7 +20,7 @@
                         <ul>
                             <li><a href="{{ url('/') }}">Beranda</a></li>
                             <li><a href="{{ url('halaman/berita') }}">Berita</a></li>
-                            <li>{{ $berita->judul_artikel }}</li>
+                            <li class="text-capitalize">{{ $berita->judul_artikel }}</li>
                         </ul>
                     </div>
                 </div>
@@ -31,7 +31,9 @@
 <div class="blog">
     <div class="container">
         <div class="row">
-
+            <div class="col-md-12">
+                @include('sistem.notifikasi')
+            </div>
             <!-- Blog Content -->
             <div class="col-lg-8">
                 <div class="blog_content">
@@ -42,7 +44,9 @@
                             <li>By <a href="#">ADMIN</a></li>
                         </ul>
                     </div>
-                    <div class="blog_image"><img src="{{ asset('img/pengaturan/artikel/'.$berita->gambar_artikel) }}" alt=""></div>
+                    <div class="blog_image">
+                        <img src="{{ asset('img/pengaturan/artikel/'.$berita->gambar_artikel) }}" alt="" width="100%">
+                    </div>
                     {!! $berita->isi_artikel !!}
                 </div>
                 <div class="blog_extra d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
@@ -68,98 +72,53 @@
                     </div> --}}
                 </div>
                 <!-- Comments -->
-                {{-- <div class="comments_container">
-                    <div class="comments_title"><span>30</span> Comments</div>
+                <div class="comments_container">
+                    <div class="comments_title"><span>{{ count($komentar) }}</span> Komentar</div>
                     <ul class="comments_list">
-                        <li>
-                            <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                <div class="comment_image"><div><img src="images/comment_1.jpg" alt=""></div></div>
-                                <div class="comment_content">
-                                    <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_author"><a href="#">Jennifer Aniston</a></div>
-                                        <div class="comment_rating"><div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                        <div class="comment_time ml-auto">October 19,2018</div>
-                                    </div>
-                                    <div class="comment_text">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have alteration in some form, by injected humour.</p>
-                                    </div>
-                                    <div class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span>108</span></a></div>
-                                        <div class="comment_extra comment_reply"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span>Reply</span></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                        <div class="comment_image"><div><img src="images/comment_2.jpg" alt=""></div></div>
-                                        <div class="comment_content">
-                                            <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                                <div class="comment_author"><a href="#">John Smith</a></div>
-                                                <div class="comment_rating"><div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                                <div class="comment_time ml-auto">October 19,2018</div>
-                                            </div>
-                                            <div class="comment_text">
-                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have alteration in some form, by injected humour.</p>
-                                            </div>
-                                            <div class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                                <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span>108</span></a></div>
-                                                <div class="comment_extra comment_reply"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span>Reply</span></a></div>
-                                            </div>
+                        @forelse ($komentar as $item)
+                            <li>
+                                <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
+                                    <div class="comment_image"><div><img src="{{ asset('/img/user/'.$item->photo) }}" alt=""></div></div>
+                                    <div class="comment_content">
+                                        <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
+                                            <div class="comment_author"><h4 class="text-capitalize">{{ $item->nama }}</h4></div>
+                                            <div class="comment_rating"><div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div></div>
+                                            <div class="comment_time ml-auto">{{ date_indo($item->tanggal) }}</div>
+                                        </div>
+                                        <div class="comment_text">
+                                            <p>{{ $item->isi }}</p>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                <div class="comment_image"><div><img src="images/comment_3.jpg" alt=""></div></div>
-                                <div class="comment_content">
-                                    <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_author"><a href="#">Jane Austen</a></div>
-                                        <div class="comment_rating"><div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                        <div class="comment_time ml-auto">October 19,2018</div>
-                                    </div>
-                                    <div class="comment_text">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have alteration in some form, by injected humour.</p>
-                                    </div>
-                                    <div class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span>108</span></a></div>
-                                        <div class="comment_extra comment_reply"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span>Reply</span></a></div>
-                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        @empty
+                            
+                        @endforelse
                     </ul>
-                    <div class="add_comment_container">
-                        <div class="add_comment_title">Write a comment</div>
-                        <div class="add_comment_text">Your email address will not be published. Required fields are marked *</div>
-                        <form action="#" class="comment_form">
-                            <div>
-                                <div class="form_title">Review*</div>
-                                <textarea class="comment_input comment_textarea" required="required"></textarea>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 input_col">
-                                    <div class="form_title">Name*</div>
-                                    <input type="text" class="comment_input" required="required">
+                    @if ($user)
+                        <div class="add_comment_container">
+                            <div class="add_comment_title">Tambahkan Komentar</div>
+                            <div class="add_comment_text font-italic text-secondary">* hanya penduduk yang login yang bisa berkomentar pada artikel</div>
+                            <form action="{{ url('kirimkomentar') }}" class="comment_form" method="post">
+                                @csrf
+                                <input type="hidden" name="name" value="{{ $penduduk->nama_penduduk}}">
+                                <input type="hidden" name="id" value="{{ $berita->id}}">
+                                <input type="hidden" name="photo" value="{{ $user->profile_photo_path}}">
+                                <div>
+                                    <textarea name="isi" class="comment_input comment_textarea" placeholder="ketikkan komentar disini"  maxlength="250" required></textarea>
+                                    <span class="font-italic text-danger">maksimal 250 karakter</span>
                                 </div>
-                                <div class="col-md-6 input_col">
-                                    <div class="form_title">Email*</div>
-                                    <input type="text" class="comment_input" required="required">
+                                <div>
+                                    <button type="submit" class="comment_button trans_200">Kirim Komentar</button>
                                 </div>
-                            </div>
-                            <div class="comment_notify">
-                                <input type="checkbox" id="checkbox_notify" name="regular_checkbox" class="regular_checkbox checkbox_account" checked>
-                                <label for="checkbox_notify"><i class="fa fa-check" aria-hidden="true"></i></label>
-                                <span>Notify me of new posts by email</span>
-                            </div>
-                            <div>
-                                <button type="submit" class="comment_button trans_200">submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div> --}}
+                            </form>
+                        </div>
+                    @else
+                        <div class="bg-light p-3">
+                            <strong>ingin berkomentar di artikel ? silahkan login terlebih dahulu <a href="{{ url('login') }}">LOGIN</a></strong>
+                        </div>
+                    @endif
+                </div>
             </div>
 
             <!-- Blog Sidebar -->
@@ -168,7 +127,7 @@
 
                     <!-- Categories -->
                     <div class="sidebar_section">
-                        <div class="sidebar_section_title">Kategori</div>
+                        <div class="sidebar_section_title bg-primary p-3 text-white">Kategori</div>
                         <div class="sidebar_categories">
                             <ul class="categories_list">
                                 @foreach ($kategori as $item)
@@ -180,12 +139,16 @@
 
                     <!-- Latest News -->
                     <div class="sidebar_section">
-                        <div class="sidebar_section_title">Artikel Terbaru</div>
+                        <div class="sidebar_section_title bg-primary p-3 text-white">Artikel Terbaru</div>
                         <div class="sidebar_latest">
 
                             @foreach ($lastberita as $item)
                                 <div class="latest d-flex flex-row align-items-start justify-content-start">
-                                    <div class="latest_image"><div><img src="{{ asset('img/pengaturan/artikel/'.$item->gambar_artikel) }}" alt=""></div></div>
+                                    @if (!is_null($item->gambar_artikel))
+                                        <div class="latest_image">
+                                            <div><img src="{{ asset('img/pengaturan/artikel/'.$item->gambar_artikel) }}" alt=""></div>
+                                        </div>
+                                    @endif
                                     <div class="latest_content">
                                         <div class="latest_title text-capitalize"><a href="{{ url('halaman/berita/'.$item->slug) }}">{{ $item->judul_artikel }}</a></div>
                                         <div class="latest_date">{{ $item->created_at }}</div>

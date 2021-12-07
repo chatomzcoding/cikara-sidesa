@@ -19,7 +19,7 @@
                         <ul>
                             <li><a href="{{ url('/') }}">Beranda</a></li>
                             <li><a href="{{ url('/halaman/pasardesa') }}">Produk Desa</a></li>
-                            <li> {{ $produk->nama}} </li>
+                            <li class="text-capitalize"> {{ $produk->nama}} </li>
                         </ul>
                     </div>
                 </div>
@@ -41,32 +41,65 @@
                 </div>
             </div>
         </div> --}}
-                   <div class="row about_row">
-                <div class="col-lg-4 col-md-6">
-                    <section>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 p-2">
+                    <section class="border rounded m-2">
                         <img src="{{ asset('img/penduduk/produk/'.$produk->gambar)}}" class="img-fluid" alt="">
                     </section>
                 </div>
-                <div class="col-lg-8 col-md-6">
-                    <h2>{{ $produk->nama}}</h2>
-                    <h4> {{ rupiah($produk->harga)}} </h4>
-                    <hr>
+                <div class="col-lg-8 col-md-6 pt-3">
+                    <h3 class="text-capitalize">{{ $produk->nama}}</h3>
+                    <span class="small font-italic">{{ $produk->dilihat }} kali dilihat</span>
+                    <div class="bg-light p-2 mb-2">
+                        <h3 class="text-info"> {{ rupiah($produk->harga)}} </h3>
+                    </div>
                     <p> {{ $produk->keterangan}} </p>
                     <hr>
-                    <table width="100%">
-                        <tr>
-                            <th>Lapak</th>
-                            <td>: {{ $lapak->nama_lapak}}</td>
-                        </tr>
-                        <tr>
-                            <th>Tentang Lapak</th>
-                            <td>: {{ $lapak->tentang}}</td>
-                        </tr>
-                        <tr>
-                            <th>Alamat</th>
-                            <td>: {{ $lapak->alamat}}</td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4 p-3">
+                            <img src="{{ asset('img/penduduk/lapak/'.$lapak->logo) }}" alt="logo" class="img-fluid">
+                        </div>
+                        <div class="col-md-10 col-sm-8">
+                            <table width="100%">
+                                <tr>
+                                    <td>Lapak</td>
+                                    <td class="text-capitalize text-dark">: {{ $lapak->nama_lapak}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Pemilik</td>
+                                    <td class="text-capitalize  text-dark">: {{ $penduduk->nama_penduduk}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tentang Lapak</td>
+                                    <td class=" text-dark">: {{ $lapak->tentang}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td class=" text-dark">: {{ $lapak->alamat}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                    <h4>Produk Lainnya dari Lapak {{ $lapak->nama_lapak }}</h4>
+                    <div class="row">
+                        @foreach ($produklainnya as $item)
+                            @if ($item->id <> $produk->id)
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 p-2">
+                                    <div class="card pb-0">
+                                        <a href="{{ url('produkdesa/'.Crypt::encrypt($item->id)) }}"><img src="{{ asset('img/penduduk/produk/'.$item->gambar)}}" class="card-img-top" alt="..."></a>
+                                        <div class="card-body mb-0 pb-1">
+                                        <h5 class="card-title text-capitalize small font-weight-bold text-center">{{ $item->nama }}</h5>
+                                        <p class="card-text small">{{ rupiah($item->harga) }}</p>
+                                        <span class="float-right small font-italic">{{ $item->nama_lapak }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
     </div>

@@ -108,7 +108,7 @@
 									active
 								@endif"><a href="{{ url('halaman/kontak') }}">Kontak</a></li>
 								</ul>
-								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
+								{{-- <div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div> --}}
 
 								<!-- Hamburger -->
 
@@ -133,7 +133,7 @@
 		</div>
 
 		<!-- Header Search Panel -->
-		<div class="header_search_container">
+		{{-- <div class="header_search_container">
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -148,33 +148,34 @@
 					</div>
 				</div>
 			</div>			
-		</div>			
+		</div>			 --}}
 	</header>
 
 	<!-- Menu -->
 
 	<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
 		<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
-		<div class="search">
+		{{-- <div class="search">
 			<form action="#" class="header_search_form menu_mm">
 				<input type="search" class="search_input menu_mm" placeholder="Search" required="required">
 				<button class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
 					<i class="fa fa-search menu_mm" aria-hidden="true"></i>
 				</button>
 			</form>
-		</div>
+		</div> --}}
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-				<li class="menu_mm"><a href="{{ url('/') }}">Beranda</a></li>
-				<li class="menu_mm"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
-				<li class="menu_mm"><a href="{{ url('halaman/pasardesa') }}">Pasar Desa</a></li>
-				<li class="menu_mm"><a href="{{ url('halaman/berita') }}">Berita</a></li>
-				<li class="menu_mm"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
 				@if (isset(Auth::user()->id))
 					<li class="menu_mm"><a href="{{ route('dashboard') }}">Dashboard</a></li>
 				@else
 					<li class="menu_mm"><a href="{{ url('login') }}">Login</a></li>
 				@endif
+				<hr>
+				<li class="menu_mm"><a href="{{ url('/') }}">Beranda</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/profil') }}">Profil Desa</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/pasardesa') }}">Pasar Desa</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/berita') }}">Berita</a></li>
+				<li class="menu_mm"><a href="{{ url('halaman/kontak') }}">Kontak Kami</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -278,7 +279,7 @@
 				<div class="col">
 					<div class="copyright d-flex flex-lg-row flex-column align-items-center justify-content-start">
 						<div class="cr_text"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;{{ ambil_tahun() }} All rights reserved | Developer By <a href="https://cikarastudio.com/">Cikara Studio</a> This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;{{ ambil_tahun() }} All rights reserved | Developer By <a href="https://cikarastudio.com/">Cikara Studio</a> Design Theme By <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 						<div class="ml-lg-auto cr_links">
 							{{-- <ul class="cr_list">

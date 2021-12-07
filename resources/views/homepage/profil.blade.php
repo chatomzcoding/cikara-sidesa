@@ -77,15 +77,14 @@
                 <div class="feature_content">
                     <!-- Accordions -->
                     <div class="accordions">
-                        
                         <div class="elements_accordions">
                             
                             @foreach ($potensi as $item)
                                 <div class="accordion_container">
                                     <div class="accordion d-flex flex-row align-items-center @if ($loop->iteration == 1)
                                     active
-                                    @endif "><div>{{ $item->nama_potensi }}</div></div>
-                                    <div class="accordion_panel">
+                                    @endif "><div>{{ strtoupper($item->nama_potensi) }}</div></div>
+                                    <div class="accordion_panel text-justify">
                                         <p>{{ $item->keterangan_potensi }}</p>
                                     </div>
                                 </div>
@@ -99,12 +98,17 @@
             </div>
 
             <!-- Feature Video -->
+            @php
+                $youtube = explode('/',$datapokok->link_yt);
+                $link       = end($youtube);
+
+            @endphp
             <div class="col-lg-6 feature_col">
                 <div class="feature_video d-flex flex-column align-items-center justify-content-center">
-                    <div class="feature_video_background" style="background-image:url({{ asset('img/potensi.jpg')}})"></div>
-                    <a class="vimeo feature_video_button" href="https://player.vimeo.com/video/99340873?title=0" title="OH, PORTUGAL - IN 4K - Basti Hansen - Stock Footage">
-                        <img src="{{ asset('template/unicat/images/play.png')}}" alt="">
-                    </a>
+                    <div class="feature_video_background">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
                 </div>
             </div>
         </div>

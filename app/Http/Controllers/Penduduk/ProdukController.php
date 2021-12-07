@@ -55,17 +55,15 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+            'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:10000',
         ]);
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('gambar');
-        
-        $nama_file = time()."_".$file->getClientOriginalName();
-        
+        // $nama_file = time()."_".$file->getClientOriginalName();
         // isi dengan nama folder tempat kemana file diupload
-        $tujuan_upload = $this->folder;
-        $file->move($tujuan_upload,$nama_file);
-
+        $tujuan_upload = $this->folder.'/';
+        // $file->move($tujuan_upload,$nama_file);
+        $nama_file  = kompres($file,$tujuan_upload,800);
         Produk::create([
             'lapak_id' => $request->lapak_id,
             'nama' => $request->nama,

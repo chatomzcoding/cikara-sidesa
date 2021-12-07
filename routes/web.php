@@ -24,6 +24,7 @@ use Maatwebsite\Excel\Facades\Excel;
 // homepage
 Route::get('/','App\Http\Controllers\HomepageController@index');
 Route::get('/kirimpesan','App\Http\Controllers\HomepageController@kirimpesan');
+Route::post('/kirimkomentar','App\Http\Controllers\HomepageController@kirimkomentar');
 Route::get('/cetak','App\Http\Controllers\HomeController@cetak');
 Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
 Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');

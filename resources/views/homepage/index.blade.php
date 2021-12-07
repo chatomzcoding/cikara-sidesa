@@ -153,7 +153,7 @@
 	<!-- Counter -->
 
 	<div class="counter">
-		<div class="counter_background" style="background-image:url({{ asset('template/unicat/images/counter_background.jpg')}})"></div>
+		<div class="counter_background" style="background-image:url({{ asset('img/bg.jpg')}}); filter : brightness(50%)"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
@@ -197,28 +197,11 @@
 				</div>
 			</div>
 
-			<div class="counter_form">
-				<div class="row fill_height">
-					<div class="col fill_height">
-						@if (is_null($user))
-							<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
-								<div class="counter_form_title">Form Lapor</div>
-								<input type="text" class="counter_input" placeholder="Nama Lengkap" required="required">
-								<input type="tel" class="counter_input" placeholder="Telepon" required="required">
-								<select name="counter_select" id="counter_select" class="counter_input counter_options">
-									<option>-- Pilih Kategori Laporan --</option>
-									@foreach ($kategori as $item)
-										<option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
-									@endforeach
-								</select>
-								<textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
-								{{-- <button type="submit" class="counter_form_button">Kirim Laporan</button> --}}
-								<div class="alert alert-info">
-									Silahkan login untuk melakukan laporan, untuk proses identifikasi laporan yang masuk. <a href="{{ url('login') }}">LOGIN DISINI</a>
-								</div>
-							</form>
-						@else
-							@if ($user->level == 'penduduk')
+			@if (!is_null($user))
+				@if ($user->level == 'penduduk')
+				<div class="counter_form">
+					<div class="row fill_height">
+						<div class="col fill_height">
 								@php
 									$penduduk = DbCikara::datapenduduk($user->name);
 								@endphp
@@ -238,18 +221,11 @@
 									<textarea class="counter_input counter_text_input" name="isi" placeholder="Ketikkan laporan disini" required="required"></textarea>
 									<button type="submit" class="counter_form_button">Kirim Laporan</button>
 								</form>
-							@else
-								<div class="row">
-									<div class="col text-center">
-										<br><br>
-										<strong>Form Laporan Khusus Penduduk Khusus Penduduk</strong>
-									</div>
-								</div>								
-							@endif
-						@endif
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
+				@endif
+			@endif
 
 		</div>
 	</div>

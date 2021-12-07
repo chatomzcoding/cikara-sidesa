@@ -52,7 +52,7 @@
             <div class="row">
 
                 <!-- Contact Form -->
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="contact_form">
                         <div class="contact_info_title">Kirim Pesan Singkat</div>
                         <form action="#" class="comment_form">
@@ -73,10 +73,10 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Contact Info -->
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="contact_info">
                         <div class="contact_info_title">Info Kontak</div>
                         <div class="contact_info_text">
