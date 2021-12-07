@@ -40,6 +40,14 @@ class CetakController extends Controller
                     $namafile   = 'Laporan Data Dusun';
                     $pdf        = PDF::loadview('sistem.cetak.list.user', compact('data'));
                     break;
+                case 'infocovid':
+                    $data  = DB::table('covid')
+                    ->join('penduduk','covid.penduduk_id','=','penduduk.id')
+                    ->select('covid.*','penduduk.nama_penduduk','penduduk.alamat_sekarang')
+                    ->get();
+                    $namafile   = 'Laporan Data Covid';
+                    $pdf        = PDF::loadview('sistem.cetak.list.infocovid', compact('data'));
+                    break;
                 case 'dusun':
                     $dusun      = Dusun::all();
                     $namafile   = 'Laporan Data Dusun';

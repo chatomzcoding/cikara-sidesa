@@ -239,7 +239,7 @@
                       <select name="staf" id="staf" class="form-control col-md-8" required>
                           <option value="">-- Pilih Staf --</option>
                           @foreach (DbCikara::showtable('staf',['status_pegawai','aktif']) as $item)
-                              <option value="{{ $item->id}}">{{ $item->nama_pegawai}}</option>
+                          <option value="{{ $item->id}}">{{ strtoupper($item->nama_pegawai.' | '.$item->jabatan)}}</option>
                           @endforeach
                       </select>
                           
