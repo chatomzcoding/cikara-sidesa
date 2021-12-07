@@ -197,35 +197,37 @@
         </div>
       </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        @php
-            $totalnotifikasi = DbCikara::datanotifikasi('total');
-        @endphp
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">{{ $totalnotifikasi}}</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">{{ $totalnotifikasi}} Notifikasi</span>
-          <div class="dropdown-divider"></div>
-          <a href="{{ url('suratpenduduk') }}" class="dropdown-item">
-            <i class="fas fa-envelope-open mr-2"></i>  Surat Pengajuan
-            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('suratpenduduk') }}</span>
+      @if ($user->level == 'admin')
+        <li class="nav-item dropdown">
+          @php
+              $totalnotifikasi = DbCikara::datanotifikasi('total');
+          @endphp
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge">{{ $totalnotifikasi}}</span>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="{{ url('user') }}" class="dropdown-item">
-            <i class="fas fa-user mr-2"></i> Ubah Password
-            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('ubahpassword') }}</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="{{ url('lapor') }}" class="dropdown-item">
-            <i class="fas fa-file-signature mr-2"></i> Laporan Baru
-            <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('laporan') }}</span>
-          </a>
-          {{-- <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
-        </div>
-      </li>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">{{ $totalnotifikasi}} Notifikasi</span>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('suratpenduduk') }}" class="dropdown-item">
+              <i class="fas fa-envelope-open mr-2"></i>  Surat Pengajuan
+              <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('suratpenduduk') }}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('user') }}" class="dropdown-item">
+              <i class="fas fa-user mr-2"></i> Ubah Password
+              <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('ubahpassword') }}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('lapor') }}" class="dropdown-item">
+              <i class="fas fa-file-signature mr-2"></i> Laporan Baru
+              <span class="float-right text-muted text-sm">{{ DbCikara::datanotifikasi('laporan') }}</span>
+            </a>
+            {{-- <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
+          </div>
+        </li>
+      @endif
       {{-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>

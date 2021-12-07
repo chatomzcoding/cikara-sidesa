@@ -58,24 +58,26 @@
                     <div class="row">
                         <div class="col-md-2 col-sm-4 p-3">
                             <img src="{{ asset('img/penduduk/lapak/'.$lapak->logo) }}" alt="logo" class="img-fluid">
+                            <strong>{{ $lapak->nama_lapak}}</strong>
                         </div>
                         <div class="col-md-10 col-sm-8">
                             <table width="100%">
                                 <tr>
-                                    <td>Lapak</td>
-                                    <td class="text-capitalize text-dark">: {{ $lapak->nama_lapak}}</td>
+                                    <td class="text-capitalize  text-dark">
+                                        <strong>Pemilik</strong> :
+                                         {{ $penduduk->nama_penduduk}}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Pemilik</td>
-                                    <td class="text-capitalize  text-dark">: {{ $penduduk->nama_penduduk}}</td>
+                                    <td class=" text-dark">
+                                        <strong>Alamat</strong> <br>
+                                        {{ $lapak->alamat}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Tentang Lapak</td>
-                                    <td class=" text-dark">: {{ $lapak->tentang}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Alamat</td>
-                                    <td class=" text-dark">: {{ $lapak->alamat}}</td>
+                                    <td class=" text-dark">
+                                        <strong>Tentang</strong> <br>
+                                        <span class="font-italic">"{{ $lapak->tentang}}"</span>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

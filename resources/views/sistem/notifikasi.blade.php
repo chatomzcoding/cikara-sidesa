@@ -8,6 +8,11 @@
     <p>{{ session('success') }}</p>
   </div>
 @endif
+@if (session('succesalert'))
+<div class="alert alert-success">
+    <p>{{ session('succesalert') }}</p>
+  </div>
+@endif
 @if (session('info'))
 <div class="callout callout-info">
     <p>{{ session('info') }}</p>

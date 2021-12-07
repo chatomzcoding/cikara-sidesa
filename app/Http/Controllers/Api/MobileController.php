@@ -49,7 +49,14 @@ class MobileController extends Controller
                     $result     = list_kategorisurat();
                     break;
                 case 'kategoriartikel':
-                    $result     = Kategoriartikel::all();
+                    $result     = Kategoriartikel::orderBy('nama_kategori','ASC')->get()->toArray();
+                    $semua      = [
+                        [
+                            'id' => 1000,
+                            'nama_kategori' => 'semua',
+                        ]
+                    ];
+                    $result     = array_merge($semua,$result);
                     break;
                 case 'artikel';
                 if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {

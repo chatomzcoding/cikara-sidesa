@@ -36,7 +36,7 @@ class HomepageController extends Controller
         $galeri     = Galeri::where('status','aktif')->limit(6)->get();
         $menu       = 'beranda';
         $infodesa   = Profil::first();
-        $kategori   = Kategori::where('label','lapor')->get();
+        $kategori   = Kategori::where('label','lapor')->orderBy('nama_kategori','ASC')->get();
         $potensi    = Potensi::limit(3)->get();
         $info       = Infowebsite::first();
         $beritaterbaru  = Artikel::orderBy('id','DESC')->first();
@@ -138,14 +138,15 @@ class HomepageController extends Controller
         } else {
             $komentar   = [];
         }
+        $penduduk   = [];
         if ($user) {
-            $akses  = Userakses::where('user_id',$user->id)->first();
-            $penduduk   = Penduduk::find($akses->penduduk_id);
-
-        } else {
-            $penduduk   = [];
+            if ($user->level == 'penduduk') {
+                $akses  = Userakses::where('user_id',$user->id)->first();
+                $penduduk   = Penduduk::find($akses->penduduk_id);
+            }   
         }
-        return view('homepage.detailberita', compact('menu','berita','kategori','lastberita','komentar','penduduk','user'));
+        $dkategori  = Kategoriartikel::find($berita->kategoriartikel_id);
+        return view('homepage.detailberita', compact('menu','berita','kategori','lastberita','komentar','penduduk','user','dkategori'));
     }
 
     public function kirimkomentar(Request $request)
@@ -169,7 +170,7 @@ class HomepageController extends Controller
             'komentar' => json_encode($komentar)
         ]);
 
-        return back()->with('dsc','Komentar telah terkirim');
+        return back()->with('succesalert','Komentar telah terkirim');
         
     }
 

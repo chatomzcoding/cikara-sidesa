@@ -59,6 +59,7 @@
                                         <div class="blog_post w-100">
                                             <img src="{{ asset('img/none.png') }}" alt="" width="300px">
                                             <p>Berita belum ada untuk kategori {{ $kategori->nama_kategori }}</p>
+                                            <a href="{{ url('halaman/berita') }}">kembali ke halaman berita</a>
                                         </div>
                                 </div>
                             </div>

@@ -35,6 +35,7 @@
                         <form action="{{ url('/info/'.$info->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="page" value="tentang">
+                            <input type="hidden" name="id" value="{{ $info->id }}">
                             @method('patch')
                             <div class="form-group row">
                                 <label for="" class="col-md-4 p-2">Nama Info <span class="text-danger">*</span></label>

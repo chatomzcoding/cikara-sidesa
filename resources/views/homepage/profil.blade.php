@@ -134,8 +134,8 @@
 						<div class="team_item">
 							<div class="team_image"><img src="{{ asset('img/desa/staf/'.$item->photo)}}" alt=""></div>
 							<div class="team_body">
-								<div class="team_title"><a href="#">{{ $item->nama_pegawai }}</a></div>
-								<div class="team_subtitle">{{ $item->jabatan }}</div>
+								<div class="team_title"><h4 class="text-capitalize">{{ $item->nama_pegawai }}</h4></div>
+								<div class="team_subtitle text-capitalize">{{ $item->jabatan }}</div>
 								{{-- <div class="social_list">
 									<ul>
 										<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>

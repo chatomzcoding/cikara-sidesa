@@ -41,7 +41,8 @@
                     <div class="blog_meta">
                         <ul>
                             <li>Diposting <a href="#">{{ $berita->created_at }}</a></li>
-                            <li>By <a href="#">ADMIN</a></li>
+                            <li><a href="{{ url('halaman/berita/kategori/'.Crypt::encryptString($dkategori->id)) }}">{{ strtoupper($dkategori->nama_kategori) }}</a></li>
+                            <li>By ADMIN</li>
                         </ul>
                     </div>
                     <div class="blog_image">
@@ -96,23 +97,25 @@
                         @endforelse
                     </ul>
                     @if ($user)
-                        <div class="add_comment_container">
-                            <div class="add_comment_title">Tambahkan Komentar</div>
-                            <div class="add_comment_text font-italic text-secondary">* hanya penduduk yang login yang bisa berkomentar pada artikel</div>
-                            <form action="{{ url('kirimkomentar') }}" class="comment_form" method="post">
-                                @csrf
-                                <input type="hidden" name="name" value="{{ $penduduk->nama_penduduk}}">
-                                <input type="hidden" name="id" value="{{ $berita->id}}">
-                                <input type="hidden" name="photo" value="{{ $user->profile_photo_path}}">
-                                <div>
-                                    <textarea name="isi" class="comment_input comment_textarea" placeholder="ketikkan komentar disini"  maxlength="250" required></textarea>
-                                    <span class="font-italic text-danger">maksimal 250 karakter</span>
-                                </div>
-                                <div>
-                                    <button type="submit" class="comment_button trans_200">Kirim Komentar</button>
-                                </div>
-                            </form>
-                        </div>
+                        @if ($user->level == 'penduduk')
+                            <div class="add_comment_container">
+                                <div class="add_comment_title">Tambahkan Komentar</div>
+                                <div class="add_comment_text font-italic text-secondary">* hanya penduduk yang login yang bisa berkomentar pada artikel</div>
+                                <form action="{{ url('kirimkomentar') }}" class="comment_form" method="post">
+                                    @csrf
+                                    <input type="hidden" name="name" value="{{ $penduduk->nama_penduduk}}">
+                                    <input type="hidden" name="id" value="{{ $berita->id}}">
+                                    <input type="hidden" name="photo" value="{{ $user->profile_photo_path}}">
+                                    <div>
+                                        <textarea name="isi" class="comment_input comment_textarea" placeholder="ketikkan komentar disini"  maxlength="250" required></textarea>
+                                        <span class="font-italic text-danger">maksimal 250 karakter</span>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="comment_button trans_200">Kirim Komentar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
                     @else
                         <div class="bg-light p-3">
                             <strong>ingin berkomentar di artikel ? silahkan login terlebih dahulu <a href="{{ url('login') }}">LOGIN</a></strong>
