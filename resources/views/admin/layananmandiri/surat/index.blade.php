@@ -101,7 +101,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
-                <a href="{{ url('cetakdata?s=suratpenduduk&status='.$filter['status'].'&penduduk='.$filter['penduduk'].'&tanggal='.$filter['tanggal']) }}" target="_blank" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -216,6 +216,45 @@
         </div>
     </div>
 
+    <div class="modal fade" id="cetakdokumen">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form target="_blank" action="{{ url('/cetakdata')}}" method="get">
+              @csrf
+              <input type="hidden" name="s" value="suratpenduduk">
+              <input type="hidden" name="status" value="{{ $filter['status'] }}">
+              <input type="hidden" name="penduduk" value="{{ $filter['penduduk'] }}">
+              <input type="hidden" name="tanggal" value="{{ $filter['tanggal'] }}">
+              {{-- <input type="hidden" name="id" value="{{ $potensi->id }}"> --}}
+          <div class="modal-header">
+          <h4 class="modal-title">Informasi Cetak Dokumen</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body p-3">
+              <section class="p-3">
+                 <div class="form-group row">
+                      <label for="" class="col-md-4">Mengetahui</label>
+                      <select name="staf" id="staf" class="form-control col-md-8" required>
+                          <option value="">-- Pilih Staf --</option>
+                          @foreach (DbCikara::showtable('staf',['status_pegawai','aktif']) as $item)
+                              <option value="{{ $item->id}}">{{ $item->nama_pegawai}}</option>
+                          @endforeach
+                      </select>
+                          
+                 </div>
+              </section>
+          </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> CETAK SEKARANG</button>
+          </div>
+      </form>
+      </div>
+      </div>
+  </div>
+     
       {{-- modal edit --}}
       <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">

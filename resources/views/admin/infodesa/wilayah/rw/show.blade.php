@@ -29,7 +29,7 @@
               <div class="card-header">
                 <a href="{{ url('/dusun/'.Crypt::encryptString($rw->dusun_id))}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar RW"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Rukun Tetangga (RT)" data-toggle="modal" data-target="#tambah" title="Tambah Data RT Baru"><i class="fas fa-plus"></i> Tambah</a>
-                <a href="{{ url('cetakdata?s=listrt&id='.$rw->id) }}" target="_blank" class="btn btn-outline-info btn-sm btn-flat float-right pop-info" title="Cetak Daftar Rukun Tetangga (RT)"><i class="fas fa-print"></i> CETAK</a>
+                <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm btn-flat float-right pop-info" title="Cetak Daftar Rukun Tetangga (RT)"><i class="fas fa-print"></i> CETAK</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -102,6 +102,41 @@
         </div>
     </div>
     {{-- modal --}}
+    <div class="modal fade" id="cetakdokumen">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form target="_blank" action="{{ url('/cetakdata')}}" method="get">
+                @csrf
+                <input type="hidden" name="s" value="listrt">
+                <input type="hidden" name="id" value="{{ $rw->id }}">
+            <div class="modal-header">
+            <h4 class="modal-title">Informasi Cetak Dokumen</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Mengetahui</label>
+                        <select name="staf" id="staf" class="form-control col-md-8" required>
+                            <option value="">-- Pilih Staf --</option>
+                            @foreach (DbCikara::showtable('staf',['status_pegawai','aktif']) as $item)
+                                <option value="{{ $item->id}}">{{ $item->nama_pegawai}}</option>
+                            @endforeach
+                        </select>
+                            
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> CETAK SEKARANG</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">

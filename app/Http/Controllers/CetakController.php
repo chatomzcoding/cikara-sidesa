@@ -13,6 +13,7 @@ use App\Models\Penduduk;
 use App\Models\Pendudukaduan;
 use App\Models\Potensi;
 use App\Models\Potensisub;
+use App\Models\Profil;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Staf;
@@ -164,7 +165,7 @@ class CetakController extends Controller
                     $pdf        = PDF::loadview('sistem.cetak.list.keluarga', compact('keluarga'))->setPaper('a4','landscape');
                     break;
                 case 'formatsurat':
-                    if (isset($_GET['kategori'])) {
+                    if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
                         $filter['kategori'] = $_GET['kategori'];
                         $formatsurat        = Formatsurat::where('kategori',$_GET['kategori'])->orderBy('id','DESC')->get();
                     } else {
