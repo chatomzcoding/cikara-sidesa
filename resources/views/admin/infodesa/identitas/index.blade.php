@@ -33,7 +33,7 @@
                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add"><i class="fas fa-plus"></i> Tambah Data</button>
                   </section> --}}
                   <section class="mb-3">
-                    <img src="{{ asset('/img/kantor.jpg')}}" alt="" width="100%">
+                    <img src="{{ asset('/img/pengaturan/'.$info->gambar)}}" alt="" width="100%">
                   </section>
                   <div class="table-responsive">
                     <table class="table table-striped">

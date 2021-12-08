@@ -29,42 +29,49 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('/staf')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar Staf </a>
+                <a href="{{ url('/staf')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar Staf"><i class="fas fa-angle-left"></i> Kembali </a>
               </div>
               <div class="card-body">
+                  <div class="callout callout-info">
+                    Tanda <strong class="text-danger">*</strong> Tidak boleh kosong!
+                  </div>
                   <form action="{{ url('/staf')}}" method="post" enctype="multipart/form-data">
                     @csrf
                   @include('sistem.notifikasi')
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Nama Pegawai <strong class="text-danger">*</strong></label>
-                    <input type="text" name="nama_pegawai" class="form-control col-md-9" required>
+                    <input type="text" name="nama_pegawai" class="form-control col-md-9" value="{{ $penduduk->nama_penduduk }}" required>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Nomor Induk Kependudukan <strong class="text-danger">*</strong></label>
-                    <input type="text" name="nik" class="form-control col-md-9" maxlength="16" pattern="[0-9]{16}" required>
+                    <input type="text" name="nik" class="form-control col-md-9" maxlength="16" pattern="[0-9]{16}" value="{{ $penduduk->nik }}" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">NIPD</label>
-                    <input type="text" name="nipd" class="form-control col-md-9">
+                    <label for="" class="col-md-3 p-2">NIPD/NIP</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nipd" class="form-control" placeholder="kolom untuk NIPD">
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="text" name="nip" class="form-control" placeholder="kolom untuk NIP">
+                    </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">NIP</label>
-                    <input type="text" name="nip" class="form-control col-md-9">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tempat Lahir <strong class="text-danger">*</strong></label>
-                    <input type="text" name="tempat_lahir" class="form-control col-md-9" required>
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal Lahir <strong class="text-danger">*</strong></label>
-                    <input type="date" name="tgl_lahir" class="form-control col-md-9" required>
+                    <label for="" class="col-md-3 p-2">Tempat Tanggal Lahir <strong class="text-danger">*</strong></label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="tempat_lahir" class="form-control" value="{{ $penduduk->tempat_lahir }}" required>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tgl_lahir" class="form-control" value="{{ $penduduk->tgl_lahir }}" required>
+                    </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Jenis Kelamin <strong class="text-danger">*</strong></label>
                     <select name="jk" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Jenis Kelamin --</option>
                         @foreach (list_jeniskelamin() as $item)
-                            <option value="{{ $item }}">{{ $item}}</option>
+                            <option value="{{ $item }}" @if ($item == $penduduk->jk)
+                                selected
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -73,7 +80,9 @@
                     <select name="pendidikan" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Pendidikan dalam kk --</option>
                         @foreach (list_pendidikandalamkk() as $item)
-                            <option value="{{ $item }}">{{ $item}}</option>
+                            <option value="{{ $item }}" @if ($item == $penduduk->pendidikan_kk)
+                                selected
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -82,7 +91,9 @@
                     <select name="agama" id="" class="form-control col-md-9" required>
                         <option value="">-- Pilih Agama --</option>
                         @foreach (list_agama() as $item)
-                            <option value="{{ $item }}">{{ $item}}</option>
+                            <option value="{{ $item }}" @if ($item == $penduduk->agama)
+                                selected
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -91,20 +102,22 @@
                     <input type="text" name="golongan" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nomor SK Pengangkatan</label>
-                    <input type="text" name="nosk_pengangkatan" class="form-control col-md-9">
+                    <label for="" class="col-md-3 p-2">Nomor/Tanggal SK Pengangkatan</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nosk_pengangkatan" class="form-control" placeholder="nomor SK Pengangkatan">
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tglsk_pengangkatan" class="form-control">
+                    </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal SK Pengangkatan</label>
-                    <input type="date" name="tglsk_pengangkatan" class="form-control col-md-9">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nomor SK Pemberhentian</label>
-                    <input type="text" name="nosk_pemberhentian" class="form-control col-md-9">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal SK Pemberhentian</label>
-                    <input type="date" name="tglsk_pemberhentian" class="form-control col-md-9">
+                    <label for="" class="col-md-3 p-2">Nomor/Tanggal SK Pemberhentian</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nosk_pemberhentian" class="form-control" placeholder="Nomor SK Pemberhentian">
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tglsk_pemberhentian" class="form-control">
+                    </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Masa Jabatan (usia/periode) <strong class="text-danger">*</strong></label>
@@ -128,7 +141,7 @@
                     <input type="file" name="photo" class="form-control col-md-9" required>
                   </div>
                   <div class="form-group text-right">
-                      <button type="submit" class="btn btn-primary btn-sm">SIMPAN</button>
+                      <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> SIMPAN</button>
                   </div>
                 </form>
               </div>

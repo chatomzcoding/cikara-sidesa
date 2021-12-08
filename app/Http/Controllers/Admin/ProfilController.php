@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Info;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -18,7 +19,8 @@ class ProfilController extends Controller
     {
         $profil     = Profil::first();
         $menu   = 'profil';
-        return view('admin.infodesa.identitas.index', compact('profil','menu'));
+        $info   = Info::where('nama','kantor desa')->first();
+        return view('admin.infodesa.identitas.index', compact('profil','menu','info'));
     }
 
     /**

@@ -27,13 +27,16 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card">
+                <div class="card-header">
+                    <a href="{{ url('/profil')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke Profil Desa"><i class="fas fa-angle-left"></i> Kembali</a>
+                </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <div class="row">
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
 
-                    </div>
-                    <div class="col-md-8">
+                    </div> --}}
+                    <div class="col-md-12">
                         <form action="{{ url('/profil/'.$profil->id)}}" method="post">
                             @csrf
                             @method('patch')
@@ -133,7 +136,7 @@
                                 </table>
                                 <section>
                                     <div class="form-group text-right">
-                                        <button type="submit" class="btn btn-success btn-sm">SIMPAN PERUBAHAN</button>
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
                                     </div>
                                 </section>
                               </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk;
 use App\Models\Staf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -18,9 +19,15 @@ class StafController extends Controller
 
     public function index()
     {
-        $staf = Staf::all();
         $menu   = 'pemerintahdesa';
-        return view('admin.infodesa.pemerintahdesa.index', compact('staf','menu'));
+        $status = (isset($_GET['status'])) ? $_GET['status'] : 'semua' ;
+        if ($status == 'semua') {
+            $staf = Staf::all();
+        } else {
+            $staf = Staf::where('status_pegawai',$status)->get();
+        }
+        
+        return view('admin.infodesa.pemerintahdesa.index', compact('staf','menu','status'));
     }
 
     /**
@@ -30,8 +37,9 @@ class StafController extends Controller
      */
     public function create()
     {
-        $menu   = 'pemerintahdesa';
-        return view('admin.infodesa.pemerintahdesa.create', compact('menu'));
+        $menu       = 'pemerintahdesa';
+        $penduduk   = Penduduk::find($_GET['penduduk_id']);
+        return view('admin.infodesa.pemerintahdesa.create', compact('menu','penduduk'));
     }
 
     /**

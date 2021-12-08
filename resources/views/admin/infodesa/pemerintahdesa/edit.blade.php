@@ -44,20 +44,23 @@
                     <input type="text" name="nik" class="form-control col-md-9" value="{{ $staf->nik}}" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">NIPD</label>
-                    <input type="text" name="nipd" class="form-control col-md-9" value="{{ $staf->nipd}}">
+                    <label for="" class="col-md-3 p-2">NIPD/NIP</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nipd" class="form-control" value="{{ $staf->nipd}}">
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="text" name="nip" class="form-control" value="{{ $staf->nip}}">
+                    </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">NIP</label>
-                    <input type="text" name="nip" class="form-control col-md-9" value="{{ $staf->nip}}">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tempat Lahir</label>
-                    <input type="text" name="tempat_lahir" class="form-control col-md-9" value="{{ $staf->tempat_lahir}}" required>
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal Lahir</label>
-                    <input type="date" name="tgl_lahir" class="form-control col-md-9" value="{{ $staf->tgl_lahir}}" required>
+                    <label for="" class="col-md-3 p-2">Tempat Tanggal Lahir</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="tempat_lahir" class="form-control" value="{{ $staf->tempat_lahir}}" required>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tgl_lahir" class="form-control" value="{{ $staf->tgl_lahir}}" required>
+
+                    </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Jenis Kelamin</label>
@@ -66,7 +69,7 @@
                         @foreach (list_jeniskelamin() as $item)
                             <option value="{{ $item }}" @if ($item == $staf->jk)
                                 selected
-                            @endif>{{ $item}}</option>
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -77,7 +80,7 @@
                         @foreach (list_pendidikandalamkk() as $item)
                             <option value="{{ $item }}" @if ($item == $staf->pendidikan)
                                 selected
-                            @endif>{{ $item}}</option>
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -88,7 +91,7 @@
                         @foreach (list_agama() as $item)
                             <option value="{{ $item }}" @if ($item == $staf->agama)
                                 selected
-                            @endif>{{ $item}}</option>
+                            @endif>{{ strtoupper($item)}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -97,20 +100,23 @@
                     <input type="text" name="golongan" class="form-control col-md-9" value="{{ $staf->golongan}}" required>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nomor SK Pengangkatan</label>
-                    <input type="text" name="nosk_pengangkatan" class="form-control col-md-9" value="{{ $staf->nosk_pengangkatan}}">
+                    <label for="" class="col-md-3 p-2">Nomor/Tanggal SK Pengangkatan</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nosk_pengangkatan" class="form-control" value="{{ $staf->nosk_pengangkatan}}">
+
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tglsk_pengangkatan" class="form-control" value="{{ $staf->tglsk_pengangkatan}}">
+                    </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal SK Pengangkatan</label>
-                    <input type="date" name="tglsk_pengangkatan" class="form-control col-md-9" value="{{ $staf->tglsk_pengangkatan}}">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Nomor SK Pemberhentian</label>
-                    <input type="text" name="nosk_pemberhentian" class="form-control col-md-9" value="{{ $staf->nosk_pemberhentian}}">
-                  </div>
-                  <div class="form-group row">
-                    <label for="" class="col-md-3 p-2">Tanggal SK Pemberhentian</label>
-                    <input type="date" name="tglsk_pemberhentian" class="form-control col-md-9" value="{{ $staf->tglsk_pemberhentian}}">
+                    <label for="" class="col-md-3 p-2">Nomor/Tanggal SK Pemberhentian</label>
+                    <div class="col-md-5 p-0">
+                      <input type="text" name="nosk_pemberhentian" class="form-control" value="{{ $staf->nosk_pemberhentian}}">
+                    </div>
+                    <div class="col-md-4 pr-0">
+                      <input type="date" name="tglsk_pemberhentian" class="form-control" value="{{ $staf->tglsk_pemberhentian}}">
+                    </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Masa Jabatan (usia/periode)</label>
