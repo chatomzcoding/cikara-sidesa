@@ -1,3 +1,6 @@
+@php
+    $user = Auth::user();
+@endphp
 <li class="nav-item @if ($menu == 'datacovid' || $menu == 'covid' || $menu == 'vaksinasi')
 menu-is-opening menu-open
 @endif">
@@ -255,12 +258,14 @@ menu-is-opening menu-open
         <p>Data Pokok</p>
       </a>
     </li>
-    <li class="nav-item">
-      <a href="{{ url('/user')}}" class="nav-link small {{  menuaktif($menu,'datauser') }}">
-        &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
-        <p>Data User</p>
-      </a>
-    </li>
+    @if ($user->level == 'admin')
+      <li class="nav-item">
+        <a href="{{ url('/user')}}" class="nav-link small {{  menuaktif($menu,'datauser') }}">
+          &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
+          <p>Data User</p>
+        </a>
+      </li>
+    @endif
     <li class="nav-item">
       <a href="{{ url('/artikel')}}" class="nav-link small {{  menuaktif($menu,'artikel') }}">
         &nbsp;&nbsp;<i class="fas fa-file-alt nav-icon"></i>

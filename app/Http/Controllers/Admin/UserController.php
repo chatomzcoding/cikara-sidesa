@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
+use App\Models\Staf;
+use App\Models\Stafakses;
 use App\Models\User;
 use App\Models\Userakses;
 use Illuminate\Http\Request;
@@ -21,26 +23,43 @@ class UserController extends Controller
 
     protected $folder = 'public/img/user';
 
+    function __construct()
+    {
+        $this->middleware('superadmin', ['only' => ['index']]);
+    }
+
     public function index()
     {
-        // $user   = User::where('level','penduduk')->get();
-        $user   = DB::table('users')
-                    ->join('user_akses','users.id','=','user_akses.user_id')
-                    ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
-                    ->select('users.*','penduduk.nama_penduduk')
-                    ->where('users.level','penduduk')
-                    ->get();
-        $judul  = 'User Penduduk';
-        $penduduk   = Penduduk::select('nik','nama_penduduk')->orderBy('nama_penduduk','ASC')->get();
         $menu   = 'datauser';
-        $belumdaftar    = count($penduduk) - count($user);
-        $total   = [
-            'user' => count($user),
-            'penduduk' => count($penduduk),
-            'belumdaftar' => $belumdaftar
-        ];
+        if (isset($_GET['sesi'])) {
+            $judul  = 'User Staf';
+            $staf   = Staf::where('status_pegawai','aktif')->get();
+            $user   = DB::table('users')
+                        ->join('staf_akses','users.id','=','staf_akses.user_id')
+                        ->join('staf','staf_akses.staf_id','=','staf.id')
+                        ->select('users.*','staf.nama_pegawai','staf.jabatan','staf.nik')
+                        ->where('users.level','staf')
+                        ->get();
+            return view('admin.user.staf', compact('user','judul','staf','menu'));
+        } else {
+            $user   = DB::table('users')
+                        ->join('user_akses','users.id','=','user_akses.user_id')
+                        ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
+                        ->select('users.*','penduduk.nama_penduduk')
+                        ->where('users.level','penduduk')
+                        ->get();
+            $judul  = 'User Penduduk';
+            $penduduk   = Penduduk::select('nik','nama_penduduk')->orderBy('nama_penduduk','ASC')->get();
+            $belumdaftar    = count($penduduk) - count($user);
+            $total   = [
+                'user' => count($user),
+                'penduduk' => count($penduduk),
+                'belumdaftar' => $belumdaftar
+            ];
+            return view('admin.user.index', compact('user','judul','penduduk','menu','total'));
+        }
+        
 
-        return view('admin.user.index', compact('user','judul','penduduk','menu','total'));
     }
 
     /**
@@ -67,15 +86,23 @@ class UserController extends Controller
             'level' => $request->level,
             'password' => Hash::make($request->password),
         ]);
-        // tambahkan ke user akses
-        $penduduk   = Penduduk::where('nik',$request->name)->first();
-        $user       = User::where('name',$request->name)->first();
-        Userakses::create([
-            'user_id' => $user->id,
-            'penduduk_id' => $penduduk->id,
-        ]);
-
-        return redirect()->back()->with('ds','User');
+        $user       = User::where('name',$request->name)->where('level',$request->level)->first();
+        if ($request->level == 'penduduk') {
+            // tambahkan ke user akses
+            $penduduk   = Penduduk::where('nik',$request->name)->first();
+            Userakses::create([
+                'user_id' => $user->id,
+                'penduduk_id' => $penduduk->id,
+            ]);
+        } else {
+            $staf = Staf::where('nama_pegawai',$request->name)->first();
+            Stafakses::create([
+                'user_id' => $user->id,
+                'staf_id' => $staf->id,
+            ]);
+        }
+        
+        return back()->with('ds','User');
     }
 
     /**

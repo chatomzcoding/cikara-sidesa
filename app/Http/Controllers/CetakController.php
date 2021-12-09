@@ -37,8 +37,18 @@ class CetakController extends Controller
                     ->select('users.*','penduduk.nama_penduduk')
                     ->where('users.level','penduduk')
                     ->get();
-                    $namafile   = 'Laporan Data Dusun';
+                    $namafile   = 'Laporan Data User Penduduk';
                     $pdf        = PDF::loadview('sistem.cetak.list.user', compact('data'));
+                    break;
+                case 'userstaf':
+                    $data   = DB::table('users')
+                        ->join('staf_akses','users.id','=','staf_akses.user_id')
+                        ->join('staf','staf_akses.staf_id','=','staf.id')
+                        ->select('users.*','staf.nama_pegawai','staf.jabatan','staf.nik')
+                        ->where('users.level','staf')
+                        ->get();
+                    $namafile   = 'Laporan Data User Staf';
+                    $pdf        = PDF::loadview('sistem.cetak.list.userstaf', compact('data'));
                     break;
                 case 'infocovid':
                     $data  = DB::table('covid')
