@@ -16,7 +16,8 @@ class CreateTableLog extends Migration
         Schema::create('log', function (Blueprint $table) {
             $table->id();
             $table->string('sesi');
-            $table->string('table_id');
+            $table->string('aksi');
+            $table->string('table_id')->nullable();
             $table->longText('detail')->nullable();
             $table->timestamps();
         });

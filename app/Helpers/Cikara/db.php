@@ -1,11 +1,8 @@
 <?php
 namespace App\Helpers\Cikara;
 
-use App\Models\Daftarakun;
-use App\Models\Daftarakunpembantu;
-use App\Models\Jurnalakun;
-use App\Models\Keluarga;
 use App\Models\Lapor;
+use App\Models\Log;
 use App\Models\Penduduk;
 use App\Models\Penduduksurat;
 use App\Models\Profil;
@@ -467,5 +464,93 @@ class DbCikara {
                 break;
         }
         return $result;
+    }
+
+    public static function saveLog($data)
+    {
+        $user       = Auth::user();
+        $detail     = [
+            'nama_user' => $user->name
+        ];
+
+        $detail     = array_merge($detail,$data['detail']);
+        Log::create([
+            'user_id' => $user->id,
+            'sesi' => $data['sesi'],
+            'aksi' => $data['aksi'],
+            'table_id' => $data['table_id'],
+            'detail' => json_encode($detail),
+        ]);
+        return TRUE;
+    }
+
+    public static function showlog($data)
+    {
+        // data => sesi,id
+
+        // notif aksi
+        $notif  = [
+            'tambah' => "<i class='fas fa-plus text-primary'></i> Ditambahkan oleh ",
+            'edit' => "<i class='fas fa-pen text-success'></i> Diperbaharui oleh ",
+        ];
+        $view   = NULL;
+        if (isset($data['id'])) {
+            $log = Log::where('sesi',$data['sesi'])->where('table_id',$data['id'])->get();
+            $id     = $data['id'];
+        } else {
+            $log = Log::where('sesi',$data['sesi'])->get();
+            $id     = time();
+        }
+
+        if (count($log) > 0) {
+            $view = "<a class='badge badge-info' data-toggle='collapse' role='button' href='#collapseExample".$id."' aria-expanded='false' aria-controls='collapseExample'>
+                <i class='fas fa-file-alt'></i> Log
+            </a>
+            <div class='collapse' id='collapseExample".$id."'>
+               ";
+            foreach ($log as $item) {
+                $detail    = json_decode($item->detail);
+                $nama       = "<strong>".$detail->nama_user."</strong>";
+                $view .= "<span class='small'>".$notif[$item->aksi].$nama." | ".$item->created_at."</span> </br>";
+                if ($item->aksi == 'edit') {
+                    for ($i=0; $i < count($detail->data); $i++) { 
+                        $view .= "<small class='font-italic'>- ".$detail->data[$i]."</small> </br>";
+                    }
+                }
+            }
+            $view .= 
+            "</div>";
+        }
+        return $view;
+    }
+    public static function showlogall($log)
+    {
+        // data => sesi,id
+
+        // notif aksi
+        $notif  = [
+            'tambah' => "<i class='fas fa-plus text-primary'></i> Ditambahkan oleh ",
+            'edit' => "<i class='fas fa-pen text-success'></i> Diperbaharui oleh ",
+            'hapus' => "<i class='fas fa-trash-alt text-danger'></i> Dihapus oleh ",
+        ];
+        $view   = NULL;
+
+        if (count($log) > 0) {
+            foreach ($log as $item) {
+                $detail    = json_decode($item->detail);
+                $nama       = "<strong class='text-capitalize'>".$detail->nama_user."</strong>";
+                $view .= "<div>".$notif[$item->aksi].$nama." <span class='float-right'><i class='far fa-clock'></i> ".$item->created_at."</span> </div>";
+                if (isset($detail->data)) {
+                    $view .= "<div class='pl-3 mt-0 pb-0 mb-0'>";
+                    for ($i=0; $i < count($detail->data); $i++) { 
+                        $view .= "<span class='font-italic small'>- ".$detail->data[$i]."</span></br>";
+                    }
+                    $view .= "</div> <hr>";
+                }
+            }
+        } else {
+            $view .= "<div class='text-center font-italic'>-- belum ada data log --</div>";
+        }
+        return $view;
     }
 }

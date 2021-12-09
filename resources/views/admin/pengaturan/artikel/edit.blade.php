@@ -73,6 +73,7 @@
                             </script>
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                                {!! viewLogAktif() !!}
                             </div>
                         </form>
                   </section>
@@ -82,4 +83,6 @@
         </div>
     </div>
     @endsection
+
+    
 

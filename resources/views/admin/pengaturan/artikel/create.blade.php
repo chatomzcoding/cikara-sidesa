@@ -29,6 +29,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="kembali ke daftar artikel"><i class="fas fa-angle-left"></i> Kembali</a>
+                
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -66,6 +67,7 @@
                             </script>
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> POSTING ARTIKEL</button>
+                                {!! viewLogAktif() !!}
                             </div>
                         </form>
                   </section>

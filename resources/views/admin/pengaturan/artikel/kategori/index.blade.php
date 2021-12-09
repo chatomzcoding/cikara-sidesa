@@ -19,7 +19,9 @@
 @endsection
 
 @section('container')
-    
+    @php
+        $judul = 'Kategori Artikel';
+    @endphp
 
     <div class="container-fluid">
         <div class="row">
@@ -31,7 +33,8 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/artikel')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar artikel"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Kategori Artikel Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right" ><i class="fas fa-print"></i> CETAK </a> --}}
+               {!! button_logall($log) !!}
+
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -40,8 +43,8 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
-                                <th>Nama Kategori</th>
+                                <th width="10%">Aksi</th>
+                                <th width="20%">Nama Kategori</th>
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
@@ -66,14 +69,20 @@
                                                         </button>
                                                     <div class="dropdown-divider"></div>
                                                     <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    <div class="text-right pr-2">
+                                                        {!! viewLogAktif() !!}
+                                                    </div>
                                                     @else
-                                                        <button class="dropdown-item text-danger">SISTEM</button>
+                                                        <button class="dropdown-item text-danger pop-info" title="Tidak bisa diedit dan dihapus">SISTEM</button>
                                                     @endif
                                                 </div>
                                             </div>
                                     </td>
                                     <td>{{ $item->nama_kategori}}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td>{{ $item->keterangan}} <br>
+                                        {!! DbCikara::showlog(['sesi'=>'kategori_artikel','id'=>$item->id]) !!}
+                                      
+                                    </td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -103,13 +112,14 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Kategori</label>
+                        <label for="" class="col-md-4">Nama Kategori <strong class="text-danger">*</strong></label>
                         <input type="text" name="nama_kategori" class="form-control col-md-8" placeholder="Nama Kategori" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
+                        <label for="" class="col-md-4">Keterangan <strong class="text-danger">*</strong></label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" maxlength="255" required>
                     </div>
+                    {!! viewLogAktif() !!}
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -121,6 +131,8 @@
         </div>
     </div>
     <!-- /.modal -->
+
+    @include('sistem.view.modal-log')
 
     {{-- modal edit --}}
     <div class="modal fade" id="ubah">
@@ -146,6 +158,7 @@
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
+                    {!! viewLogAktif() !!}
                 </section>
             </div>
             <div class="modal-footer justify-content-between">

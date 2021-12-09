@@ -15,6 +15,7 @@ class SidesaServiceProvider extends ServiceProvider
     {
         require_once app_path() . '/Helpers/Sidesa/list.php';
         require_once app_path() . '/Helpers/Sidesa/sistem.php';
+        require_once app_path() . '/Helpers/Sidesa/view.php';
     }
 
     /**

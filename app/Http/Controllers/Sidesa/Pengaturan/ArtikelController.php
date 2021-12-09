@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Sidesa\Pengaturan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Kategoriartikel;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -42,7 +44,9 @@ class ArtikelController extends Controller
         }
         $kategori   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         $menu       = 'artikel';
-        return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu','filter'));
+        $log        = Log::where('sesi','artikel')->orderBy('id','DESC')->get();
+        $judul      = 'Artikel';
+        return view('admin.pengaturan.artikel.index', compact('artikel','kategori','menu','filter','log','judul'));
     }
 
     /**
@@ -72,15 +76,8 @@ class ArtikelController extends Controller
             $request->validate([
                 'gambar_artikel' => 'required|file|image|mimes:jpeg,png,jpg|max:10000',
             ]);
-            // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('gambar_artikel');
-            
             $nama_file = kompres($file,$this->folder);
-            // $nama_file = time()."_".$file->getClientOriginalName();
-            
-            // isi dengan nama folder tempat kemana file diupload
-            // $tujuan_upload = $this->folder;
-            // $file->move($tujuan_upload,$nama_file);
         }
 
         Artikel::create([
@@ -92,6 +89,19 @@ class ArtikelController extends Controller
             'view' => 0,
             'gambar_artikel' => $nama_file,
         ]);
+
+        $artikel    = Artikel::latest()->first();
+        $data               = [
+            'sesi' => 'artikel',
+            'aksi' => 'tambah',
+            'table_id' => $artikel->id,
+            'detail' => [
+                'data' => [
+                    'tambah artikel dengan judul <strong>"'.$request->judul_artikel.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect('/artikel')->with('dsc', 'Artikel dengan judul '.$request->judul_artikel.' telah berhasil diposting');
     }
@@ -158,6 +168,28 @@ class ArtikelController extends Controller
             'gambar_artikel' => $nama_file,
         ]);
 
+        $kategoriawal   = Kategoriartikel::find($artikel->kategoriartikel_id);
+        $kategoribaru   = Kategoriartikel::find($request->kategoriartikel_id);
+        $custom         = [
+            [
+                'awal' => $kategoriawal->nama_kategori,
+                'baru' => $kategoribaru->nama_kategori,
+                'field' => 'kategori artikel',
+            ]
+        ];
+
+        $detail     = [
+            'data' => data_perubahan($artikel,$request,['judul','isi_artikel'],$custom)
+        ];
+
+        $data               = [
+            'sesi' => 'artikel',
+            'aksi' => 'edit',
+            'table_id' => $artikel->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
+
         return redirect('/artikel')->with('du', 'Artikel');
     }
 
@@ -169,6 +201,18 @@ class ArtikelController extends Controller
      */
     public function destroy(Artikel $artikel)
     {
+        $data               = [
+            'sesi' => 'artikel',
+            'aksi' => 'hapus',
+            'table_id' => $artikel->id,
+            'detail' => [
+                'data' => [
+                    'hapus artikel dengan judul <strong>"'.$artikel->judul_artikel.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
+
         deletefile($this->folder.'/'.$artikel->gambar_artikel);
         $artikel->delete();
         return redirect('/artikel')->with('dd', 'Artikel');

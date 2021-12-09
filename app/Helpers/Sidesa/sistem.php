@@ -733,3 +733,27 @@ if (! function_exists('get_filter')) {
         return $result;
     }
 }
+if (! function_exists('data_perubahan')) {
+    function data_perubahan($data,$request,$kolom,$custom=NULL)
+    {
+        // cek perubahan
+        $result = [];
+        foreach ($kolom as $item) {
+            $dlama  = $data->$item;
+            $dbaru  = $request->$item;
+            if ($dlama <> $dbaru) {
+                $result[] = 'mengubah <strong>"'.$dlama.'"</strong> menjadi <strong>"'.$dbaru.'"</strong>';
+            }
+        }
+        if (!is_null($custom)) {
+            for ($i=0; $i < count($custom); $i++) { 
+                $field      = NULL;
+                if (isset($custom[$i]['field'])) {
+                    $field = $custom[$i]['field'];
+                }
+                $result[] = 'mengubah '.$field.' <strong>"'.$custom[$i]['awal'].'"</strong> menjadi <strong>"'.$custom[$i]['baru'].'"</strong>';
+            }
+        }
+        return $result;
+    }
+}

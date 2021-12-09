@@ -48,6 +48,7 @@
                 <a href="{{ url('/artikel/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Artikel Baru"><i class="fas fa-plus"></i> Tambah</a>
                 <div class="float-right">
                     {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> CETAK</a> --}}
+                    {!! button_logall($log) !!}
                 </div>
               </div>
               <div class="card-body">
@@ -102,7 +103,9 @@
                                             </div>
                                         </div>
                                 </td>
-                                <td>{{ $item->judul_artikel}}</td>
+                                <td>{{ $item->judul_artikel}} <br>
+                                    {!! DbCikara::showlog(['sesi'=>'artikel','id'=>$item->id]) !!}
+                                </td>
                                 <td>{{ $item->nama_kategori}}</td>
                                 <td class="text-center">{{ $item->view}}</td>
                             </tr>
@@ -119,6 +122,7 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
     {{-- modal tambah --}}
     <div class="modal fade" id="import">
         <div class="modal-dialog modal-lg">

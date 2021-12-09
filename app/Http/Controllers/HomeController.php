@@ -24,6 +24,10 @@ class HomeController extends Controller
                 $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
                 return view('admin.dashboard', compact('produk','menu'));
                 break;
+            case 'staf':
+                $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
+                return view('admin.dashboard', compact('produk','menu'));
+                break;
             case 'penduduk':
                 $lapak  = Lapak::where('user_id',$user->id)->first();
                 if ($lapak) {

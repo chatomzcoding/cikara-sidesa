@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Sidesa\Pengaturan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Kategoriartikel;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class KategoriArtikelController extends Controller
@@ -15,10 +17,10 @@ class KategoriArtikelController extends Controller
      */
     public function index()
     {
-        $kategoriartikel   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
-
         $menu   = 'artikel';
-        return view('admin.pengaturan.artikel.kategori.index', compact('kategoriartikel','menu'));
+        $kategoriartikel   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
+        $log    = Log::where('sesi','kategori_artikel')->get();
+        return view('admin.pengaturan.artikel.kategori.index', compact('kategoriartikel','menu','log'));
     }
 
     /**
@@ -40,6 +42,19 @@ class KategoriArtikelController extends Controller
     public function store(Request $request)
     {
         Kategoriartikel::create($request->all());
+
+        $kategoriartikel    = Kategoriartikel::latest()->first();
+        $data               = [
+            'sesi' => 'kategori_artikel',
+            'aksi' => 'tambah',
+            'table_id' => $kategoriartikel->id,
+            'detail' => [
+                'data' => [
+                    'tambah data Kategori <strong>"'.$request->nama_kategori.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('ds','Kategori Artikel');
     }
@@ -75,10 +90,24 @@ class KategoriArtikelController extends Controller
      */
     public function update(Request $request)
     {
+        $kategoriartikel = Kategoriartikel::find($request->id);
+
         Kategoriartikel::where('id',$request->id)->update([
             'nama_kategori' => $request->nama_kategori,
             'keterangan' => $request->keterangan,
         ]);
+
+        $detail     = [
+            'data' => data_perubahan($kategoriartikel,$request,['nama_kategori','keterangan'])
+        ];
+
+        $data               = [
+            'sesi' => 'kategori_artikel',
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du','Kategori Artikel');
     }
@@ -91,6 +120,18 @@ class KategoriArtikelController extends Controller
      */
     public function destroy(Kategoriartikel $kategoriartikel)
     {
+        $data               = [
+            'sesi' => 'kategori_artikel',
+            'aksi' => 'hapus',
+            'table_id' => $kategoriartikel->id,
+            'detail' => [
+                'data' => [
+                    'hapus data Kategori <strong>"'.$kategoriartikel->nama_kategori.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
+
         $kategoriartikel->delete();
 
         return redirect()->back()->with('dd','Kategori Artikel');
