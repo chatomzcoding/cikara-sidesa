@@ -142,4 +142,35 @@ class SuratController extends Controller
 
         return $result;
     }
+
+    public function updatesurat(Request $request)
+    {
+        $penduduksurat  = Penduduksurat::find($request->id);
+        $formatsurat     = Formatsurat::find($penduduksurat->formatsurat_id);
+        $detail     = [];
+        foreach (format_surat($formatsurat->kode) as $key) {
+            if (isset($request->$key)) {
+                $nilai = [
+                    $key => $request->$key
+                ];
+            }
+
+            $detail     = array_merge($detail,$nilai);
+        }
+        $detail     = json_encode($detail);
+
+        Penduduksurat::where('id',$request->id)->update([
+            'status' => $request->status,
+            'detail' => $detail,
+        ]);
+        if (response()) {
+            $result["success"] = "1";
+            $result["message"] = "success";
+        } else {
+            $result["success"] = "0";
+            $result["message"] = "error";
+        }
+
+        return $result;
+    }
 }
