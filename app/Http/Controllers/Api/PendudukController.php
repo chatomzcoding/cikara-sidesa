@@ -24,6 +24,11 @@ class PendudukController extends Controller
 
     public function userid($id)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $akses  = Userakses::where('user_id',$id)->first();
         if ($akses) {
             $data = DB::table('penduduk')

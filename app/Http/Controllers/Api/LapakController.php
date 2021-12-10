@@ -15,6 +15,11 @@ class LapakController extends Controller
      */
     public function index()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Lapak::all();
     }
 

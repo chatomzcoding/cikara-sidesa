@@ -19,6 +19,11 @@ class ProdukController extends Controller
 
     public function index()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Produk::orderBy('id','DESC')->get();
     }
 
@@ -80,11 +85,21 @@ class ProdukController extends Controller
      */
     public function show($produk)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Produk::find($produk);
         
     }
     public function produklapak($userid)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $lapak  = Lapak::where('user_id',$userid)->first();
         if ($lapak) {
             return Produk::where('lapak_id',$lapak->id)->orderBy('id','DESC')->get();

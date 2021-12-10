@@ -75,6 +75,11 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        // $token  = $_GET['token'];
+        $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         if (isset($request->ubahpassword)) {
             $detail     = [
                 'status' => 'ubah password',

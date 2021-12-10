@@ -16,11 +16,21 @@ class ForumController extends Controller
      */
     public function index()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Forum::all();
     }
 
     public function chatforum($id)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Forumdiskusi::where('forum_id',$id)->get();
     }
 
@@ -42,6 +52,11 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
+        // $token  = $_GET['token'];
+        $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         Forumdiskusi::create($request->all());
 
         if (response()) {

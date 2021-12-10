@@ -16,6 +16,11 @@ class LaporController extends Controller
      */
     public function index()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $user_id    = $_GET['user_id'];
         $data = DB::table('lapor')
                 ->join('users','lapor.user_id','=','users.id')
@@ -51,6 +56,11 @@ class LaporController extends Controller
 
     public function listbyuser($userid)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Lapor::where('user_id',$userid)->get();
     }
 

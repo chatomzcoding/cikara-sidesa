@@ -14,11 +14,21 @@ class SuratController extends Controller
 {
     public function listklasifikasisurat()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         return Klasifikasisurat::all();
     }
 
     public function listformatsurat()
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $kategori = (isset($_GET['kategori'])) ? $_GET['kategori'] : 'semua' ;
         if ($kategori == 'semua') {
             $data     = Formatsurat::all();
@@ -37,7 +47,11 @@ class SuratController extends Controller
 
     public function formatsuratbykode($akode)
     {
-
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $kode       =  format_surat($akode);
         switch ($_GET['versi']) {
             case '1':
@@ -87,6 +101,11 @@ class SuratController extends Controller
 
     public function listsuratbyuser($user)
     {
+        $token  = $_GET['token'];
+        // $token  = $request->token;
+        if (!cektoken($token)) {
+            return response()->json('akses dilarang');
+        }
         $data     = DB::table('penduduk_surat')
                         ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
                         ->select('penduduk_surat.*','format_surat.nama_surat')
@@ -111,66 +130,97 @@ class SuratController extends Controller
 
     public function buatsurat(Request $request)
     {
-       $formatsurat     = Formatsurat::find($request->formatsurat_id);
-        $detail     = [];
-        foreach (format_surat($formatsurat->kode) as $key) {
-            if (isset($request->$key)) {
-                $nilai = [
-                    $key => $request->$key
-                ];
-            }
-
-            $detail     = array_merge($detail,$nilai);
-        }
-        $detail     = json_encode($detail);
-
-        $format     = Formatsurat::find($request->formatsurat_id);
-        Penduduksurat::create([
-            'user_id' => $request->user_id,
-            'formatsurat_id' => $request->formatsurat_id,
-            'nomor_surat' => DbCikara::nomorsurat($format->kode),
-            'status' => $request->status,
-            'detail' => $detail,
-        ]);
-        if (response()) {
-            $result["success"] = "1";
-            $result["message"] = "success";
+        $token  = $request->token;
+        if (cektoken($token)) {
+          
+            $formatsurat     = Formatsurat::find($request->formatsurat_id);
+             $detail     = [];
+             foreach (format_surat($formatsurat->kode) as $key) {
+                 if (isset($request->$key)) {
+                     $nilai = [
+                         $key => $request->$key
+                     ];
+                 }
+     
+                 $detail     = array_merge($detail,$nilai);
+             }
+             $detail     = json_encode($detail);
+     
+             $format     = Formatsurat::find($request->formatsurat_id);
+             Penduduksurat::create([
+                 'user_id' => $request->user_id,
+                 'formatsurat_id' => $request->formatsurat_id,
+                 'nomor_surat' => DbCikara::nomorsurat($format->kode),
+                 'status' => $request->status,
+                 'detail' => $detail,
+             ]);
+             if (response()) {
+                 $result["success"] = "1";
+                 $result["message"] = "success";
+             } else {
+                 $result["success"] = "0";
+                 $result["message"] = "error";
+             }
+     
+             return $result;
         } else {
-            $result["success"] = "0";
-            $result["message"] = "error";
+            return response()->json('akses dilarang');
         }
-
-        return $result;
     }
 
     public function updatesurat(Request $request)
     {
-        $penduduksurat  = Penduduksurat::find($request->id);
-        $formatsurat     = Formatsurat::find($penduduksurat->formatsurat_id);
-        $detail     = [];
-        foreach (format_surat($formatsurat->kode) as $key) {
-            if (isset($request->$key)) {
-                $nilai = [
-                    $key => $request->$key
-                ];
+        $token  = $request->token;
+        if (cektoken($token)) {
+           
+            $penduduksurat  = Penduduksurat::find($request->id);
+            $formatsurat     = Formatsurat::find($penduduksurat->formatsurat_id);
+            $detail     = [];
+            foreach (format_surat($formatsurat->kode) as $key) {
+                if (isset($request->$key)) {
+                    $nilai = [
+                        $key => $request->$key
+                    ];
+                }
+    
+                $detail     = array_merge($detail,$nilai);
             }
-
-            $detail     = array_merge($detail,$nilai);
-        }
-        $detail     = json_encode($detail);
-
-        Penduduksurat::where('id',$request->id)->update([
-            'status' => $request->status,
-            'detail' => $detail,
-        ]);
-        if (response()) {
-            $result["success"] = "1";
-            $result["message"] = "success";
+            $detail     = json_encode($detail);
+    
+            Penduduksurat::where('id',$request->id)->update([
+                'status' => $request->status,
+                'detail' => $detail,
+            ]);
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+    
+            return $result;
         } else {
-            $result["success"] = "0";
-            $result["message"] = "error";
+            return response()->json('akses dilarang');
         }
+    }
 
-        return $result;
+    public function hapussurat(Penduduksurat $penduduksurat)
+    {
+        $token  = $_GET['token'];
+        if (cektoken($token)) {
+            $penduduksurat->delete();
+            if (response()) {
+                $result["success"] = "1";
+                $result["message"] = "success";
+            } else {
+                $result["success"] = "0";
+                $result["message"] = "error";
+            }
+    
+            return $result;
+        } else {
+            return response()->json('akses dilarang');
+        }
     }
 }
