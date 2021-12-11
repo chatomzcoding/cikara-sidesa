@@ -110,7 +110,7 @@ class SuratController extends Controller
                         ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
                         ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.kode')
                         ->where('penduduk_surat.user_id',$user)
-                        ->orderByDesc('penduduk_surat.id')
+                        ->orderBy('penduduk_surat.id',$_GET['sortby'])
                         ->get();
         $result     = [];
         foreach ($data as $item) {

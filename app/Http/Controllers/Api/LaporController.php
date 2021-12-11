@@ -146,11 +146,13 @@ class LaporController extends Controller
     {
         $token = $request->token;
         if (cektoken($token)) {
+            $namafile   = uploadgambar($request,'penduduk/lapor');
             Lapor::where('id',$lapor->id)->update([
                 'isi' => $request->isi,
+                'identitas' => $request->identitas,
                 'kategori' => $request->kategori,
-                'posting' => $request->posting,
-                'photo' => $request->photo,
+                'posting' => $namafile,
+                'photo' => $request->image,
             ]);
                 $result["success"] = "1";
                 $result["message"] = "success";
