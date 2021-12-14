@@ -86,6 +86,7 @@
                 @if (count($kategori) > 0)
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Baru Vaksinasi" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                     <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-flat btn-sm float-right pop-info" title="Cetak Daftar Vaksinasi"><i class="fas fa-print"></i> CETAK</a>
+                    {!! button_logall($log) !!}
                 @else
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm disabled"><i class="fas fa-info"></i> Tambah Data Jenis Vaksin Terlebih dahulu </a>
                 @endif
@@ -146,7 +147,8 @@
                                                 </div>
                                             </div>
                                     </td>
-                                    <td>{{ $item->nama_penduduk}}</td>
+                                    <td>{{ $item->nama_penduduk}}  <br>
+                                        {!! DbCikara::showlog(['sesi'=>'vaksinasi','id'=>$item->id]) !!}</td>
                                     <td class="text-uppercase">{{ $item->nama_kategori}}</td>
                                     <td>{{ date_indo($item->tanggal_vaksin)}}</td>
                                     <td class="text-center">{{ $item->dosis}}</td>
@@ -165,6 +167,8 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
+
     <div class="modal fade" id="cetakdokumen">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">

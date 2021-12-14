@@ -43,7 +43,7 @@ class VaksinasiController extends Controller
         $kategori   = Kategori::where('label','vaksinasi')->orderBy('nama_kategori','ASC')->get();
         $penduduk   = Penduduk::all();
         if (isset($_GET['page']) AND $_GET['page'] == 'kategori') {
-        $log    = Log::where('sesi','kategorivaksin')->orderby('id','DESC')->get();
+            $log    = Log::where('sesi','kategorivaksin')->orderby('id','DESC')->get();
         $judul = 'Kategori Vaksin';
             return view('admin.covid.vaksinasi.kategori', compact('kategori','menu','log','judul'));
         } else {
@@ -51,7 +51,9 @@ class VaksinasiController extends Controller
                 'kategori' => count($kategori),
                 'vaksinasi' => Vaksinasi::count()
             ];
-            return view('admin.covid.vaksinasi.index', compact('vaksinasi','kategori','menu','penduduk','filter','total'));
+            $log    = Log::where('sesi','vaksinasi')->orderby('id','DESC')->get();
+            $judul  = 'Vaksinasi';
+            return view('admin.covid.vaksinasi.index', compact('vaksinasi','kategori','menu','penduduk','filter','total','log','judul'));
         }
         
     }
@@ -80,6 +82,20 @@ class VaksinasiController extends Controller
             return back()->with('ddc','Data sudah Ada');
         } else {
             Vaksinasi::create($request->all());
+            $vaksinasi    = Vaksinasi::latest()->first();
+            $penduduk       = Penduduk::find($vaksinasi->penduduk_id);
+            $kategori       = Kategori::find($vaksinasi->kategori_id);
+            $data               = [
+                'sesi' => 'vaksinasi',
+                'aksi' => 'tambah',
+                'table_id' => $vaksinasi->id,
+                'detail' => [
+                    'data' => [
+                        'tambah data vaksinasi <strong>"'.$kategori->nama_kategori.' tanggal '.$request->tanggal_vaksin.' untuk '.$penduduk->nama_penduduk.'"</strong>'
+                    ]
+                ]
+            ];
+            DbCikara::saveLog($data);
             return back()->with('ds','Vaksinasi Penduduk');
         }
     }
@@ -126,12 +142,31 @@ class VaksinasiController extends Controller
             if ($vaksinasi) {
                 return back()->with('ddc','Data sudah ada');
             } else {
+                $vaksinasi  = Vaksinasi::find($request->id);
                 Vaksinasi::where('id',$request->id)->update([
                     'kategori_id' => $request->kategori_id,
                     'dosis' => $request->dosis,
                     'tanggal_vaksin' => $request->tanggal_vaksin,
                     'keterangan' => $request->keterangan,
                 ]);
+                 $custom         = [
+                    [
+                        'awal' => Kategori::find($vaksinasi->kategori_id) ->nama_kategori,
+                        'baru' => Kategori::find($request->kategori_id) ->nama_kategori,
+                        'field' => 'jenis_vaksin',
+                    ]
+                ];
+                $detail     = [
+                    'data' => data_perubahan($vaksinasi,$request,['dosis','tanggal_vaksin','keterangan'],$custom)
+                ];
+        
+                $data               = [
+                    'sesi' => 'vaksinasi',
+                    'aksi' => 'edit',
+                    'table_id' => $request->id,
+                    'detail' => $detail
+                ];
+                DbCikara::saveLog($data);
             }
         }
         return back()->with('du','Vaksinasi');
@@ -146,7 +181,19 @@ class VaksinasiController extends Controller
      */
     public function destroy(Vaksinasi $vaksinasi)
     {
-        //
+        $penduduk       = Penduduk::find($vaksinasi->penduduk_id);
+        $kategori       = Kategori::find($vaksinasi->kategori_id);   
+        $data               = [
+            'sesi' => 'vaksinasi',
+            'aksi' => 'hapus',
+            'table_id' => $vaksinasi->id,
+            'detail' => [
+                'data' => [
+                    'hapus data vaksinasi <strong>"'.$kategori->nama_kategori.' tanggal vaksinasi '.$vaksinasi->tanggal_vaksin.' untuk '.$penduduk->nama_penduduk.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         $vaksinasi->delete();
 
         return back()->with('dd','Vaksinasi');

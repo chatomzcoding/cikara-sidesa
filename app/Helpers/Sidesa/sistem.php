@@ -747,11 +747,13 @@ if (! function_exists('data_perubahan')) {
         }
         if (!is_null($custom)) {
             for ($i=0; $i < count($custom); $i++) { 
-                $field      = NULL;
-                if (isset($custom[$i]['field'])) {
-                    $field = $custom[$i]['field'];
+                if ($custom[$i]['awal'] <> $custom[$i]['baru']) {
+                    $field      = NULL;
+                    if (isset($custom[$i]['field'])) {
+                        $field = $custom[$i]['field'];
+                    }
+                    $result[] = 'mengubah '.$field.' <strong>"'.$custom[$i]['awal'].'"</strong> menjadi <strong>"'.$custom[$i]['baru'].'"</strong>';
                 }
-                $result[] = 'mengubah '.$field.' <strong>"'.$custom[$i]['awal'].'"</strong> menjadi <strong>"'.$custom[$i]['baru'].'"</strong>';
             }
         }
         return $result;
