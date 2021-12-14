@@ -42,7 +42,7 @@ class SuratController extends Controller
             }
         }
 
-        return $result;
+        return $data;
     }
 
     public function formatsuratbykode($akode)
