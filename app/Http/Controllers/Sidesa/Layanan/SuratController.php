@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Sidesa\Layanan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
+use App\Models\Log;
 use App\Models\Penduduksurat;
 use App\Models\Staf;
 use Illuminate\Http\Request;
@@ -39,8 +41,8 @@ class SuratController extends Controller
             'penduduk' => $f_penduduk,
             'tanggal' => $f_tanggal,
         ];
-
-        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf','filter'));
+        $log    = Log::where('sesi','penduduksurat')->orderby('id','DESC')->get();
+        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf','filter','log'));
     }
 
     /**
@@ -103,12 +105,26 @@ class SuratController extends Controller
             'nipd' => $staf->nipd,
         ];
 
+        $penduduksurat  = Penduduksurat::find($request->id);
         Penduduksurat::where('id',$request->id)->update([
             'status' => $request->status,
             'tgl_awal' => $request->tgl_awal,
             'tgl_akhir' => $request->tgl_akhir,
             'ttd' => json_encode($ttd),
         ]);
+
+        $detail     = [
+            'data' => data_perubahan($penduduksurat,$request,['status'])
+        ];
+
+        $data               = [
+            'sesi' => 'penduduksurat',
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du','Surat Penduduk');
     }
@@ -119,8 +135,23 @@ class SuratController extends Controller
      * @param  \App\Models\Penduduksurat  $penduduksurat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penduduksurat $penduduksurat)
+    public function destroy($penduduksurat)
     {
-        //
+        $penduduksurat  = Penduduksurat::find($penduduksurat);
+        $data               = [
+            'sesi' => 'penduduksurat',
+            'aksi' => 'hapus',
+            'table_id' => $penduduksurat->id,
+            'detail' => [
+                'data' => [
+                    'hapus data penduduk surat dengan nomor surat <strong>"'.$penduduksurat->nomor_surat.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
+
+        $penduduksurat->delete();
+
+        return back()->with('dd','Penduduk Surat');
     }
 }

@@ -102,6 +102,7 @@
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -163,7 +164,7 @@
                                   <tr>
                                       <td class="text-center">{{ $no }}</td>
                                       <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/penduduksurat',$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url('/suratpenduduk',$item->id)}}" method="post">
                                           @csrf
                                           @method('delete')
                                           </form>
@@ -188,7 +189,8 @@
                                       </td>
                                       <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
                                       <td>{{ $item->created_at }}</td>
-                                      <td>{{ $item->nama_surat }}</td>
+                                      <td>{{ $item->nama_surat }}  <br>
+                                        {!! DbCikara::showlog(['sesi'=>'penduduksurat','id'=>$item->id]) !!}</td>
                                       <td>
                                           @switch($item->status)
                                               @case('selesai')
@@ -215,7 +217,7 @@
           </div>
         </div>
     </div>
-
+    @include('sistem.view.modal-log')
     <div class="modal fade" id="cetakdokumen">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

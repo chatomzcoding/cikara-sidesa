@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Penduduk;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Lapak;
+use App\Models\Log;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class LapakController extends Controller
@@ -77,7 +80,9 @@ class LapakController extends Controller
         $produk = Produk::where('lapak_id',$lapak->id)->get();
         $judul  = 'Detail Lapak';
         $menu   = 'lapakdesa';
-        return view('admin.layananmandiri.lapak.show', compact('lapak','judul','produk','menu'));
+        $log    = Log::where('sesi','produk')->orderby('id','DESC')->get();
+        $user   = Auth::user();
+        return view('admin.layananmandiri.lapak.show', compact('lapak','judul','produk','menu','log','user'));
     }
 
     /**
@@ -122,6 +127,18 @@ class LapakController extends Controller
     public function destroy($lapak)
     {
         $lapak  = Lapak::find($lapak);
+
+        $data               = [
+            'sesi' => 'lapak',
+            'aksi' => 'hapus',
+            'table_id' => $lapak->id,
+            'detail' => [
+                'data' => [
+                    'hapus data lapak <strong>"'.$lapak->nama_lapak.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         deletefile($this->folder.'/'.$lapak->logo);
 

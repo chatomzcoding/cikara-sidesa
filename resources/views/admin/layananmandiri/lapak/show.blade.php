@@ -81,6 +81,9 @@
             <div class="card">
               <div class="card-header">
                 <a href="{{ url('tampilan/lapak') }}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar lapak"><i class="fas fa-angle-left"></i> Kembali </a>
+                @if ($user->level <> 'penduduk')
+                {!! button_logall($log) !!}
+                @endif
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -119,7 +122,12 @@
                                     </td>
                                     <td><img src="{{ asset('img/penduduk/produk/'.$item->gambar) }}" alt="" width="100px"></td>
                                     <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td>{{ $item->keterangan}} 
+                                      @if ($user->level <> 'penduduk')
+                                      <br>
+                                      {!! DbCikara::showlog(['sesi'=>'produk','id'=>$item->id]) !!}
+                                      @endif
+                                    </td>
                                     <td>{{ rupiah($item->harga) }}</td>
                                     <td class="text-center">{{ $item->dilihat}}</td>
                                 </tr>
@@ -131,6 +139,8 @@
           </div>
         </div>
     </div>
+    @include('sistem.view.modal-log')
+
     @section('script')
         <script>
             $(function () {
