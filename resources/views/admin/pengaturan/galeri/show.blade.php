@@ -31,7 +31,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/galeri')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali ke daftar galeri"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Photo Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah </a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK </a> --}}
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -87,7 +87,8 @@
                                             </div>
                                     </td>
                                     <td><img src="{{ asset('/img/pengaturan/galeriphoto/'.$item->photo)}}" alt="" width="150px"></td>
-                                    <td>{{ $item->nama_photo}}</td>
+                                    <td>{{ $item->nama_photo}} <br>
+                                        {!! DbCikara::showlog(['sesi'=>'galeriphoto','id'=>$item->id]) !!}</td>
                                     <td>{{ $item->status}}</td>
                                 </tr>
                             @empty
@@ -103,6 +104,8 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
+
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sidesa\Pengaturan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Galeriphoto;
 use Illuminate\Http\Request;
@@ -16,11 +17,13 @@ class GaleriphotoController extends Controller
      */
     protected $table = 'Galeri Photo';
 
+    protected $sesi = 'galeriphoto';
+
     protected $folder = 'public/img/pengaturan/galeriphoto';
 
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -58,6 +61,19 @@ class GaleriphotoController extends Controller
             'nama_photo' => $request->nama_photo,
             'photo' => $nama_file,
         ]);
+        $galeri    = Galeriphoto::latest()->first();
+
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'tambah',
+            'table_id' => $galeri->id,
+            'detail' => [
+                'data' => [
+                    'tambah data gambar <strong>"'.$request->nama_photo.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect('/galeri/'.Crypt::encryptString($request->galeri_id))->with('ds', $this->table);
     }
@@ -117,6 +133,24 @@ class GaleriphotoController extends Controller
             'status' => $request->status,
             'photo' => $nama_file,
         ]);
+        $custom         = [
+            [
+                'awal' => $galeriphoto->photo,
+                'baru' => $nama_file,
+                'field' => 'photo',
+            ]
+        ];
+        $detail     = [
+            'data' => data_perubahan($galeriphoto,$request,['nama_photo','status'], $custom)
+        ];
+
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du', $this->table);
     }
@@ -129,6 +163,17 @@ class GaleriphotoController extends Controller
      */
     public function destroy(Galeriphoto $galeriphoto)
     {
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'hapus',
+            'table_id' => $galeriphoto->id,
+            'detail' => [
+                'data' => [
+                    'hapus data gambar <strong>"'.$galeriphoto->nama_photo.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         deletefile($this->folder.'/'.$galeriphoto->photo);
         $galeriphoto->delete();
 

@@ -19,6 +19,7 @@ class GaleriController extends Controller
      */
 
     protected $table = 'galeri';
+    protected $sesi = 'galeri';
     protected $folder = 'public/img/pengaturan/galeri';
 
     public function index()
@@ -26,7 +27,7 @@ class GaleriController extends Controller
         $menu       = 'galeri';
         $judul      = 'Galeri';
         $galeri     = Galeri::all();
-        $log    = Log::where('sesi',$this->table)->orderby('id','DESC')->get();
+        $log    = Log::where('sesi',$this->sesi)->orderby('id','DESC')->get();
         return view('admin.pengaturan.galeri.index', compact('galeri','menu','log','judul'));
     }
 
@@ -68,7 +69,7 @@ class GaleriController extends Controller
 
         $galeri    = Galeri::latest()->first();
         $data               = [
-            'sesi' => $this->table,
+            'sesi' => $this->sesi,
             'aksi' => 'tambah',
             'table_id' => $galeri->id,
             'detail' => [
@@ -93,7 +94,9 @@ class GaleriController extends Controller
         $galeri = Galeri::find(Crypt::decryptString($galeri));
         $galeriphoto = Galeriphoto::where('galeri_id',$galeri->id)->get();
         $menu       = 'galeri';
-        return view('admin.pengaturan.galeri.show', compact('galeri','galeriphoto','menu'));
+        $log    = Log::where('sesi','galeriphoto')->orderby('id','DESC')->get();
+        $judul      = 'Galeri Photo';
+        return view('admin.pengaturan.galeri.show', compact('galeri','galeriphoto','menu','judul','log'));
     }
 
     /**
@@ -141,12 +144,19 @@ class GaleriController extends Controller
             'status' => $request->status,
             'gambar_galeri' => $nama_file,
         ]);
+        // $custom         = [
+        //     [
+        //         'awal' => $kategoriawal->nama_kategori,
+        //         'baru' => $kategoribaru->nama_kategori,
+        //         'field' => 'kategori artikel',
+        //     ]
+        // ];
         $detail     = [
             'data' => data_perubahan($galeri,$request,['nama_galeri','keterangan','status'])
         ];
 
         $data               = [
-            'sesi' => $this->table,
+            'sesi' => $this->sesi,
             'aksi' => 'edit',
             'table_id' => $request->id,
             'detail' => $detail
@@ -165,7 +175,7 @@ class GaleriController extends Controller
     public function destroy(Galeri $galeri)
     {
         $data               = [
-            'sesi' => $this->table,
+            'sesi' => $this->sesi,
             'aksi' => 'hapus',
             'table_id' => $galeri->id,
             'detail' => [
