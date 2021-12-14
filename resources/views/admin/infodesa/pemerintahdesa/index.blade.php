@@ -63,9 +63,7 @@
                                 <th>Agama</th>
                                 <th>Pangkat / Golongan</th>
                                 <th>Jabatan</th>
-                                <th>Nomor/Tanggal SK Pengangkatan</th>
-                                <th>Nomor/Tanggal SK Pemberhentian</th>
-                                <th>Masa / Periode Jabatan</th>
+                                <th>Periode</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -83,9 +81,12 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item text-success" href="{{ url('/staf/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Edit Data</a>
-                                                <div class="dropdown-divider"></div>
-                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                <a class="dropdown-item text-primary" href="{{ url('/staf/'.Crypt::encryptString($item->id))}}"><i class="fas fa-file"></i> Detail Data</a>
+                                                @if (aksesadmin())
+                                                    <a class="dropdown-item text-success" href="{{ url('/staf/'.Crypt::encryptString($item->id).'/edit')}}"><i class="fas fa-pen"></i> Edit Data</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
@@ -95,10 +96,6 @@
                                     <td>{{ $item->agama}}</td>
                                     <td class="text-center">{{ $item->golongan}}</td>
                                     <td>{{ $item->jabatan}}</td>
-                                    <td>{{ $item->nosk_pengangkatan}} <br>
-                                    {{ $item->tglsk_pengangkatan}}</td>
-                                    <td>{{ $item->nosk_pemberhentian}} <br>
-                                    {{ $item->tglsk_pemberhentian}}</td>
                                     <td>{{ $item->masa_jabatan}}</td>
                                 </tr>
                             @empty

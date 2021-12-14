@@ -25,7 +25,9 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                <a href="{{ url('/profil/'.Crypt::encryptString($profil->id).'/edit')}}" class="btn btn-outline-success btn-sm pop-info" title="Ubah Data Desa"><i class="fas fa-pen"></i> Ubah Data</a>
+                 @if (aksesadmin())
+                 <a href="{{ url('/profil/'.Crypt::encryptString($profil->id).'/edit')}}" class="btn btn-outline-success btn-sm pop-info" title="Ubah Data Desa"><i class="fas fa-pen"></i> Ubah Data</a>
+                 @endif
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
