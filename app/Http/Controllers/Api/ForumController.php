@@ -37,6 +37,7 @@ class ForumController extends Controller
                 ->join('penduduk','users.name','=','penduduk.nik')
                 ->select('forum_diskusi.*','penduduk.nama_penduduk')
                 ->where('forum_diskusi.forum_id',$id)
+                ->orderBy('forum_diskusi.id','ASC')
                 ->get();
         return $result;
     }
