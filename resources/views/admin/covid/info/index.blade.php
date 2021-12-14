@@ -92,6 +92,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" title="Tambah Data Covid Penduduk" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Data Covid"><i class="fas fa-print"></i> CETAK</a>
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -132,7 +133,8 @@
                                         </div>
                                     </div>
                                     </td>
-                                    <td>{{ $item->nama_penduduk }}</td>
+                                    <td>{{ $item->nama_penduduk }} <br>
+                                      {!! DbCikara::showlog(['sesi'=>'covid','id'=>$item->id]) !!}</td>
                                     <td>{{ date_indo($item->tanggal) }}</td>
                                     <td>
                                       @switch($item->status)
@@ -171,6 +173,8 @@
           </div>
         </div>
     </div>
+    @include('sistem.view.modal-log')
+
        {{-- modal --}}
        <div class="modal fade" id="cetakdokumen">
         <div class="modal-dialog modal-lg">

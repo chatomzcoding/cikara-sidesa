@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Sidesa\Covid;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Covid;
+use App\Models\Log;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +17,9 @@ class CovidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $sesi = 'covid';
+
+
     public function index()
     {
         $covid  = DB::table('covid')
@@ -29,8 +34,9 @@ class CovidController extends Controller
             'meninggal' => Covid::where('status','meninggal')->count(),
             'pemantauan' => Covid::where('status','pemantauan')->count(),
         ];
-
-        return view('admin.covid.info.index', compact('covid','menu','penduduk','total'));
+        $log    = Log::where('sesi',$this->sesi)->orderby('id','DESC')->get();
+        $judul  = 'Covid';
+        return view('admin.covid.info.index', compact('covid','menu','penduduk','total','log','judul'));
     }
 
     /**
@@ -64,6 +70,19 @@ class CovidController extends Controller
             'tanggal' => $request->tanggal,
             'keterangan' => json_encode($keterangan)
         ]);
+
+        $covid    = Covid::latest()->first();
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'tambah',
+            'table_id' => $covid->id,
+            'detail' => [
+                'data' => [
+                    'tambah data info covid <strong>"'.$request->status.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return back()->with('ds','Covid Penduduk');
     }
@@ -134,6 +153,18 @@ class CovidController extends Controller
                 'tanggal' => $request->tanggal,
                 'keterangan' => json_encode($dataketerangan)
             ]);
+
+            $detail     = [
+                'data' => data_perubahan($covid,$request,['tanggal','status'])
+            ];
+    
+            $data               = [
+                'sesi' => $this->sesi,
+                'aksi' => 'edit',
+                'table_id' => $request->id,
+                'detail' => $detail
+            ];
+            DbCikara::saveLog($data);
         }
         return back()->with('du','Covid Penduduk');
 
@@ -147,6 +178,17 @@ class CovidController extends Controller
      */
     public function destroy(Covid $covid)
     {
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'hapus',
+            'table_id' => $covid->id,
+            'detail' => [
+                'data' => [
+                    'hapus data info covid <strong>"'.$covid->status.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         $covid->delete();
 
         return back()->with('dd','Data Covid');
