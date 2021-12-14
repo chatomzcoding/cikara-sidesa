@@ -151,8 +151,8 @@ class LaporController extends Controller
                 'isi' => $request->isi,
                 'identitas' => $request->identitas,
                 'kategori' => $request->kategori,
-                'posting' => $namafile,
-                'photo' => $request->image,
+                'posting' => $request->posting,
+                'photo' => $namafile,
             ]);
                 $result["success"] = "1";
                 $result["message"] = "success";
