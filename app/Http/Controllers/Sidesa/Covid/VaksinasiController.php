@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Sidesa\Covid;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use App\Models\Log;
 use App\Models\Penduduk;
 use App\Models\Vaksinasi;
 use Illuminate\Http\Request;
@@ -16,6 +18,8 @@ class VaksinasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $sesi = 'vaksinasi';
+
     public function index()
     {
         $menu       = 'vaksinasi';
@@ -39,7 +43,9 @@ class VaksinasiController extends Controller
         $kategori   = Kategori::where('label','vaksinasi')->orderBy('nama_kategori','ASC')->get();
         $penduduk   = Penduduk::all();
         if (isset($_GET['page']) AND $_GET['page'] == 'kategori') {
-            return view('admin.covid.vaksinasi.kategori', compact('kategori','menu'));
+        $log    = Log::where('sesi','kategorivaksin')->orderby('id','DESC')->get();
+        $judul = 'Kategori Vaksin';
+            return view('admin.covid.vaksinasi.kategori', compact('kategori','menu','log','judul'));
         } else {
             $total  = [
                 'kategori' => count($kategori),

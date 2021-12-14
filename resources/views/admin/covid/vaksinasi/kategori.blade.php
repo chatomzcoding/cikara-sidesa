@@ -29,6 +29,7 @@
               <div class="card-header">
                   <a href="{{ url('/vaksinasi')}}" class="btn btn-outline-secondary btn-flat btn-sm pop-info" title="Kembali Ke Daftar Vaksinasi"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Vaksin" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -66,7 +67,8 @@
                                             </div>
                                     </td>
                                     <td>{{ $item->nama_kategori}}</td>
-                                    <td>{{ $item->keterangan_kategori}}</td>
+                                    <td>{{ $item->keterangan_kategori}} <br>
+                                        {!! DbCikara::showlog(['sesi'=>'kategorivaksin','id'=>$item->id]) !!}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -81,6 +83,8 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
+
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">

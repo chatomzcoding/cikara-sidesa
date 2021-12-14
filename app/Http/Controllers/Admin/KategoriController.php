@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
@@ -37,7 +38,18 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         Kategori::create($request->all());
-
+        $kategori    = Kategori::latest()->first();
+        $data               = [
+            'sesi' => 'kategorivaksin',
+            'aksi' => 'tambah',
+            'table_id' => $kategori->id,
+            'detail' => [
+                'data' => [
+                    'tambah data kategori vaksin <strong>"'.$request->nama_kategori.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         return back()->with('ds','Jenis Vaksin');
     }
 
@@ -72,10 +84,22 @@ class KategoriController extends Controller
      */
     public function update(Request $request)
     {
+        $kategori   = Kategori::find($request->id);
         Kategori::where('id',$request->id)->update([
             'nama_kategori' => $request->nama_kategori,
             'keterangan_kategori' => $request->keterangan_kategori
         ]);
+        $detail     = [
+            'data' => data_perubahan($kategori,$request,['nama_kategori','keterangan_kategori'])
+        ];
+
+        $data               = [
+            'sesi' => 'kategorivaksin',
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
         return back()->with('du','Jenis Vaksin');
 
     }
@@ -88,6 +112,17 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
+        $data               = [
+            'sesi' => 'kategorivaksin',
+            'aksi' => 'hapus',
+            'table_id' => $kategori->id,
+            'detail' => [
+                'data' => [
+                    'hapus data kategori vaksin <strong>"'.$kategori->nama_kategori.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         $kategori->delete();
         return back()->with('dd','Jenis Vaksin');
     }
