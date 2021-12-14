@@ -98,6 +98,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori Laporan </a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Laporan Penduduk"><i class="fas fa-print"></i> CETAK</a>
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -176,6 +177,8 @@
                                     @if (!is_null($item->tanggapan))
                                       <i class="text-secondary">Tanggapan :{{ $item->tanggapan }}</i>
                                     @endif
+                                    <br>
+                                    {!! DbCikara::showlog(['sesi'=>'laporanpenduduk','id'=>$item->id]) !!}
                                     </td>
                                     <td>{{ $item->kategori }}</td>
                                     <td class="text-center">
@@ -207,6 +210,8 @@
           </div>
         </div>
     </div>
+    @include('sistem.view.modal-log')
+
     <div class="modal fade" id="cetakdokumen">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

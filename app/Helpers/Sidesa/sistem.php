@@ -742,7 +742,7 @@ if (! function_exists('data_perubahan')) {
             $dlama  = $data->$item;
             $dbaru  = $request->$item;
             if ($dlama <> $dbaru) {
-                $result[] = 'mengubah <strong>"'.$dlama.'"</strong> menjadi <strong>"'.$dbaru.'"</strong>';
+                $result[] = 'mengubah '.$item.' <strong>"'.$dlama.'"</strong> menjadi <strong>"'.$dbaru.'"</strong>';
             }
         }
         if (!is_null($custom)) {
