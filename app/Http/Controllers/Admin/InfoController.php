@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Info;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class InfoController extends Controller
@@ -13,6 +15,10 @@ class InfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $table = 'info';
+    protected $infoteksberjalan = 'teksberjalan';
+
     public function index()
     {
         switch ($_GET['page']) {
@@ -23,9 +29,12 @@ class InfoController extends Controller
                 return view('admin.infodesa.tentang.index', compact('menu','info'));
                 break;
             case 'teksberjalan':
+                $judul  = 'Teks Berjalan';
                 $menu   = 'berjalan';
                 $info   = Info::where('label','teksberjalan')->get();
-                return view('admin.pengaturan.teksberjalan.index', compact('menu','info'));
+                $log    = Log::where('sesi',$this->infoteksberjalan)->orderby('id','DESC')->get();
+
+                return view('admin.pengaturan.teksberjalan.index', compact('menu','info','judul','log'));
                 break;
             
             default:
@@ -66,6 +75,18 @@ class InfoController extends Controller
                     'nama' => $request->nama,
                     'detail' => $request->detail,
                 ]);
+                $info    = Info::where('label',$request->label)->where('nama',$request->nama)->first();
+                $data               = [
+                    'sesi' => $this->infoteksberjalan,
+                    'aksi' => 'tambah',
+                    'table_id' => $info->id,
+                    'detail' => [
+                        'data' => [
+                            'tambah data teks berjalan <strong>"'.$request->nama.'"</strong>'
+                        ]
+                    ]
+                ];
+                DbCikara::saveLog($data);
                 return back()->with('ds','Teks Berjalan');
                 break;
             
@@ -156,6 +177,17 @@ class InfoController extends Controller
                     'nama' => $request->nama,
                     'detail' => $request->detail,
                 ]);
+                $detail     = [
+                    'data' => data_perubahan($info,$request,['nama','detail'])
+                ];
+        
+                $data               = [
+                    'sesi' => $this->infoteksberjalan,
+                    'aksi' => 'edit',
+                    'table_id' => $request->id,
+                    'detail' => $detail
+                ];
+                DbCikara::saveLog($data);
                 return back()->with('du','Teks Berjalan');
                 break;
             
@@ -173,6 +205,17 @@ class InfoController extends Controller
      */
     public function destroy(Info $info)
     {
+        $data               = [
+            'sesi' => $this->infoteksberjalan,
+            'aksi' => 'hapus',
+            'table_id' => $info->id,
+            'detail' => [
+                'data' => [
+                    'hapus data teks berjalan <strong>"'.$info->nama.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         $info->delete();
 
         return back()->with('dd','Teks Berjalan');

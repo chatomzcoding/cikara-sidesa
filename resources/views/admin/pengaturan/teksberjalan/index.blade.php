@@ -31,6 +31,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Teks Berjalan" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -68,7 +69,9 @@
                                             </div>
                                     </td>
                                     <td>{{ $item->nama}}</td>
-                                    <td>{{ $item->detail}}</td>
+                                    <td>{{ $item->detail}}
+                                        <br>
+                                        {!! DbCikara::showlog(['sesi'=>'teksberjalan','id'=>$item->id]) !!}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -83,6 +86,7 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
