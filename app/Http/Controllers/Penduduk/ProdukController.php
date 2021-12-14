@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Penduduk;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Lapak;
 use App\Models\Produk;
@@ -144,6 +145,17 @@ class ProdukController extends Controller
     {
         $produk     = Produk::find($produk);
 
+        $data               = [
+            'sesi' => 'produk',
+            'aksi' => 'hapus',
+            'table_id' => $produk->id,
+            'detail' => [
+                'data' => [
+                    'hapus data produk <strong>"'.$produk->nama.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         deletefile($this->folder.'/'.$produk->gambar);
 
         $produk->delete();
