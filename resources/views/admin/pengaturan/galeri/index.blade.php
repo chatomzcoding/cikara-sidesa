@@ -29,11 +29,12 @@
             <div class="card">
               <div class="card-header">
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Galeri Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <div class="table-responsive">
+                   
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
@@ -66,12 +67,16 @@
                                                     </button>
                                                   <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                 
                                                 </div>
                                             </div>
                                     </td>
                                     <td><img src="{{ asset('/img/pengaturan/galeri/'.$item->gambar_galeri)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_galeri}}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td>{{ $item->keterangan}}
+                                        <br>
+                                        {!! DbCikara::showlog(['sesi'=>'galeri','id'=>$item->id]) !!}
+                                    </td>
                                     <td class="text-center">{{ $item->status}}</td>
                                 </tr>
                             @empty
@@ -87,6 +92,7 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">

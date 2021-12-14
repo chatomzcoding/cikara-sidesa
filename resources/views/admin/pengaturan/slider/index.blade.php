@@ -31,6 +31,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Slider Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm float-right"><i class="fas fa-print"></i> CETAK</a> --}}
+                {!! button_logall($log) !!}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -72,7 +73,10 @@
                                     </td>
                                     <td><img src="{{ asset('/img/pengaturan/slider/'.$item->gambar)}}" alt="" width="150px"></td>
                                     <td>{{ $item->nama_slider}}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td>{{ $item->keterangan}}
+                                        <br>
+                                        {!! DbCikara::showlog(['sesi'=>'slider','id'=>$item->id]) !!}
+                                    </td>
                                     {{-- <td>
                                         @if (!is_null($item->link))
                                             <a href="{{ $item->link}}" target="_blank">link</a>
@@ -93,6 +97,7 @@
         </div>
     </div>
     {{-- modal --}}
+    @include('sistem.view.modal-log')
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
@@ -163,7 +168,7 @@
                    </div> --}}
                    <div class="form-group row">
                         <label for="" class="col-md-4">Unggah Gambar (upload jika ingin mengubah)</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
+                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Status Slider</label>

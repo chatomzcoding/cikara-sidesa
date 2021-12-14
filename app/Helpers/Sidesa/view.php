@@ -15,7 +15,7 @@ if (! function_exists('button_logall')) {
     {
         $view = NULL;
         if (count($log) > 0) {
-            $view = " <a href='#' data-toggle='modal' data-target='#log' class='btn btn-outline-info btn-flat btn-sm ".$posisi."' ><i class='far fa-file'></i> LOG</a> 
+            $view = " <a href='#' data-toggle='modal' data-target='#log' class='btn btn-outline-info btn-flat btn-sm ".$posisi."' ><i class='far fa-file'></i> LOG <i class='fas fa-check'></i></a> 
                     ";
         }
         return $view;

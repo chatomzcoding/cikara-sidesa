@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Sidesa\Pengaturan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
 use App\Models\Galeriphoto;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -21,9 +23,11 @@ class GaleriController extends Controller
 
     public function index()
     {
-        $galeri     = Galeri::all();
         $menu       = 'galeri';
-        return view('admin.pengaturan.galeri.index', compact('galeri','menu'));
+        $judul      = 'Galeri';
+        $galeri     = Galeri::all();
+        $log    = Log::where('sesi',$this->table)->orderby('id','DESC')->get();
+        return view('admin.pengaturan.galeri.index', compact('galeri','menu','log','judul'));
     }
 
     /**
@@ -61,6 +65,19 @@ class GaleriController extends Controller
             'keterangan' => $request->keterangan,
             'gambar_galeri' => $nama_file,
         ]);
+
+        $galeri    = Galeri::latest()->first();
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'tambah',
+            'table_id' => $galeri->id,
+            'detail' => [
+                'data' => [
+                    'tambah data gambar <strong>"'.$request->nama_galeri.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('ds', $this->table);
     }
@@ -124,6 +141,17 @@ class GaleriController extends Controller
             'status' => $request->status,
             'gambar_galeri' => $nama_file,
         ]);
+        $detail     = [
+            'data' => data_perubahan($galeri,$request,['nama_galeri','keterangan','status'])
+        ];
+
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du', $this->table);
     }
@@ -136,6 +164,18 @@ class GaleriController extends Controller
      */
     public function destroy(Galeri $galeri)
     {
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'hapus',
+            'table_id' => $galeri->id,
+            'detail' => [
+                'data' => [
+                    'hapus data gambar <strong>"'.$galeri->nama_galeri.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
+
         deletefile($this->folder.'/'.$galeri->gambar_galeri);
         $galeri->delete();
 

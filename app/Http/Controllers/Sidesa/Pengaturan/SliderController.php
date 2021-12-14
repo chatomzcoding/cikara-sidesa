@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Sidesa\Pengaturan;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
+use App\Models\Log;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,7 @@ class SliderController extends Controller
      */
 
     protected $folder   = 'public/img/pengaturan/slider';
-    protected $table    = 'Slider';
+    protected $table    = 'slider';
 
     public function __construct()
     {
@@ -26,7 +28,9 @@ class SliderController extends Controller
     {
         $slider = Slider::orderBy('id','ASC')->get();
         $menu   = 'slider';
-        return view('admin.pengaturan.slider.index', compact('slider','menu'));
+        $judul  = 'Slider';
+        $log    = Log::where('sesi',$this->table)->orderby('id','DESC')->get();
+        return view('admin.pengaturan.slider.index', compact('slider','menu','judul','log'));
     }
 
     /**
@@ -65,6 +69,19 @@ class SliderController extends Controller
             'keterangan' => $request->keterangan,
             'gambar' => $nama_file,
         ]);
+
+        $slider    = Slider::latest()->first();
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'tambah',
+            'table_id' => $slider->id,
+            'detail' => [
+                'data' => [
+                    'tambah data slider <strong>"'.$request->nama_slider.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('ds', $this->table);
     }
@@ -127,6 +144,18 @@ class SliderController extends Controller
             'gambar' => $nama_file,
         ]);
 
+        $detail     = [
+            'data' => data_perubahan($slider,$request,['nama_slider','keterangan','link','status'])
+        ];
+
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
+
         return redirect()->back()->with('du', $this->table);
     }
 
@@ -138,6 +167,17 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
+        $data               = [
+            'sesi' => $this->table,
+            'aksi' => 'hapus',
+            'table_id' => $slider->id,
+            'detail' => [
+                'data' => [
+                    'hapus data slider <strong>"'.$slider->nama_slider.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         deletefile($this->folder.'/'.$slider->gambar);
         $slider->delete();
         return redirect()->back()->with('du', $this->table);
