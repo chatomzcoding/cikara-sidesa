@@ -8,7 +8,7 @@ use App\Models\Kategoriartikel;
 use App\Models\Log;
 use Illuminate\Http\Request;
 
-class KategoriArtikelController extends Controller
+class KategoriartikelController extends Controller
 {
     /**
      * Display a listing of the resource.

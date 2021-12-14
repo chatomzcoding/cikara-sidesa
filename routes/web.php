@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 use App\Http\Livewire\Members; //Load class Members 
@@ -146,7 +147,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('kategori', 'App\Http\Controllers\Admin\KategoriController');
         Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
         Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
-        Route::resource('kategoriartikel', 'App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController');
+        Route::resource('kategoriartikel', KategoriartikelController::class);
         Route::resource('galeri', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriController');
         Route::resource('galeriphoto', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriphotoController');
     });
