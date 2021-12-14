@@ -20,7 +20,6 @@ class KategoriartikelController extends Controller
         $menu   = 'artikel';
         $kategoriartikel   = Kategoriartikel::orderBy('nama_kategori','ASC')->get();
         $log    = Log::where('sesi','kategori_artikel')->get();
-        dd($log);
         return view('admin.pengaturan.artikel.kategori.index', compact('kategoriartikel','menu','log'));
     }
 
