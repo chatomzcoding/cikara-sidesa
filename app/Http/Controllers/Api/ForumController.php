@@ -57,7 +57,11 @@ class ForumController extends Controller
         if (!cektoken($token)) {
             return response()->json('akses dilarang');
         }
-        Forumdiskusi::create($request->all());
+        Forumdiskusi::create([
+            'user_id' => $request->user_id,
+            'forum_id' => $request->forum_id,
+            'isi' => $request->isi,
+        ]);
 
         if (response()) {
             $result["success"] = "1";
