@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Forumdiskusi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ForumController extends Controller
 {
@@ -31,7 +32,13 @@ class ForumController extends Controller
         if (!cektoken($token)) {
             return response()->json('akses dilarang');
         }
-        return Forumdiskusi::where('forum_id',$id)->get();
+        $result = DB::table('forum_diskusi')
+                ->join('users','forum_diskusi.user_id','=','users.id')
+                ->join('penduduk','users.name','=','penduduk.nik')
+                ->select('forum_diskusi.*','penduduk.nama_penduduk')
+                ->where('forum_diskusi.forum_id',$id)
+                ->get();
+        return $result;
     }
 
     /**
