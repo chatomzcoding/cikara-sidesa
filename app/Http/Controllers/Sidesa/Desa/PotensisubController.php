@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sidesa\Desa;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
 use App\Models\Potensisub;
 use Illuminate\Http\Request;
@@ -15,6 +16,8 @@ class PotensisubController extends Controller
      */
 
     protected $folder = 'public/img/desa/potensi';
+    protected $sesi = 'potensisub';
+
 
     public function index()
     {
@@ -57,6 +60,19 @@ class PotensisubController extends Controller
             'detail' => $request->detail,
             'gambar' => $nama_file,
         ]);
+
+        $subpotensi    = Potensisub::latest()->first();
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'tambah',
+            'table_id' => $subpotensi->id,
+            'detail' => [
+                'data' => [
+                    'tambah data sub potensi <strong>"'.$request->nama.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('ds', 'Sub Potensi');
     }
@@ -117,6 +133,25 @@ class PotensisubController extends Controller
             'detail' => $request->detail,
             'gambar' => $nama_file,
         ]);
+         $custom         = [
+            [
+                'awal' => $potensisub->gambar,
+                'baru' => $nama_file,
+                'field' => 'gambar',
+            ]
+        ];
+
+        $detail     = [
+            'data' => data_perubahan($potensisub,$request,['nama','detail'],$custom)
+        ];
+
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du', 'Sub Potensi');
     }
@@ -130,7 +165,17 @@ class PotensisubController extends Controller
     public function destroy($potensisub)
     {
         $potensisub     = Potensisub::find($potensisub);
-
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'hapus',
+            'table_id' => $potensisub->id,
+            'detail' => [
+                'data' => [
+                    'hapus data sub potensi <strong>"'.$potensisub->nama.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         deletefile($this->folder.'/'.$potensisub->gambar);
 
         $potensisub->delete();

@@ -33,6 +33,8 @@
                   <a href="{{ url('potensi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar Potensi"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Sub Potensi {{ $potensi->nama_potensi }}"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Sub Potensi"><i class="fas fa-print"></i> CETAK</a>
+                {!! button_logall($log) !!}
+
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -73,7 +75,8 @@
                                     </td>
                                     <td><img src="{{ asset('img/desa/potensi/'.$item->gambar) }}" alt="poto potensi" width="150px"> </td>
                                     <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->detail }}</td>
+                                    <td>{{ $item->detail }}  <br>
+                                        {!! DbCikara::showlog(['sesi'=>'potensisub','id'=>$item->id]) !!}</td>
                                     {{-- <td><span class="badge badge-{{ $item[7] }} w-100">{{ $item[6] }}</span></td> --}}
                                 </tr>
                             @endforeach
@@ -85,6 +88,8 @@
         </div>
     </div>
  {{-- modal --}}
+ @include('sistem.view.modal-log')
+
  <div class="modal fade" id="cetakdokumen">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

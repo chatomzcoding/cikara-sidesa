@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 if (! function_exists('format_surat')) {
     function daftarformatsurat()
     {
@@ -729,6 +731,16 @@ if (! function_exists('get_filter')) {
         for ($i=0; $i < count($data); $i++) { 
             $filter = (isset($_GET[$data[$i]])) ? $_GET[$data[$i]] : 'semua' ;
             $result[$data[$i]] = $filter;
+        }
+        return $result;
+    }
+}
+if (! function_exists('aksesadmin')) {
+    function aksesadmin()
+    {
+        $result = FALSE;
+        if (Auth::user()->level == 'admin') {
+            $result = TRUE;
         }
         return $result;
     }

@@ -96,6 +96,8 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Data Potensi Baru"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" title="Cetak Daftar Potensi" class="btn btn-outline-info btn-sm float-right pop-info"><i class="fas fa-print"></i> CETAK</a>
+                {!! button_logall($log) !!}
+
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -138,7 +140,8 @@
                                     </td>
                                     <td><img src="{{ asset('img/desa/potensi/'.$item->poto_potensi) }}" alt="poto potensi" width="150px"> </td>
                                     <td>{{ $item->nama_potensi }}</td>
-                                    <td>{{ $item->keterangan_potensi }}</td>
+                                    <td>{{ $item->keterangan_potensi }}  <br>
+                                      {!! DbCikara::showlog(['sesi'=>'potensi','id'=>$item->id]) !!}</td>
                                     <td class="text-center">{{ $item->dilihat }}</td>
                                     {{-- <td><span class="badge badge-{{ $item[7] }} w-100">{{ $item[6] }}</span></td> --}}
                                 </tr>
@@ -186,6 +189,8 @@
   </div>
   </div>
 </div>
+@include('sistem.view.modal-log')
+
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">

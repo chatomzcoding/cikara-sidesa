@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Sidesa\Desa;
 
+use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
+use App\Models\Log;
 use App\Models\Potensi;
 use App\Models\Potensisub;
 use Illuminate\Http\Request;
@@ -16,6 +18,7 @@ class PotensiController extends Controller
      */
 
     protected $folder = 'public/img/desa/potensi';
+    protected $sesi = 'potensi';
 
     public function index()
     {
@@ -27,7 +30,8 @@ class PotensiController extends Controller
             'subpotensi' => Potensisub::count(),
             'dilihat' => Potensi::sum('dilihat')
         ];
-        return view('admin.infodesa.potensi.index', compact('potensi','judul','menu','total'));
+        $log    = Log::where('sesi',$this->sesi)->orderby('id','DESC')->get();
+        return view('admin.infodesa.potensi.index', compact('potensi','judul','menu','total','log'));
     }
 
     /**
@@ -66,6 +70,18 @@ class PotensiController extends Controller
             'poto_potensi' => $nama_file,
             'dilihat' => 0,
         ]);
+        $potensi    = Potensi::latest()->first();
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'tambah',
+            'table_id' => $potensi->id,
+            'detail' => [
+                'data' => [
+                    'tambah data potensi <strong>"'.$request->nama_potensi.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('ds', 'Potensi');
     }
@@ -81,7 +97,9 @@ class PotensiController extends Controller
         $potensisub     = Potensisub::where('potensi_id',$potensi->id)->get();
         $judul          = 'Potensi Desa';
         $menu           = 'potensi';
-        return view('admin.infodesa.potensi.show', compact('potensisub','potensi','judul','menu'));
+        $log    = Log::where('sesi','potensisub')->orderby('id','DESC')->get();
+
+        return view('admin.infodesa.potensi.show', compact('potensisub','potensi','judul','menu','log'));
     }
 
     /**
@@ -128,6 +146,25 @@ class PotensiController extends Controller
             'keterangan_potensi' => $request->keterangan_potensi,
             'poto_potensi' => $nama_file,
         ]);
+          $custom         = [
+            [
+                'awal' => $potensi->poto_potensi,
+                'baru' => $nama_file,
+                'field' => 'poto',
+            ]
+        ];
+
+        $detail     = [
+            'data' => data_perubahan($potensi,$request,['nama_potensi','keterangan_potensi','status'],$custom)
+        ];
+
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'edit',
+            'table_id' => $request->id,
+            'detail' => $detail
+        ];
+        DbCikara::saveLog($data);
 
         return redirect()->back()->with('du', 'Potensi');
     }
@@ -141,6 +178,17 @@ class PotensiController extends Controller
     public function destroy($potensi)
     {
         $potensi = Potensi::find($potensi);
+        $data               = [
+            'sesi' => $this->sesi,
+            'aksi' => 'hapus',
+            'table_id' => $potensi->id,
+            'detail' => [
+                'data' => [
+                    'hapus data potensi <strong>"'.$potensi->nama_potensi.'"</strong>'
+                ]
+            ]
+        ];
+        DbCikara::saveLog($data);
         deletefile($this->folder.'/'.$potensi->poto_potensi);
         $potensi->delete();
 
