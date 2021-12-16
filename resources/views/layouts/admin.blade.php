@@ -144,12 +144,12 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    @if ($user->level == 'admin')
+    @if ($user->level <> 'penduduk')
       <form action="{{ url('penduduk') }}" method="get" class="form-inline ml-3">
         @csrf
         <input type="hidden" name="data" value="cari">
         <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" name="cari" type="search" placeholder="Cari NIK/Nama" aria-label="Search">
+          <input class="form-control form-control-navbar" name="cari" type="search" placeholder="Cari NIK/Nama" aria-label="Search" required>
           <div class="input-group-append">
             <button class="btn btn-navbar" type="submit">
               <i class="fas fa-search"></i>
@@ -197,7 +197,7 @@
         </div>
       </li> --}}
       <!-- Notifications Dropdown Menu -->
-      @if ($user->level == 'admin')
+      @if ($user->level <> 'penduduk')
         <li class="nav-item dropdown">
           @php
               $totalnotifikasi = DbCikara::datanotifikasi('total');
@@ -272,7 +272,7 @@
           @if ($user->level == 'penduduk')
             <a href="#" class="d-block text-capitalize">{{ DbCikara::datapenduduk($user->id,'id')->nama_penduduk}}</a>
           @else
-            <a href="#" class="d-block text-capitalize">{{ $user->name}}</a><span class="text-white">{{ $user->level }}</span>
+            <a href="#" class="d-block text-capitalize">{{ $user->name}}</a><span class="text-white small font-italic">{{ $user->level }}</span>
           @endif
         </div>
       </div>

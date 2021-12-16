@@ -209,8 +209,8 @@
                                             @method('delete')
                                             </form>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-info btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                             <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
@@ -298,8 +298,8 @@
                                                 @method('delete')
                                                 </form>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-info btn-flat">Aksi</button>
-                                                <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                                 <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
