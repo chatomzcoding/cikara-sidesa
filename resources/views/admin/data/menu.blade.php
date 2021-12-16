@@ -12,19 +12,19 @@ menu-is-opening menu-open
     <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ url('covid') }}" class="nav-link small small {{ menuaktif($menu,'covid') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-lungs-virus nav-icon"></i>
           <p>Info Covid</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/vaksinasi')}}" class="nav-link small small {{ menuaktif($menu,'vaksinasi') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-syringe nav-icon"></i>
           <p>Vaksinasi</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/pemudik')}}" class="nav-link small small {{ menuaktif($menu,'datacovid') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-plane-arrival nav-icon"></i>
           <p>Data Pemudik</p>
         </a>
       </li>
@@ -147,19 +147,19 @@ menu-is-opening menu-open
     <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ url('/informasipublik')}}" class="nav-link small {{ menuaktif($menu,'informasipublik') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-book-open nav-icon"></i>
           <p>Informasi Publik</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/inventaris/list/tanah')}}" class="nav-link small {{ menuaktif($menu,'inventaris') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-car nav-icon"></i>
           <p>Inventaris</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/klasifikasisurat')}}" class="nav-link small {{ menuaktif($menu,'klasifikasisurat') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-boxes nav-icon"></i>
           <p>Klasifikasi Surat</p>
         </a>
       </li>
@@ -179,14 +179,14 @@ menu-is-opening menu-open
     <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ url('/formatsurat')}}" class="nav-link small {{ menuaktif($menu,'formatsurat') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-mail-bulk nav-icon"></i>
           <p>Pengaturan Surat</p>
         </a>
       </li>
      
       <li class="nav-item">
         <a href="{{ url('datasyaratsurat') }}" class="nav-link small {{ menuaktif($menu,'syaratsurat') }}">
-          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-file-alt nav-icon"></i>
           <p>Daftar Persyaratan</p>
         </a>
       </li>
