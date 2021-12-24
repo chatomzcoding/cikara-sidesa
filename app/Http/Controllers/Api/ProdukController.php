@@ -29,7 +29,7 @@ class ProdukController extends Controller
         $result = [];
         foreach ($produk as $key) {
             $result[] = [
-                'link' => 'produkdesa/'.Crypt::encryptString($key->id),
+                'link' => 'produkdesa/'.Crypt::encrypt($key->id),
                 'data' => $key
             ];
         }
