@@ -62,6 +62,7 @@ class CreateTablePenduduk extends Migration
             $table->string('sakit_menahun',50);
             $table->string('akseptor_kb',50);
             $table->string('asuransi',50);
+            $table->enum('status_hidup',['hidup','mati']);
             $table->text('poto')->nullable();
             $table->timestamps();
         });

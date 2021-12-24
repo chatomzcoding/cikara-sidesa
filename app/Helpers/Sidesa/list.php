@@ -769,3 +769,136 @@ if (! function_exists('list_statuslaporan')) {
         return $list;
     }
 }
+if (! function_exists('list_kelompokumur')) {
+    function list_kelompokumur()
+    {
+        $list = [
+            '0-4',
+            '5-12',
+            '13-15',
+            '16-19',
+            '20-24',
+            '25-29',
+            '30-34',
+            '35-39',
+            '40-44',
+            '45-49',
+            '50-54',
+            '55-59',
+            '60-64',
+            '65',
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_laporanpenduduk')) {
+    function list_laporanpenduduk()
+    {
+        $list = [
+                'perkembangan-penduduk' => 'Laporan Perkembangan Data Kependudukan',
+                'kelompok-umur' => 'Laporan Penduduk berdasarkan kelompok umur',
+                'kondisi-penduduk' => 'Laporan Kondisi Penduduk enurut Pendidikan, mata pencaharian, agama',
+        ];
+        return $list;
+    }
+}
+if (! function_exists('list_kondisipenduduk')) {
+    function list_kondisipenduduk($sesi)
+    {
+       switch ($sesi) {
+           case 'pendidikan':
+               $list = [
+                [
+                    'nama' => 'TK',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'SD',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'SMP',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'SMA',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'D1',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'D2',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'D3',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'D4/S1',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'S2',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'S3',
+                    'kode' => ''
+                ]
+               ];
+               break;
+           case 'pekerjaan':
+               $list = [
+                [
+                    'nama' => 'PNS',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'TNI / POLRI',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'PETANI',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'BURUH TANI',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'PEG. SWASTA',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'PEDAGANG',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'PENGRAJIN',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'PETERNAK',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'NELAYAN',
+                    'kode' => ''
+                ],
+                [
+                    'nama' => 'LAIN-LAIN',
+                    'kode' => ''
+                ],
+               ];
+               break;
+
+           default:
+               $list = [];
+               break;
+       }
+        return $list;
+    }
+}

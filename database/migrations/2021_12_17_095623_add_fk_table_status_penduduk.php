@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFieldToInfoWebsite extends Migration
+class AddFkTableStatusPenduduk extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddFieldToInfoWebsite extends Migration
      */
     public function up()
     {
-        Schema::table('info_website', function (Blueprint $table) {
-            $table->string('sebutan_kabupaten');
-            $table->string('sebutan_kecamatan');
-            $table->string('sebutan_desa');
+        Schema::table('status_penduduk', function (Blueprint $table) {
+            $table->unsignedBigInteger('penduduk_id')->after('id');
+            $table->foreign('penduduk_id')->references('id')->on('penduduk')->onDelete('cascade');
         });
     }
 
@@ -27,7 +26,7 @@ class AddFieldToInfoWebsite extends Migration
      */
     public function down()
     {
-        Schema::table('info_website', function (Blueprint $table) {
+        Schema::table('status_penduduk', function (Blueprint $table) {
             //
         });
     }

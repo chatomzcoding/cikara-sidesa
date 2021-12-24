@@ -77,7 +77,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok')
+<li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok' || $menu == 'laporan')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small">
@@ -111,6 +111,12 @@ menu-is-opening menu-open
         <a href="{{ url('/kelompok')}}" class="nav-link small {{ menuaktif($menu,'kelompok') }}">
           &nbsp;&nbsp;<i class="fas fa-user-friends nav-icon"></i>
           <p>Kelompok</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/laporan')}}" class="nav-link small {{ menuaktif($menu,'laporan') }}">
+          &nbsp;&nbsp;<i class="fas fa-file-export nav-icon"></i>
+          <p>Laporan</p>
         </a>
       </li>
     </ul>

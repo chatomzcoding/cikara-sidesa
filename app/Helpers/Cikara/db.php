@@ -439,6 +439,15 @@ class DbCikara {
         }
         return $result;
     }
+    public static function jumlahrtperdusun($dusun)
+    {
+       $jumlah  = DB::table('rt')
+                    ->join('rw','rt.rw_id','=','rw.id')
+                    ->join('dusun','rw.dusun_id','=','dusun.id')
+                    ->where('dusun.id',$dusun)
+                    ->count();
+        return $jumlah;
+    }
 
     public static function datanotifikasi($sesi)
     {
@@ -552,5 +561,84 @@ class DbCikara {
             $view .= "<div class='text-center font-italic'>-- belum ada data log --</div>";
         }
         return $view;
+    }
+
+    // DATA LAPORAN PENDUDUK
+    public static function datalaporanpenduduk($sesi,$data=null)
+    {
+        switch ($sesi) {
+            case 'jumlahpendudukbulanlalu':
+                $tanggal    = '2021-11-30';
+                $lk     = DB::table('penduduk')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','laki-laki')
+                            ->whereDate('penduduk.tgl_lahir','<',$tanggal)
+                           ->count();
+                $pr     = DB::table('penduduk')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','perempuan')
+                            ->whereDate('penduduk.tgl_lahir','<',$tanggal)
+                            ->count();
+                $jml    = $lk + $pr;
+                $result = [
+                    'lk' => $lk,
+                    'pr' => $pr,
+                    'jml' => $jml
+                ];
+                break;
+            case 'lahirbulanini':
+                $tanggal    = '2021-12-01';
+                $lk     = DB::table('penduduk')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','laki-laki')
+                            ->whereDate('penduduk.tgl_lahir','>=',$tanggal)
+                           ->count();
+                $pr     = DB::table('penduduk')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','perempuan')
+                            ->whereDate('penduduk.tgl_lahir','>=',$tanggal)
+                            ->count();
+                $jml    = $lk + $pr;
+                $result = [
+                    'lk' => $lk,
+                    'pr' => $pr,
+                    'jml' => $jml
+                ];
+                break;
+            case 'matibulanini':
+                $lk     = DB::table('status_penduduk')
+                            ->join('penduduk','status_penduduk.penduduk_id','=','penduduk.id')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','laki-laki')
+                            ->count();
+                $pr     = DB::table('status_penduduk')
+                            ->join('penduduk','status_penduduk.penduduk_id','=','penduduk.id')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$data['dusun_id'])
+                            ->where('penduduk.jk','perempuan')
+                            ->count();
+                $jml    = $lk + $pr;
+                $result = [
+                    'lk' => $lk,
+                    'pr' => $pr,
+                    'jml' => $jml
+                ];
+                break;
+            default:
+                $result = NULL;
+                break;
+        }
+        return $result;
     }
 }

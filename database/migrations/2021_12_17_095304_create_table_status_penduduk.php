@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFieldToInfoWebsite extends Migration
+class CreateTableStatusPenduduk extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddFieldToInfoWebsite extends Migration
      */
     public function up()
     {
-        Schema::table('info_website', function (Blueprint $table) {
-            $table->string('sebutan_kabupaten');
-            $table->string('sebutan_kecamatan');
-            $table->string('sebutan_desa');
+        Schema::create('status_penduduk', function (Blueprint $table) {
+            $table->id();
+            $table->string('status');
+            $table->text('keterangan')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,8 +28,6 @@ class AddFieldToInfoWebsite extends Migration
      */
     public function down()
     {
-        Schema::table('info_website', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('status_penduduk');
     }
 }

@@ -134,20 +134,19 @@ if (! function_exists('daftar_bulan')) {
 if (! function_exists('date_indo')) {
     function date_indo($date=null,$statusnotif=null)
     {
-        if (!is_null($date) AND $date <> '0000-00-00') {
-            $tgl			= substr($date, 8,2);
-            $bulan			= substr($date, 5,2);
-            $tahun			= substr($date, 0,4);
-            return $tgl.' '.bulan_indo($bulan).' '.$tahun;
-        } else {
+        if (is_null($date) || $date == '0000-00-00') {
             if (is_null($statusnotif)) {
-                $result = NULL;
+                $date = tgl_sekarang();
             } else {
                 $result = 'Data tidak ada';
+                return $result;
             }
-            
-            return $result;
         }
+
+        $tgl			= substr($date, 8,2);
+        $bulan			= substr($date, 5,2);
+        $tahun			= substr($date, 0,4);
+        return $tgl.' '.bulan_indo($bulan).' '.$tahun;
     }
 }
 // date indo

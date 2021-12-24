@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lapak;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProdukController extends Controller
 {
@@ -24,7 +25,16 @@ class ProdukController extends Controller
         if (!cektoken($token)) {
             return response()->json('akses dilarang');
         }
-        return Produk::orderBy('id','DESC')->get();
+        $produk =  Produk::orderBy('id','DESC')->get();
+        $result = [];
+        foreach ($produk as $key) {
+            $result[] = [
+                'link' => 'produkdesa/'.Crypt::encryptString($key->id),
+                'data' => $key
+            ];
+        }
+
+        return $result;
     }
 
     /**

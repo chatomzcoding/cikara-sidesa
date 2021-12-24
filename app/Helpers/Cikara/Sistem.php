@@ -1,6 +1,18 @@
 <?php
 
 // get nama lengkap
+if (! function_exists('teksvertikal')) {
+    function teksvertikal($teks)
+    {
+       $teks    = str_split($teks);
+       $result  = NULL;
+       for ($i=0; $i < count($teks); $i++) { 
+           $result .= $teks[$i].'</br>';
+       }
+       return $result;
+    }
+}
+// get nama lengkap
 if (! function_exists('deletefile')) {
     function deletefile($lokasi)
     {
