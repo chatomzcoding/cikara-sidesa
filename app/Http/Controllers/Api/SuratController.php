@@ -108,7 +108,7 @@ class SuratController extends Controller
         }
         $data     = DB::table('penduduk_surat')
                         ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
-                        ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.kode')
+                        ->select('penduduk_surat.*','format_surat.nama_surat','format_surat.kode','format_surat.kategori')
                         ->where('penduduk_surat.user_id',$user)
                         ->orderBy('penduduk_surat.id',$_GET['sortby'])
                         ->get();
