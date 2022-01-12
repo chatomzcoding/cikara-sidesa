@@ -902,3 +902,27 @@ if (! function_exists('list_kondisipenduduk')) {
         return $list;
     }
 }
+
+if (! function_exists('list_datainput')) {
+    function list_datainput()
+    {
+        $list = [
+            'agama',
+            'akseptor kb',
+            'asuransi',
+            'cacat',
+            'golongan darah',
+            'hubungan keluarga',
+            'jenis kelahiran',
+            'pekerjaan',
+            'pendidikan dalam kk',
+            'pendidikan tempuh',
+            'penolong kelahiran',
+            'sakit menahun',
+            'status covid',
+            'status kk',
+            'status rekam',
+        ];
+        return $list;
+    }
+}

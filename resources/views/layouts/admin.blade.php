@@ -424,6 +424,11 @@
       $(".penduduk").select2();
   })
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $(".listdata").select2();
+  })
+</script>
 <script>
   	function deleteRow(id)
         {

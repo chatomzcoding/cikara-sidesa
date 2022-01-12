@@ -261,7 +261,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Pendidikan dalam KK<span class="text-danger">*</span></label>
-                                        <select name="pendidikan_kk" id="" class="form-control" required>
+                                        <select name="pendidikan_kk" id="" class="form-control listdata" data-width="100%" required>
                                             <option value="">Pilih Pendidikan (Dalam KK)</option>
                                             @foreach (list_pendidikandalamkk() as $item)
                                                 <option value="{{ $item}}" @if ($item == $penduduk->pendidikan_kk)
@@ -274,7 +274,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Pendidikan Sedang Ditempuh<span class="text-danger">*</span></label>
-                                        <select name="pendidikan_tempuh" id="" class="form-control" required>
+                                        <select name="pendidikan_tempuh" id="" class="form-control listdata" data-width="100%" required>
                                             <option value="">Pilih Pendidikan</option>
                                             @foreach (list_pendidikantempuh() as $item)
                                                 <option value="{{ $item}}" @if ($item == $penduduk->pendidikan_tempuh)
@@ -287,12 +287,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Pekerjaan<span class="text-danger">*</span></label>
-                                        <select name="pekerjaan" id="" class="form-control" required>
+                                        <select name="pekerjaan" id="" class="form-control listdata" data-width="100%" required>
                                             <option value="">Pilih Pekerjaan</option>
-                                            @foreach (list_pekerjaan() as $item)
-                                                <option value="{{ $item}}" @if ($item == $penduduk->pekerjaan)
+                                            @foreach (DbCikara::listdata('pekerjaan') as $item)
+                                                <option value="{{ $item->nama}}" @if ($item->nama == $penduduk->pekerjaan)
                                                     selected
-                                                @endif>{{ strtoupper($item) }}</option>
+                                                @endif>{{ strtoupper($item->nama) }}</option>
                                             @endforeach
                                         </select>
                                     </div>

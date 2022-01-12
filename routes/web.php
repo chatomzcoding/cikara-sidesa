@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
+use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
 use Illuminate\Support\Facades\Route;
 use App\Imports\DataPenduduk;
 use App\Imports\KategoriartikelImport;
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // ADMIN SETTING
         Route::resource('kategori', 'App\Http\Controllers\Admin\KategoriController');
+        Route::resource('listdata', ListdataController::class);
         Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
         Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
         Route::resource('kategoriartikel', KategoriartikelController::class);

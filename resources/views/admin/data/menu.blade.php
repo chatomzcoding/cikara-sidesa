@@ -238,7 +238,7 @@ menu-is-opening menu-open
   </ul>
 </li>
 
-<li class="nav-item @if ($menu == 'datapokok' || $menu == 'datauser' || $menu == 'artikel' || $menu == 'galeri' || $menu == 'slider' || $menu == 'berjalan')
+<li class="nav-item @if ($menu == 'datapokok' || $menu == 'datauser' || $menu == 'artikel' || $menu == 'galeri' || $menu == 'slider' || $menu == 'berjalan' || $menu == 'listdata')
 menu-is-opening menu-open
 @endif">
   <a href="#" class="nav-link small">
@@ -284,6 +284,12 @@ menu-is-opening menu-open
       <a href="{{ url('info?page=teksberjalan') }}" class="nav-link small {{ menuaktif($menu,'berjalan') }}">
         &nbsp;&nbsp;<i class="fas fa-list-alt nav-icon"></i>
         <p>Teks Berjalan</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('listdata') }}" class="nav-link small {{ menuaktif($menu,'listdata') }}">
+        &nbsp;&nbsp;<i class="fas fa-list-alt nav-icon"></i>
+        <p>Data List</p>
       </a>
     </li>
   </ul>

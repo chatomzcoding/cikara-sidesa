@@ -2,6 +2,7 @@
 namespace App\Helpers\Cikara;
 
 use App\Models\Lapor;
+use App\Models\Listdata;
 use App\Models\Log;
 use App\Models\Penduduk;
 use App\Models\Penduduksurat;
@@ -250,14 +251,14 @@ class DbCikara {
                 break;
             case 'pekerjaan':
                 $data   = [
-                    'loop' => list_pekerjaan(),
+                    'loop' => Listdata::where('label','pekerjaan')->orderBy('nama','ASC')->get()->toArray('nama'),
                     'key' => 'pekerjaan',
                     'header' => str_replace('_',' ',$sesi),
                 ];
                 break;
             case 'agama':
                 $data   = [
-                    'loop' => list_agama(),
+                    'loop' => Listdata::where('label','agama')->orderBy('nama','ASC')->get()->toArray('nama'),
                     'key' => 'agama',
                     'header' => str_replace('_',' ',$sesi),
                 ];
@@ -354,26 +355,32 @@ class DbCikara {
                 $nilai  = NULL;
                 $pie    = [];
                 foreach ($data['loop'] as $row) {
-                    $l = Penduduk::where('jk','laki-laki')->where($data['key'],$row)->count();
-                    $p = Penduduk::where('jk','perempuan')->where($data['key'],$row)->count();
+                    if (isset($row['nama'])) {
+                        $key    = $row['nama'];
+                    } else {
+                        $key    = $row;
+                    }
+                    
+                    $l = Penduduk::where('jk','laki-laki')->where($data['key'],$key)->count();
+                    $p = Penduduk::where('jk','perempuan')->where($data['key'],$key)->count();
                     $lp = $l + $p;
                     $jl = $jl + $l;
                     $jp = $jp + $p;
                     $result[] = [
                         'no' => $nomor,
-                        'nama' => $row,
+                        'nama' => $key,
                         'l' => $l,
                         'p' => $p,
                         'lp' => $lp,
                     ];
                     $nomor++;
                     // kebutuhan untuk grafik judul
-                    $judul .= "'".$row."',";
+                    $judul .= "'".$key."',";
                     $nilai .= $lp.",";
 
                     // grafik pie
                     $pie[]  = [
-                        'nama' => $row,
+                        'nama' => $key,
                         'nilai' => $lp
                     ];
                 }
@@ -640,5 +647,12 @@ class DbCikara {
                 break;
         }
         return $result;
+    }
+
+    // list data dari database
+    public static function listdata($label)
+    {
+        $list   = Listdata::select('nama')->where('label',$label)->orderBy('nama','ASC')->get();
+        return $list;
     }
 }
