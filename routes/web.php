@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Example; 
-use App\Http\Livewire\Members; //Load class Members 
 use App\Imports\DataPenduduk;
 use App\Imports\KategoriartikelImport;
 use App\Imports\PendudukImport;

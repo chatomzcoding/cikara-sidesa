@@ -70,9 +70,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">KTP Elektronik<span class="text-danger">*</span></label>
+                                        <label for="">KTP Elektronik</label>
                                         <select name="status_ktp" id="" class="form-control" required>
-                                            <option value="">Pilih KTP-EL</option>
                                             <option value="belum">BELUM</option>
                                             <option value="sudah">KTP-EL</option>
                                             <option value="proses">Dalam Proses</option>
@@ -81,9 +80,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Status Rekam<span class="text-danger">*</span></label>
+                                        <label for="">Status Rekam</label>
                                         <select name="status_rekam" id="" class="form-control" required>
-                                            <option value="">Pilih Status Rekam</option>
                                             @foreach (list_statusrekam() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -141,9 +139,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Status Penduduk<span class="text-danger">*</span></label>
+                                        <label for="">Status Penduduk</label>
                                         <select name="status_penduduk" id="" class="form-control" required>
-                                            <option value="">Pilih Status Penduduk</option>
                                             @foreach (list_statuspenduduk() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -184,9 +181,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Tempat Dilahirkan<span class="text-danger">*</span></label>
+                                        <label for="">Tempat Dilahirkan</label>
                                         <select name="tempat_dilahirkan" id="" class="form-control" required>
-                                            <option value="">Pilih Tempat Dilahirkan</option>
                                             @foreach (list_tempatdilahirkan() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -195,9 +191,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Jenis Kelahiran<span class="text-danger">*</span></label>
+                                        <label for="">Jenis Kelahiran</label>
                                         <select name="jenis_kelahiran" id="" class="form-control" required>
-                                            <option value="">Pilih Jenis Kelahiran</option>
                                             @foreach (list_jeniskelahiran() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -206,17 +201,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Anak Ke<span class="text-danger">*</span></label>
-                                        <input type="number" name="anak_ke" value="{{ old('anak_ke')}}" class="form-control" required>
+                                        <label for="">Anak Ke</label>
+                                        <input type="number" name="anak_ke" value="0" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Penolong Kelahiran<span class="text-danger">*</span></label>
+                                        <label for="">Penolong Kelahiran</label>
                                         <select name="penolong_kelahiran" id="" class="form-control" required>
-                                            <option value="">Pilih Penolong Kelahiran</option>
                                             @foreach (list_penolongkelahiran() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -244,9 +238,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Pendidikan dalam KK<span class="text-danger">*</span></label>
+                                        <label for="">Pendidikan dalam KK</label>
                                         <select name="pendidikan_kk" id="" class="form-control" required>
-                                            <option value="">Pilih Pendidikan (Dalam KK)</option>
                                             @foreach (list_pendidikandalamkk() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -255,9 +248,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Pendidikan Sedang Ditempuh<span class="text-danger">*</span></label>
+                                        <label for="">Pendidikan Sedang Ditempuh</label>
                                         <select name="pendidikan_tempuh" id="" class="form-control" required>
-                                            <option value="">Pilih Pendidikan</option>
                                             @foreach (list_pendidikantempuh() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -318,28 +310,30 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">NIK Ayah<span class="text-danger">*</span></label>
-                                        <input type="text" name="nik_ayah" class="form-control" maxlength="16" pattern="[0-9]{16}" value="{{ old('nik_ayah')}}" placeholder="Nomor NIK Ayah" required>
+                                        <label for="">NIK Ayah</label>
+                                        <input type="text" name="nik_ayah" class="form-control" maxlength="16" value="-" placeholder="Nomor NIK Ayah" required>
+                                        {{-- <input type="text" name="nik_ayah" class="form-control" maxlength="16" pattern="[0-9]{16}" value="-" placeholder="Nomor NIK Ayah" required> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="">Nama Ayah<span class="text-danger">*</span></label>
-                                        <input type="text" name="nama_ayah" class="form-control" value="{{ old('nama_ayah')}}" placeholder="Nama Ayah" required>
+                                        <label for="">Nama Ayah</label>
+                                        <input type="text" name="nama_ayah" class="form-control" value="-" placeholder="Nama Ayah" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">NIK Ibu<span class="text-danger">*</span></label>
-                                        <input type="text" name="nik_ibu" class="form-control" maxlength="16" pattern="[0-9]{16}" value="{{ old('nik_ibu')}}" placeholder="Nomor NIK Ibu" required>
+                                        <label for="">NIK Ibu</label>
+                                        <input type="text" name="nik_ibu" class="form-control" maxlength="16" value="-" placeholder="Nomor NIK Ibu" required>
+                                        {{-- <input type="text" name="nik_ibu" class="form-control" maxlength="16" pattern="[0-9]{16}" value="-" placeholder="Nomor NIK Ibu" required> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="">Nama Ibu<span class="text-danger">*</span></label>
-                                        <input type="text" name="nama_ibu" class="form-control" value="{{ old('nama_ibu')}}" placeholder="Nama Ibu" required>
+                                        <label for="">Nama Ibu</label>
+                                        <input type="text" name="nama_ibu" class="form-control" value="-" placeholder="Nama Ibu" required>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +362,7 @@
                                         <select name="rt_id" id="" class="form-control" required>
                                             <option value="">-- Pilih RT --</option>
                                             @foreach ($rt as $item)
-                                                <option value="{{ $item->id}}">{{ strtoupper($item->nama_rt) }}</option>
+                                                <option value="{{ $item->id}}">RW {{ strtoupper($item->nama_rw.' | RT '.$item->nama_rt) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -447,9 +441,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Cacat<span class="text-danger">*</span></label>
+                                        <label for="">Cacat</label>
                                         <select name="cacat" id="" class="form-control" required>
-                                            <option value="">Pilih Jenis Cacat</option>
                                             @foreach (list_cacat() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -458,9 +451,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Sakit Menahun<span class="text-danger">*</span></label>
+                                        <label for="">Sakit Menahun</label>
                                         <select name="sakit_menahun" id="" class="form-control" required>
-                                            <option value="">Pilih Sakit Menahun</option>
                                             @foreach (list_sakitmenahun() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -469,9 +461,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Akseptor KB<span class="text-danger">*</span></label>
+                                        <label for="">Akseptor KB</label>
                                         <select name="akseptor_kb" id="" class="form-control" required>
-                                            <option value="">Pilih Cara KB Saat ini</option>
                                             @foreach (list_akseptorkb() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach
@@ -480,9 +471,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Asuransi<span class="text-danger">*</span></label>
+                                        <label for="">Asuransi</label>
                                         <select name="asuransi" id="" class="form-control" required>
-                                            <option value="">Pilih Asuransi</option>
                                             @foreach (list_asuransi() as $item)
                                                 <option value="{{ $item}}">{{ strtoupper($item) }}</option>
                                             @endforeach

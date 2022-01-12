@@ -78,7 +78,11 @@ class PendudukController extends Controller
      */
     public function create()
     {
-        $rt     = Rt::all();
+        $rt     = DB::table('rt')
+                    ->join('rw','rt.rw_id','=','rw.id')
+                    ->join('dusun','rw.dusun_id','=','dusun.id')
+                    ->select('rt.*','nama_rw','nama_dusun')
+                    ->get();
         $menu   = 'penduduk';
         return view('admin.kependudukan.penduduk.create', compact('rt','menu'));
     }
@@ -121,7 +125,11 @@ class PendudukController extends Controller
     public function edit($penduduk)
     {
         $penduduk = Penduduk::find(Crypt::decryptString($penduduk));
-        $rt     = Rt::all();
+        $rt     = DB::table('rt')
+        ->join('rw','rt.rw_id','=','rw.id')
+        ->join('dusun','rw.dusun_id','=','dusun.id')
+        ->select('rt.*','nama_rw','nama_dusun')
+        ->get();
         $menu   = 'penduduk';
         return view('admin.kependudukan.penduduk.edit', compact('penduduk','rt','menu'));
     }

@@ -394,7 +394,7 @@
                                             @foreach ($rt as $item)
                                                 <option value="{{ $item->id}}" @if ($item->id == $penduduk->rt_id)
                                                     selected
-                                                @endif>{{ strtoupper($item->nama_rt) }}</option>
+                                                @endif>RW {{ strtoupper($item->nama_rw.' | RT '.$item->nama_rt) }}</option>
                                             @endforeach
                                         </select>
                                     </div>

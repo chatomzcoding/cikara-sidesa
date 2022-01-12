@@ -16,7 +16,6 @@ use App\Models\Produk;
 use App\Models\Profil;
 use App\Models\Slider;
 use App\Models\Staf;
-use App\Models\User;
 use App\Models\Userakses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;

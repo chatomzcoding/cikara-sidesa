@@ -4,6 +4,7 @@ if (! function_exists('list_statusrekam')) {
     function list_statusrekam()
     {
         $list = [
+            'lainnya',
             'belum wajib',
             'belum rekam',
             'sudah rekam',
@@ -11,7 +12,6 @@ if (! function_exists('list_statusrekam')) {
             'print ready record',
             'card shipped',
             'sent for card printing',
-            'lainnya'
         ];
         return $list;
     }
@@ -32,6 +32,7 @@ if (! function_exists('list_hubungankeluarga')) {
     function list_hubungankeluarga()
     {
         $list = [
+            'lainnya',
             'kepala keluarga',
             'suami',
             'istri',
@@ -42,7 +43,6 @@ if (! function_exists('list_hubungankeluarga')) {
             'mertua',
             'famili',
             'pembantu',
-            'lainnya'
         ];
         return $list;
     }
@@ -52,13 +52,13 @@ if (! function_exists('list_agama')) {
     function list_agama()
     {
         $list = [
+            'lainnya',
             'islam',
             'kristen',
             'katholik',
             'hindu',
             'budha',
             'khonghucu',
-            'lainnya'
         ];
         return $list;
     }
@@ -89,11 +89,11 @@ if (! function_exists('list_tempatdilahirkan')) {
     function list_tempatdilahirkan()
     {
         $list = [
+            'lainnya',
             'rs/rb',
             'puskesmas',
             'polindes',
             'rumah',
-            'lainnya'
         ];
         return $list;
     }
@@ -103,11 +103,11 @@ if (! function_exists('list_jeniskelahiran')) {
     function list_jeniskelahiran()
     {
         $list = [
+            'lainnya',
             'tunggal',
             'kembar 2',
             'kembar 3',
             'kembar 4',
-            'lainnya'
         ];
         return $list;
     }
@@ -117,10 +117,10 @@ if (! function_exists('list_penolongkelahiran')) {
     function list_penolongkelahiran()
     {
         $list = [
+            'lainnya',
             'dokter',
             'bidan perawat',
             'dukun',
-            'lainnya'
         ];
         return $list;
     }
@@ -130,6 +130,7 @@ if (! function_exists('list_pendidikandalamkk')) {
     function list_pendidikandalamkk()
     {
         $list = [
+            'lainnya',
             'tidak/belum sekolah',
             'belum tamat sd/sederajat',
             'tamat sd/sederajat',
@@ -140,7 +141,6 @@ if (! function_exists('list_pendidikandalamkk')) {
             'diploma IV/strata I',
             'strata II',
             'strata III',
-            'lainnya'
         ];
         return $list;
     }
@@ -149,6 +149,7 @@ if (! function_exists('list_pendidikantempuh')) {
     function list_pendidikantempuh()
     {
         $list = [
+            'lainnya',
             'belum masuk tk/kelompok bermain',
             'sedang tk/kelompok bermain',
             'tidak pernah sekolah',
@@ -167,7 +168,6 @@ if (! function_exists('list_pendidikantempuh')) {
             'sedang slb c/sederajat',
             'tidak dapat membaca dan menulis huruf latin/arab',
             'tidak sedang sekolah',
-            'lainnya'
         ];
         return $list;
     }
@@ -312,6 +312,7 @@ if (! function_exists('list_golongandarah')) {
     function list_golongandarah()
     {
         $list = [
+            'tidak tahu',
             'A',
             'B',
             'AB',
@@ -324,7 +325,6 @@ if (! function_exists('list_golongandarah')) {
             'AB-',
             'O+',
             'O-',
-            'tidak tahu'
         ];
         return $list;
     }
@@ -334,6 +334,7 @@ if (! function_exists('list_akseptorkb')) {
     function list_akseptorkb()
     {
         $list = [
+            'tidak',
             'pil',
             'iud',
             'suntik',
@@ -342,7 +343,6 @@ if (! function_exists('list_akseptorkb')) {
             'sterilisasi wanita',
             'sterilisasi pria',
             'lainnya',
-            'tidak'
         ];
         return $list;
     }
@@ -352,13 +352,13 @@ if (! function_exists('list_cacat')) {
     function list_cacat()
     {
         $list = [
+            'tidak',
             'cacat fisik',
             'cacat netra/buta',
             'cacat rungu/wicara',
             'cacat mental/jiwa',
             'cacat fisik dan mental',
             'cacat lainnya',
-            'tidak',
         ];
         return $list;
     }
@@ -371,7 +371,7 @@ if (! function_exists('list_asuransi')) {
             'tidak/belum punya',
             'bpjs penerima bantuan iuran',
             'bpjs non penerima bantuan iuran',
-            'lainnya'
+            'lainnya',
         ];
         return $list;
     }
@@ -381,6 +381,7 @@ if (! function_exists('list_sakitmenahun')) {
     function list_sakitmenahun()
     {
         $list = [
+            'tidak',
             'jantung',
             'lever',
             'paru-paru',
@@ -394,7 +395,6 @@ if (! function_exists('list_sakitmenahun')) {
             'gila/stres',
             'tbc',
             'asthma',
-            'tidak'
         ];
         return $list;
     }
