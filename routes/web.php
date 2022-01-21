@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Excel::import(new KategoriartikelImport, request()->file('file'));
         return back();
     });
-    Route::post('/import/demo', function () {
+    Route::post('/import/prodeskel', function () {
         Excel::import(new DataPenduduk, request()->file('file'));
         return back();
     });

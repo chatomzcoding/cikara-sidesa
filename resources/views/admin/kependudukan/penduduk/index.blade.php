@@ -104,7 +104,7 @@
                           <a class="dropdown-item" href="#" data-target="#import" data-toggle="modal">Data Lengkap</a>
                           <a class="dropdown-item" href="#" data-target="#importsimple" data-toggle="modal">Data Mudah</a>
                           <a class="dropdown-item" href="#" data-target="#importpenyesuaian" data-toggle="modal">Data Penyesuaian</a>
-                          <a class="dropdown-item" href="#" data-target="#importdemo" data-toggle="modal">Data Demo</a>
+                          <a class="dropdown-item" href="#" data-target="#importprodeskel" data-toggle="modal">Data Prodeskel</a>
                         </div>
                         <a href="{{ url('cetakdata?s=penduduk&status_penduduk='.$filter['status_penduduk'].'&jk='.$filter['jk'].'&dusun='.$filter['dusun']) }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Daftar Penduduk"><i class="fas fa-print"></i> CETAK</a>
                       </div>
@@ -346,13 +346,13 @@
     </div>
     {{-- modal --}}
 
-    <div class="modal fade" id="importdemo">
+    <div class="modal fade" id="importprodeskel">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/import/demo')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/import/prodeskel')}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
-            <h4 class="modal-title">Import Data Demo</h4>
+            <h4 class="modal-title">Import Data Dari Aplikasi Prodeskel</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -361,8 +361,8 @@
                 <section class="p-3">
                     <div class="callout callout-success">
                         <p><i class="fas fa-bullhorn"></i> Informasi</p>
-                        <p>Metode Penyesuaian adalah cara import data penduduk dari file excel dengan tujuan penyesuaian data penduduk, data akan diperbaharui berdasarkan NIK penduduk, apabila NIK belum ada maka akan menambahkan data baru. <strong>gunakan metode ini jika ingin memperbaharui data penduduk secara serentak, perhatikan nomor NIK agar sesuai dengan data penduduk !</strong></p>
-                        <strong>Download Format Import Penduduk Penyesuaian</strong> <a href="{{ asset('file/format_penduduk_simple.xlsx') }}">Klik Disini</a>
+                        <p>Metode Penyesuaian adalah cara import data penduduk dari file excel dengan tujuan penyesuaian data penduduk, data akan diperbaharui berdasarkan NIK penduduk, apabila NIK belum ada maka akan menambahkan data baru. <strong>Metode ini akan memperbaharui data penduduk secara serentak, perhatikan nomor NIK agar sesuai dengan data penduduk !</strong></p>
+                        <strong>Contoh Format Excel Prodeskel</strong> <a href="{{ asset('file/format_penduduk_simple.xlsx') }}">Klik Disini</a>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4">Upload File</label>
