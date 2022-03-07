@@ -27,6 +27,7 @@ background-repeat: no-repeat;">
     <div class="card-header text-center">
       <img src="{{ asset('img/bumdes-logo.png') }}" alt="" width="50%"><br>
       <h3 class="font-weight-bold">Jantung Desa</h3>
+      <h6>Jaringan Terpadu dan Unggul</h6>
     </div>
     <div class="card-body">
         @if ($errors->any())
