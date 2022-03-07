@@ -99,10 +99,11 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
+                <a href="#" data-toggle="modal" data-target="#tambahsurat" class="btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Buat Surat Surat </a>
+                <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-success btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
                 <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
-                {!! button_logall($log) !!}
+                {{-- {!! button_logall($log) !!} --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -302,6 +303,51 @@
         </div>
         </div>
     </div>
+      {{-- modal edit --}}
+      <div class="modal fade" id="tambahsurat">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('penduduksurat')}}" method="post">
+                @csrf
+                <input type="hidden" name="status" value="proses">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambahkan Surat</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
+                <section class="p-3">
+                  <div class="form-group">
+                        <label for="">Pilih User Penduduk</label>
+                        <select name="user_id" id="" data-width="100%" class="form-control penduduk" required>
+                            <option value="">-- Pilih Penduduk --</option>
+                            @foreach ($main['user_penduduk'] as $item)
+                              <option value="{{ $item->id }}">{{ strtoupper($item->nik.' | '.$item->nama_penduduk) }}</option>
+                            @endforeach
+                        </select>
+                  </div>
+                  <div class="form-group">
+                        <label for="">Pilih Jenis Surat</label>
+                        <select name="formatsurat_id" id="" data-width="100%" class="form-control penduduk" required>
+                            <option value="">-- Pilih Surat --</option>
+                            @foreach ($main['format_surat'] as $item)
+                              <option value="{{ $item->id }}">{{ strtoupper($item->nama_surat.' | '.$item->kode) }}</option>
+                            @endforeach
+                        </select>
+                  </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> BUAT SURAT</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
     <!-- /.modal -->
     @section('script')
     <script>

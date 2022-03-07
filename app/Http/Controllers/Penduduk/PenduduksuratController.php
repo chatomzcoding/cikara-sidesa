@@ -16,6 +16,7 @@ use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class PenduduksuratController extends Controller
@@ -134,9 +135,13 @@ class PenduduksuratController extends Controller
             'detail' => $detail,
             'status' => $request->status,
         ]);
-        
 
-        return redirect('layananmandiri/surat');
+        if (Auth::user()->level == 'penduduk') {
+            return redirect('layananmandiri/surat');
+        } else {
+            return redirect('suratpenduduk');
+        }
+        
     }
 
     public function cetaksurat($id)

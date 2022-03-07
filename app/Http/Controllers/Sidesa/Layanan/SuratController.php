@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Sidesa\Layanan;
 
 use App\Helpers\Cikara\DbCikara;
 use App\Http\Controllers\Controller;
+use App\Models\Formatsurat;
 use App\Models\Log;
 use App\Models\Penduduksurat;
 use App\Models\Staf;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,7 +44,18 @@ class SuratController extends Controller
             'tanggal' => $f_tanggal,
         ];
         $log    = Log::where('sesi','penduduksurat')->orderby('id','DESC')->get();
-        return view('admin.layananmandiri.surat.index', compact('surat','judul','total','menu','staf','filter','log'));
+        $userpenduduk   = DB::table('users')
+                            ->join('user_akses','users.id','=','user_akses.user_id')
+                            ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
+                            ->select('users.id','penduduk.nama_penduduk','penduduk.nik')
+                            ->where('users.level','penduduk')
+                            ->orderBy('penduduk.nama_penduduk','ASC')
+                            ->get();
+        $main = [
+            'user_penduduk' => $userpenduduk,
+            'format_surat'   => Formatsurat::orderBy('kode','ASC')->get()
+        ];
+        return view('admin.layananmandiri.surat.index', compact('main','surat','judul','total','menu','staf','filter','log'));
     }
 
     /**

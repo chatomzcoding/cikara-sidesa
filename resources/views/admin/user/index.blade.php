@@ -174,7 +174,7 @@
                           <select name="name" id="name" class="form-control penduduk" data-width="100%">
                               @foreach ($penduduk as $item)
                                   @if (DbCikara::countData('user_akses',['penduduk_id',$item->id]) == 0)
-                                      <option value="{{ $item->nik }}">{{ $item->nama_penduduk }}</option>
+                                      <option value="{{ $item->nik }}">{{ strtoupper($item->nik.' | '.$item->nama_penduduk) }}</option>
                                   @endif
                               @endforeach
                           </select>
