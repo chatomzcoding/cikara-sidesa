@@ -132,10 +132,7 @@
                                           <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu" role="menu">
-                                          <a class="dropdown-item text-primary" href="{{ url('/dusun/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Forum</a>
-                                            {{-- <button type="button" data-toggle="modal" data-nama_dusun="{{ $item->nama_dusun }}" data-nik="{{ $item->nik }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i> Edit Dusun
-                                            </button> --}}
+                                          <a class="dropdown-item text-primary" href="{{ url('/forumdiskusi/'.$item->id)}}"><i class="fas fa-list"></i> Detail Forum</a>
                                           <div class="dropdown-divider"></div>
                                           <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                         </div>

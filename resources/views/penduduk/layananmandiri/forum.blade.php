@@ -39,7 +39,7 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
+                                <th width="15%">Aksi</th>
                                 <th>Nama Forum</th>
                                 <th>Keterangan</th>
                                 <th>Total Diskusi</th>

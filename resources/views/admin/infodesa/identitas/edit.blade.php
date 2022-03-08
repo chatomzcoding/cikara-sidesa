@@ -58,7 +58,7 @@
                                     <tr>
                                         <th>Kode Pos Desa</th>
                                         <td>:</td>
-                                        <td><input type="text" name="kode_pos" value="{{ $profil->kode_pos}}" class="form-control" required></td>
+                                        <td><input type="text" name="kode_pos" value="{{ $profil->kode_pos}}" class="form-control" maxlength="5" required></td>
                                     </tr>
                                     <tr>
                                         <th>Kepala Desa</th>
@@ -68,7 +68,7 @@
                                     <tr>
                                         <th>NIP Kepala Desa</th>
                                         <td>:</td>
-                                        <td><input type="text" name="nip_kepaladesa" value="{{ $profil->nip_kepaladesa}}" class="form-control"></td>
+                                        <td><input type="text" name="nip_kepaladesa" value="{{ $profil->nip_kepaladesa}}" maxlength="16" class="form-control"></td>
                                     </tr>
                                     <tr>
                                         <th>Alamat Kantor Desa</th>
@@ -136,7 +136,7 @@
                                 </table>
                                 <section>
                                     <div class="form-group text-right">
-                                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
                                     </div>
                                 </section>
                               </div>

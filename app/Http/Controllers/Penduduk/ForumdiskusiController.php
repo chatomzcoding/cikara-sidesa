@@ -56,7 +56,13 @@ class ForumdiskusiController extends Controller
     public function show($forumdiskusi)
     {
         $forum      = Forum::find($forumdiskusi);
-        $diskusi    = Forumdiskusi::where('forum_id',$forum->id)->get();
+        // $diskusi    = Forumdiskusi::where('forum_id',$forum->id)->get();
+        $diskusi    = DB::table('forum_diskusi')
+                        ->join('users','forum_diskusi.user_id','=','users.id')
+                        ->select('forum_diskusi.*','users.profile_photo_path')
+                        ->where('forum_diskusi.forum_id',$forum->id)
+                        ->orderBy('forum_diskusi.id','ASC')
+                        ->get();
         $judul      = 'Forum Diskusi';
         $user       = Auth::user();
         $menu       = 'diskusi';

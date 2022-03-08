@@ -27,28 +27,22 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="{{ url('forumdiskusi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar forum"><i class="fas fa-angle-left"></i> Kembali</a>
+                @if (Auth::user()->level == 'penduduk')
+                  <a href="{{ url('forumdiskusi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar forum"><i class="fas fa-angle-left"></i> Kembali</a>
+                @else
+                  <a href="{{ url('forum') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar forum"><i class="fas fa-angle-left"></i> Kembali</a>
+                @endif
+                <a href="" class="btn btn-outline-info btn-sm pop-info" title="perbaharui"><i class="fas fa-sync"></i> Perbaharui Pesan</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                  
                   <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary">
-                <div class="card-header">
-                  <h3 class="card-title">{{ $forum->nama }}</h3>
-  
+                <div class="card-header bg-info">
+                  <h3 class="card-title font-weight-bold">{{ $forum->nama }}</h3>
                   <div class="card-tools">
                     <span title="3 New Messages" class="badge badge-primary">{{ count($diskusi) }}</span>
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button> --}}
-                    {{-- <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                      <i class="fas fa-comments"></i>
-                    </button> --}}
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button> --}}
                   </div>
                 </div>
                 <!-- /.card-header -->
@@ -56,15 +50,18 @@
                   <!-- Conversations are loaded here -->
                   <div class="direct-chat-messages">
                     @forelse ($diskusi as $item)
+                        @php
+                            $photo = ($item->profile_photo_path == NULL) ? 'img/chat.png' : 'img/user/'.$item->profile_photo_path
+                        @endphp
                         @if ($item->user_id == $user->id)
                             {{-- chat untuk orang lain --}}
                             <div class="direct-chat-msg">
                                 <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-left">{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</span>
+                                <span class="direct-chat-name float-left text-capitalize">{{ DbCikara::namapenduduk($item->user_id) }}</span>
                                 <span class="direct-chat-timestamp float-right">{{ $item->created_at }}</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img" src="{{ asset('img/chat.png') }}" alt="message user image">
+                                <img class="direct-chat-img" src="{{ asset($photo) }}" alt="message user image">
                                 <!-- /.direct-chat-img -->
                                 <div class="direct-chat-text">
                                     {{ $item->isi }}
@@ -74,11 +71,11 @@
                              <!-- chat untuk saya -->
                             <div class="direct-chat-msg right">
                                 <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-right">{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</span>
+                                <span class="direct-chat-name float-right  text-capitalize">{{ DbCikara::namapenduduk($item->user_id) }}</span>
                                 <span class="direct-chat-timestamp float-left">{{ $item->created_at }}</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img" src="{{ asset('img/chat.png') }}" alt="message user image">
+                                <img class="direct-chat-img" src="{{ asset($photo) }}" alt="message user image">
                                 <!-- /.direct-chat-img -->
                                 <div class="direct-chat-text">
                                     {{ $item->isi }}
@@ -102,7 +99,7 @@
                       <input type="hidden" name="user_id" value="{{ $user->id }}">
                       <input type="hidden" name="forum_id" value="{{ $forum->id }}">
                     <div class="input-group">
-                      <input type="text" name="isi" placeholder="Ketik Pesan ..." class="form-control">
+                      <input type="text" name="isi" placeholder="Ketik Pesan Disini..." class="form-control">
                       <span class="input-group-append">
                         <button type="submit" class="btn btn-primary">Kirim</button>
                       </span>

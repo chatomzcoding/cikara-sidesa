@@ -444,6 +444,11 @@ class DbCikara {
                 $result     = $penduduk->nama_penduduk;
             }    
         }
+        // cek jika admin
+        if ($result == '-') {
+            $user   = User::find($data);
+            $result = $user->name.' ('.$user->level.')';
+        }
         return $result;
     }
     public static function jumlahrtperdusun($dusun)
