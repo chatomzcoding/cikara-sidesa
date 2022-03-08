@@ -1,20 +1,17 @@
-@php
-	$info = App\Models\Infowebsite::first(); 
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login</title>
-  <link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
+  <title>LOGIN - JANTUNG DESA</title>
+  <link href="{{  asset('img/logo-jantungdesa.png')}}" rel="icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}"> --}}
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('template/admin/lte/dist/css/adminlte.min.css')}}">
 </head>
@@ -25,9 +22,9 @@ background-repeat: no-repeat;">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <img src="{{ asset('img/bumdes-logo.png') }}" alt="" width="50%"><br>
+      <img src="{{ asset('img/logo-jantungdesa.png') }}" alt="" width="45%"><br>
       <h3 class="font-weight-bold">Jantung Desa</h3>
-      <h6>Jaringan Terpadu dan Unggul</h6>
+      <h6 class="text-secondary">jaringan terpadu dan unggul</h6>
     </div>
     <div class="card-body">
         @if ($errors->any())
@@ -66,10 +63,9 @@ background-repeat: no-repeat;">
           <!-- /.col -->
         </div>
       </form>
-      <hr>
       <p class="mt-3 mb-0 small">
         <a href="{{ url('/') }}"><i class="fas fa-home"></i> Halaman Utama</a>
-        <a href="http://cikarastudio.com/" target="_blank" class="float-right">CIKARA STUDIO</a>
+        <a href="https://cikarastudio.com/" target="_blank" class="float-right">CIKARA STUDIO</a>
       </p>
       {{-- <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>
