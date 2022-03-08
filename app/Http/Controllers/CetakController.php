@@ -6,14 +6,13 @@ use App\Helpers\Cikara\DbCikara;
 use App\Models\Bantuan;
 use App\Models\Dusun;
 use App\Models\Formatsurat;
-use App\Models\Keluarga;
+use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\Lapor;
 use App\Models\Penduduk;
 use App\Models\Pendudukaduan;
 use App\Models\Potensi;
 use App\Models\Potensisub;
-use App\Models\Profil;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Staf;
@@ -139,6 +138,16 @@ class CetakController extends Controller
                     $lapak   = Lapak::all();
                     $namafile   = 'Laporan Data Lapak';
                     $pdf        = PDF::loadview('sistem.cetak.list.lapak', compact('lapak'))->setPaper('a4','landscape');
+                    break;
+                case 'pemilih':
+                    $kategori   = Kategori::find($_GET['kategori_id']);
+                    $pemilih    = DB::table('pemilih')
+                    ->join('penduduk','pemilih.penduduk_id','=','penduduk.id')
+                    ->select('pemilih.*','penduduk.nama_penduduk')
+                    ->where('pemilih.kategori_id',$kategori->id)
+                    ->get();
+                    $namafile   = 'Laporan Data Calon Pemilih '.ucwords($kategori->nama_kategori);
+                    $pdf        = PDF::loadview('sistem.cetak.list.pemilih', compact('pemilih'))->setPaper('a4','landscape');
                     break;
                 case 'bantuan':
                     $bantuan   = Bantuan::all();

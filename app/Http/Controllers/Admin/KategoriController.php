@@ -38,19 +38,24 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         Kategori::create($request->all());
-        $kategori    = Kategori::latest()->first();
-        $data               = [
-            'sesi' => 'kategorivaksin',
-            'aksi' => 'tambah',
-            'table_id' => $kategori->id,
-            'detail' => [
-                'data' => [
-                    'tambah data kategori vaksin <strong>"'.$request->nama_kategori.'"</strong>'
+        if ($request->label == 'pemilih') {
+            return back()->with('ds','Kategori Pemilih');
+        } else {
+            $kategori    = Kategori::latest()->first();
+            $data               = [
+                'sesi' => 'kategorivaksin',
+                'aksi' => 'tambah',
+                'table_id' => $kategori->id,
+                'detail' => [
+                    'data' => [
+                        'tambah data kategori vaksin <strong>"'.$request->nama_kategori.'"</strong>'
+                    ]
                 ]
-            ]
-        ];
-        DbCikara::saveLog($data);
-        return back()->with('ds','Jenis Vaksin');
+            ];
+            DbCikara::saveLog($data);
+            return back()->with('ds','Jenis Vaksin');
+        }
+        
     }
 
     /**

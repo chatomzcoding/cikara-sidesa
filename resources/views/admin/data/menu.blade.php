@@ -111,6 +111,12 @@ menu-is-opening menu-open
           <p>Kelompok</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/pemilih')}}" class="nav-link small {{ menuaktif($menu,'kelompok') }}">
+          &nbsp;&nbsp;<i class="fas fa-user-check nav-icon"></i>
+          <p>Calon Pemilih</p>
+        </a>
+      </li>
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'statistikpenduduk' || $menu == 'laporanbulanan' || $menu == 'laporankelompok')

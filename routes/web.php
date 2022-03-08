@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +110,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // KEPENDUDUKAN
         Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');
+        Route::resource('pemilih', PemilihController::class);
         Route::resource('laporan', 'App\Http\Controllers\Sidesa\LaporanController');
         Route::resource('keluarga', 'App\Http\Controllers\Sidesa\KeluargaController');
         Route::resource('anggotakeluarga', 'App\Http\Controllers\Sidesa\AnggotakeluargaController');
@@ -144,7 +147,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('suratpenduduk', 'App\Http\Controllers\Sidesa\Layanan\SuratController');
         
         // ADMIN SETTING
-        Route::resource('kategori', 'App\Http\Controllers\Admin\KategoriController');
+        Route::resource('kategori', KategoriController::class);
         Route::resource('listdata', ListdataController::class);
         Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
         Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
