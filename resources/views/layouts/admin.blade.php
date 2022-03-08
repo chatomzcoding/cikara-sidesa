@@ -10,7 +10,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title')</title>
-  <link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
+  <link href="{{  asset('img/logo-jantungdesa.png')}}" rel="icon">
 
 
   <!-- Google Font: Source Sans Pro -->
@@ -257,7 +257,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
-      <img src="{{  asset('img/'.$info->logo_brand)}}" alt="JantungDesa" class="brand-image img-circle">
+      <img src="{{  asset('img/logo-jantungdesa.png')}}" alt="JantungDesa" class="brand-image img-circle">
       <span class="brand-text font-weight-light"><strong>Jantung Desa</strong></span>
     </a>
 
