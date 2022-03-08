@@ -70,8 +70,9 @@
 					<div class="col-md-12">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
-								<a href="#">
-									<div class="logo_text">Jantung<span>Desa</span></div>
+								<a href="{{ url('/') }}">
+									<img src="{{ asset('img/logo-jantungdesa.png') }}" alt="" width="40px">
+									<div class="logo_text"> Jantung<span>Desa</span></div>
 								</a>
 							</div>
 							<nav class="main_nav_contaner ml-auto">
