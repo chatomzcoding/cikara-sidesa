@@ -19,8 +19,6 @@
 @endsection
 
 @section('container')
-    
-  
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -114,48 +112,7 @@
           </div>
         </div>
     </div>
-   
-{{-- 
-    @section('script')
-          <script>
-            $('#ubah').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget)
-                var isi = button.data('isi')
-                var status = button.data('status')
-                var kategori = button.data('kategori')
-                var nama = button.data('nama')
-                var tanggapan = button.data('tanggapan')
-                var id = button.data('id')
-        
-                var modal = $(this)
-        
-                modal.find('.modal-body #isi').val(isi);
-                modal.find('.modal-body #status').val(status);
-                modal.find('.modal-body #statusini').val(status);
-                modal.find('.modal-body #kategori').val(kategori);
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #tanggapan').val(tanggapan);
-                modal.find('.modal-body #id').val(id);
-            })
-          </script>
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                // "buttons": ["excel", "pdf", "print"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-            });
-        </script>
-    @endsection --}}
+  
 
     @endsection
 
