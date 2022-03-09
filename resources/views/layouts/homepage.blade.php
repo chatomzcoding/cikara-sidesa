@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 <title>@yield('title')</title>
-<link href="{{  asset('img/'.$info->logo_brand)}}" rel="icon">
+<link href="{{  asset('img/logo-jantungdesa.png')}}" rel="icon">
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
