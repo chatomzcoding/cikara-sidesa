@@ -83,7 +83,8 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 @if (count($user) <> count($penduduk))
                     <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah User Baru"><i class="fas fa-plus"></i> Tambah</a>
-                    @endif
+                    <a href="#" class="btn btn-outline-info btn-sm pop-info" data-toggle="modal" data-target="#tambahotomatis" title="Tambakan otomatis semua user penduduk"><i class="fas fa-plus"></i> Tambah Otomatis User</a>
+                @endif
                     <a href="{{ url('user?sesi=staf') }}" class="btn btn-outline-dark btn-sm pop-info" title="Daftar User Staf"><i class="fas fa-users"></i> Data Staf</a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak daftar User"><i class="fas fa-print"></i> CETAK</a>
               </div>
@@ -154,6 +155,38 @@
     </div>
  {{-- modal --}}
     {{-- modal tambah --}}
+    <div class="modal fade" id="tambahotomatis">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/user')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="sesi" value="otomatis">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah User Otomatis</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                  <div class="alert alert-info">
+                    Dengan menambahkan otomatis user penduduk, maka akan memberikan email dan password secara random sesuai dengan NIK penduduk <br>
+                    contoh : <br>
+                    &nbsp;&nbsp; Email : 3240959594795733@jantungdesa.com <br>
+                    &nbsp;&nbsp; Password : 3240959594795733 <br>
+                    Catatan : direkomendasikan untuk kepada penduduk untuk merubah email atau password agar tidak digunakan oleh orang yang tidak bertanggung jawab
+
+                  </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> BUAT USER</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">

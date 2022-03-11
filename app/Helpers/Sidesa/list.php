@@ -926,3 +926,89 @@ if (! function_exists('list_datainput')) {
         return $list;
     }
 }
+
+if (! function_exists('list_menu')) {
+    function list_menu()
+    {
+        $list = [
+            [
+                'Siaga Covid-19',
+                [
+                    'covid' => 'Info Covid',
+                    'vaksinasi' => 'Vaksinasi',
+                    'datacovid' => 'Data Pemudik',
+                ]
+            ],
+            [
+                'Info Desa',
+                [
+
+                    'profil' => 'Identitas Desa',
+                    'wilayah' => 'Wilayah Administratif',
+                    'pemerintahdesa' => 'Pemerintahan Desa',
+                    'potensi' => 'Potensi Desa',
+                    'tentang' => 'Tentang Desa',
+                ]
+                ],
+            [
+                'Kependudukan',
+                [
+                    'penduduk' => 'Penduduk',
+                    'keluarga' => 'Keluarga',
+                    'rumahtangga' => 'Rumah Tangga',
+                    'kelompok' => 'Kelompok',
+                    'pemilih' => 'Calon Pemilih',
+                ]
+            ],
+            [
+                'Statistik',
+                [
+                    'statistikpenduduk' => 'Statistik Penduduk',
+                ]
+            ],
+            [
+                'Sekretariat',
+                [
+                    'informasipublik' => 'Informasi Publik',
+                    'inventaris' => 'Inventaris',
+                    'klasifikasisurat' => 'Klasifikasi Surat',
+                ]
+            ],
+            [
+                'Layanan Surat',
+                [
+                    'formatsurat' => 'Pengaturan Surat',
+                    'syaratsurat' => 'Daftar Persyaratan',
+                ]                
+            ],
+            [
+                'Bantuan',
+                [
+                    'bantuan' => 'Bantuan',
+                ]
+            ],
+            [
+                'Layanan Mandiri',
+                [
+                    'laporpenduduk' => 'Laporan Penduduk',
+                    'lapakdesa' => 'Lapak Desa',
+                    'forumpenduduk' => 'Forum Penduduk',
+                    'suratpenduduk' => 'Surat Penduduk',
+                ]
+            ],
+            [
+                'Admin Web',
+                [
+                    'datapokok' => 'Data Pokok',
+                    'datauser' => 'Data User',
+                    'artikel' => 'Artikel',
+                    'galeri' => 'Galeri',
+                    'slider' => 'Slider',
+                    'berjalan' => 'Teks Berjalan',
+                    'listdata' => 'Data List'
+                ]
+            ]
+        ];
+        return $list;
+    }
+}

@@ -108,6 +108,7 @@
                                                   <button type="button" data-toggle="modal" data-name ="{{ $item->name }}" data-email ="{{ $item->email }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                   <i class="fa fa-edit"></i> Edit User
                                                   </button>
+                                                  <a href="{{ url('user/'.Crypt::encryptString($item->id)) }}" class="dropdown-item text-primary"><i class="fa fa-file"></i> Hak Akses</a>
                                                 <div class="dropdown-divider"></div>
                                                 <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                               </div>

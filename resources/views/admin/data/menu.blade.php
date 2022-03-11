@@ -112,7 +112,7 @@ menu-is-opening menu-open
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/pemilih')}}" class="nav-link small {{ menuaktif($menu,'kelompok') }}">
+        <a href="{{ url('/pemilih')}}" class="nav-link small {{ menuaktif($menu,'pemilih') }}">
           &nbsp;&nbsp;<i class="fas fa-user-check nav-icon"></i>
           <p>Calon Pemilih</p>
         </a>

@@ -4,6 +4,7 @@ namespace App\Helpers\Cikara;
 use App\Models\Lapor;
 use App\Models\Listdata;
 use App\Models\Log;
+use App\Models\Menu;
 use App\Models\Penduduk;
 use App\Models\Penduduksurat;
 use App\Models\Profil;
@@ -659,5 +660,39 @@ class DbCikara {
     {
         $list   = Listdata::select('nama')->where('label',$label)->orderBy('nama','ASC')->get();
         return $list;
+    }
+    // cek ceklis
+    public static function ceklismenu($user_id,$label)
+    {
+        $result = '';
+        $menu   = Menu::where('user_id',$user_id)->where('label',$label)->first();
+        if ($menu) {
+            $result = 'checked';
+        }
+        return $result;
+    }
+    // cek menu
+    public static function cekmenu($menu,$db)
+    {
+        $result = FALSE;
+        for ($i=0; $i < count($menu); $i++) { 
+            if (in_array($menu[$i],$db)) {
+                $result = TRUE;
+            }
+        }
+        return $result;
+    }
+    // cek ceklis
+    public static function listmenuaktif($user_id)
+    {
+        $result = [];
+        $menu   = Menu::where('user_id',$user_id)->get('label');
+        if ($menu) {
+            $result = [];
+            foreach ($menu as $key) {
+                $result[] = $key->label;
+            }
+        }
+        return $result;
     }
 }

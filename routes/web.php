@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
@@ -148,6 +149,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // ADMIN SETTING
         Route::resource('kategori', KategoriController::class);
+        Route::resource('menu', MenuController::class);
         Route::resource('listdata', ListdataController::class);
         Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
         Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');

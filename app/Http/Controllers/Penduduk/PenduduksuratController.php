@@ -97,6 +97,7 @@ class PenduduksuratController extends Controller
             'info' => $info
         ];
 
+
         $menu   = 'surat';
         
         return view('penduduk.layananmandiri.buatsurat', compact('user','format','surat','data','menu'));

@@ -47,6 +47,7 @@ class UserController extends Controller
                         ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
                         ->select('users.*','penduduk.nama_penduduk')
                         ->where('users.level','penduduk')
+                        ->limit(100)
                         ->get();
             $judul  = 'User Penduduk';
             $penduduk   = Penduduk::select('nik','nama_penduduk')->orderBy('nama_penduduk','ASC')->get();
@@ -80,28 +81,55 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'level' => $request->level,
-            'password' => Hash::make($request->password),
-        ]);
-        $user       = User::where('name',$request->name)->where('level',$request->level)->first();
-        if ($request->level == 'penduduk') {
-            // tambahkan ke user akses
-            $penduduk   = Penduduk::where('nik',$request->name)->first();
-            Userakses::create([
-                'user_id' => $user->id,
-                'penduduk_id' => $penduduk->id,
-            ]);
+        if (isset($request->sesi)) {
+            // echo url()->current();
+            $penduduk   = Penduduk::all('id','nik','nama_penduduk');
+            foreach ($penduduk as $key) {
+                // cek jika sudah ada
+                $cekakses = Userakses::where('penduduk_id',$key->id)->first();
+                if (!$cekakses) {
+                    // create User
+                    $email  = $key->nik.'@jantungdesa.com';
+                    $user       = User::where('email',$email)->first();
+                    if (!$user) {
+                        User::create([
+                            'name' => $key->nama_penduduk,
+                            'email' => $email,
+                            'password' => $key->nama_penduduk,
+                            'password' => Hash::make($key->nik),
+                            'level' => 'penduduk',
+                        ]);
+                        $user       = User::where('email',$email)->first();
+                        Userakses::create([
+                            'user_id' => $user->id,
+                            'penduduk_id' => $key->id,
+                        ]);
+                    }
+                }
+            }
         } else {
-            $staf = Staf::where('nama_pegawai',$request->name)->first();
-            Stafakses::create([
-                'user_id' => $user->id,
-                'staf_id' => $staf->id,
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'level' => $request->level,
+                'password' => Hash::make($request->password),
             ]);
+            $user       = User::where('name',$request->name)->where('level',$request->level)->first();
+            if ($request->level == 'penduduk') {
+                // tambahkan ke user akses
+                $penduduk   = Penduduk::where('nik',$request->name)->first();
+                Userakses::create([
+                    'user_id' => $user->id,
+                    'penduduk_id' => $penduduk->id,
+                ]);
+            } else {
+                $staf = Staf::where('nama_pegawai',$request->name)->first();
+                Stafakses::create([
+                    'user_id' => $user->id,
+                    'staf_id' => $staf->id,
+                ]);
+            }
         }
-        
         return back()->with('ds','User');
     }
 
@@ -113,7 +141,10 @@ class UserController extends Controller
      */
     public function show($user)
     {
-       
+       $user    = User::find(Crypt::decryptString($user));
+       $menu    = 'datauser';
+       $listmenu = list_menu();
+       return view('admin.user.hakakses', compact('menu','user','listmenu'));
     }
 
     /**
