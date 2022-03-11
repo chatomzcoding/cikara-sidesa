@@ -988,6 +988,12 @@ if (! function_exists('list_menu')) {
                 ]
             ],
             [
+                'Pertanahan',
+                [
+                    'tanah' => 'Pertanahan',
+                ]
+            ],
+            [
                 'Layanan Mandiri',
                 [
                     'laporpenduduk' => 'Laporan Penduduk',

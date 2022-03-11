@@ -263,12 +263,20 @@ menu-is-opening menu-open
 @endif
 
 @if (in_array('bantuan',$lmenu))
-  <li class="nav-item">
-    <a href="{{ url('/bantuan')}}" class="nav-link small {{ menuaktif($menu,'bantuan') }}">
-      <i class="nav-icon fas fa-people-carry"></i>
-      <p class="text">Bantuan</p>
-    </a>
-  </li>
+<li class="nav-item">
+  <a href="{{ url('/bantuan')}}" class="nav-link small {{ menuaktif($menu,'bantuan') }}">
+    <i class="nav-icon fas fa-people-carry"></i>
+    <p class="text">Bantuan</p>
+  </a>
+</li>
+@endif
+@if (in_array('tanah',$lmenu))
+<li class="nav-item">
+  <a href="{{ url('/tanah')}}" class="nav-link small {{ menuaktif($menu,'tanah') }}">
+    <i class="nav-icon fas fa-map"></i>
+    <p class="text">Pertanahan</p>
+  </a>
+</li>
 @endif
 @if (DbCikara::cekmenu(['laporpenduduk','lapakdesa','forumpenduduk','suratpenduduk','layananpenduduk'],$lmenu))
 

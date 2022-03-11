@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
+use App\Http\Controllers\Sidesa\TanahController;
 use Illuminate\Support\Facades\Route;
 use App\Imports\DataPenduduk;
 use App\Imports\KategoriartikelImport;
@@ -95,6 +96,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::middleware('admin')->group(function () {
         Route::resource('info', 'App\Http\Controllers\Admin\InfoController');
+        Route::resource('tanah', TanahController::class);
         // COVID 19
         Route::resource('vaksinasi', 'App\Http\Controllers\Sidesa\Covid\VaksinasiController');
         Route::resource('covid', 'App\Http\Controllers\Sidesa\Covid\CovidController');
