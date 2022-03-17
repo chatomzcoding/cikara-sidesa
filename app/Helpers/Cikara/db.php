@@ -448,7 +448,11 @@ class DbCikara {
         // cek jika admin
         if ($result == '-') {
             $user   = User::find($data);
-            $result = $user->name.' ('.$user->level.')';
+            if ($user) {
+                $result = $user->name.' ('.$user->level.')';
+            } else {
+                $result = '-';
+            }
         }
         return $result;
     }
