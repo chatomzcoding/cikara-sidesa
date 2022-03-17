@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
+use App\Http\Controllers\Sidesa\Sekretariat\SuratkeluarController;
 use App\Http\Controllers\Sidesa\TanahController;
 use Illuminate\Support\Facades\Route;
 use App\Imports\DataPenduduk;
@@ -135,6 +136,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('informasipublik', 'App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController');
         Route::resource('inventaris', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController');
         Route::resource('klasifikasisurat', 'App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController');
+        Route::resource('suratkeluar', SuratkeluarController::class);
         Route::get('inventaris/list/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@list');
         Route::get('inventaris/tambah/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@tambah');
         

@@ -139,7 +139,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat')
+<li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat'|| $menu == 'suratkeluar')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small">
@@ -167,6 +167,12 @@ menu-is-opening menu-open
         <a href="{{ url('/klasifikasisurat')}}" class="nav-link small {{ menuaktif($menu,'klasifikasisurat') }}">
           &nbsp;&nbsp;<i class="fas fa-boxes nav-icon"></i>
           <p>Klasifikasi Surat</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/suratkeluar')}}" class="nav-link small {{ menuaktif($menu,'suratkeluar') }}">
+          &nbsp;&nbsp;<i class="fas fa-file nav-icon"></i>
+          <p>Surat Keluar</p>
         </a>
       </li>
     </ul>
