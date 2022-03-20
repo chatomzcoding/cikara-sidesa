@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Sidesa\Layanan\SuratController;
 use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
@@ -149,7 +150,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('formatsurat', 'App\Http\Controllers\Admin\FormatsuratController');
         Route::resource('datasyaratsurat', 'App\Http\Controllers\Sidesa\Layanan\DatasyaratsuratController');
         Route::resource('forum', 'App\Http\Controllers\Sidesa\Layanan\ForumController');
-        Route::resource('suratpenduduk', 'App\Http\Controllers\Sidesa\Layanan\SuratController');
+        Route::resource('suratpenduduk', SuratController::class);
         
         // ADMIN SETTING
         Route::resource('kategori', KategoriController::class);

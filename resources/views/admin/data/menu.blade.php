@@ -169,12 +169,7 @@ menu-is-opening menu-open
           <p>Klasifikasi Surat</p>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="{{ url('/suratkeluar')}}" class="nav-link small {{ menuaktif($menu,'suratkeluar') }}">
-          &nbsp;&nbsp;<i class="fas fa-file nav-icon"></i>
-          <p>Surat Keluar</p>
-        </a>
-      </li>
+     
     </ul>
 </li>
 <li class="nav-item @if ($menu == 'formatsurat' || $menu == 'syaratsurat')
@@ -183,12 +178,30 @@ menu-is-opening menu-open
     <a href="#" class="nav-link small">
       <i class="nav-icon fas fa-envelope-open"></i>
       <p>
-        Layanan Surat
+        Surat
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
       </p>
     </a>
     <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/suratkeluar')}}" class="nav-link small {{ menuaktif($menu,'suratkeluar') }}">
+          &nbsp;&nbsp;<i class="fas fa-file nav-icon"></i>
+          <p>Surat Keluar</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratpenduduk') }}">
+          &nbsp;&nbsp;<i class="fas fa-envelope-open-text nav-icon"></i>
+          <p>Layanan Mandiri</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/suratpenduduk?layanan=langsung')}}" class="nav-link small {{ menuaktif($menu,'layananlangsung') }}">
+          &nbsp;&nbsp;<i class="fas fa-mail-bulk nav-icon"></i>
+          <p>Layanan Langsung</p>
+        </a>
+      </li>
       <li class="nav-item">
         <a href="{{ url('/formatsurat')}}" class="nav-link small {{ menuaktif($menu,'formatsurat') }}">
           &nbsp;&nbsp;<i class="fas fa-mail-bulk nav-icon"></i>

@@ -38,10 +38,12 @@ class SuratController extends Controller
         $f_status = (isset($_GET['status'])) ? $_GET['status'] : 'semua' ;
         $f_penduduk = (isset($_GET['penduduk'])) ? $_GET['penduduk'] : 'semua' ;
         $f_tanggal = (isset($_GET['tanggal'])) ? $_GET['tanggal'] : 'semua' ;
+        $f_layanan = (isset($_GET['layanan'])) ? 'langsung' : 'mandiri' ;
         $filter = [
             'status' => $f_status,
             'penduduk' => $f_penduduk,
             'tanggal' => $f_tanggal,
+            'layanan' => $f_layanan,
         ];
         $log    = Log::where('sesi','penduduksurat')->orderby('id','DESC')->get();
         $userpenduduk   = DB::table('users')
