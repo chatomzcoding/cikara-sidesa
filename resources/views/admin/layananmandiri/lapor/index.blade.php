@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar {{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="{{ $judul }}" menu="laporpenduduk">
+  <x-slot name="header">
+    <x-header judul="Data {{ $judul }}" active="Daftar {{ $judul }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -165,7 +147,7 @@
                                             <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                           </div>
                                       </div>
-
+  
                                     </td>
                                     <td><img src="{{ asset('img/penduduk/lapor/'.$item->photo) }}" alt="laporan" width="100px"></td>
                                     @if ($item->identitas == 'ya')
@@ -211,7 +193,7 @@
         </div>
     </div>
     @include('sistem.view.modal-log')
-
+  
     <div class="modal fade" id="cetakdokumen">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -247,7 +229,6 @@
       </div>
       </div>
   </div>
-    {{-- modal edit --}}
     <div class="modal fade" id="ubah">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -301,9 +282,8 @@
       </div>
       </div>
   </div>
-  <!-- /.modal -->
-
-    @section('script')
+  </x-slot>
+  <x-slot name="kodejs">
           <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -344,7 +324,5 @@
 
            
         </script>
-    @endsection
-
-    @endsection
-
+  </x-slot>
+</x-adminlte-layout>

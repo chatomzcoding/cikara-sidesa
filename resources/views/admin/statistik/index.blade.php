@@ -1,24 +1,8 @@
-@extends('layouts.admin')
-@section('title')
-    Statistik Kependudukan - {{ list_statistikpenduduk()[$pilih] }}
-@endsection
-
-@section('header')
-  <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0">Statistik Kependudukan</h1>
-      </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-          <li class="breadcrumb-item active">Statistik Kependudukan</li>
-        </ol>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
+<x-adminlte-layout title="Statistik Kependudukan - {{ list_statistikpenduduk()[$pilih] }}" menu="statistikpenduduk">
+  <x-slot name="header">
+    <x-header judul="statistik kependudukan" active="Statistik Kependudukan - {{ list_statistikpenduduk()[$pilih] }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -203,85 +187,86 @@
       </form>
       </div>
       </div>
-  </div>
-
-    @section('script')
-        <script>
-          Highcharts.chart('batang', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Data Penduduk berdasarkan <?= $data['header']?>'
-            },
-            xAxis: {
-                categories: [<?= $data['judul'] ?>]
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Jumlah',
-                data: [<?= $data['nilai']?>]
-            }]
-        });
-        // pie
-        Highcharts.chart('pie', {
+    </div>
+  </x-slot>
+  <x-slot name="kodejs">
+    <script>
+      Highcharts.chart('batang', {
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
+            type: 'column'
         },
         title: {
-            text: "Data Penduduk Berdasarkan <?= $data['header']?>"
+            text: 'Data Penduduk berdasarkan <?= $data['header']?>'
         },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        xAxis: {
+            categories: [<?= $data['judul'] ?>]
         },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
+        credits: {
+            enabled: false
         },
         series: [{
-            name: 'Total',
-            colorByPoint: true,
-            data: [ <?php 
-              $no = 1;
-              foreach ($data['pie'] as $row) {
-            ?>
-              {
-                name: "<?=$row['nama'] ?>",
-                y: <?=$row['nilai'] ?>,
-                <?php 
-                  if($no == 1){
-                  ?>
-                    sliced: true,
-                    selected: true
-                  <?php 
-                  } 
-                ?>
-            },
-            <?php 
-              $no++;
-              }
-            ?>]
-
+            name: 'Jumlah',
+            data: [<?= $data['nilai']?>]
         }]
     });
-        </script>
-    @endsection
+    Highcharts.chart('pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: "Data Penduduk Berdasarkan <?= $data['header']?>"
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Total',
+        colorByPoint: true,
+        data: [ <?php 
+          $no = 1;
+          foreach ($data['pie'] as $row) {
+        ?>
+          {
+            name: "<?=$row['nama'] ?>",
+            y: <?=$row['nilai'] ?>,
+            <?php 
+              if($no == 1){
+              ?>
+                sliced: true,
+                selected: true
+              <?php 
+              } 
+            ?>
+        },
+        <?php 
+          $no++;
+          }
+        ?>]
 
-    @endsection
+    }]
+});
+    </script>
+  </x-slot>
+</x-adminlte-layout>
+      
+
+
 

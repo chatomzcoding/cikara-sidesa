@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data  {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar  {{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="potensi desa" menu="potensi">
+  <x-slot name="header">
+    <x-header judul="data potensi desa" active="daftar potensi desa"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -82,7 +64,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text">Total Dilihat</span>
                       <span class="info-box-number">
-                         {{ $total['dilihat'] }}
+                          {{ $total['dilihat'] }}
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -97,11 +79,11 @@
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Data Potensi Baru"><i class="fas fa-plus"></i> Tambah</a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" title="Cetak Daftar Potensi" class="btn btn-outline-info btn-sm float-right pop-info"><i class="fas fa-print"></i> CETAK</a>
                 {!! button_logall($log) !!}
-
+    
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                 
+                  
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -153,9 +135,8 @@
           </div>
         </div>
     </div>
- {{-- modal --}}
- <div class="modal fade" id="cetakdokumen">
-  <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="cetakdokumen">
+    <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form target="_blank" action="{{ url('/cetakdata')}}" method="get">
           @csrf
@@ -169,7 +150,7 @@
       </div>
       <div class="modal-body p-3">
           <section class="p-3">
-             <div class="form-group row">
+              <div class="form-group row">
                   <label for="" class="col-md-4">Mengetahui</label>
                   <select name="staf" id="staf" class="form-control col-md-8" required>
                       <option value="">-- Pilih Staf --</option>
@@ -178,20 +159,19 @@
                       @endforeach
                   </select>
                       
-             </div>
+              </div>
           </section>
       </div>
       <div class="modal-footer justify-content-between">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
       <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> CETAK SEKARANG</button>
       </div>
-  </form>
-  </div>
-  </div>
-</div>
-@include('sistem.view.modal-log')
-
-    {{-- modal tambah --}}
+    </form>
+    </div>
+    </div>
+    </div>
+    @include('sistem.view.modal-log')
+    
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -205,15 +185,15 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                   <div class="form-group row">
+                    <div class="form-group row">
                         <label for="" class="col-md-4">Nama Potensi</label>
                         <input type="text" name="nama_potensi" id="nama_potensi" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                    </div>
+                    <div class="form-group row">
                         <label for="" class="col-md-4">Unggah Gambar</label>
                         <input type="file" name="poto_potensi" id="poto_potensi" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                    </div>
+                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan Potensi</label>
                         <textarea name="keterangan_potensi" id="keterangan_potensi" cols="30" rows="3" class="form-control col-md-8" required></textarea>
                     </div>
@@ -227,9 +207,6 @@
         </div>
         </div>
     </div>
-    <!-- /.modal -->
-
-    {{-- modal edit --}}
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -248,14 +225,14 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4">Nama Potensi</label>
                         <input type="text" name="nama_potensi" id="nama_potensi" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                       <label for="" class="col-md-4">Keterangan Potensi</label>
-                       <textarea name="keterangan_potensi" id="keterangan_potensi" cols="30" rows="3" class="form-control col-md-8" required></textarea>
                     </div>
                     <div class="form-group row">
-                         <label for="" class="col-md-4">Upload jika ingin mengubah Gambar</label>
-                         <input type="file" name="poto_potensi" id="poto_potensi" class="form-control col-md-8">
+                        <label for="" class="col-md-4">Keterangan Potensi</label>
+                        <textarea name="keterangan_potensi" id="keterangan_potensi" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                    </div>
+                    <div class="form-group row">
+                          <label for="" class="col-md-4">Upload jika ingin mengubah Gambar</label>
+                          <input type="file" name="poto_potensi" id="poto_potensi" class="form-control col-md-8">
                     </div>
                 </section>
             </div>
@@ -267,9 +244,8 @@
         </div>
         </div>
     </div>
-    <!-- /.modal -->
-
-    @section('script')
+  </x-slot>
+  <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -301,6 +277,6 @@
             });
             });
         </script>
-    @endsection
-    @endsection
+  </x-slot>
+</x-adminlte-layout>
 

@@ -22,10 +22,10 @@ class SuratController extends Controller
     public function index()
     {
         $surat  = DB::table('penduduk_surat')
-                    ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
-                    ->select('penduduk_surat.*','format_surat.nama_surat')
-                    ->orderBy('penduduk_surat.id','DESC')
-                    ->get();
+        ->join('format_surat','penduduk_surat.formatsurat_id','=','format_surat.id')
+        ->select('penduduk_surat.*','format_surat.nama_surat')
+        ->orderBy('penduduk_surat.id','DESC')
+        ->get();
         $judul  = 'Pengajuan Surat';
         $total  = [
             'jumlah' => count($surat),
@@ -38,26 +38,28 @@ class SuratController extends Controller
         $f_status = (isset($_GET['status'])) ? $_GET['status'] : 'semua' ;
         $f_penduduk = (isset($_GET['penduduk'])) ? $_GET['penduduk'] : 'semua' ;
         $f_tanggal = (isset($_GET['tanggal'])) ? $_GET['tanggal'] : 'semua' ;
-        $f_layanan = (isset($_GET['layanan'])) ? 'langsung' : 'mandiri' ;
+        $sesi = (isset($_GET['layanan'])) ? 'langsung' : 'mandiri' ;
         $filter = [
             'status' => $f_status,
             'penduduk' => $f_penduduk,
             'tanggal' => $f_tanggal,
-            'layanan' => $f_layanan,
         ];
         $log    = Log::where('sesi','penduduksurat')->orderby('id','DESC')->get();
-        $userpenduduk   = DB::table('users')
-                            ->join('user_akses','users.id','=','user_akses.user_id')
+        $userpenduduk   = DB::table('user_akses')
                             ->join('penduduk','user_akses.penduduk_id','=','penduduk.id')
-                            ->select('users.id','penduduk.nama_penduduk','penduduk.nik')
-                            ->where('users.level','penduduk')
+                            ->select('user_akses.user_id as id','penduduk.nama_penduduk','penduduk.nik')
                             ->orderBy('penduduk.nama_penduduk','ASC')
                             ->get();
         $main = [
             'user_penduduk' => $userpenduduk,
             'format_surat'   => Formatsurat::orderBy('kode','ASC')->get()
         ];
-        return view('admin.layananmandiri.surat.index', compact('main','surat','judul','total','menu','staf','filter','log'));
+        if ($sesi == 'mandiri') {
+            return view('admin.layananmandiri.surat.index', compact('main','surat','judul','total','menu','staf','filter','log'));
+        } else {
+            return view('admin.layananmandiri.surat.langsung', compact('main','surat','judul','total','menu','staf','filter','log'));
+        }
+        
     }
 
     /**

@@ -1,139 +1,86 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul.' '.$potensi->nama_potensi }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data  {{ $judul.' '.$potensi->nama_potensi }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
+<x-adminlte-layout title="detail potensi" menu="potensi">
+    <x-slot name="header">
+        <x-header judul="data potensi desa" active="detail potensi {{ $potensi->nama_potensi }}">
             <li class="breadcrumb-item"><a href="{{ url('potensi')}}">Daftar Potensi</a></li>
-            <li class="breadcrumb-item active">Detail  {{ $judul.' '.$potensi->nama_potensi }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+        </x-header>
+    </x-slot>
+    <x-slot name="content">
     <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
-            <!-- statistik -->
-            <div class="card">
-              <div class="card-header">
-                  {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                  <a href="{{ url('potensi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar Potensi"><i class="fas fa-angle-left"></i> Kembali</a>
-                <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Sub Potensi {{ $potensi->nama_potensi }}"><i class="fas fa-plus"></i> Tambah</a>
-                <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Sub Potensi"><i class="fas fa-print"></i> CETAK</a>
-                {!! button_logall($log) !!}
-
-              </div>
-              <div class="card-body">
-                  @include('sistem.notifikasi')
-                 
-                  <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th width="12%">Aksi</th>
-                                <th>Gambar</th>
-                                <th>Nama</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-capitalize">
-                            @foreach ($potensisub as $item)
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-12">
+                <!-- statistik -->
+                <div class="card">
+                  <div class="card-header">
+                      {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                      <a href="{{ url('potensi') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar Potensi"><i class="fas fa-angle-left"></i> Kembali</a>
+                    <a href="#" class="btn btn-outline-primary btn-sm pop-info" data-toggle="modal" data-target="#tambah" title="Tambah Sub Potensi {{ $potensi->nama_potensi }}"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Sub Potensi"><i class="fas fa-print"></i> CETAK</a>
+                    {!! button_logall($log) !!}
+        
+                  </div>
+                  <div class="card-body">
+                      @include('sistem.notifikasi')
+                     
+                      <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead class="text-center">
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/potensisub',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                  <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <button type="button" data-toggle="modal" data-nama ="{{ $item->nama }}" data-detail ="{{ $item->detail }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i> Edit Sub Potensi
-                                                    </button>
-                                                  <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
-                                                </div>
-                                            </div>
-                                    </td>
-                                    <td><img src="{{ asset('img/desa/potensi/'.$item->gambar) }}" alt="poto potensi" width="150px"> </td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->detail }}  <br>
-                                        {!! DbCikara::showlog(['sesi'=>'potensisub','id'=>$item->id]) !!}</td>
-                                    {{-- <td><span class="badge badge-{{ $item[7] }} w-100">{{ $item[6] }}</span></td> --}}
+                                    <th width="5%">No</th>
+                                    <th width="12%">Aksi</th>
+                                    <th>Gambar</th>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
                                 </tr>
-                            @endforeach
-                    </table>
+                            </thead>
+                            <tbody class="text-capitalize">
+                                @foreach ($potensisub as $item)
+                                    <tr>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">
+                                            <form id="data-{{ $item->id }}" action="{{url('/potensisub',$item->id)}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                </form>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                      <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <button type="button" data-toggle="modal" data-nama ="{{ $item->nama }}" data-detail ="{{ $item->detail }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i> Edit Sub Potensi
+                                                        </button>
+                                                      <div class="dropdown-divider"></div>
+                                                      <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                    </div>
+                                                </div>
+                                        </td>
+                                        <td><img src="{{ asset('img/desa/potensi/'.$item->gambar) }}" alt="poto potensi" width="150px"> </td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->detail }}  <br>
+                                            {!! DbCikara::showlog(['sesi'=>'potensisub','id'=>$item->id]) !!}</td>
+                                        {{-- <td><span class="badge badge-{{ $item[7] }} w-100">{{ $item[6] }}</span></td> --}}
+                                    </tr>
+                                @endforeach
+                        </table>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
-    </div>
- {{-- modal --}}
- @include('sistem.view.modal-log')
-
- <div class="modal fade" id="cetakdokumen">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form target="_blank" action="{{ url('/cetakdata')}}" method="get">
-            @csrf
-            <input type="hidden" name="s" value="subpotensi">
-            <input type="hidden" name="id" value="{{ $potensi->id }}">
-        <div class="modal-header">
-        <h4 class="modal-title">Informasi Cetak Dokumen</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body p-3">
-            <section class="p-3">
-               <div class="form-group row">
-                    <label for="" class="col-md-4">Mengetahui</label>
-                    <select name="staf" id="staf" class="form-control col-md-8" required>
-                        <option value="">-- Pilih Staf --</option>
-                        @foreach (DbCikara::showtable('staf',['status_pegawai','aktif']) as $item)
-                        <option value="{{ $item->id}}">{{ strtoupper($item->nama_pegawai.' | '.$item->jabatan)}}</option>
-                        @endforeach
-                    </select>
-                        
-               </div>
-            </section>
-        </div>
-        <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> CETAK SEKARANG</button>
-        </div>
-    </form>
-    </div>
-    </div>
-</div>
-    {{-- modal tambah --}}
-    <div class="modal fade" id="tambah">
+        @include('sistem.view.modal-log')
+        
+        <div class="modal fade" id="cetakdokumen">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/potensisub')}}" method="post" enctype="multipart/form-data">
+            <form target="_blank" action="{{ url('/cetakdata')}}" method="get">
                 @csrf
-                <input type="hidden" name="potensi_id" value="{{ $potensi->id }}">
+                <input type="hidden" name="s" value="subpotensi">
+                <input type="hidden" name="id" value="{{ $potensi->id }}">
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Sub Potensi</h4>
+            <h4 class="modal-title">Informasi Cetak Dokumen</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -141,70 +88,100 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Mengetahui</label>
+                        <select name="staf" id="staf" class="form-control col-md-8" required>
+                            <option value="">-- Pilih Staf --</option>
+                            @foreach (DbCikara::showtable('staf',['status_pegawai','aktif']) as $item)
+                            <option value="{{ $item->id}}">{{ strtoupper($item->nama_pegawai.' | '.$item->jabatan)}}</option>
+                            @endforeach
+                        </select>
+                            
                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Unggah Gambar</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <textarea name="detail" id="detail" cols="30" rows="3" class="form-control col-md-8" required></textarea>
-                    </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> CETAK SEKARANG</button>
             </div>
         </form>
         </div>
         </div>
-    </div>
-    <!-- /.modal -->
-
-    {{-- modal edit --}}
-    <div class="modal fade" id="ubah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('potensisub.update','test')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('patch')
-            <div class="modal-header">
-            <h4 class="modal-title">Edit Sub Potensi</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <input type="hidden" name="id" id="id">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                       <label for="" class="col-md-4">Keterangan</label>
-                       <textarea name="detail" id="detail" cols="30" rows="3" class="form-control col-md-8" required></textarea>
-                    </div>
-                    <div class="form-group row">
-                         <label for="" class="col-md-4">Upload untuk ubah Gambar</label>
-                         <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
-            </div>
+        </div>
+        <div class="modal fade" id="tambah">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <form action="{{ url('/potensisub')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="potensi_id" value="{{ $potensi->id }}">
+                <div class="modal-header">
+                <h4 class="modal-title">Tambah Sub Potensi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                       <div class="form-group row">
+                            <label for="" class="col-md-4">Nama</label>
+                            <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
+                       </div>
+                       <div class="form-group row">
+                            <label for="" class="col-md-4">Unggah Gambar</label>
+                            <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
+                       </div>
+                       <div class="form-group row">
+                            <label for="" class="col-md-4">Keterangan</label>
+                            <textarea name="detail" id="detail" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
             </form>
+            </div>
+            </div>
         </div>
+        <div class="modal fade" id="ubah">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <form action="{{ route('potensisub.update','test')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('patch')
+                <div class="modal-header">
+                <h4 class="modal-title">Edit Sub Potensi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <input type="hidden" name="id" id="id">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4">Nama</label>
+                            <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
+                       </div>
+                       <div class="form-group row">
+                           <label for="" class="col-md-4">Keterangan</label>
+                           <textarea name="detail" id="detail" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                        </div>
+                        <div class="form-group row">
+                             <label for="" class="col-md-4">Upload untuk ubah Gambar</label>
+                             <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                </div>
+                </form>
+            </div>
+            </div>
         </div>
-    </div>
-    <!-- /.modal -->
-
-    @section('script')
+    </x-slot>
+    <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -236,6 +213,5 @@
             });
             });
         </script>
-    @endsection
-    @endsection
-
+    </x-slot>
+</x-adminlte-layout>

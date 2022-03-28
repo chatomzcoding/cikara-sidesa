@@ -75,7 +75,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok')
+<li class="nav-item @if ($menu == 'penduduk' || $menu == 'keluarga' || $menu == 'rumahtangga' || $menu == 'kelompok'|| $menu == 'pemilih')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small">
@@ -172,7 +172,7 @@ menu-is-opening menu-open
      
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'formatsurat' || $menu == 'syaratsurat')
+<li class="nav-item @if ($menu == 'formatsurat' || $menu == 'syaratsurat' || $menu == 'suratpenduduk' || $menu == 'layananlangsung' || $menu == 'layananmandiri')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small">
@@ -229,7 +229,7 @@ menu-is-opening menu-open
     <p class="text">Pertanahan</p>
   </a>
 </li>
-<li class="nav-item @if ($menu == 'laporpenduduk' || $menu == 'lapakdesa' || $menu == 'forumpenduduk' || $menu == 'suratpenduduk' || $menu == 'layananpenduduk' || $menu == 'layanankk' || $menu == 'layanancovid')
+<li class="nav-item @if ($menu == 'laporpenduduk' || $menu == 'lapakdesa' || $menu == 'forumpenduduk' || $menu == 'layananpenduduk' || $menu == 'layanankk' || $menu == 'layanancovid')
 menu-is-opening menu-open
 @endif">
   <a href="#" class="nav-link small">
@@ -257,12 +257,6 @@ menu-is-opening menu-open
       <a href="{{ url('/forum')}}" class="nav-link small {{ menuaktif($menu,'forumpenduduk') }}">
         &nbsp;&nbsp;<i class="fas fa-comment-dots nav-icon"></i>
         <p>Forum</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratpenduduk') }}">
-        &nbsp;&nbsp;<i class="fas fa-envelope-open-text nav-icon"></i>
-        <p>Surat</p>
       </a>
     </li>
   </ul>

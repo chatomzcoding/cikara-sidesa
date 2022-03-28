@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data Tentang Desa
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data Tentang Desa</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Informasi Seputar Desa</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="data tentang desa" menu="tentang">
+  <x-slot name="header">
+    <x-header judul="data tentang desa" active="informasi seputar desa"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -71,5 +53,6 @@
           </div>
         </div>
     </div>
-    @endsection
+  </x-slot>
+</x-adminlte-layout>
 

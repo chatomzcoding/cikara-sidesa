@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data  {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">{{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="Data {{ $judul }}">
+  <x-slot name="header">
+    <x-header judul="Data {{ $judul }}" active="Daftar {{ $judul }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -140,8 +122,8 @@
         </div>
     </div>
     @include('sistem.view.modal-log')
-
-    @section('script')
+  </x-slot>
+  <x-slot name="kodejs">
         <script>
             $(function () {
             $("#example1").DataTable({
@@ -159,7 +141,5 @@
             });
             });
         </script>
-    @endsection
-
-    @endsection
-
+  </x-slot>
+</x-adminlte-layout>

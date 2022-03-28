@@ -1,5 +1,15 @@
 @extends('layouts.admin')
+<x-adminlte-layout title="" menu="">
+    <x-slot name="header">
+        <x-header judul="" active=""></x-header>
+    </x-slot>
+    <x-slot name="content">
 
+    </x-slot>
+    <x-slot name="kodejs">
+
+    </x-slot>
+</x-adminlte-layout>
 @section('title')
     Detail Galeri
 @endsection

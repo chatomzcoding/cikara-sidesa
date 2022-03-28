@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data  {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar  {{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="{{ $judul }}" menu="datauser">
+  <x-slot name="header">
+    <x-header judul="Data {{ $judul }}" active="Daftar {{ $judul }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -139,7 +121,7 @@
                                       @if (!is_null($notifikasi))
                                         <span class="badge badge-danger w-100">{{ $notifikasi->status }}</span> <br>
                                         NIK : {{ $notifikasi->nik }} <br>
-
+  
                                       @else 
                                         <p class="text-center">-</p>
                                       @endif
@@ -153,8 +135,6 @@
           </div>
         </div>
     </div>
- {{-- modal --}}
-    {{-- modal tambah --}}
     <div class="modal fade" id="tambahotomatis">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -175,7 +155,7 @@
                     &nbsp;&nbsp; Email : 3240959594795733@jantungdesa.com <br>
                     &nbsp;&nbsp; Password : 3240959594795733 <br>
                     Catatan : direkomendasikan untuk kepada penduduk untuk merubah email atau password agar tidak digunakan oleh orang yang tidak bertanggung jawab
-
+  
                   </div>
                 </section>
             </div>
@@ -231,9 +211,6 @@
         </div>
         </div>
     </div>
-    <!-- /.modal -->
-
-    {{-- modal edit --}}
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -268,8 +245,7 @@
         </div>
         </div>
     </div>
-    <!-- /.modal -->
-
+  
     <div class="modal fade" id="cetakdokumen">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -305,8 +281,8 @@
       </div>
       </div>
   </div>
-
-    @section('script')
+  </x-slot>
+  <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -338,6 +314,5 @@
             });
             });
         </script>
-    @endsection
-    @endsection
-
+  </x-slot>
+</x-adminlte-layout>

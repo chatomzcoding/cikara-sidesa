@@ -17,12 +17,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $menu = 'beranda';
         $user   = Auth::user();
         switch ($user->level) {
             case 'admin':
                 $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
-                return view('admin.dashboard', compact('produk','menu'));
+                return view('admin.dashboard', compact('produk'));
                 break;
             case 'staf':
                 $produk     = Produk::orderBy('dilihat','ASC')->limit(5)->get();
