@@ -166,11 +166,22 @@ class SuratController extends Controller
         ];
 
         $penduduksurat  = Penduduksurat::find($request->id);
+        $listformat     = Listdata::where('nama',$penduduksurat->formatsurat_id)->first();        
+        $detail     = [];
+        foreach (json_decode($listformat->keterangan) as $item) {
+            $key    = $item->key;
+            $db = [
+                $key => $request->$key
+            ];
+            $detail = array_merge($detail,$db);
+        }
+
         Penduduksurat::where('id',$request->id)->update([
             'status' => $request->status,
             'tgl_awal' => $request->tgl_awal,
             'tgl_akhir' => $request->tgl_akhir,
             'ttd' => json_encode($ttd),
+            'detail' => json_encode($detail),
         ]);
 
         $detail     = [
