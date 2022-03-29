@@ -139,7 +139,7 @@ menu-is-opening menu-open
       </li>
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat'|| $menu == 'suratkeluar')
+<li class="nav-item @if ($menu == 'informasipublik' || $menu == 'inventaris' || $menu == 'klasifikasisurat')
 menu-is-opening menu-open
 @endif">
     <a href="#" class="nav-link small">
@@ -172,11 +172,9 @@ menu-is-opening menu-open
      
     </ul>
 </li>
-<li class="nav-item @if ($menu == 'formatsurat' || $menu == 'syaratsurat' || $menu == 'suratpenduduk' || $menu == 'layananlangsung' || $menu == 'layananmandiri')
-menu-is-opening menu-open
-@endif">
+<li class="nav-item {{ kodemenu('surat',$menu) }}">
     <a href="#" class="nav-link small">
-      <i class="nav-icon fas fa-envelope-open"></i>
+      <i class="nav-icon fas fa-envelope"></i>
       <p>
         Surat
         <i class="fas fa-angle-left right"></i>
@@ -186,25 +184,25 @@ menu-is-opening menu-open
     <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ url('/suratkeluar')}}" class="nav-link small {{ menuaktif($menu,'suratkeluar') }}">
-          &nbsp;&nbsp;<i class="fas fa-file nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-paper-plane nav-icon"></i>
           <p>Surat Keluar</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratpenduduk') }}">
+        <a href="{{ url('/suratpenduduk')}}" class="nav-link small {{ menuaktif($menu,'suratlayananmandiri') }}">
           &nbsp;&nbsp;<i class="fas fa-envelope-open-text nav-icon"></i>
           <p>Layanan Mandiri</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/suratpenduduk?layanan=langsung')}}" class="nav-link small {{ menuaktif($menu,'layananlangsung') }}">
+        <a href="{{ url('/suratpenduduk?layanan=langsung')}}" class="nav-link small {{ menuaktif($menu,'suratlayananlangsung') }}">
           &nbsp;&nbsp;<i class="fas fa-mail-bulk nav-icon"></i>
           <p>Layanan Langsung</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/formatsurat')}}" class="nav-link small {{ menuaktif($menu,'formatsurat') }}">
-          &nbsp;&nbsp;<i class="fas fa-mail-bulk nav-icon"></i>
+          &nbsp;&nbsp;<i class="fas fa-cogs nav-icon"></i>
           <p>Pengaturan Surat</p>
         </a>
       </li>

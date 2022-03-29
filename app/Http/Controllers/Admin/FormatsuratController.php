@@ -23,10 +23,10 @@ class FormatsuratController extends Controller
     {
         if (isset($_GET['kategori']) AND $_GET['kategori'] <> 'semua') {
             $filter['kategori'] = $_GET['kategori'];
-            $formatsurat        = Formatsurat::where('kategori',$_GET['kategori'])->orderBy('id','DESC')->get();
+            $formatsurat        = Formatsurat::where('kategori',$_GET['kategori'])->orderBy('nama_surat','ASC')->get();
         } else {
             $filter['kategori'] = 'semua';
-            $formatsurat        = Formatsurat::orderBy('id','DESC')->get();
+            $formatsurat        = Formatsurat::orderBy('nama_surat','ASC')->get();
         }
         $judul              = 'Format Surat';
         $klasifikasisurat   = Klasifikasisurat::where('nama','<>','-')->select('id','nama','kode')->get();
@@ -114,10 +114,29 @@ class FormatsuratController extends Controller
      */
     public function update(Request $request)
     {
+        $formatsurat    = Formatsurat::find($request->id);
+        if (isset($request->file_surat)) {
+            $request->validate([
+                'file_surat' => 'required|file|mimes:rtf|max:5000',
+            ]);
+            // menyimpan data file yang diupload ke variabel $file
+            $file = $request->file('file_surat');
+            
+            $nama_file = $file->getClientOriginalName();
+            
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = $this->folder;
+            $file->move($tujuan_upload,$nama_file);
+        } else {
+            $nama_file  = $formatsurat->file_surat;
+        }
+        
         Formatsurat::where('id',$request->id)->update([
             'nama_surat' => $request->nama_surat,
             'kode' => $request->kode,
             'kategori' => $request->kategori,
+            'status' => '1',
+            'file_surat' => $nama_file,
         ]);
 
         return redirect()->back()->with('du', 'Format Surat');

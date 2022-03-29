@@ -1,12 +1,55 @@
 <?php
 
+use App\Http\Controllers\Admin\FormatsuratController;
+use App\Http\Controllers\Admin\InfoController;
+use App\Http\Controllers\Admin\InfowebsiteController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ProfilController;
+use App\Http\Controllers\Admin\StafController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\Penduduk\ForumdiskusiController;
+use App\Http\Controllers\Penduduk\LapakController;
+use App\Http\Controllers\Penduduk\LayananmandiriController;
+use App\Http\Controllers\Penduduk\PendudukaduanController;
+use App\Http\Controllers\Penduduk\PenduduksuratController;
+use App\Http\Controllers\Penduduk\ProdukController;
+use App\Http\Controllers\Sidesa\AnggotakelompokController;
+use App\Http\Controllers\Sidesa\AnggotakeluargaController;
+use App\Http\Controllers\Sidesa\AnggotarumahtanggaController;
+use App\Http\Controllers\Sidesa\Bantuan\BantuanController;
+use App\Http\Controllers\Sidesa\Bantuan\PesertabantuanController;
+use App\Http\Controllers\Sidesa\Covid\CovidController;
+use App\Http\Controllers\Sidesa\Covid\PemudikController;
+use App\Http\Controllers\Sidesa\Covid\VaksinasiController;
+use App\Http\Controllers\Sidesa\Desa\DusunController;
+use App\Http\Controllers\Sidesa\Desa\PotensiController;
+use App\Http\Controllers\Sidesa\Desa\PotensisubController;
+use App\Http\Controllers\Sidesa\Desa\RtController;
+use App\Http\Controllers\Sidesa\Desa\RwController;
+use App\Http\Controllers\Sidesa\KategorikelompokController;
+use App\Http\Controllers\Sidesa\KelompokController;
+use App\Http\Controllers\Sidesa\KeluargaController;
+use App\Http\Controllers\Sidesa\LaporanController;
+use App\Http\Controllers\Sidesa\Layanan\DatasyaratsuratController;
+use App\Http\Controllers\Sidesa\Layanan\ForumController;
+use App\Http\Controllers\Sidesa\Layanan\LaporController;
 use App\Http\Controllers\Sidesa\Layanan\SuratController;
 use App\Http\Controllers\Sidesa\Penduduk\PemilihController;
+use App\Http\Controllers\Sidesa\PendudukController;
+use App\Http\Controllers\Sidesa\Pengaturan\ArtikelController;
+use App\Http\Controllers\Sidesa\Pengaturan\GaleriController;
+use App\Http\Controllers\Sidesa\Pengaturan\GaleriphotoController;
 use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
+use App\Http\Controllers\Sidesa\Pengaturan\SliderController;
+use App\Http\Controllers\Sidesa\RumahtanggaController;
+use App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController;
+use App\Http\Controllers\Sidesa\Sekretariat\InventarisController;
+use App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController;
 use App\Http\Controllers\Sidesa\Sekretariat\SuratkeluarController;
+use App\Http\Controllers\Sidesa\Statistik\KependudukanController;
 use App\Http\Controllers\Sidesa\TanahController;
 use Illuminate\Support\Facades\Route;
 use App\Imports\DataPenduduk;
@@ -16,31 +59,18 @@ use App\Imports\PendudukpenyesuainaImport;
 use App\Imports\PenduduksimpleImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// homepage
-Route::get('/','App\Http\Controllers\HomepageController@index');
-Route::get('/kirimpesan','App\Http\Controllers\HomepageController@kirimpesan');
-Route::post('/kirimkomentar','App\Http\Controllers\HomepageController@kirimkomentar');
 Route::get('/cetak','App\Http\Controllers\HomeController@cetak');
-Route::get('/halaman/{sesi}','App\Http\Controllers\HomepageController@halaman');
-Route::get('/desa/potensi/{id}','App\Http\Controllers\HomepageController@potensi');
-Route::get('/halaman/berita/{slug}','App\Http\Controllers\HomepageController@detailberita');
-Route::get('/halaman/berita/kategori/{kategori}','App\Http\Controllers\HomepageController@kategori');
-
-// HOMEPAGE
-Route::get('homepage/artikel', 'App\Http\Controllers\HomepageController@artikel');
-Route::get('homepage/artikel/{slug}', 'App\Http\Controllers\HomepageController@showartikel');
-Route::get('produkdesa/{id}', 'App\Http\Controllers\HomepageController@produkdetail');
+// homepage
+Route::get('/',[HomepageController::class,'index']);
+Route::get('/kirimpesan',[HomepageController::class,'kirimpesan']);
+Route::get('/kirimkomentar',[HomepageController::class,'kirimkomentar']);
+Route::get('/halaman/{sesi}',[HomepageController::class,'halaman']);
+Route::get('/desa/potensi/{id}',[HomepageController::class,'potensi']);
+Route::get('/halaman/berita/{slug}',[HomepageController::class,'detailberita']);
+Route::get('/halaman/berita/kategori/{kategori}',[HomepageController::class,'kategori']);
+Route::get('/homepage/artikel',[HomepageController::class,'artikel']);
+Route::get('/homepage/artikel/{slug}',[HomepageController::class,'showartikel']);
+Route::get('/produkdesa/{id}',[HomepageController::class,'produkdetail']);
 
 // WEBSERVICE
 Route::get('ws/{token}/{sesi}/{id}', 'App\Http\Controllers\WebserviceController@data');
@@ -83,93 +113,93 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     // ROUTE UNTUK PENDUDUK
     
-    Route::post('/proseslapor','App\Http\Controllers\Penduduk\LayananmandiriController@proseslapor');
-    Route::post('/prosessurat','App\Http\Controllers\Penduduk\LayananmandiriController@prosessurat');
-    Route::post('/buatsurat','App\Http\Controllers\Penduduk\LayananmandiriController@buatsurat');
-    Route::post('/kirimpesandiskusi','App\Http\Controllers\Penduduk\LayananmandiriController@kirimpesandiskusi');
-    Route::get('layananmandiri/{sesi}', 'App\Http\Controllers\Penduduk\LayananmandiriController@index');
-    Route::get('cetaksurat/{id}', 'App\Http\Controllers\Penduduk\PenduduksuratController@cetaksurat');
-    Route::resource('forumdiskusi', 'App\Http\Controllers\Penduduk\ForumdiskusiController');
-    Route::resource('produk', 'App\Http\Controllers\Penduduk\ProdukController');
-    Route::resource('lapak', 'App\Http\Controllers\Penduduk\LapakController');
-    Route::resource('penduduksurat', 'App\Http\Controllers\Penduduk\PenduduksuratController');
-    Route::resource('lapor', 'App\Http\Controllers\Sidesa\Layanan\LaporController');
+    Route::post('/proseslapor',[LayananmandiriController::class,'proseslapor']);
+    Route::post('/prosessurat',[LayananmandiriController::class,'prosessurat']);
+    Route::post('/buatsurat',[LayananmandiriController::class,'buatsurat']);
+    Route::post('/kirimpesandiskusi',[LayananmandiriController::class,'kirimpesandiskusi']);
+    Route::post('/layananmandiri/{sesi}',[LayananmandiriController::class,'index']);
+    Route::post('/cetaksurat/{id}',[PenduduksuratController::class,'cetaksurat']);
+    
+    Route::resource('forumdiskusi', ForumdiskusiController::class);
+    Route::resource('produk', ProdukController::class);
+    Route::resource('lapak', LapakController::class);
+    Route::resource('penduduksurat', PenduduksuratController::class);
+    Route::resource('lapor', LaporController::class);
 
 
     Route::middleware('admin')->group(function () {
-        Route::resource('info', 'App\Http\Controllers\Admin\InfoController');
+        Route::resource('info', InfoController::class);
         Route::resource('tanah', TanahController::class);
         // COVID 19
-        Route::resource('vaksinasi', 'App\Http\Controllers\Sidesa\Covid\VaksinasiController');
-        Route::resource('covid', 'App\Http\Controllers\Sidesa\Covid\CovidController');
-        Route::resource('pemudik', 'App\Http\Controllers\Sidesa\Covid\PemudikController');
+        Route::resource('vaksinasi', VaksinasiController::class);
+        Route::resource('covid', CovidController::class);
+        Route::resource('pemudik', PemudikController::class);
         
         // INFO DESA
-        Route::resource('profil', 'App\Http\Controllers\Admin\ProfilController');
-        Route::resource('staf', 'App\Http\Controllers\Admin\StafController');
-        Route::resource('dusun', 'App\Http\Controllers\Sidesa\Desa\DusunController');
-        Route::resource('rw', 'App\Http\Controllers\Sidesa\Desa\RwController');
-        Route::resource('rt', 'App\Http\Controllers\Sidesa\Desa\RtController');
-        Route::resource('potensi', 'App\Http\Controllers\Sidesa\Desa\PotensiController');
-        Route::resource('potensisub', 'App\Http\Controllers\Sidesa\Desa\PotensisubController');
+        Route::resource('profil', ProfilController::class);
+        Route::resource('staf', StafController::class);
+        Route::resource('dusun', DusunController::class);
+        Route::resource('rw', RwController::class);
+        Route::resource('rt', RtController::class);
+        Route::resource('potensi', PotensiController::class);
+        Route::resource('potensisub',  PotensisubController::class);
         
         // KEPENDUDUKAN
-        Route::resource('penduduk', 'App\Http\Controllers\Sidesa\PendudukController');
+        Route::resource('penduduk', PendudukController::class);
         Route::resource('pemilih', PemilihController::class);
-        Route::resource('laporan', 'App\Http\Controllers\Sidesa\LaporanController');
-        Route::resource('keluarga', 'App\Http\Controllers\Sidesa\KeluargaController');
-        Route::resource('anggotakeluarga', 'App\Http\Controllers\Sidesa\AnggotakeluargaController');
-        Route::resource('rumahtangga', 'App\Http\Controllers\Sidesa\RumahtanggaController');
-        Route::resource('anggotarumahtangga', 'App\Http\Controllers\Sidesa\AnggotarumahtanggaController');
-        Route::resource('kategorikelompok', 'App\Http\Controllers\Sidesa\KategorikelompokController');
-        Route::resource('kelompok', 'App\Http\Controllers\Sidesa\KelompokController');
-        Route::resource('anggotakelompok', 'App\Http\Controllers\Sidesa\AnggotakelompokController');
-        Route::resource('suplemen', 'App\Http\Controllers\Sidesa\SuplemenController');
-        Route::resource('anggotasuplemen', 'App\Http\Controllers\Sidesa\AnggotasuplemenController');
-        Route::resource('pendudukaduan', 'App\Http\Controllers\Penduduk\PendudukaduanController');
+        Route::resource('laporan', LaporanController::class);
+        Route::resource('keluarga', KeluargaController::class);
+        Route::resource('anggotakeluarga', AnggotakeluargaController::class);
+        Route::resource('rumahtangga', RumahtanggaController::class);
+        Route::resource('anggotarumahtangga', AnggotarumahtanggaController::class);
+        Route::resource('kategorikelompok', KategorikelompokController::class);
+        Route::resource('kelompok', KelompokController::class);
+        Route::resource('anggotakelompok', AnggotakelompokController::class);
+        Route::resource('pendudukaduan', PendudukaduanController::class);
         
         // STATISTIK
-        Route::get('statistik/kependudukan/{sesi}/{pilih}', 'App\Http\Controllers\Sidesa\Statistik\KependudukanController@pilih');
-        Route::get('statistik/laporanbulanan', 'App\Http\Controllers\Sidesa\Statistik\LaporanbulananController@index');
-        Route::get('statistik/laporankelompokrentan', 'App\Http\Controllers\Sidesa\Statistik\LaporankelompokrentanController@index');
+        Route::get('statistik/kependudukan/{sesi}/{pilih}', [KependudukanController::class,'pilih']);
+        // Route::get('statistik/laporanbulanan', 'App\Http\Controllers\Sidesa\Statistik\LaporanbulananController@index');
+        // Route::get('statistik/laporankelompokrentan', 'App\Http\Controllers\Sidesa\Statistik\LaporankelompokrentanController@index');
         
         // SEKRETARIAT
-        Route::resource('informasipublik', 'App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController');
-        Route::resource('inventaris', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController');
-        Route::resource('klasifikasisurat', 'App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController');
+        Route::resource('informasipublik', InformasipublikController::class);
+        Route::resource('inventaris', InventarisController::class);
+        Route::resource('klasifikasisurat', KlasifikasisuratController::class);
         Route::resource('suratkeluar', SuratkeluarController::class);
-        Route::get('inventaris/list/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@list');
-        Route::get('inventaris/tambah/{inventaris}', 'App\Http\Controllers\Sidesa\Sekretariat\InventarisController@tambah');
+        Route::get('inventaris/list/{inventaris}', [InventarisController::class,'list']);
+        Route::get('inventaris/tambah/{inventaris}', [InventarisController::class,'tambah']);
         
         // BANTUAN
-        Route::resource('bantuan', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController');
-        Route::resource('pesertabantuan', 'App\Http\Controllers\Sidesa\Bantuan\PesertabantuanController');
-        Route::get('bantuan/tambahpeserta/{bantuan}', 'App\Http\Controllers\Sidesa\Bantuan\BantuanController@tambahpeserta');
+        Route::resource('bantuan', BantuanController::class);
+        Route::resource('pesertabantuan', PesertabantuanController::class);
+        Route::get('bantuan/tambahpeserta/{bantuan}', [BantuanController::class,'tambahpeserta']);
         
         // LAYANAN
-        Route::resource('formatsurat', 'App\Http\Controllers\Admin\FormatsuratController');
-        Route::resource('datasyaratsurat', 'App\Http\Controllers\Sidesa\Layanan\DatasyaratsuratController');
-        Route::resource('forum', 'App\Http\Controllers\Sidesa\Layanan\ForumController');
+        Route::resource('formatsurat', FormatsuratController::class);
+        Route::resource('datasyaratsurat', DatasyaratsuratController::class);
+        Route::resource('forum', ForumController::class);
         Route::resource('suratpenduduk', SuratController::class);
+        Route::get('cetaksuratlangsung/{id}', [SuratController::class,'cetaksurat']);
         
         // ADMIN SETTING
         Route::resource('kategori', KategoriController::class);
         Route::resource('menu', MenuController::class);
         Route::resource('listdata', ListdataController::class);
-        Route::resource('slider', 'App\Http\Controllers\Sidesa\Pengaturan\SliderController');
-        Route::resource('artikel', 'App\Http\Controllers\Sidesa\Pengaturan\ArtikelController');
+        Route::resource('slider', SliderController::class);
+        Route::resource('artikel', ArtikelController::class);
         Route::resource('kategoriartikel', KategoriartikelController::class);
-        Route::resource('galeri', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriController');
-        Route::resource('galeriphoto', 'App\Http\Controllers\Sidesa\Pengaturan\GaleriphotoController');
+        Route::resource('galeri', GaleriController::class);
+        Route::resource('galeriphoto', GaleriphotoController::class);
     });
     
     Route::middleware('superadmin')->group(function () {
-        Route::resource('datapokok', 'App\Http\Controllers\Admin\InfowebsiteController');
+        Route::resource('datapokok', InfowebsiteController::class);
     });
 
 
     
-    Route::resource('user', 'App\Http\Controllers\Admin\UserController');
+    Route::resource('user', UserController::class);
     
     
 });

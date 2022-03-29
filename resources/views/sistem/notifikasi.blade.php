@@ -8,6 +8,12 @@
     <p>{{ session('success') }}</p>
   </div>
 @endif
+@if (session('cetak'))
+<div class="callout callout-success">
+  <h4>Surat berhasil dibuat, silahkan cetak surat</h4>
+    <a href="{{ url('cetaksuratlangsung/'.session('cetak')) }}" class="btn btn-primary btn-info">CETAK SURAT</a>
+  </div>
+@endif
 @if (session('succesalert'))
 <div class="alert alert-success">
     <p>{{ session('succesalert') }}</p>

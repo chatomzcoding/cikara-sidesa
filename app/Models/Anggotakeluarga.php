@@ -12,4 +12,9 @@ class Anggotakeluarga extends Model
     protected $table = 'anggota_keluarga';
 
     protected $guarded = [];
+
+    public function keluarga()
+    {
+        return $this->belongsTo(Keluarga::class);
+    }
 }

@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar {{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="Data {{ $judul }}" menu="suratlayananmandiri">
+  <x-slot name="header">
+    <x-header judul="Data {{ $judul }} - ({{ $main['sesi'] }})" active="Daftar {{ $judul }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -51,7 +33,7 @@
                       <span class="info-box-text">Surat Selesai</span>
                       <span class="info-box-number">
                         {{ $total['selesai'] }}
-
+  
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -71,7 +53,7 @@
                       <span class="info-box-text">Surat Dalam Proses</span>
                       <span class="info-box-number">
                         {{ $total['proses'] }}
-
+  
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -87,7 +69,7 @@
                       <span class="info-box-text">Menunggu Konfirmasi</span>
                       <span class="info-box-number">
                         {{ $total['menunggu'] }}
-
+  
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -128,18 +110,18 @@
                           </div>
                           <div class="form-group col-md-3">
                             <label for="">penduduk</label>
-                              <select name="penduduk" id="" class="form-control penduduk" onchange="this.form.submit();">
+                              <select name="penduduk_id" id="" class="form-control penduduk" onchange="this.form.submit();">
                                   <option value="semua">-- Semua Penduduk --</option>
-                                  @foreach (DbCikara::showtable('user_akses') as $item)
+                                  @foreach ($main['user_penduduk'] as $item)
                                     <option value="{{ $item->user_id }}" @if ($filter['penduduk'] ==  $item->user_id)
                                     selected
-                                    @endif>{{ strtoupper(DbCikara::namapenduduk($item->user_id)) }}</option>
+                                    @endif>{{ s_namapenduduk($item->penduduk) }}</option>
                                   @endforeach
                               </select>
                           </div>
                           <div class="form-group col-md-3">
                             <label for="">tanggal surat</label>
-                            <input type="date" name="tanggal" value="{{ $filter['tanggal'] }}" class="form-control" onchange="this.form.submit();">
+                            <input type="date" name="created_at" value="{{ $filter['tanggal'] }}" class="form-control" onchange="this.form.submit();">
                           </div>
                       </div>
                   </form>
@@ -157,59 +139,51 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @php
-                                $no = 1;
-                            @endphp
                             @foreach ($surat as $item)
-                                @if (filter_data_get($filter,[$item->status,$item->user_id,$item->created_at]))
-                                  <tr>
-                                      <td class="text-center">{{ $no }}</td>
-                                      <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/suratpenduduk',$item->id)}}" method="post">
-                                          @csrf
-                                          @method('delete')
-                                          </form>
-                                      <div class="btn-group">
-                                          <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                          <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                          <span class="sr-only">Toggle Dropdown</span>
-                                          </button>
-                                          <div class="dropdown-menu" role="menu">
-                                          @if ($item->status == 'selesai')
-                                            <a class="dropdown-item text-primary" href="{{ url('cetaksurat/'.$item->id) }}"><i class="fas fa-print"></i> Cetak Surat</a>
-                                          @endif
-                                          @if ($item->status == 'menunggu')
-                                            <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                <i class="fa fa-edit"> Tanggapi Surat</i>
-                                            </button>
-                                          @endif
-                                          <div class="dropdown-divider"></div>
-                                          <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
-                                          </div>
+                              <tr>
+                                  <td class="text-center">{{ $loop->iteration }}</td>
+                                  <td class="text-center">
+                                    <form id="data-{{ $item->id }}" action="{{url('/suratpenduduk',$item->id)}}" method="post">
+                                      @csrf
+                                      @method('delete')
+                                      </form>
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                      <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                      </button>
+                                      <div class="dropdown-menu" role="menu">
+                                      @if ($item->status == 'selesai')
+                                        <a class="dropdown-item text-primary" href="{{ url('cetaksurat/'.$item->id) }}"><i class="fas fa-print"></i> Cetak Surat</a>
+                                      @endif
+                                      @if ($item->status == 'menunggu')
+                                        <button type="button" data-toggle="modal" data-id="{{ $item->id }}" data-status={{ $item->status }} data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                            <i class="fa fa-edit"> Tanggapi Surat</i>
+                                        </button>
+                                      @endif
+                                      <div class="dropdown-divider"></div>
+                                      <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                       </div>
-                                      </td>
-                                      <td>{{ DbCikara::datapenduduk($item->user_id,'id')->nama_penduduk }}</td>
-                                      <td>{{ $item->created_at }}</td>
-                                      <td>{{ $item->nama_surat }}  <br>
-                                        {!! DbCikara::showlog(['sesi'=>'penduduksurat','id'=>$item->id]) !!}</td>
-                                      <td>
-                                          @switch($item->status)
-                                              @case('selesai')
-                                                  <span class="badge badge-success w-100">{{ $item->status }}</span></td>
-                                                  @break
-                                              @case('proses')
-                                                  <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
-                                                  @break
-                                              @case('menunggu')
-                                                  <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
-                                                  @break
-                                              @default
-                                          @endswitch
-                                  </tr>
-                                  @php
-                                      $no++
-                                  @endphp
-                                @endif
+                                  </div>
+                                  </td>
+                                  <td>{{ $item->user->name }}</td>
+                                  <td>{{ $item->created_at }}</td>
+                                  <td>{{ $item->nama_surat }}  <br>
+                                    {!! DbCikara::showlog(['sesi'=>'penduduksurat','id'=>$item->id]) !!}</td>
+                                  <td>
+                                      @switch($item->status)
+                                          @case('selesai')
+                                              <span class="badge badge-success w-100">{{ $item->status }}</span></td>
+                                              @break
+                                          @case('proses')
+                                              <span class="badge badge-warning w-100">{{ $item->status }}</span></td>
+                                              @break
+                                          @case('menunggu')
+                                              <span class="badge badge-danger w-100">{{ $item->status }}</span></td>
+                                              @break
+                                          @default
+                                      @endswitch
+                              </tr>
                             @endforeach
                     </table>
                 </div>
@@ -257,8 +231,6 @@
       </div>
       </div>
   </div>
-     
-      {{-- modal edit --}}
       <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -303,53 +275,8 @@
         </div>
         </div>
     </div>
-      {{-- modal edit --}}
-      <div class="modal fade" id="tambahsurat">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('penduduksurat')}}" method="post">
-                @csrf
-                <input type="hidden" name="status" value="proses">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambahkan Surat</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
-                <section class="p-3">
-                  <div class="form-group">
-                        <label for="">Pilih User Penduduk</label>
-                        <select name="user_id" id="" data-width="100%" class="form-control penduduk" required>
-                            <option value="">-- Pilih Penduduk --</option>
-                            @foreach ($main['user_penduduk'] as $item)
-                              <option value="{{ $item->id }}">{{ strtoupper($item->nik.' | '.$item->nama_penduduk) }}</option>
-                            @endforeach
-                        </select>
-                  </div>
-                  <div class="form-group">
-                        <label for="">Pilih Jenis Surat</label>
-                        <select name="formatsurat_id" id="" data-width="100%" class="form-control penduduk" required>
-                            <option value="">-- Pilih Surat --</option>
-                            @foreach ($main['format_surat'] as $item)
-                              <option value="{{ $item->id }}">{{ strtoupper($item->nama_surat.' | '.$item->kode) }}</option>
-                            @endforeach
-                        </select>
-                  </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> BUAT SURAT</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <!-- /.modal -->
-    <!-- /.modal -->
-    @section('script')
+  </x-slot>
+  <x-slot name="kodejs">
     <script>
       $('#ubah').on('show.bs.modal', function (event) {
           var button = $(event.relatedTarget)
@@ -379,7 +306,5 @@
             });
             });
         </script>
-    @endsection
-
-    @endsection
-
+  </x-slot>
+</x-adminlte-layout>

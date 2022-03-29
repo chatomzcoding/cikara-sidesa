@@ -1,26 +1,8 @@
-@extends('layouts.admin')
-
-@section('title')
-    Data {{ $judul }}
-@endsection
-
-@section('header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-        <h1 class="m-0">Data {{ $judul }}</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar {{ $judul }}</li>
-        </ol>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-@endsection
-
-@section('container')
-    
-  
+<x-adminlte-layout title="Data {{ $judul }}" menu="formatsurat">
+  <x-slot name="header">
+    <x-header judul="Data {{ $judul }}" active="Daftar {{ $judul }}"></x-header>
+  </x-slot>
+  <x-slot name="content">
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -42,25 +24,7 @@
                   </div>
                   <!-- /.info-box -->
                 </div>
-                <!-- /.col -->
-                {{-- <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-envelope"></i></span>
       
-                    <div class="info-box-content">
-                      <span class="info-box-text">Surat Selesai</span>
-                      <span class="info-box-number">
-                        {{ $total['selesai'] }}
-
-                      </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div> --}}
-                <!-- /.col -->
-      
-                <!-- fix for small devices only -->
                 <div class="clearfix hidden-md-up"></div>
       
                 <div class="col-12 col-sm-6 col-md-6">
@@ -71,36 +35,19 @@
                       <span class="info-box-text">Jumlah Klasifikasi Surat</span>
                       <span class="info-box-number">
                         {{ $total['klasifikasi'] }}
-
+    
                       </span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
                   <!-- /.info-box -->
                 </div>
-                <!-- /.col -->
-                {{-- <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-triangle"></i></span>
-      
-                    <div class="info-box-content">
-                      <span class="info-box-text">Surat Dalam Proses</span>
-                      <span class="info-box-number">
-                        {{ $total['proses'] }}
-
-                      </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div> --}}
-                <!-- /.col -->
               </div>
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Format Surat Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
-                <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Format Surat"><i class="fas fa-print"></i> CETAK</a>
+                {{-- <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Format Surat"><i class="fas fa-print"></i> CETAK</a> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -172,8 +119,6 @@
           </div>
         </div>
     </div>
-
-    
     <div class="modal fade" id="cetakdokumen">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -209,8 +154,7 @@
       </form>
       </div>
       </div>
-  </div>
-          {{-- modal edit --}}
+    </div>
           <div class="modal fade" id="tambah">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -281,7 +225,6 @@
             </div>
             </div>
         </div>
-        {{-- modal edit --}}
     <div class="modal fade" id="ubah">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -297,21 +240,25 @@
           <div class="modal-body p-3">
               <input type="hidden" name="id" id="id">
               <section class="p-3">
+                  <div class="form-group row">
+                    <label for="" class="col-md-4">Nama Surat</label>
+                    <input type="text" name="nama_surat" id="nama_surat" class="form-control col-md-8" required>
+                </div>
                 <div class="form-group row">
-                  <label for="" class="col-md-4">Nama Surat</label>
-                  <input type="text" name="nama_surat" id="nama_surat" class="form-control col-md-8" required>
-               </div>
-              <div class="form-group row">
-                  <label for="" class="col-md-4">Kode Surat</label>
-                  <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-               </div>
-               <div class="form-group row">
-                <label for="" class="col-md-4">Kategori Surat</label>
-                <select name="kategori" id="kategori" class="form-control col-md-8" required>
-                    @foreach (list_kategorisurat() as $item)
-                        <option value="{{ $item }}">{{ strtoupper($item) }}</option>
-                    @endforeach
-                </select>
+                    <label for="" class="col-md-4">Kode Surat</label>
+                    <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-4">Kategori Surat</label>
+                  <select name="kategori" id="kategori" class="form-control col-md-8" required>
+                      @foreach (list_kategorisurat() as $item)
+                          <option value="{{ $item }}">{{ strtoupper($item) }}</option>
+                      @endforeach
+                  </select>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-4">File Surat</label>
+                  <input type="file" name="file_surat" id="file_surat" class="form-control col-md-8">
               </div>
               </section>
           </div>
@@ -322,10 +269,9 @@
           </form>
       </div>
       </div>
-  </div>
-  <!-- /.modal -->
-        <!-- /.modal -->
-    @section('script')
+    </div>
+  </x-slot>
+  <x-slot name="kodejs">
     <script>
       $('#ubah').on('show.bs.modal', function (event) {
           var button = $(event.relatedTarget)
@@ -357,7 +303,6 @@
             });
             });
         </script>
-    @endsection
 
-    @endsection
-
+  </x-slot>
+</x-adminlte-layout>

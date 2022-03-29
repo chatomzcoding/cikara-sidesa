@@ -2,6 +2,32 @@
 
 use Illuminate\Support\Facades\Auth;
 
+if (! function_exists('datafilter')) {
+    function datafilter($data,$filter)
+    {
+        for ($i=0; $i < count($filter); $i++) {
+            $field      = $filter[$i];
+            $dfilter = (isset($_GET[$field])) ? $_GET[$field] : 'semua' ; 
+            if ($dfilter <> 'semua' AND $dfilter <> '') {
+                $databaru = [];
+                foreach ($data as $key) {
+                    // cek jika field created at
+                    if ($field == 'created_at') {
+                        $pecah  = explode(' ',$key->$field);
+                        $nilai  = $pecah[0];
+                    } else {
+                        $nilai  = $key->$field;
+                    }
+                    if ($nilai == $dfilter) {
+                        $databaru[]  = $key;
+                    }
+                }
+                $data   = $databaru;
+            }
+        }
+        return $data;
+    }
+}
 if (! function_exists('format_surat')) {
     function daftarformatsurat()
     {
@@ -517,6 +543,18 @@ if (! function_exists('form_view')) {
         return $result;
     }
 }
+if (! function_exists('valueform')) {
+    function valueform($main,$key)
+    {
+        $result = NULL;
+        if ($key == 'no_kk') {
+            if ($main['keluarga']) {
+                $result = $main['keluarga']->no_kk;
+            }
+        }
+        return $result;
+    }
+}
 if (! function_exists('surataktif')) {
     function surataktif($kode)
     {
@@ -750,24 +788,34 @@ if (! function_exists('data_perubahan')) {
     {
         // cek perubahan
         $result = [];
-        foreach ($kolom as $item) {
-            $dlama  = $data->$item;
-            $dbaru  = $request->$item;
-            if ($dlama <> $dbaru) {
-                $result[] = 'mengubah '.$item.' <strong>"'.$dlama.'"</strong> menjadi <strong>"'.$dbaru.'"</strong>';
+        if ($data) {
+            foreach ($kolom as $item) {
+                $dlama  = $data->$item;
+                $dbaru  = $request->$item;
+                if ($dlama <> $dbaru) {
+                    $result[] = 'mengubah '.$item.' <strong>"'.$dlama.'"</strong> menjadi <strong>"'.$dbaru.'"</strong>';
+                }
             }
-        }
-        if (!is_null($custom)) {
-            for ($i=0; $i < count($custom); $i++) { 
-                if ($custom[$i]['awal'] <> $custom[$i]['baru']) {
-                    $field      = NULL;
-                    if (isset($custom[$i]['field'])) {
-                        $field = $custom[$i]['field'];
+            if (!is_null($custom)) {
+                for ($i=0; $i < count($custom); $i++) { 
+                    if ($custom[$i]['awal'] <> $custom[$i]['baru']) {
+                        $field      = NULL;
+                        if (isset($custom[$i]['field'])) {
+                            $field = $custom[$i]['field'];
+                        }
+                        $result[] = 'mengubah '.$field.' <strong>"'.$custom[$i]['awal'].'"</strong> menjadi <strong>"'.$custom[$i]['baru'].'"</strong>';
                     }
-                    $result[] = 'mengubah '.$field.' <strong>"'.$custom[$i]['awal'].'"</strong> menjadi <strong>"'.$custom[$i]['baru'].'"</strong>';
                 }
             }
         }
         return $result;
+    }
+}
+
+if (! function_exists('namapenduduk')) {
+    function s_namapenduduk($penduduk)
+    {
+        $nama   = $penduduk->nik .' | '.strtoupper($penduduk->nama_penduduk);
+        return $nama;
     }
 }

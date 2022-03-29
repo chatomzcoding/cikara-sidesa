@@ -12,4 +12,9 @@ class Userakses extends Model
     protected $table = 'user_akses';
 
     protected $guarded = [];
+
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class);
+    }
 }

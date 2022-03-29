@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers\Cikara;
 
+use App\Models\Formatsurat;
 use App\Models\Lapor;
 use App\Models\Listdata;
 use App\Models\Log;
@@ -156,6 +157,28 @@ class DbCikara {
             $result = strtoupper($kode).'/'.$nomor.'/'.$desa->kode_desa.'/'.bulan_romawi().'/'.ambil_tahun();
         } else {
             $result = strtoupper($kode).'/001/'.$desa->kode_desa.'/'.bulan_romawi().'/'.ambil_tahun();
+        }
+        
+        return $result;
+    }
+    public static function nomorsuratbaru($format_id)
+    {
+        $formatsurat    = Formatsurat::find($format_id);
+        $dataterakhir   = Penduduksurat::whereyear('created_at',ambil_tahun())->orderBy('id','DESC')->first();
+        $bulan          = substr(bulan_indo(),0,3);
+        if ($dataterakhir) {
+            $total  = Penduduksurat::whereyear('created_at',ambil_tahun())->count();
+            $urutanbaru     = $total + 1;
+            if ($urutanbaru > 0 AND $urutanbaru < 10) {
+                $nomor = '00'.$urutanbaru;
+            }elseif ($urutanbaru > 9 AND $urutanbaru < 100) {
+                $nomor = '0'.$urutanbaru;
+            }else {
+                $nomor = $urutanbaru;
+            }
+            $result = strtoupper($formatsurat->kode).'/'.$nomor.'/'.ucfirst($bulan).'/'.ambil_tahun();
+        } else {
+            $result = strtoupper($formatsurat->kode).'/001/'.ucfirst($bulan).'/'.ambil_tahun();
         }
         
         return $result;
