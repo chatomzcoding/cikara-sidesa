@@ -546,8 +546,9 @@ if (! function_exists('form_view')) {
 if (! function_exists('valueform')) {
     function valueform($main,$key)
     {
+        $akses  = ['no_kk','kepala_kk'];
         $result = NULL;
-        if ($key == 'no_kk') {
+        if (in_array($key,$akses)) {
             if (!is_null($main[$key])) {
                 $result = $main[$key];
             }

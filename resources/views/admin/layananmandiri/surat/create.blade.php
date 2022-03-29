@@ -90,7 +90,7 @@
                                                             </select>
                                                             @break
                                                         @default
-                                                            <input type="text" name="{{ $item->key }}" class="form-control" required>
+                                                            <input type="text" name="{{ $item->key }}" value="{{ valueform($main,$item->key) }}" class="form-control" required>
                                                     @endswitch
                                                 </div>
                                             </td>

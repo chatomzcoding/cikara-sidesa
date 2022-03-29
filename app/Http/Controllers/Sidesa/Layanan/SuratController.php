@@ -126,12 +126,15 @@ class SuratController extends Controller
         $listformat     = Listdata::where('nama',$penduduksurat->formatsurat->id)->first();
         $userakses      = Userakses::where('user_id',$penduduksurat->user_id)->first();
         $no_kk          = NULL;
+        $kepala_kk      = NULL;
         $ak             = Anggotakeluarga::where('penduduk_id',$penduduksurat->userakses->penduduk_id)->first()->keluarga;
         if ($ak) {
-            $no_kk = $ak->no_kk;
+            $no_kk      = $ak->no_kk;
+            $kepala_kk  = Penduduk::find($ak->penduduk_id)->nama_penduduk;
         }
         $main           = [
             'no_kk' => $no_kk,
+            'kepala_kk' => ucwords($kepala_kk),
             'staf' => Staf::where('status_pegawai','aktif')->get()
         ];
         return view('admin.layananmandiri.surat.create', compact('main','penduduksurat','listformat'));
