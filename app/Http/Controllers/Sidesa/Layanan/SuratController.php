@@ -8,6 +8,7 @@ use App\Models\Anggotakeluarga;
 use App\Models\Dusun;
 use App\Models\Formatsurat;
 use App\Models\Infowebsite;
+use App\Models\Keluarga;
 use App\Models\Listdata;
 use App\Models\Log;
 use App\Models\Penduduk;
@@ -124,8 +125,17 @@ class SuratController extends Controller
 
         $penduduksurat  = Penduduksurat::find($penduduksurat);
         $listformat     = Listdata::where('nama',$penduduksurat->formatsurat->id)->first();
-
-        $ak             = Anggotakeluarga::where('penduduk_id',$penduduksurat->userakses->penduduk_id)->first()->keluarga;
+        $userakses      = Userakses::where('user_id',$penduduksurat->user_id)->first();
+        $ak             = NULL;
+        if ($userakses) {
+            $penduduk   = Penduduk::find($userakses->penduduk_id);
+            if ($penduduk) {
+                $keluarga = Anggotakeluarga::where('penduduk_id',$penduduk->id)->first();
+                if ($keluarga) {
+                    $ak     = Keluarga::find($keluarga->keluarga_id)->no_kk;
+                }
+            }
+        }
         $main           = [
             'keluarga' => $ak,
             'staf' => Staf::where('status_pegawai','aktif')->get()
