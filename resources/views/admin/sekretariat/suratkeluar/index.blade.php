@@ -50,14 +50,13 @@
                     </form>
                   </section> --}}
                   <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
+                    {{-- <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Aksi</th>
                                 <th>Kode</th>
                                 <th>Nama Surat</th>
-                                {{-- <th>Keterangan</th> --}}
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -76,9 +75,6 @@
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
                                                   <a class="dropdown-item text-primary" href="{{ url('/suratkeluar/'.Crypt::encryptString($item->id))}}"><i class="fas fa-list"></i> Detail Klasifikasi</a>
-                                                    {{-- <button type="button" data-toggle="modal"data-nama="{{ $item->nama }}" data-kode="{{ $item->kode }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                    <i class="fa fa-edit"></i> Edit Klasifikasi
-                                                    </button> --}}
                                                   <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
                                                 </div>
@@ -86,14 +82,16 @@
                                     </td>
                                     <td>{{ $item->klasifikasi_id}}</td>
                                     <td>{{ $item->nama_surat}}</td>
-                                    {{-- <td>{{ $item->keterangan}}</td> --}}
                                 </tr>
                             @empty
                                 <tr class="text-center">
                                     <td colspan="5">tidak ada data</td>
                                 </tr>
                             @endforelse
-                    </table>
+                    </table> --}}
+                    <div class="callout callout-warning">
+                        <p>SURAT KELUAR dalam proses pengembangan sistem, silahkan kembali beberapa saat lagi</p>
+                    </div>
                 </div>
               </div>
             </div>
