@@ -53,7 +53,7 @@ class UserController extends Controller
             $penduduk   = Penduduk::select('nik','nama_penduduk')->orderBy('nama_penduduk','ASC')->get();
             $belumdaftar    = count($penduduk) - count($user);
             $total   = [
-                'user' => count($user),
+                'user' => Userakses::count(),
                 'penduduk' => count($penduduk),
                 'belumdaftar' => $belumdaftar
             ];
