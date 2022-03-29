@@ -549,7 +549,7 @@ if (! function_exists('valueform')) {
         $result = NULL;
         if ($key == 'no_kk') {
             if (!is_null($main[$key])) {
-                $result = $main['keluarga']->no_kk;
+                $result = $main[$key];
             }
         }
         return $result;
