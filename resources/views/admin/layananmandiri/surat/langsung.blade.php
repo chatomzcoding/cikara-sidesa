@@ -82,8 +82,8 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" data-toggle="modal" data-target="#tambahsurat" class="btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Buat Surat Surat </a>
-                <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-success btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
-                <a href="{{ url('suratpenduduk') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
+                <a href="{{ url('suratpenduduk?layanan=langsung') }}" class="btn btn-outline-success btn-sm"><i class="fas fa-sync"></i> Perbaharui Surat </a>
+                <a href="{{ url('suratpenduduk?layanan=langsung') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter </a>
                 <a href="#" data-toggle="modal" data-target="#cetakdokumen" class="btn btn-outline-info btn-sm float-right pop-info" title="Cetak Daftar Surat Penduduk"><i class="fas fa-print"></i> CETAK</a>
                 {{-- {!! button_logall($log) !!} --}}
               </div>

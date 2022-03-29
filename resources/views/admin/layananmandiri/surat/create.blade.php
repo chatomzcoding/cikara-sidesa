@@ -139,7 +139,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" class="text-right">
-                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> CETAK SURAT</button>
+                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> SIMPAN DATA SURAT</button>
                                             </td>
                                         </tr>
                                     </table>
