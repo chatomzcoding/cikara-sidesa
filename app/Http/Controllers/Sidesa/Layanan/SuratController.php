@@ -126,7 +126,7 @@ class SuratController extends Controller
         $penduduksurat  = Penduduksurat::find($penduduksurat);
         $listformat     = Listdata::where('nama',$penduduksurat->formatsurat->id)->first();
         $userakses      = Userakses::where('user_id',$penduduksurat->user_id)->first();
-        $ak             = NULL;
+        $ak             = FALSE;
         if ($userakses) {
             $penduduk   = Penduduk::find($userakses->penduduk_id);
             if ($penduduk) {
