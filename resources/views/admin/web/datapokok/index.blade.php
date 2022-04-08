@@ -66,7 +66,7 @@
                                             <i>unggah jika ingin merubah</i>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    {{-- <div class="form-group row">
                                         <div class="col-md-4 p-2">
                                             <img src="{{ asset('img/'.$datapokok->bg_produk)}}" alt="" class="img-fluid">
                                         </div>
@@ -75,7 +75,7 @@
                                             <input type="file" name="bg_produk" class="form-control">
                                             <i>unggah jika ingin merubah</i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group row">
                                         <label for="" class="col-md-4 p-2">Link Facebook</label>
                                         <input type="url" name="link_fb" value="{{ $datapokok->link_fb}}" class="form-control col-md-8">

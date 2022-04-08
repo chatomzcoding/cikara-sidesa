@@ -19,7 +19,7 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        $penduduk   = Penduduk::paginate(100);
+        $penduduk   = Penduduk::paginate(20);
         $page       = TRUE;
         $menu       = 'penduduk';
         // data statistik

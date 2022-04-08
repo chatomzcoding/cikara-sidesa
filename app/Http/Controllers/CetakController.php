@@ -6,6 +6,7 @@ use App\Helpers\Cikara\DbCikara;
 use App\Models\Bantuan;
 use App\Models\Dusun;
 use App\Models\Formatsurat;
+use App\Models\Infowebsite;
 use App\Models\Kategori;
 use App\Models\Lapak;
 use App\Models\Lapor;
@@ -13,10 +14,10 @@ use App\Models\Penduduk;
 use App\Models\Pendudukaduan;
 use App\Models\Potensi;
 use App\Models\Potensisub;
+use App\Models\Profil;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Staf;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 
@@ -236,5 +237,143 @@ class CetakController extends Controller
         } else {
             return 'page not found';
         }
+    }
+    public function laporanpenduduk($sesi)
+    {
+        $desa   = Profil::first();
+        $staf   = Staf::where('jabatan','kasi pemerintahan')->first();
+        $dusun  = Dusun::all();
+        $data   = [];
+        $no     = 1;
+        foreach ($dusun as $j) {
+            $penduduk   = DB::table('penduduk')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$j->id)
+                            ->select('penduduk.no_akta','penduduk.jk','penduduk.status_ktp')
+                            ->get();
+            $kk   = DB::table('keluarga')
+                            ->join('penduduk','keluarga.penduduk_id','=','penduduk.id')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->where('rw.dusun_id',$j->id)
+                            ->count();
+            $statistik   = DB::table('penduduk_statistik')
+                            ->join('penduduk','penduduk_statistik.penduduk_id','=','penduduk.id')
+                            ->join('rt','penduduk.rt_id','=','rt.id')
+                            ->join('rw','rt.rw_id','=','rw.id')
+                            ->select('penduduk.jk','penduduk_statistik.label')
+                            ->where('rw.dusun_id',$j->id)
+                            ->whereMonth('penduduk_statistik.tanggal',ambil_bulan())
+                            ->whereYear('penduduk_statistik.tanggal',ambil_tahun())
+                            ->get();
+            
+            $lk_lahir   = 0;
+            $lk_mati   = 0;
+            $lk_pindah   = 0;
+            $lk_datang   = 0;
+            $pr_lahir   = 0;
+            $pr_mati   = 0;
+            $pr_pindah   = 0;
+            $pr_datang   = 0;
+            
+            foreach ($statistik as $l) {
+                if ($l->label == 'lahir') {
+                    if ($l->jk == 'laki-laki') {
+                        $lk_lahir = $lk_lahir + 1;
+                    } else {
+                        $pr_lahir = $pr_lahir + 1;
+                    }
+                }
+                if ($l->label == 'mati') {
+                    if ($l->jk == 'laki-laki') {
+                        $lk_mati = $lk_mati + 1;
+                    } else {
+                        $pr_mati = $pr_mati + 1;
+                    }
+                }
+                if ($l->label == 'pindah') {
+                    if ($l->jk == 'laki-laki') {
+                        $lk_pindah = $lk_pindah + 1;
+                    } else {
+                        $pr_pindah = $pr_pindah + 1;
+                    }
+                }
+                if ($l->label == 'datang') {
+                    if ($l->jk == 'laki-laki') {
+                        $lk_datang = $lk_datang + 1;
+                    } else {
+                        $pr_datang = $pr_datang + 1;
+                    }
+                }
+            }
+
+            $total_lahir = $lk_lahir + $pr_lahir;
+            $total_mati = $lk_mati + $pr_mati;
+            $total_datang = $lk_datang + $pr_datang;
+            $total_pindah = $lk_pindah + $pr_pindah;
+            
+            $lk_total = 0;
+            $pr_total = 0;
+            $pr_ktp = 0;
+            $lk_ktp = 0;
+            $akte = 0;
+            foreach ($penduduk as $k) {
+                // jumlah penduduk bulan ini
+                if ($k->jk == 'laki-laki') {
+                    $lk_total = $lk_total + 1;
+                } else {
+                    $pr_total = $pr_total + 1;
+                }
+
+                if ($k->status_ktp == 'sudah') {
+                    $lk_ktp = $lk_ktp + 1;
+                } else {
+                    $pr_ktp = $pr_ktp + 1;
+                }
+                
+                if (!is_null($k->no_akta)) {
+                    $akte = $akte + 1;
+                }
+            }
+            $lk_lalu    = $lk_total - $lk_mati - $lk_pindah + $lk_lahir + $lk_datang;
+            $pr_lalu    = $pr_total - $pr_mati - $pr_pindah + $pr_lahir + $pr_datang;
+            $jk_lalu    = $lk_lalu + $pr_lalu;
+            $jk_total = $lk_total + $pr_total;
+            $jk_ktp = $lk_ktp + $pr_ktp;
+            $data[] = [
+                'no' => $no,
+                'nama_dusun' => $j->nama_dusun,
+                'luas' => $j->luas,
+                'rt' => count($j->rt),
+                'rw' => count($j->rw),
+                'jumlah' => [
+                    'blnlalu' => [$lk_lalu,$pr_lalu,$jk_lalu],
+                    'blnlini' => [$lk_lahir,$pr_lahir,$total_lahir],
+                    'mati' => [$lk_mati,$pr_mati,$total_mati],
+                    'pindah' => [$lk_pindah,$pr_pindah,$total_pindah],
+                    'datang' => [$lk_datang,$pr_datang,$total_datang],
+                    'total' => [$lk_total,$pr_total,$jk_total],
+                    'ktp' => [$lk_ktp,$pr_ktp,$jk_ktp],
+                ],
+                'kk' => $kk,
+                'kkmiliki' => 0,
+                'akte_lahir' => $akte,
+            ];
+            $no++;
+        }
+        // dd($data);
+        switch ($sesi) {
+            case 'perkembangan':
+                $namafile   = 'Laporan Perkembangan Data Kependudukan';
+                $pdf        = PDF::loadview('admin.kependudukan.penduduk.cetak.perkembangan', compact('desa','staf','data'))->setPaper('legal','landscape');
+                // return view('admin.kependudukan.penduduk.cetak.perkembangan', compact('desa','staf','data'));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        return $pdf->download($namafile.'.pdf');
     }
 }

@@ -12,4 +12,16 @@ class Dusun extends Model
     protected $table = 'dusun';
 
     protected $guarded = [];
+
+    public function rw()
+    {
+        return $this->hasMany(Rw::class);
+    }
+
+    public function rt()
+    {
+        return $this->hasManyThrough(Rt::class, Rw::class);
+    }
+
+    
 }

@@ -71,13 +71,12 @@
                 <!-- general form elements -->
                 <div class="card">
                   <div class="card-header">
-                    {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="{{ url('/penduduk/create')}}" class="btn btn-outline-primary btn-flat btn-sm pop-info" title="Tambah Data Penduduk Baru"><i class="fas fa-plus"></i> Tambah</a>
                     <a href="{{ url('/penduduk?data=perubahan')}}" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Daftar Penduduk dengan data tidak sesuai"><i class="fas fa-user-times"></i> Data belum sesuai</a>
                     <a href="{{ url('/penduduk?data=aduan')}}" class="btn btn-outline-danger btn-flat btn-sm pop-info" title="Daftar Pengaduan Kelengkapan Data Penduduk"><i class="fas fa-user-clock"></i> Pengaduan Data</a>
                     <a href="{{ url('/penduduk')}}" class="btn btn-outline-dark btn-flat btn-sm pop-info" title="kembali ke daftar awal"><i class="fas fa-sync"></i> Bersihkan Filter</a>
-                    <div class="float-right">
-                        <div class="dropdown">
+                    <div class="float-right d-flex">
+                        <div class="dropdown dropleft">
                             <button class="btn btn-outline-secondary btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-file-import"></i> Import Data
                             </button>
@@ -88,9 +87,16 @@
                               <a class="dropdown-item" href="#" data-target="#importprodeskel" data-toggle="modal">Data Prodeskel</a>
                               <a class="dropdown-item" href="#" data-target="#importupdate" data-toggle="modal">Data Update</a>
                             </div>
-                            <a href="{{ url('cetakdata?s=penduduk&status_penduduk='.$filter['status_penduduk'].'&jk='.$filter['jk'].'&dusun='.$filter['dusun']) }}" target="_blank" class="btn btn-outline-info btn-flat btn-sm pop-info" title="Cetak Daftar Penduduk"><i class="fas fa-print"></i> CETAK</a>
-                          </div>
-        
+                        </div>
+                        <div class="dropdown dropleft">
+                            <button class="btn btn-outline-secondary btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-file-import"></i> Cetak
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="{{ url('cetakdata?s=penduduk&status_penduduk='.$filter['status_penduduk'].'&jk='.$filter['jk'].'&dusun='.$filter['dusun']) }}" target="_blank">Cetak Daftar Penduduk</a>
+                              <a class="dropdown-item" href="#" data-target="#cetaklaporan" data-toggle="modal">Cetak Laporan</a>
+                            </div>
+                        </div>
                     </div>
                   </div>
                   <div class="card-body">
@@ -358,6 +364,29 @@
             </div>
             </div>
         </div>
+        <div class="modal fade" id="cetaklaporan">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Cetak Laporan Penduduk</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <div class="list-group">
+                            <a href="{{ url('cetak/laporanpenduduk/perkembangan') }}" target="_blank" class="list-group-item list-group-item-action">Laporan Perkembangan Data Penduduk</a>
+                          </div>
+                    </section>
+                </div>
+                <div class="modal-footer text-right">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
         <div class="modal fade" id="importprodeskel">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -501,6 +530,7 @@
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                 "paging": false,
+                "searching": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": false,
