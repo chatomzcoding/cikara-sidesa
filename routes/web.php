@@ -57,6 +57,7 @@ use App\Imports\KategoriartikelImport;
 use App\Imports\PendudukImport;
 use App\Imports\PendudukpenyesuainaImport;
 use App\Imports\PenduduksimpleImport;
+use App\Imports\Pendudukupdate;
 use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/cetak','App\Http\Controllers\HomeController@cetak');
@@ -109,6 +110,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::post('/import/pendudukpenyesuaian', function () {
         Excel::import(new PendudukpenyesuainaImport, request()->file('file'));
         return back()->with('dsc','Data Penyesuaian berhasil diimport');
+    });
+    Route::post('/import/pendudukupdate', function () {
+        Excel::import(new Pendudukupdate, request()->file('file'));
+        return back()->with('dsc','Data update berhasil diimport');
     });
     
     // ROUTE UNTUK PENDUDUK

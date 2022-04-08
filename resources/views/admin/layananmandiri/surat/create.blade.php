@@ -26,8 +26,9 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="callout callout-warning">
-                                                    Tanda <strong class="text-danger">*</strong> Wajib Diisi
+                                                    Tanda <strong class="text-danger">*</strong> Wajib Diisi {{ $penduduksurat->formatsurat->id}}
                                                 </div>
+                                                <x-notifsurat :kode="$penduduksurat->formatsurat->id"></x-notifsurat>
                                             </td>
                                         </tr>
                                         <tr>
@@ -44,6 +45,7 @@
                                             </th>
                                             <td>
                                                 <div class="form-group">
+                                                    <label for="">{{ $item->key }}</label>
                                                     @switch(form_view($item->key))
                                                         @case('nomor')
                                                             <input type="text" name="{{ $item->key }}" pattern="[0-9]{16}" maxlength="16" value="{{ valueform($main,$item->key) }}" class="form-control" required>
