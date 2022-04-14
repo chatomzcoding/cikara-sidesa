@@ -813,10 +813,20 @@ if (! function_exists('data_perubahan')) {
     }
 }
 
-if (! function_exists('namapenduduk')) {
+if (! function_exists('s_namapenduduk')) {
     function s_namapenduduk($penduduk)
     {
         $nama   = $penduduk->nik .' | '.strtoupper($penduduk->nama_penduduk);
         return $nama;
+    }
+}
+if (! function_exists('jumlahjkdusun')) {
+    function jumlahjkdusun($jumlah,$index)
+    {
+        $result = 0;
+        if (isset($jumlah[0][$index]) AND isset($jumlah[1][$index]) AND isset($jumlah[2][$index])) {
+            $result = $jumlah[0][$index] + $jumlah[1][$index] + $jumlah[2][$index];
+        }
+        return $result;
     }
 }

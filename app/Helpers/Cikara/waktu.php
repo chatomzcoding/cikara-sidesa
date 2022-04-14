@@ -220,3 +220,16 @@ if (! function_exists('kingdom_umur')) {
         
     }
 }
+if (! function_exists('umur')) {
+    function umur($date_birth)
+    {
+        $umur   = 0;
+        $tgl2 				= new Datetime($date_birth);
+        $now 				= new Datetime();
+        $ultah = $tgl2->diff($now);
+        if ($ultah->y <> 0) {
+            $umur = $ultah->y;
+        }
+        return $umur;
+    }
+}

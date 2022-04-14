@@ -377,6 +377,8 @@
                     <section class="p-3">
                         <div class="list-group">
                             <a href="{{ url('cetak/laporanpenduduk/perkembangan') }}" target="_blank" class="list-group-item list-group-item-action">Laporan Perkembangan Data Penduduk</a>
+                            <a href="{{ url('cetak/laporanpenduduk/kelompokumur') }}" target="_blank" class="list-group-item list-group-item-action">Laporan Penduduk Berdasarkan Kelompok Umur</a>
+                            <a href="{{ url('cetak/laporanpenduduk/kondisi') }}" target="_blank" class="list-group-item list-group-item-action">Laporan Kondisi Penduduk Menurut Pendidikan, Mata Pencaharian, Agama</a>
                           </div>
                     </section>
                 </div>

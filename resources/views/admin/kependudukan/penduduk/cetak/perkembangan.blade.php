@@ -86,13 +86,23 @@
         </table>
     <footer style="margin-top: 70px">
         <table width="100%">
-            <tr>
-                <td width="50%"></td>
+            <tr class="text-uppercase">
+                <td class="text-center" width="40%">
+                   MENGETAHUI :<br>
+                   KEPALA DESA {{ $desa->nama_desa }} <br><br><br><br>
+                   @if ($main['kepaladesa'])
+                       <u class="text-uppercase">{{ ucwords($main['kepaladesa']->nama_pegawai) }}</u> <br>
+                       {{ $main['kepaladesa']->nip }}
+                   @else
+                       nama kepala desa <br>
+                   @endif
+                </td>
+                <td width="20%"></td>
                 <td class="text-center">
                    {{ $desa->nama_desa }}, {{ date_indo(tgl_sekarang()) }} <br>
                    KASI PEMERINTAHAN <br><br><br><br>
                    @if ($staf)
-                       {{ ucwords($staf->nama_pegawai) }} <br>
+                       <u class="text-uppercase">{{ ucwords($staf->nama_pegawai) }}</u> <br>
                        {{ $staf->nip }}
                    @else
                        nama pegawai <br>
