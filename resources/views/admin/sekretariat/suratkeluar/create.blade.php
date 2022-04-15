@@ -11,6 +11,26 @@
                     <a href="{{ url('suratkeluar') }}" class="btn btn-secondary btn-sm btn-flat"><i class="fas fa-angle-left"></i> Kembali</a>
                   </div>
                   <div class="card-body">
+                      @if ($formatsurat->format == 'upcpk')
+                        <section>
+                            <div class="form-group row">
+                                <label for="" class="col-md-4">Pilih Penduduk</label>
+                                <div class="col-md-8 p-0">
+                                    <form action="" method="get">
+                                        <input type="hidden" name="id" value="{{ $formatsurat->id }}">
+                                        <select name="penduduk_id" data-width="100%" class="form-control penduduk" onchange="this.form.submit()" required>
+                                            <option value="">-- Pilih Penduduk --</option>
+                                            @foreach ($penduduk as $item)
+                                                <option value="{{ $item->id}}" @if($main['id'] == $item->id)
+                                                    selected
+                                                @endif>{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
+                                            @endforeach
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                            </section>
+                      @endif
                      
                         <main>
                             <form action="{{ url('datasuratkeluar') }}" method="post">
@@ -19,24 +39,6 @@
                                 <section>
                                     @switch($formatsurat->format)
                                         @case('upcpk')
-                                        <section>
-                                            <div class="form-group row">
-                                                <label for="" class="col-md-4">Pilih Penduduk</label>
-                                                <div class="col-md-8 p-0">
-                                                    <form action="" method="get">
-                                                        <input type="hidden" name="id" value="{{ $formatsurat->id }}">
-                                                        <select name="penduduk_id" data-width="100%" class="form-control penduduk" onchange="this.form.submit()" required>
-                                                            <option value="">-- Pilih Penduduk --</option>
-                                                            @foreach ($penduduk as $item)
-                                                                <option value="{{ $item->id}}" @if($main['id'] == $item->id)
-                                                                    selected
-                                                                @endif>{{ $item->nik.' | '.ucwords($item->nama_penduduk)}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                          </section>
                                           <hr>
                                             @if (!is_null($main['id']))
                                                 @include('admin.sekretariat.suratkeluar.format.upcpk')
