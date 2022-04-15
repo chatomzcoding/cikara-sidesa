@@ -9,6 +9,7 @@ use App\Models\Menu;
 use App\Models\Penduduk;
 use App\Models\Penduduksurat;
 use App\Models\Profil;
+use App\Models\Suratkeluar;
 use App\Models\User;
 use App\Models\Userakses;
 use App\Models\Visitor;
@@ -165,10 +166,12 @@ class DbCikara {
     {
         $formatsurat    = Formatsurat::find($format_id);
         $dataterakhir   = Penduduksurat::whereyear('created_at',ambil_tahun())->orderBy('id','DESC')->first();
+        $dataterakhir2   = Suratkeluar::whereyear('created_at',ambil_tahun())->orderBy('id','DESC')->first();
         $bulan          = substr(bulan_indo(),0,3);
-        if ($dataterakhir) {
+        if ($dataterakhir || $dataterakhir2) {
             $total  = Penduduksurat::whereyear('created_at',ambil_tahun())->count();
-            $urutanbaru     = $total + 1;
+            $total2  = Suratkeluar::whereyear('created_at',ambil_tahun())->count();
+            $urutanbaru     = $total + $total2 + 1;
             if ($urutanbaru > 0 AND $urutanbaru < 10) {
                 $nomor = '00'.$urutanbaru;
             }elseif ($urutanbaru > 9 AND $urutanbaru < 100) {

@@ -45,6 +45,7 @@ use App\Http\Controllers\Sidesa\Pengaturan\KategoriartikelController;
 use App\Http\Controllers\Sidesa\Pengaturan\ListdataController;
 use App\Http\Controllers\Sidesa\Pengaturan\SliderController;
 use App\Http\Controllers\Sidesa\RumahtanggaController;
+use App\Http\Controllers\Sidesa\Sekretariat\DatasuratkeluarController;
 use App\Http\Controllers\Sidesa\Sekretariat\InformasipublikController;
 use App\Http\Controllers\Sidesa\Sekretariat\InventarisController;
 use App\Http\Controllers\Sidesa\Sekretariat\KlasifikasisuratController;
@@ -173,6 +174,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('inventaris', InventarisController::class);
         Route::resource('klasifikasisurat', KlasifikasisuratController::class);
         Route::resource('suratkeluar', SuratkeluarController::class);
+        Route::resource('datasuratkeluar', DatasuratkeluarController::class);
         Route::get('inventaris/list/{inventaris}', [InventarisController::class,'list']);
         Route::get('inventaris/tambah/{inventaris}', [InventarisController::class,'tambah']);
         

@@ -12,12 +12,14 @@ class Header extends Component
      * @return void
      */
     public $judul;
+    public $p;
     public $active;
 
-    public function __construct($judul,$active)
+    public function __construct($judul,$active,$p='')
     {
         $this->judul = $judul;
         $this->active = $active;
+        $this->p = $p;
     }
 
     /**

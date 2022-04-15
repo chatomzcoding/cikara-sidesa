@@ -12,4 +12,9 @@ class Rw extends Model
     protected $table = 'rw';
 
     protected $guarded = [];
+
+    public function dusun()
+    {
+        return $this->belongsTo(Dusun::class);
+    }
 }

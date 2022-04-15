@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Penduduk extends Model
+class Suratkeluar extends Model
 {
     use HasFactory;
 
-    protected $table = 'penduduk';
+    protected $table = 'surat_keluar';
 
     protected $guarded = [];
 
-    public function rt()
+    public function formatsurat()
     {
-        return $this->belongsTo(Rt::class);
+        return $this->belongsTo(Formatsurat::class);
     }
 }
