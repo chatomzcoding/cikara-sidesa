@@ -914,6 +914,7 @@ if (! function_exists('list_datainput')) {
             'golongan darah',
             'hubungan keluarga',
             'jenis kelahiran',
+            'jabatan',
             'pekerjaan',
             'pendidikan dalam kk',
             'pendidikan tempuh',
