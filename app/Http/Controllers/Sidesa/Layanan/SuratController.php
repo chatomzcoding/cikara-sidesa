@@ -32,6 +32,7 @@ class SuratController extends Controller
     public function index()
     {
         $surat  = Penduduksurat::with('user','formatsurat')->latest()->get();
+        $user   = User::find($surat[0]->user_id);
         $judul  = 'Pengajuan Surat';
         $total  = [
             'jumlah' => count($surat),
@@ -73,7 +74,38 @@ class SuratController extends Controller
      */
     public function create()
     {
-        //
+        $formatsurat    = Formatsurat::find($_GET['id']);
+        $listformat     = Listdata::where('nama',$formatsurat->id)->first();
+        $penduduk_id    = (isset($_GET['penduduk_id'])) ? $_GET['penduduk_id'] : NULL ;
+        $data           = NULL;
+        if (!is_null($penduduk_id)) {
+            $penduduk       = Penduduk::find($penduduk_id);
+            $no_kk          = NULL;
+            $kepala_kk      = NULL;
+            $ak             = Anggotakeluarga::where('penduduk_id',$penduduk->id)->first()->keluarga;
+            $userakses      = Userakses::where('penduduk_id',$penduduk->id)->first();
+            if (!$userakses) {
+                
+            }
+            if ($ak) {
+                $no_kk      = $ak->no_kk;
+                $kepala_kk  = Penduduk::find($ak->penduduk_id)->nama_penduduk;
+            }
+            $data   = [
+                'no_kk' => $no_kk,
+                'kepala_kk' => ucwords($kepala_kk),
+                'penduduk' => $penduduk,
+                'user' => $userakses
+            ];
+        }
+
+        $main           = [
+            'penduduk_id' => $penduduk_id,
+            'staf' => Staf::where('status_pegawai','aktif')->orderBy('nama_pegawai','ASC')->get(),
+            'data' => $data
+        ];
+        $penduduk       = Penduduk::orderBy('nama_penduduk','ASC')->get();
+        return view('admin.layananmandiri.surat.format.create', compact('formatsurat','listformat','main','penduduk'));
     }
 
     /**
@@ -86,31 +118,40 @@ class SuratController extends Controller
     {
         // kode untuk menyimpan format surat ke tabel list data
         $formatsurat    = Formatsurat::find($request->formatsurat_id);
-        $data   = [];
-        foreach (format_surat($formatsurat->kode) as $item) {
-            $data[] = [
-                'label' => nama_label($item,$formatsurat->kode),
-                'key' => $item
-            ];
-        }
+        $staf   = Staf::find($request->staf_id);
+        $ttd    = [
+            'nama' => $staf->nama_pegawai,
+            'jabatan' => $staf->jabatan,
+            'nip' => $staf->nip,
+            'nipd' => $staf->nipd,
+        ];
 
-        Listdata::create([
-            'label' => 'format_surat',
-            'nama' => $formatsurat->id,
-            'keterangan' => json_encode($data)
-        ]);
+        $listformat     = Listdata::where('nama',$request->formatsurat_id)->first();        
+        $detail     = [];
+        foreach (json_decode($listformat->keterangan) as $item) {
+            $key    = $item->key;
+            $db = [
+                $key => $request->$key
+            ];
+            $detail = array_merge($detail,$db);
+        }
 
         $nosurat    = DbCikara::nomorsuratbaru($request->formatsurat_id);
         Penduduksurat::create([
             'user_id' => $request->user_id,
             'formatsurat_id' => $request->formatsurat_id,
-            'status' => 'proses',
             'nomor_surat' => $nosurat,
+            'status' => 'selesai',
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
+            'ttd' => json_encode($ttd),
+            'detail' => json_encode($detail),
         ]);
 
         $penduduksurat  = Penduduksurat::where('nomor_surat',$nosurat)->first();
 
-        return redirect('suratpenduduk/'.$penduduksurat->id);
+        return redirect('suratpenduduk?layanan=langsung')->with('cetak',$penduduksurat->id);
+
     }
 
     /**
@@ -209,17 +250,15 @@ class SuratController extends Controller
         $surat      = Penduduksurat::find($id);
         $info       = Infowebsite::first();
         $profil     = Profil::first();
-        $user       = User::find($surat->user_id);
+        $userakses  = Userakses::where('user_id',$surat->user->id)->first();
         $format     = Formatsurat::find($surat->formatsurat_id);
-        $penduduk   = Penduduk::find($surat->userakses->penduduk_id);
+        $penduduk   = Penduduk::find($userakses->penduduk_id);
         if ($penduduk) {
             $rt         = Rt::find($penduduk->rt_id);
             if ($rt) {
             $rw         = Rw::find($rt->rw_id);
             $dusun      = Dusun::find($rw->dusun_id);
             $file       = 'public/file/surat/'.$format->file_surat;
-            // membaca isi dokumen tempate surat.rtf
-            // isi dokumen dinyatakan dalam bentuk string
             $document = file_get_contents($file); // ambil file jadi string
     
             // UTAMA

@@ -13,4 +13,8 @@ class Listdata extends Model
 
     protected $guarded = [];
 
+    public function formatsurat()
+    {
+        return $this->belongsTo(Formatsurat::class,'nama');
+    }
 }

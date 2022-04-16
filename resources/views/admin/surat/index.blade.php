@@ -97,7 +97,7 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                           </button>
                                           <div class="dropdown-menu" role="menu">
-                                              <button type="button" data-toggle="modal" data-nama_surat="{{ $item->nama_surat }}" data-kode="{{ $item->kode }}" data-kategori="{{ $item->kategori }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                              <button type="button" data-toggle="modal" data-nama_surat="{{ $item->nama_surat }}" data-kode="{{ $item->kode }}" data-kategori="{{ $item->kategori }}"  data-format="{{ $item->format }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                               <i class="fa fa-edit"></i> Edit Format Surat
                                               </button>
                                             <div class="dropdown-divider"></div>
@@ -178,6 +178,10 @@
                            <label for="" class="col-md-4">Kode Surat</label>
                            <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
                         </div>
+                       <div class="form-group row">
+                           <label for="" class="col-md-4">Format Surat</label>
+                           <input type="text" name="format" id="format" class="form-control col-md-8" required>
+                        </div>
                         <div class="form-group row">
                           <label for="" class="col-md-4">Kode Klasifikasi Surat</label>
                           <select name="klasifikasisurat_id" id="" class="form-control col-md-8" required>
@@ -249,6 +253,10 @@
                     <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
                 </div>
                 <div class="form-group row">
+                  <label for="" class="col-md-4">Format Surat</label>
+                  <input type="text" name="format" id="format" class="form-control col-md-8" required>
+               </div>
+                <div class="form-group row">
                   <label for="" class="col-md-4">Kategori Surat</label>
                   <select name="kategori" id="kategori" class="form-control col-md-8" required>
                       @foreach (list_kategorisurat() as $item)
@@ -277,12 +285,14 @@
           var button = $(event.relatedTarget)
           var nama_surat = button.data('nama_surat')
           var kode = button.data('kode')
+          var format = button.data('format')
           var id = button.data('id')
   
           var modal = $(this)
   
           modal.find('.modal-body #nama_surat').val(nama_surat);
           modal.find('.modal-body #kode').val(kode);
+          modal.find('.modal-body #format').val(format);
           modal.find('.modal-body #id').val(id);
       })
   </script>

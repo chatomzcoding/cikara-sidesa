@@ -289,7 +289,47 @@
             </button>
             </div>
             <div class="modal-body p-3">
-                {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
+                <section class="p-3">
+                  <div class="row">
+                    @foreach ($main['format_surat'] as $item)
+                      <div class="col-sm-6 col-md-6">
+                        <a href="{{ url('suratpenduduk/create?id='.$item->id) }}">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-envelope-open-text"></i></span>
+                          <div class="info-box-content text-secondary">
+                            <span class="info-box-text">{{ strtoupper($item->nama_surat.' | '.$item->kode) }}</span>
+                            <span class="info-box-number">
+                              {{ $item->kategori }}
+                            </span>
+                          </div>
+                        </div>
+                        </a>
+                      </div>
+                    @endforeach
+                  </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> BUAT SURAT</button>
+            </div>
+            </form>
+        </div>
+        </div>
+      </div>
+      {{-- <div class="modal fade" id="tambahsurat">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('suratpenduduk')}}" method="post">
+                @csrf
+                <input type="hidden" name="status" value="proses">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambahkan Surat</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
                 <section class="p-3">
                   <div class="form-group">
                         <label for="">Pilih User Penduduk</label>
@@ -320,7 +360,7 @@
             </form>
         </div>
         </div>
-    </div>
+      </div> --}}
   </x-slot>
   <x-slot name="kodejs">
     <script>

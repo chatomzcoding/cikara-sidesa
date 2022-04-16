@@ -15,15 +15,19 @@ class ListdataController extends Controller
      */
     public function index()
     {
-
-        // self::importmanual();
         $menu   = 'listdata';
         $sesi   = (isset($_GET['sesi'])) ? $_GET['sesi'] : 'pekerjaan' ;
         $listdata   = Listdata::where('label',$sesi)->orderBy('nama','ASC')->get();
         $filter     = [
             'sesi' => $sesi
         ];
-        return view('admin.pengaturan.listdata.index', compact('menu','listdata','filter'));
+        // sesi untuk format surat
+        if ($sesi == 'formatsurat') {
+            $listdata   = Listdata::where('label','format_surat')->orderBy('nama','ASC')->get();
+            return view('admin.pengaturan.listdata.formatsurat', compact('menu','listdata'));
+        } else {
+            return view('admin.pengaturan.listdata.index', compact('menu','listdata','filter'));
+        }
     }
 
     public static function importmanual()
@@ -84,9 +88,13 @@ class ListdataController extends Controller
      * @param  \App\Models\Listdata  $listdata
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listdata $listdata)
+    public function edit($listdata)
     {
-        //
+        $listdata   = Listdata::find($listdata);
+        $menu       = '';
+        $keterangan = json_decode($listdata->keterangan);
+        return view('admin.pengaturan.listdata.edit', compact('menu','listdata','keterangan'));
+
     }
 
     /**
@@ -98,12 +106,30 @@ class ListdataController extends Controller
      */
     public function update(Request $request)
     {
-        Listdata::where('id',$request->id)->update([
-            'nama' => $request->nama,
-            'keterangan' => $request->keterangan,
-        ]);
-
-        return back()->with('du','List Data');
+        if (isset($request->formatsurat)) {
+            $keterangan = $request->keterangan;
+            $keterangan = explode('@',$keterangan);
+            $list       = [];
+            foreach ($keterangan as $key) {
+                $dkey    = trim($key);
+                $dkey    = explode('|',$dkey);
+                $list[]  = [
+                    'key' => trim($dkey[0]),
+                    'label' => trim($dkey[1])
+                ];
+            }
+            Listdata::where('id',$request->id)->update([
+                'nama' => $request->nama,
+                'keterangan' => json_encode($list),
+            ]);
+            return redirect('listdata?sesi=formatsurat')->with('du','List Data');
+        } else {
+            Listdata::where('id',$request->id)->update([
+                'nama' => $request->nama,
+                'keterangan' => $request->keterangan,
+            ]);
+            return back()->with('du','List Data');
+        }
     }
 
     /**
@@ -115,7 +141,6 @@ class ListdataController extends Controller
     public function destroy($listdata)
     {
         Listdata::find($listdata)->delete();
-
         return back()->with('dd','List Data');
     }
 }

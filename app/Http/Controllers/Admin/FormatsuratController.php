@@ -76,6 +76,7 @@ class FormatsuratController extends Controller
             'status_masaberlaku' => $request->status_masaberlaku,
             'layanan_mandiri' => $request->layanan_mandiri,
             'kategori' => $request->kategori,
+            'format' => $request->format,
             'klasifikasisurat_id' => $request->klasifikasisurat_id,
             'file_surat' => $nama_file,
         ]);
@@ -134,6 +135,7 @@ class FormatsuratController extends Controller
         Formatsurat::where('id',$request->id)->update([
             'nama_surat' => $request->nama_surat,
             'kode' => $request->kode,
+            'format' => $request->format,
             'kategori' => $request->kategori,
             'status' => '1',
             'file_surat' => $nama_file,

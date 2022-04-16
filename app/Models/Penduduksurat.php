@@ -22,8 +22,4 @@ class Penduduksurat extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function userakses()
-    {
-        return $this->belongsTo(Userakses::class,'user_id');
-    }
 }
