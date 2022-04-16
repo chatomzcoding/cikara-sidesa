@@ -109,7 +109,12 @@
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Jabatan <strong class="text-danger">*</strong></label>
-                    <input type="text" name="jabatan" class="form-control col-md-9" required>
+                    <select name="jabatan" id="" class="form-control col-md-9" required>
+                      <option value="">-- pilih jabatan --</option>
+                      @foreach ($jabatan as $item)
+                      <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Status Kepegawaian <strong class="text-danger">*</strong></label>

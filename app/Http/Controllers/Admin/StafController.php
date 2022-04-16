@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listdata;
 use App\Models\Penduduk;
 use App\Models\Staf;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class StafController extends Controller
     {
         $menu       = 'pemerintahdesa';
         $penduduk   = Penduduk::find($_GET['penduduk_id']);
-        return view('admin.infodesa.pemerintahdesa.create', compact('menu','penduduk'));
+        $jabatan    = Listdata::where('label','jabatan')->orderBy('nama','ASC')->get();
+        return view('admin.infodesa.pemerintahdesa.create', compact('menu','penduduk','jabatan'));
     }
 
     /**
@@ -106,7 +108,8 @@ class StafController extends Controller
     {
         $staf = Staf::find(Crypt::decryptString($staf));
         $menu   = 'pemerintahdesa';
-        return view('admin.infodesa.pemerintahdesa.edit', compact('staf','menu'));
+        $jabatan    = Listdata::where('label','jabatan')->orderBy('nama','ASC')->get();
+        return view('admin.infodesa.pemerintahdesa.edit', compact('staf','menu','jabatan'));
     }
 
     /**

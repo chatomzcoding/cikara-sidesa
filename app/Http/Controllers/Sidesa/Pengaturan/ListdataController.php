@@ -66,7 +66,11 @@ class ListdataController extends Controller
      */
     public function store(Request $request)
     {
-        Listdata::create($request->all());
+        Listdata::create([
+            'label' => $request->label,
+            'nama' => $request->nama,
+            'keterangan' => $request->keterangan,
+        ]);
 
         return back()->with('ds','List Data');
     }

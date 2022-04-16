@@ -108,7 +108,14 @@
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Jabatan</label>
-                    <input type="text" name="jabatan" class="form-control col-md-9" value="{{ $staf->jabatan}}" required>
+                    <select name="jabatan" id="" class="form-control col-md-9" required>
+                      <option value="">-- pilih jabatan --</option>
+                      @foreach ($jabatan as $item)
+                      <option value="{{ $item->nama }}" @if ($item->nama == $staf->jabatan)
+                          selected
+                      @endif>{{ strtoupper($item->nama) }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-md-3 p-2">Status Kepegawaian</label>
