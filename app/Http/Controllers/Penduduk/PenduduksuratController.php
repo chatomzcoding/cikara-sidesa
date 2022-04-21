@@ -173,11 +173,11 @@ class PenduduksuratController extends Controller
             $document = str_replace("[sebutan_desa]", $info->sebutan_desa, $document);
             $document = str_replace("[sebutan_dusun]", $info->sebutan_dusun, $document);
             $document = str_replace("[sebutan_kecamatan]", $info->sebutan_kecamatan, $document);
-            $document = str_replace("[nama_kab]", $profil->nama_kabupaten, $document);
-            $document = str_replace("[nama_kec]", $profil->nama_kecamatan, $document);
-            $document = str_replace("[nama_provinsi]", $profil->provinsi, $document);
+            $document = str_replace("[nama_kab]", ucwords($profil->nama_kabupaten), $document);
+            $document = str_replace("[nama_kec]", ucwords($profil->nama_kecamatan), $document);
+            $document = str_replace("[nama_provinsi]", ucwords($profil->provinsi), $document);
             $document = str_replace("[nama_des]", ucwords($profil->nama_desa), $document);
-            $document = str_replace("[NAMA_DESA]", $profil->nama_desa, $document);
+            $document = str_replace("[NAMA_DESA]", ucwords($profil->nama_desa), $document);
             $document = str_replace("[alamat_des]", $profil->alamat, $document);
             
     
@@ -186,7 +186,7 @@ class PenduduksuratController extends Controller
             $document = str_replace("[tgl_surat]", date_indo(tgl_sekarang()), $document);
             $document = str_replace("[jabatan_ttd]", ucwords($ttd->jabatan), $document);
             $document = str_replace("[jabatan]", ucwords($ttd->jabatan), $document);
-            $document = str_replace("[nama_pamong]", ucwords($ttd->nama), $document);
+            $document = str_replace("[nama_pamong]", strtoupper($ttd->nama), $document);
             $document = str_replace("[pamong_nip]", $ttd->nip, $document);
             $document = str_replace("[kode_desa]", $profil->kode_desa, $document);
             $document = str_replace("[kode_surat]", $format->kode, $document);
@@ -194,18 +194,18 @@ class PenduduksuratController extends Controller
             // DATA PENDUDUK
             $document = str_replace("[nama]", ucwords($penduduk->nama_penduduk), $document);
             $document = str_replace("[ttl]", ucwords($penduduk->tempat_lahir).', '.date_indo($penduduk->tgl_lahir), $document);
-            $document = str_replace("[usia]", 20, $document);
+            $document = str_replace("[usia]", kingdom_umur($penduduk->tgl_lahir), $document);
             $document = str_replace("[warga_negara]", strtoupper($penduduk->status_warganegara), $document);
-            $document = str_replace("[agama]", $penduduk->agama, $document);
-            $document = str_replace("[jk]", $penduduk->jk, $document);
-            $document = str_replace("[pekerjaan]", $penduduk->pekerjaan, $document);
-            $document = str_replace("[alamat]", $penduduk->alamat_sekarang, $document);
+            $document = str_replace("[agama]", ucfirst($penduduk->agama), $document);
+            $document = str_replace("[jk]", ucfirst($penduduk->jk), $document);
+            $document = str_replace("[pekerjaan]", ucfirst($penduduk->pekerjaan), $document);
+            $document = str_replace("[alamat]", ucwords($penduduk->alamat_sekarang).' RT. 00'.$rt->nama_rt.'/00'.$rw->nama_rw, $document);
             $document = str_replace("[rt]", $rt->nama_rt, $document);
             $document = str_replace("[rw]", $rw->nama_rw, $document);
-            $document = str_replace("[dusun]", $dusun->nama_dusun, $document);
+            $document = str_replace("[dusun]", ucfirst($dusun->nama_dusun), $document);
             $document = str_replace("[no_ktp]", $penduduk->nik, $document);
             $document = str_replace("[gol_darah]", $penduduk->golongan_darah, $document);
-            $document = str_replace("[alamat_sebelumnya]", $penduduk->alamat_sebelum, $document);
+            $document = str_replace("[alamat_sebelumnya]", ucfirst($penduduk->alamat_sebelum), $document);
             $document = str_replace("[dokumen_pasport]", $penduduk->nomor_paspor, $document);
             $document = str_replace("[tanggal_akhir_paspor]", '33', $document);
             $document = str_replace("[tempatlahir]", strtoupper($penduduk->tempat_lahir), $document);
@@ -217,8 +217,8 @@ class PenduduksuratController extends Controller
             $document = str_replace("[akta_perceraian]", $penduduk->akta_perceraian, $document);
             $document = str_replace("[tanggalperceraian]", date_indo($penduduk->tgl_perceraian), $document);
             $document = str_replace("[hubungan_keluarga]", $penduduk->hubungan_keluarga, $document);
-            $document = str_replace("[cacat]", $penduduk->cacat, $document);
-            $document = str_replace("[pendidikan]", $penduduk->pendidikan_tempuh, $document);
+            $document = str_replace("[cacat]", ucfirst($penduduk->cacat), $document);
+            $document = str_replace("[pendidikan]", ucfirst($penduduk->pendidikan_kk), $document);
             $document = str_replace("[nama_ibu]", ucwords($penduduk->nama_ibu), $document);
             $document = str_replace("[ibu_nik]", $penduduk->nik_ibu, $document);
             $document = str_replace("[nama_ayah]", ucwords($penduduk->nama_ayah), $document);
@@ -241,7 +241,7 @@ class PenduduksuratController extends Controller
     
             // looping berdasarkan format surat
             foreach (format_surat($format->kode) as $key) {
-                $document = str_replace("[form_".$key."]", cekpost($detail,$key), $document);
+                $document = str_replace("[form_".$key."]", ucfirst(cekpost($detail,$key)), $document);
             }
             
             $namafile   = $format->nama_surat.'_'.$penduduk->nama_penduduk.' | '.$penduduk->nik.'_'.tgl_sekarang(); // nama surat
