@@ -297,7 +297,7 @@ class SuratController extends Controller
             $document = str_replace("[agama]", $penduduk->agama, $document);
             $document = str_replace("[jk]", $penduduk->jk, $document);
             $document = str_replace("[pekerjaan]", $penduduk->pekerjaan, $document);
-            $document = str_replace("[alamat]", $penduduk->alamat_sekarang, $document);
+            $document = str_replace("[alamat]", ucwords($penduduk->alamat_sekarang).' RT. 00'.$rt->nama_rt.'/00'.$rw->nama_rw, $document);
             $document = str_replace("[rt]", $rt->nama_rt, $document);
             $document = str_replace("[rw]", $rw->nama_rw, $document);
             $document = str_replace("[dusun]", $dusun->nama_dusun, $document);
