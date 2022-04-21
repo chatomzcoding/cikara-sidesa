@@ -254,7 +254,7 @@
                 </div>
                 <div class="form-group row">
                   <label for="" class="col-md-4">Format Surat</label>
-                  <input type="text" name="format" id="format" class="form-control col-md-8" required>
+                  <input type="text" name="format" id="format" class="form-control col-md-8">
                </div>
                 <div class="form-group row">
                   <label for="" class="col-md-4">Kategori Surat</label>
