@@ -5,7 +5,6 @@
 <x-slot name="content">
   <section class="content">
     <div class="container-fluid">
-      <!-- Info boxes -->
       <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box">
@@ -14,9 +13,7 @@
             <div class="info-box-content">
               <span class="info-box-text">Wilayah Dusun</span>
               <span class="info-box-number">
-                
                 {{ DbCikara::countData('dusun')}}
-                {{-- <small>%</small> --}}
               </span>
             </div>
             <!-- /.info-box-content -->
@@ -34,11 +31,8 @@
             </div>
             <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
         </div>
-        <!-- /.col -->
 
-        <!-- fix for small devices only -->
         <div class="clearfix hidden-md-up"></div>
 
         <div class="col-12 col-sm-6 col-md-3">

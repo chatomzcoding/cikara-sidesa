@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Cikara\DbCikara;
 use App\Models\Forum;
 use App\Models\Lapak;
 use App\Models\Lapor;
@@ -10,8 +9,7 @@ use App\Models\Penduduksurat;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Barryvdh\DomPDF\Facade as PDF;
+use zelnaradev\universe\Universal;
 
 class HomeController extends Controller
 {

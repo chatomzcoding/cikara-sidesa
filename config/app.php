@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\Cikara\DbCikara;
+use zelnaradev\universe\Universal;
 
 return [
 
@@ -238,6 +239,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DbCikara' => App\Helpers\Cikara\DbCikara::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Universal' => Universal::class,
     ],
 
 ];
